@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 2,
+  "collection": "SAT Reading and Writing: quantitative evidence from graphs",
+  "questionCount": 4,
+  "note": "Original line graphs and grouped bar charts using fictional figures. One item per graph. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short passage with an original graph to choose evidence for a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-291-001",
+      "objectiveId": "sat-rw-291-graph-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which observation best supports the report?",
+      "passage": "A library network monitored returns made outside opening hours after repositioning the external return slots at two branches. A report notes that North started with a smaller share of after-hours returns but finished the four-week period with a larger share.",
+      "stimulus": {
+        "type": "diagram",
+        "title": "After-hours library returns",
+        "assetPath": "stimuli/batch-291/returns.svg",
+        "textAlternative": "After-hours library returns. Horizontal axis: Week, 1, 2, 3, 4. Vertical axis: Returns after closing (%). In horizontal-axis order: North: 10, 13, 18, 23. South: 24, 22, 21, 20."
+      },
+      "stimulusGroupId": "sat-rw-291-stimulus-001",
+      "stimulusSubjectArea": "history/social studies",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 40,
+      "options": [
+        "South’s share stayed above North’s in every week.",
+        "North was below South in week 1 but above South in week 4.",
+        "Both branches finished with higher shares than they started with.",
+        "North and South had equal shares in week 3."
+      ],
+      "correctOption": "B",
+      "answer": "North was below South in week 1 but above South in week 4.",
+      "explanation": "North started at 10% compared with South’s 24%, and finished at 23% compared with South’s 20%. The order reversed.",
+      "verification": [
+        {
+          "expression": "24-10",
+          "expected": 14,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "23-20",
+          "expected": 3,
+          "purpose": "Verify comparison from original graph"
+        }
+      ],
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short passage with an original graph to choose evidence for a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-291-002",
+      "objectiveId": "sat-rw-291-graph-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which comparison most directly supports the team’s proposal?",
+      "passage": "A team compares two shade meshes over identical teaching gardens. The team proposes that the difference between the meshes is greatest near the middle of the day. The graph shows readings for each mesh at four times.",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Light readings under two screens",
+        "assetPath": "stimuli/batch-291/shade.svg",
+        "textAlternative": "Light readings under two screens. Horizontal axis: Time, 9 a.m., 11 a.m., 1 p.m., 3 p.m.. Vertical axis: Light reading (lux). In horizontal-axis order: Mesh A: 140, 240, 300, 200. Mesh B: 110, 180, 170, 165."
+      },
+      "stimulusGroupId": "sat-rw-291-stimulus-002",
+      "stimulusSubjectArea": "science",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 37,
+      "options": [
+        "Both meshes have their highest reading at 1 p.m.",
+        "The gap is 60 lux at 11 a.m. and is larger than at 1 p.m.",
+        "Mesh B’s reading falls between 11 a.m. and 1 p.m., so the gap narrows.",
+        "The gap between the readings is 130 lux at 1 p.m., larger than at any other observed time."
+      ],
+      "correctOption": "D",
+      "answer": "The gap between the readings is 130 lux at 1 p.m., larger than at any other observed time.",
+      "explanation": "The differences in time order are 30, 60, 130 and 35 lux. Compare meshes at the same time.",
+      "verification": [
+        {
+          "expression": "140-110",
+          "expected": 30,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "240-180",
+          "expected": 60,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "300-170",
+          "expected": 130,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "200-165",
+          "expected": 35,
+          "purpose": "Verify comparison from original graph"
+        }
+      ],
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short passage with an original graph to choose evidence for a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-291-003",
+      "objectiveId": "sat-rw-291-graph-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which statement uses the graph to support the coordinator’s claim?",
+      "passage": "Two repair workshops agreed to track whether they met a monthly target of 45 completed jobs. The coordinator claims that one workshop met the target in every month despite completing fewer repairs each month than it had in the previous month.",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Repairs finished at two workshops",
+        "assetPath": "stimuli/batch-291/workshop.svg",
+        "textAlternative": "Repairs finished at two workshops. Horizontal axis: Month, May, June, July. Vertical axis: Repairs completed. In horizontal-axis order: Workshop P: 30, 40, 50. Workshop Q: 70, 60, 45."
+      },
+      "stimulusGroupId": "sat-rw-291-stimulus-003",
+      "stimulusSubjectArea": "history/social studies",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 41,
+      "options": [
+        "Q fell from 70 to 60 to 45 repairs and still met the target each month.",
+        "P rose from 30 to 50 repairs and reached the target in July.",
+        "Q fell below the target in July after meeting it in May and June.",
+        "P completed fewer repairs in July than in June but remained above the target."
+      ],
+      "correctOption": "A",
+      "answer": "Q fell from 70 to 60 to 45 repairs and still met the target each month.",
+      "explanation": "Q’s results decline, and all three are at or above 45. A value equal to the target counts as meeting it.",
+      "verification": [],
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short passage with an original graph to choose evidence for a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-291-004",
+      "objectiveId": "sat-rw-291-graph-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which finding most directly challenges the expectation?",
+      "passage": "An exhibition organiser expected the busiest day overall to be the day with the busiest afternoon. Staff used a single entrance counter and split each day’s arrivals into morning and afternoon groups. The graph shows the separate counts.",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Exhibition arrivals by time of day",
+        "assetPath": "stimuli/batch-291/attendance.svg",
+        "textAlternative": "Exhibition arrivals by time of day. Horizontal axis: Day, Thursday, Friday, Saturday. Vertical axis: Visitors. In horizontal-axis order: Morning: 20, 40, 30. Afternoon: 70, 55, 60."
+      },
+      "stimulusGroupId": "sat-rw-291-stimulus-004",
+      "stimulusSubjectArea": "humanities",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 38,
+      "options": [
+        "Saturday had the busiest afternoon.",
+        "Friday had the smallest afternoon count.",
+        "Thursday had the busiest afternoon, but Friday had more arrivals overall than Thursday.",
+        "Friday had more morning arrivals than Saturday."
+      ],
+      "correctOption": "C",
+      "answer": "Thursday had the busiest afternoon, but Friday had more arrivals overall than Thursday.",
+      "explanation": "Thursday led in afternoon arrivals at 70. Its total was 90, while Friday’s was 95. Saturday’s total was also 90.",
+      "verification": [
+        {
+          "expression": "20+70",
+          "expected": 90,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "40+55",
+          "expected": 95,
+          "purpose": "Verify comparison from original graph"
+        },
+        {
+          "expression": "30+60",
+          "expected": 90,
+          "purpose": "Verify comparison from original graph"
+        }
+      ],
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

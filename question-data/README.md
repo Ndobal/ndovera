@@ -1615,3 +1615,7 @@ Adaptive assembly and calibration remain open.
 Batch 290 adds six SAT Reading and Writing quantitative evidence drafts
 using original tables. The questions cover changes in totals, rates
 versus counts, early versus final results, and counterevidence.
+
+Batch 291 adds four SAT Reading and Writing quantitative evidence drafts
+with original line graphs or grouped bar charts and data-equivalent text
+alternatives. Application rendering remains open.

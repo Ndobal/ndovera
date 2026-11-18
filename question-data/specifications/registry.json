@@ -2350,7 +2350,7 @@
       "frameworkSource": "https://satsuite.collegeboard.org/media/pdf/assessment-framework-for-digital-sat-suite.pdf",
       "checkedOn": "2026-11-08",
       "note": "Official pages confirm four domains and named skills, short passages or pairs with one multiple-choice question, and 25–150-word stimuli. The assessment framework specifies four options and uses six-character words for stimulus length. Batch records whitespace counts as an editorial check, not a claim of exact official counting or calibrated difficulty. Original text/data only; no College Board items reproduced. No adaptive assembly, equating or score prediction established.",
-      "latestRecheck": "2026-11-18: College Board skill alignment and digital SAT framework checked for Information and Ideas / Command of Evidence (Quantitative), including reading tables with a short text."
+      "latestRecheck": "2026-11-18: Checked College Board’s assessment framework for quantitative command of evidence using informational graphics."
     },
     {
       "id": "bible-crs-jss1-150-narrative-checks-2026",
@@ -38454,6 +38454,23 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short passage with an original graph to choose evidence for a claim.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "sat-rw-291-graph-evidence-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "sourceSections": [
+        "Information and Ideas / Command of Evidence: Quantitative"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38540,6 +38557,7 @@
     "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open.",
     "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open.",
     "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.",
-    "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open."
+    "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
+    "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open."
   ]
 }
