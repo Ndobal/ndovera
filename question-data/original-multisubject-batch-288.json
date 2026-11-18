@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 cooling investigations",
+  "questionCount": 4,
+  "note": "Original written Paper 6 practice for 2026–2028. Suitable for Core and Extended candidates; Core is used in item metadata. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Cooling data and rates",
+      "learningObjective": "Calculate interval cooling rates and explain what a comparison does and does not show.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-288-001",
+      "objectiveId": "igcse-0625-288-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "A pupil records the temperature of water in an insulated cup. Time in minutes: 0, 2, 4, 6. Temperature in °C at those times: 68, 58, 51, 46. Calculate the mean rate of temperature decrease over the first and last two-minute intervals. Identify when the cooling was faster, and give one reason why these readings alone do not show how much energy the cup lost through its sides.",
+      "answer": "First interval: (68 − 58)/2 = 5 °C/min. Last interval: (51 − 46)/2 = 2.5 °C/min. Cooling was faster in the first interval. The readings reflect heat loss through multiple routes, such as the top and the sides, without distinguishing them.",
+      "explanation": "Comparing rates over equal time intervals uses the temperature changes. Measuring the overall change does not isolate a single path of transfer.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates 5 °C/min."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates 2.5 °C/min."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the first interval as faster."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies another path of heat loss or states that total loss does not isolate side loss."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(68-58)/2",
+          "expected": 5,
+          "purpose": "Check cooling data calculation"
+        },
+        {
+          "expression": "(51-46)/2",
+          "expected": 2.5,
+          "purpose": "Check cooling data calculation"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Graphing unequal time intervals",
+      "learningObjective": "Set up axes for cooling data and interpret a gradient over unequal intervals.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-288-002",
+      "objectiveId": "igcse-0625-288-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "Temperature readings for a flask of warm water are 72 °C at 0 min, 69 °C at 1 min, 65 °C at 3 min and 59 °C at 7 min. State the quantities and units for the two axes of a temperature-against-time graph. A pupil plots the four times at equal horizontal spacings. Explain what is wrong and calculate the mean temperature change per minute between 3 min and 7 min, with its sign.",
+      "answer": "Horizontal axis: time in minutes. Vertical axis: temperature in °C. The time gaps are 1, 2 and 4 minutes, so on a linear axis their spacings must be in the ratio 1:2:4. The mean gradient from 3 to 7 minutes is (59 − 65)/(7 − 3) = −1.5 °C/min.",
+      "explanation": "The scale assigns the same length to the same duration everywhere. A negative gradient indicates a fall in temperature.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives horizontal axis as time in minutes."
+        },
+        {
+          "marks": 1,
+          "description": "Gives vertical axis as temperature in °C."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that unequal durations require unequal proportional spacings."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates the signed rate of −1.5 °C/min."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(59-65)/(7-3)",
+          "expected": -1.5,
+          "purpose": "Check cooling data calculation"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Separating thermometer error from a treatment effect",
+      "learningObjective": "Use a crossover comparison to detect possible systematic error in a cooling experiment.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-288-003",
+      "objectiveId": "igcse-0625-288-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "In a cooling comparison, one probe is always used in a wrapped cup and a different probe in a bare cup. A pupil suspects that one probe reads high. Give a check using both probes in the same water and describe how swapping the probes in a repeat could help. State one condition to keep fixed during the swap trial.",
+      "answer": "Put both probes in the same well-stirred water at equal depth, wait for their readings to stabilise, and compare them. Repeat the cup trial with the probes exchanged. If the apparent advantage follows the probe, this suggests probe bias. If it follows the wrap, the result supports an effect of the wrap. Keep the same starting temperature and water volume, for example.",
+      "explanation": "The common-water check tests agreement at one temperature. Swapping prevents probe identity from remaining linked to the treatment.",
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places both probes in the same well-mixed water with comparable immersion."
+        },
+        {
+          "marks": 1,
+          "description": "Waits for stable readings and compares them."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats the trial with the probes exchanged."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how following the probe rather than the cup suggests probe bias."
+        },
+        {
+          "marks": 1,
+          "description": "Names one valid control for the repeat."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Planning a lid comparison",
+      "learningObjective": "Design a controlled and repeatable test of the effect of an opening in a lid on cooling.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-288-004",
+      "objectiveId": "igcse-0625-288-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "A school has identical cups and lids made of the same material. Some lids have a large opening and others have only a small hole for a probe. Plan a test to decide which lid keeps warm water at a higher temperature after eight minutes. Include how to take readings and compare repeated results.",
+      "answer": "Use equal volumes of warm water at the same starting temperature in identical cups and fit lids that differ only in opening size. Place the cups side by side away from draughts. Clamp matching probes at the same depth through the existing lid openings, start timing when the lids are fitted, and record the water temperatures at eight minutes. Repeat with fresh water at the same starting temperature. Compare the mean eight-minute temperatures for each lid type.",
+      "explanation": "Comparing at a fixed time makes the result interpretable. Keeping initial conditions and probe placement alike isolates lid opening size as far as practicable.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes lid opening size using otherwise comparable lids."
+        },
+        {
+          "marks": 1,
+          "description": "Controls starting water temperature and volume."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the same surroundings or comparable draught exposure."
+        },
+        {
+          "marks": 1,
+          "description": "Matches probe positions and measures at eight minutes from the same starting event."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats under the same conditions using fresh warm water."
+        },
+        {
+          "marks": 1,
+          "description": "Compares mean final temperatures to identify the better-performing lid."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

@@ -1603,3 +1603,7 @@ Extended practice are mapped to their respective multiple-choice papers.
 Batch 287 adds five structured Cambridge IGCSE Physics (0625) theory
 drafts on thermal transfer for 2026–2028. Core Paper 3 and Extended
 Paper 4 practice use original point-based marking guides.
+
+Batch 288 adds four Cambridge IGCSE Physics (0625) Paper 6 drafts on
+cooling data, graph scaling, probe bias and investigation design. The
+tasks are written Alternative to Practical practice for 2026–2028.

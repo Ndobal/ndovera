@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5315,
-    "validDrafts": 3636,
+    "raw": 5319,
+    "validDrafts": 3640,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1858,6 +1858,12 @@
       "actual": 5
     },
     {
+      "path": "original-multisubject-batch-288.json",
+      "sha256": "4c2001aa99ebe434a781204fdc0b6880463e01974ef17671be74311bbfcd2d9f",
+      "declared": 4,
+      "actual": 4
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2783,21 +2789,21 @@
         2028
       ],
       "note": "Reconciles the observed Physics bank with the already retrieved official 0625 source. The existing target is retained; legacy unassigned questions remain held. Other codes and complete objective coverage are unresolved.",
-      "raw": 74,
-      "validDrafts": 73,
+      "raw": 78,
+      "validDrafts": 77,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 56,
+        "structured": 60,
         "mcq": 18
       },
       "difficulty": {
-        "standard": 54,
-        "difficult": 19,
+        "standard": 56,
+        "difficult": 21,
         "missing": 1
       },
-      "remaining": 927,
-      "mappedObjectives": 48,
-      "representedObjectives": 48,
+      "remaining": 923,
+      "mappedObjectives": 52,
+      "representedObjectives": 52,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7757,21 +7763,21 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 534,
+    "explicitArithmeticClaims": 537,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -44164,6 +44170,30 @@
       "id": "ndv-287-005",
       "file": "original-multisubject-batch-287.json",
       "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-288-001",
+      "file": "original-multisubject-batch-288.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-288-002",
+      "file": "original-multisubject-batch-288.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-288-003",
+      "file": "original-multisubject-batch-288.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-288-004",
+      "file": "original-multisubject-batch-288.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -109004,6 +109034,162 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Cooling data and rates",
+      "learningObjective": "Calculate interval cooling rates and explain what a comparison does and does not show.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Graphing unequal time intervals",
+      "learningObjective": "Set up axes for cooling data and interpret a gradient over unequal intervals.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Separating thermometer error from a treatment effect",
+      "learningObjective": "Use a crossover comparison to detect possible systematic error in a cooling experiment.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Planning a lid comparison",
+      "learningObjective": "Design a controlled and repeatable test of the effect of an opening in a lid on cooling.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -109087,6 +109273,7 @@
     "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
     "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.",
     "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial.",
-    "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open."
+    "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open.",
+    "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open."
   ]
 }

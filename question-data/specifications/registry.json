@@ -754,7 +754,7 @@
       "pageCount": 61,
       "updateSha256": "7896813e962a224fa6b03407563eba8feafcea6c214d3dd5769b3b0070eab815",
       "updateBytes": 112730,
-      "latestRecheck": "Official v2 PDF checked for thermal transfer (2.3.1–2.3.4, pp. 21–22) and Theory Papers 3 and 4 (p. 9)."
+      "latestRecheck": "Official version 2 syllabus checked for thermal-transfer content (pp. 21–22) and written Alternative to Practical assessment (pp. 9, 43–44)."
     },
     {
       "id": "ncee-mathematics-primary-six-reference-2026",
@@ -38337,6 +38337,122 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Cooling data and rates",
+      "learningObjective": "Calculate interval cooling rates and explain what a comparison does and does not show.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Graphing unequal time intervals",
+      "learningObjective": "Set up axes for cooling data and interpret a gradient over unequal intervals.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Separating thermometer error from a treatment effect",
+      "learningObjective": "Use a crossover comparison to detect possible systematic error in a cooling experiment.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Planning a lid comparison",
+      "learningObjective": "Design a controlled and repeatable test of the effect of an opening in a lid on cooling.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-288-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3, printed pp. 21–22",
+        "Paper 6 and experimental skills, printed pp. 43–44"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38420,6 +38536,7 @@
     "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
     "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.",
     "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial.",
-    "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open."
+    "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open.",
+    "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open."
   ]
 }
