@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5488,
-    "validDrafts": 3809,
+    "raw": 5506,
+    "validDrafts": 3827,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1982,6 +1982,12 @@
       "sha256": "55e8b31fcf2baa1ecdae36222be5c165e0bbad4e0fae76e55de40896e1d08f4c",
       "declared": 8,
       "actual": 8
+    },
+    {
+      "path": "original-multisubject-batch-309.json",
+      "sha256": "437522fddee01fca315153f739d9c44100e6cd3fbed5010f5dba2af4ae24cd09",
+      "declared": 18,
+      "actual": 18
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5208,19 +5214,19 @@
           ]
         }
       },
-      "raw": 9,
-      "validDrafts": 9,
+      "raw": 27,
+      "validDrafts": 27,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 5,
-        "structured": 4
+        "mcq": 14,
+        "structured": 13
       },
       "difficulty": {
         "easy": 2,
-        "standard": 4,
-        "difficult": 3
+        "standard": 16,
+        "difficult": 9
       },
-      "remaining": 991,
+      "remaining": 973,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -7883,21 +7889,21 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 590,
+    "explicitArithmeticClaims": 596,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -45331,6 +45337,114 @@
       "errors": []
     },
     {
+      "id": "ndv-309-001",
+      "file": "original-multisubject-batch-309.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-002",
+      "file": "original-multisubject-batch-309.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-003",
+      "file": "original-multisubject-batch-309.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-004",
+      "file": "original-multisubject-batch-309.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-005",
+      "file": "original-multisubject-batch-309.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-006",
+      "file": "original-multisubject-batch-309.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-007",
+      "file": "original-multisubject-batch-309.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-008",
+      "file": "original-multisubject-batch-309.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-009",
+      "file": "original-multisubject-batch-309.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-010",
+      "file": "original-multisubject-batch-309.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-011",
+      "file": "original-multisubject-batch-309.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-012",
+      "file": "original-multisubject-batch-309.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-013",
+      "file": "original-multisubject-batch-309.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-014",
+      "file": "original-multisubject-batch-309.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-015",
+      "file": "original-multisubject-batch-309.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-016",
+      "file": "original-multisubject-batch-309.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-017",
+      "file": "original-multisubject-batch-309.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-309-018",
+      "file": "original-multisubject-batch-309.json",
+      "index": 17,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -68368,8 +68482,8 @@
       "learningObjective": "Distinguish product decisions from promotion and use customer evidence to select a response.",
       "specificationId": "neco-marketing-mix-reference-2026",
       "questionTypes": {
-        "mcq": 2,
-        "structured": 1
+        "mcq": 5,
+        "structured": 4
       },
       "sourceSections": [
         "NECO 2026 SSCE Internal Marketing Papers II and III",
@@ -68377,15 +68491,15 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "questionCount": 9,
+      "validDrafts": 9,
       "difficulty": {
         "easy": 1,
-        "standard": 1,
-        "difficult": 1
+        "standard": 5,
+        "difficult": 3
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 9
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -68401,8 +68515,8 @@
       "learningObjective": "Apply pricing strategies and assess their effect on contribution and customer trial.",
       "specificationId": "neco-marketing-mix-reference-2026",
       "questionTypes": {
-        "mcq": 1,
-        "structured": 2
+        "mcq": 4,
+        "structured": 5
       },
       "sourceSections": [
         "NECO 2026 SSCE Internal Marketing Papers II and III",
@@ -68410,14 +68524,14 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "questionCount": 9,
+      "validDrafts": 9,
       "difficulty": {
-        "standard": 2,
-        "difficult": 1
+        "standard": 6,
+        "difficult": 3
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 9
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -68433,8 +68547,8 @@
       "learningObjective": "Identify channel structures and evaluate their suitability against reach, costs and service requirements.",
       "specificationId": "neco-marketing-mix-reference-2026",
       "questionTypes": {
-        "mcq": 2,
-        "structured": 1
+        "mcq": 5,
+        "structured": 4
       },
       "sourceSections": [
         "NECO 2026 SSCE Internal Marketing Papers II and III",
@@ -68442,15 +68556,15 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 3,
-      "validDrafts": 3,
+      "questionCount": 9,
+      "validDrafts": 9,
       "difficulty": {
         "easy": 1,
-        "standard": 1,
-        "difficult": 1
+        "standard": 5,
+        "difficult": 3
       },
       "tiers": {
-        "not_specified": 3
+        "not_specified": 9
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
