@@ -1,0 +1,651 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO General Mathematics geometry and probability practice",
+  "questionCount": 12,
+  "note": "Original structured practice under existing provisional cross-board mappings. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-001",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "At point A on a circle, the tangent ray AX makes an acute angle of 34° with chord AB. A point C lies on the major arc AB. Find angle ACB and the smaller angle between OA and AB, where O is the centre.",
+      "answer": "Angle ACB is 34° and angle OAB is 56°.",
+      "explanation": "The tangent–chord theorem gives the angle subtended by AB at C. Radius OA is perpendicular to the tangent, so the acute tangent–chord angle and angle OAB add to 90°.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Applies the tangent–chord theorem to obtain 34°."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the perpendicular radius and obtains 56°."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "90-34",
+          "expected": "56",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-002",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two parallel chords of a circle lie on opposite sides of its centre. The radius is 13 cm and the chords are 10 cm and 24 cm long. Find the perpendicular distance between the chords.",
+      "answer": "17 cm.",
+      "explanation": "The perpendicular from the centre bisects each chord. The distances from the centre are sqrt(13² − 5²) = 12 cm and sqrt(13² − 12²) = 5 cm. Add them because the chords lie on opposite sides.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Halves the two chord lengths using the perpendicular-bisector property."
+        },
+        {
+          "marks": 1,
+          "description": "Finds both perpendicular distances as 12 cm and 5 cm."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the distances and states 17 cm."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "13**2-5**2",
+          "expected": "144",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "13**2-12**2",
+          "expected": "25",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "12+5",
+          "expected": "17",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-003",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two straight footpaths are tangent to a circular garden at A and B and meet outside it at P. The angle APB is 58°. Find the smaller angle AOB at the centre O.",
+      "answer": "122°.",
+      "explanation": "The radii to the contact points make angles of 90° with the paths. The sum of the interior angles of quadrilateral OAPB gives 360° − 90° − 90° − 58°.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the perpendicularity of both radii to their tangents."
+        },
+        {
+          "marks": 1,
+          "description": "Subtracts the other three angles from 360° to obtain 122°."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "360-90-90-58",
+          "expected": "122",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Circle properties",
+      "learningObjective": "Use circle properties to find angles or lengths and justify geometric conclusions.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-004",
+      "objectiveId": "neco-math-063-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A learner claims that an angle of 90° at C, subtended by a chord AB of a circle, could be formed even when AB misses the centre. Assess the claim and give a reason that applies to every possible position of C on the circle distinct from A and B.",
+      "answer": "The claim is false. AB must be a diameter.",
+      "explanation": "The arc AB opposite C has measure twice angle ACB, hence 180°. Its endpoints are opposite each other and the chord joining them passes through the centre.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the intercepted arc measures twice the angle at C."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains 180° for the intercepted arc."
+        },
+        {
+          "marks": 1,
+          "description": "Concludes that AB joins opposite points and passes through the centre."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2*90",
+          "expected": "180",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-005",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A survey plot has opposite corners A(−3, 7) and C(9, 1) of a parallelogram. A third corner is B(5, 9). Find the fourth corner D, assuming A, B, C and D occur in that order.",
+      "answer": "D is (1, −1).",
+      "explanation": "Diagonals AC and BD have a common midpoint (3, 4). Reflect B through that midpoint to get D = (2 × 3 − 5, 2 × 4 − 9).",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the midpoint (3, 4) of AC."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the bisection of BD to set up the unknown coordinates."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains D(1, −1)."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(-3+9)/2",
+          "expected": "3",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "(7+1)/2",
+          "expected": "4",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "2*3-5",
+          "expected": "1",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "2*4-9",
+          "expected": "-1",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-006",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A line on a grid passes through (1, 7) and (7, 3). A second line through (4, 0) is perpendicular to it. Find the equation of the second line and use it to decide whether (8, 6) lies on that line.",
+      "answer": "The line is y = (3/2)(x − 4), and (8, 6) lies on it.",
+      "explanation": "The first gradient is −2/3, so its perpendicular has gradient 3/2. At x = 8, the second equation gives y = 6.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds the first gradient, −2/3."
+        },
+        {
+          "marks": 1,
+          "description": "Obtains perpendicular gradient 3/2 and the equation through (4, 0)."
+        },
+        {
+          "marks": 1,
+          "description": "Substitutes x = 8 and confirms the point."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "(3-7)/(7-1)",
+          "expected": "-2/3",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "3/2*(8-4)",
+          "expected": "6",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-007",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A surveyor has A(2, −1), B(8, 2) and C(t, 6). Find the value of t for which C lies on the line through A and B. Using coordinates, show whether B is closer to A or C for this value of t.",
+      "answer": "t = 16, and B is closer to A.",
+      "explanation": "The rise from A to B is 3 over a run of 6, so the rise of 7 from A to C requires a run of 14. The squared distances from B to A and B to C are 45 and 80 respectively.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Finds and applies the common gradient to obtain t = 16."
+        },
+        {
+          "marks": 1,
+          "description": "Finds both squared distances, 45 and 80."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the squared distances to conclude that B is closer to A."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "2+7/((2+1)/(8-2))",
+          "expected": "16",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "(8-2)**2+(2+1)**2",
+          "expected": "45",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "(16-8)**2+(6-2)**2",
+          "expected": "80",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Geometry",
+      "subtopic": "Coordinate geometry",
+      "learningObjective": "Use coordinates, gradients and midpoints to analyse geometric relationships.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-008",
+      "objectiveId": "neco-math-063-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A map shows a triangular market site with vertices A(−2, 1), B(6, 1) and C(4, 7). A boundary from C meets AB at D and divides the site so that triangle ACD has three times the area of triangle BCD. Find D.",
+      "answer": "D is (4, 1).",
+      "explanation": "The triangles share the same height above AB. Their areas have ratio AD to DB. With AB = 8, AD = 3/4 × 8 = 6 and D is six units to the right of A.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises the common altitude."
+        },
+        {
+          "marks": 1,
+          "description": "Uses AD:DB = 3:1 to obtain AD = 6."
+        },
+        {
+          "marks": 1,
+          "description": "Locates D at (4, 1)."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3/4*(6-(-2))",
+          "expected": "6",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "-2+6",
+          "expected": "4",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-009",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Three fair coins are tossed together. List the outcomes containing exactly two heads, and find the probability that the middle coin is a tail given that exactly two heads occurred.",
+      "answer": "HHT, HTH and THH. The requested probability is 1/3.",
+      "explanation": "The three ordered outcomes are equally likely. Only HTH has a tail in the middle.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Lists all three admissible ordered outcomes."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies HTH and obtains 1/3."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "1/3",
+          "expected": "1/3",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-010",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "Two fair dice are rolled. Determine whether the event that their sum is 7 and the event that the first die is even are independent. Justify your answer using probabilities.",
+      "answer": "They are independent.",
+      "explanation": "There are 6 outcomes with sum 7, and 18 outcomes with an even first die. Of the six sum-7 outcomes, three have even first values, namely (2, 5), (4, 3) and (6, 1). Thus 3/36 = (6/36) × (18/36).",
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Counts the 6 and 18 outcomes for the two events."
+        },
+        {
+          "marks": 1,
+          "description": "Counts the three joint outcomes."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the joint probability with the product of the individual probabilities to conclude independence."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "3/36",
+          "expected": "1/12",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "6/36*18/36",
+          "expected": "1/12",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-011",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A box contains five green counters and three yellow counters. Two counters are drawn without replacement. A student calculates the probability of drawing at least one yellow as 3/8 + 3/8. Explain why this gives the wrong result and calculate the correct probability.",
+      "answer": "The correct probability is 9/14. Adding the two marginal probabilities counts the outcome of two yellow counters twice.",
+      "explanation": "Find the complement, two green counters. Its probability is (5/8) × (4/7) = 5/14. Subtract from one to get the required probability.",
+      "difficulty": "difficult",
+      "cognitiveDemand": "evaluate",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the overlap in the two marginal events."
+        },
+        {
+          "marks": 1,
+          "description": "Computes the probability of two green counters as 5/14."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the complement to obtain 9/14."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "5/8*4/7",
+          "expected": "5/14",
+          "purpose": "Check arithmetic in the solution"
+        },
+        {
+          "expression": "1-5/14",
+          "expected": "9/14",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Mathematics",
+      "topic": "Probability",
+      "subtopic": "Finite sample spaces and replacement",
+      "learningObjective": "Represent finite sample spaces and calculate probabilities for single or successive events.",
+      "specificationId": "neco-mathematics-geometry-probability-reference-2026",
+      "id": "ndv-302-012",
+      "objectiveId": "neco-math-063-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A stall offers two ways to win. In game A, a fair die is rolled and the player wins if the result divides 6 exactly. In game B, two fair coins are tossed and the player wins if their faces match. Which game gives the greater chance of winning, and by how much?",
+      "answer": "Game A, by 1/6.",
+      "explanation": "The winning die faces are 1, 2, 3 and 6, giving 4/6. Matching coin faces are HH and TT, giving 2/4. The difference is 4/6 − 2/4 = 1/6.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the four factors of six and finds the first probability."
+        },
+        {
+          "marks": 1,
+          "description": "Finds the second probability using HH and TT."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the probabilities and states the difference as 1/6."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "4/6-2/4",
+          "expected": "1/6",
+          "purpose": "Check arithmetic in the solution"
+        }
+      ]
+    }
+  ]
+}
