@@ -34,7 +34,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IGCSE | Chemistry [0620] | 1000 | 76 | 74 | 0 | 926 | partial_objective_register |
 | IGCSE | Economics [0455] | 1000 | 89 | 89 | 0 | 911 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
-| IGCSE | Physics [0625] | 1000 | 61 | 60 | 0 | 940 | partial_objective_register |
+| IGCSE | Physics [0625] | 1000 | 69 | 68 | 0 | 932 | partial_objective_register |
 | JAMB | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | JAMB | Arabic | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | JAMB | Biology | 1000 | 38 | 20 | 0 | 980 | partial_objective_register |
@@ -216,7 +216,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
 | IELTS | 221 | 212 | 0 | 4000 | 3788 |
-| IGCSE | 330 | 309 | 0 | 5000 | 4691 |
+| IGCSE | 338 | 317 | 0 | 5000 | 4683 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
@@ -225,7 +225,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5302, "validDrafts": 3623, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5310, "validDrafts": 3631, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -310,3 +310,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.
 - Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.
 - Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.
+- Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial.

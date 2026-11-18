@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 thermal energy transfer",
+  "questionCount": 8,
+  "note": "Original Core and Extended multiple-choice practice for 2026–2028. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction comparisons",
+      "learningObjective": "Identify controls in a comparison of thermal conductors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-001",
+      "objectiveId": "igcse-0625-286-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A pupil heats one end of each of two rods. Equal pieces of wax are attached to the rods to compare how quickly heat reaches each piece. Which requirement makes the wax results a fairer comparison of the rod materials?",
+      "answer": "Attach the wax the same distance from each heated end.",
+      "options": [
+        "Attach the wax the same distance from each heated end.",
+        "Use thicker wax on the rod expected to conduct better.",
+        "Start heating the second rod after the first wax melts.",
+        "Place the rods in rooms at different temperatures."
+      ],
+      "correctOption": "A",
+      "explanation": "Different distances would change the time for energy to reach the wax, independently of the rod material.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction in metals",
+      "learningObjective": "Explain the part played by mobile electrons in thermal conduction in metals.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-002",
+      "objectiveId": "igcse-0625-286-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO1"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 2,
+      "type": "mcq",
+      "prompt": "One end of a copper strip is warmed. Which process helps transfer thermal energy along the strip in addition to lattice vibrations?",
+      "answer": "Mobile electrons transfer energy through interactions within the metal.",
+      "options": [
+        "Copper ions drift from the warm end to the cool end.",
+        "Mobile electrons transfer energy through interactions within the metal.",
+        "Convection moves solid copper from one end to the other.",
+        "The warm end releases electrons from the strip into the room."
+      ],
+      "correctOption": "B",
+      "explanation": "Mobile electrons transfer energy within the solid along with interactions between vibrating lattice particles. The solid does not circulate.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Formation of convection currents",
+      "learningObjective": "Predict the effect of heating a fluid from the top on buoyancy-driven circulation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-003",
+      "objectiveId": "igcse-0625-286-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Two deep containers of still water start at the same room temperature. One is warmed gently at the base. The other is warmed gently at the surface. Why does warming at the surface produce less circulation through the whole container?",
+      "answer": "The warmer, less dense water remains above the cooler water.",
+      "options": [
+        "The warmer water becomes denser and presses upward.",
+        "The surface heat makes the water below it stop expanding permanently.",
+        "The warmer, less dense water remains above the cooler water.",
+        "The cooler water rises because it is heavier for the same volume."
+      ],
+      "correctOption": "C",
+      "explanation": "Heating at the bottom produces less dense water below denser water. When heating is near the surface, the less dense water is already above the cooler water.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Convection in air",
+      "learningObjective": "Use density changes to explain the path of warm air.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-004",
+      "objectiveId": "igcse-0625-286-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Air in a tall room is warmed by a radiator at floor level. Which flow would be expected next to the operating radiator?",
+      "answer": "Warmed air rises and cooler air flows in to replace it.",
+      "options": [
+        "Warmed air sinks and draws cooler air down from the ceiling only.",
+        "Air rises because warming increases its density.",
+        "The air stays in place while convection happens through the metal radiator.",
+        "Warmed air rises and cooler air flows in to replace it."
+      ],
+      "correctOption": "D",
+      "explanation": "The warmed air expands and becomes less dense than the surrounding air. Cooler, denser air moves into the space it leaves.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal radiation across a vacuum",
+      "learningObjective": "Identify thermal radiation when there is no intervening medium.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-005",
+      "objectiveId": "igcse-0625-286-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "A hot plate and a temperature sensor face each other across a vacuum. Each is mounted separately. The sensor warms even though the mounts stay at their starting temperatures. What transfers energy across the gap?",
+      "answer": "Infrared radiation",
+      "options": [
+        "Infrared radiation",
+        "Conduction through air",
+        "Convection of air",
+        "Conduction through touching solids"
+      ],
+      "correctOption": "A",
+      "explanation": "Infrared radiation can travel across a vacuum. There is no material in the gap to carry energy by conduction or convection.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Infrared emission from surfaces",
+      "learningObjective": "Predict which surface emits more infrared at the same temperature.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-006",
+      "objectiveId": "igcse-0625-286-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Two equal metal panels are kept at the same temperature. One has a dull black finish and the other is polished. A detector receives only the infrared emitted by the panels as they are tested in turn. Which result is expected?",
+      "answer": "The dull black panel gives a stronger signal.",
+      "options": [
+        "The polished panel gives a stronger signal because it reflects more.",
+        "The dull black panel gives a stronger signal.",
+        "The signals are identical because the panels have equal temperatures.",
+        "Neither panel emits infrared until it starts to glow visibly."
+      ],
+      "correctOption": "B",
+      "explanation": "At the same temperature and area, the dull black panel is the better emitter. The detector is set up to exclude reflected radiation.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal balance",
+      "learningObjective": "Use unequal energy transfer rates to determine the direction of a temperature change.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-007",
+      "objectiveId": "igcse-0625-286-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 2,
+      "type": "mcq",
+      "prompt": "A small metal box in a vacuum receives 18 J of radiant energy each second and emits 23 J each second. No other energy transfers occur. What happens initially?",
+      "answer": "Its temperature falls because its energy decreases by 5 J each second.",
+      "options": [
+        "Its temperature rises because it receives 18 J each second.",
+        "Its temperature falls because its energy decreases by 41 J each second.",
+        "Its temperature falls because its energy decreases by 5 J each second.",
+        "Its temperature stays constant because both transfers are by radiation."
+      ],
+      "correctOption": "C",
+      "explanation": "The net transfer into the box is 18 − 23 = −5 J per second, so it loses energy and cools.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "18-23",
+          "expected": -5,
+          "purpose": "Check net energy transferred into box per second"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Infrared absorption from surfaces",
+      "learningObjective": "Compare absorption with the same incident infrared radiation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-286-008",
+      "objectiveId": "igcse-0625-286-08-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "multiple-choice",
+      "practicePaper": 1,
+      "type": "mcq",
+      "prompt": "Two identical room-temperature metal plates are placed the same distance from an infrared heater. One facing surface is dull black and the other is shiny. Which prediction best describes the initial effect?",
+      "answer": "The dull black plate absorbs more of the incident infrared.",
+      "options": [
+        "The shiny plate absorbs more because it reflects more of the incident infrared.",
+        "Equal distance from the heater means both plates absorb all the incident infrared.",
+        "Neither plate absorbs infrared because the plates are cooler than the heater.",
+        "The dull black plate absorbs more of the incident infrared."
+      ],
+      "correctOption": "D",
+      "explanation": "The shiny surface reflects more infrared. The dull black surface absorbs a larger fraction of the radiation reaching it.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

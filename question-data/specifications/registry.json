@@ -749,11 +749,12 @@
         2028
       ],
       "sha256": "baaf59f84543beb133ea87cbf8cfb0e8bf105a360cce5009cf57d3ae0a357075",
-      "lastRecheckedOn": "2026-11-08",
+      "lastRecheckedOn": "2026-11-18",
       "sourceBytes": 793700,
       "pageCount": 61,
       "updateSha256": "7896813e962a224fa6b03407563eba8feafcea6c214d3dd5769b3b0070eab815",
-      "updateBytes": 112730
+      "updateBytes": 112730,
+      "latestRecheck": "Official v2 PDF checked for thermal energy transfer (2.3.1–2.3.3, printed p. 21) and Core/Extended multiple-choice components."
     },
     {
       "id": "ncee-mathematics-primary-six-reference-2026",
@@ -37972,6 +37973,230 @@
       ],
       "mappingStatus": "provisional_primary_six_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction comparisons",
+      "learningObjective": "Identify controls in a comparison of thermal conductors.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-01-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.1 Core 1, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction in metals",
+      "learningObjective": "Explain the part played by mobile electrons in thermal conduction in metals.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-02-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3.1 Supplement 2, printed p. 21",
+        "Paper 2, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Formation of convection currents",
+      "learningObjective": "Predict the effect of heating a fluid from the top on buoyancy-driven circulation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-03-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.2 Core 2, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Convection in air",
+      "learningObjective": "Use density changes to explain the path of warm air.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-04-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.2 Core 2, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal radiation across a vacuum",
+      "learningObjective": "Identify thermal radiation when there is no intervening medium.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-05-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.3 Core 1–2, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Infrared emission from surfaces",
+      "learningObjective": "Predict which surface emits more infrared at the same temperature.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-06-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.3 Core 3, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal balance",
+      "learningObjective": "Use unequal energy transfer rates to determine the direction of a temperature change.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-07-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3.3 Supplement 4–5, printed p. 21",
+        "Paper 2, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Infrared absorption from surfaces",
+      "learningObjective": "Compare absorption with the same incident infrared radiation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-286-08-v1",
+      "questionTypes": [
+        "mcq"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.3 Core 3, printed p. 21",
+        "Paper 1, assessment overview"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38053,6 +38278,7 @@
     "Batch 282 extends NCEE National Values Education self-discipline and good-neighbourliness practice. The 2026 NECO notice confirms the component and age/eligibility only. Historical Primary Six English Studies pp. 40 and 48 guide context selection. The practice format is author-selected and the official topic and option-count specification remains open.",
     "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.",
     "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
-    "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open."
+    "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.",
+    "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial."
   ]
 }

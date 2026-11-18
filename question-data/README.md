@@ -1595,3 +1595,7 @@ Batch 285 adds twelve NCEE Quantitative and Vocational Aptitude practice
 drafts covering average speed and produce preservation. The historical
 Primary Six topic mappings are provisional. The official task and option
 specification remains open.
+
+Batch 286 adds eight Cambridge IGCSE Physics (0625) drafts on thermal
+conduction, convection and infrared radiation for 2026–2028. Core and
+Extended practice are mapped to their respective multiple-choice papers.
