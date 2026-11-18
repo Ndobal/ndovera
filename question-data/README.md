@@ -1611,3 +1611,7 @@ tasks are written Alternative to Practical practice for 2026–2028.
 Batch 289 adds eight SAT Reading and Writing drafts on Cross-Text
 Connections and Rhetorical Synthesis. Each uses its own original stimulus.
 Adaptive assembly and calibration remain open.
+
+Batch 290 adds six SAT Reading and Writing quantitative evidence drafts
+using original tables. The questions cover changes in totals, rates
+versus counts, early versus final results, and counterevidence.

@@ -157,7 +157,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | [subject list unresolved] / SS 2 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | NERDC | [subject list unresolved] / SS 3 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | SAT | Mathematics | 1000 | 31 | 25 | 0 | 975 | partial_objective_register |
-| SAT | Reading and Writing | 1000 | 68 | 65 | 0 | 935 | partial_objective_register |
+| SAT | Reading and Writing | 1000 | 74 | 71 | 0 | 929 | partial_objective_register |
 | TOEFL | Listening | 1000 | 48 | 48 | 0 | 952 | partial_objective_register |
 | TOEFL | Reading | 1000 | 27 | 21 | 0 | 979 | partial_objective_register |
 | TOEFL | Speaking | 1000 | 38 | 38 | 0 | 962 | partial_objective_register |
@@ -221,11 +221,11 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
-| SAT | 99 | 90 | 0 | 2000 | 1910 |
+| SAT | 105 | 96 | 0 | 2000 | 1904 |
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1317 | 518 | 0 | 45000 | 44482 |
 
-Overall: {"raw": 5327, "validDrafts": 3648, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5333, "validDrafts": 3654, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -314,3 +314,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open.
 - Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open.
 - Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.
+- Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.

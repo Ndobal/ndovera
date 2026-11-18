@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 2,
+  "collection": "SAT Reading and Writing: quantitative evidence from tables",
+  "questionCount": 6,
+  "note": "Original stimuli and fictional data, one question per stimulus. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-001",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which statement from the table best supports Mia’s prediction?",
+      "passage": "A team tested three coatings on model roof tiles under a lamp. It measured the temperature rise in each tile after the same exposure. Mia predicts that the light coating will give the smallest temperature rise on both tile materials.\n\n| Tile material | No coating (°C) | Light coat (°C) | Dark coat (°C) |\n|---|---:|---:|---:|\n| Clay | 12 | 7 | 15 |\n| Concrete | 10 | 6 | 13 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-001",
+      "stimulusSubjectArea": "science",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 75,
+      "options": [
+        "The dark coating gave clay a smaller rise than it gave concrete.",
+        "Uncoated clay and uncoated concrete warmed by the same amount.",
+        "For each material, the light-coated tile had a smaller temperature rise than either of the other tiles.",
+        "The light coating gave concrete a smaller rise than it gave clay."
+      ],
+      "correctOption": "C",
+      "answer": "For each material, the light-coated tile had a smaller temperature rise than either of the other tiles.",
+      "explanation": "The prediction compares finishes within each material. Seven is lower than both 12 and 15 for clay, and six is lower than both 10 and 13 for concrete.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-002",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which finding best supports both parts of the report’s claim?",
+      "passage": "A town set up collection points for household batteries. A report claims that after the first month, there was a shift toward the market collection point, even though the total number of batteries collected at the two points did not rise.\n\n| Month | Market | Library |\n|---|---:|---:|\n| March | 40 | 60 |\n| April | 65 | 35 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-002",
+      "stimulusSubjectArea": "history/social studies",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 63,
+      "options": [
+        "The library count fell, so the combined count fell by 25.",
+        "The market count rose and the library count stayed at 60.",
+        "The combined count was 100 in April and the market was below the library that month.",
+        "The market count rose from 40 to 65 while the combined count stayed at 100."
+      ],
+      "correctOption": "D",
+      "answer": "The market count rose from 40 to 65 while the combined count stayed at 100.",
+      "explanation": "The market accounted for more of the same total. Both months add to 100, and the market count rose by 25.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "40+60",
+          "expected": 100,
+          "purpose": "Verify comparison from model table"
+        },
+        {
+          "expression": "65+35",
+          "expected": 100,
+          "purpose": "Verify comparison from model table"
+        }
+      ]
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-003",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which comparison best supports the team’s interpretation?",
+      "passage": "A team tested whether different seed coatings change the timing of germination in a model trial. Equal groups of 50 seeds were observed on day 3 and day 10. The team argues that the coating mainly changed early germination rather than the number of seeds that had germinated by day 10.\n\n| Treatment | Germinated by day 3 | Germinated by day 10 |\n|---|---:|---:|\n| Coated | 29 | 42 |\n| Uncoated | 12 | 43 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-003",
+      "stimulusSubjectArea": "science",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 79,
+      "options": [
+        "The groups differed by 17 seeds on day 3 but by only one seed on day 10.",
+        "Both groups had more germinated seeds by day 10 than by day 3.",
+        "Ten-day germination was much higher in the coated group.",
+        "The uncoated group led by one seed on both observation days."
+      ],
+      "correctOption": "A",
+      "answer": "The groups differed by 17 seeds on day 3 but by only one seed on day 10.",
+      "explanation": "The gap was large early and small at the end, as the timing interpretation predicts.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "29-12",
+          "expected": 17,
+          "purpose": "Verify comparison from model table"
+        },
+        {
+          "expression": "43-42",
+          "expected": 1,
+          "purpose": "Verify comparison from model table"
+        }
+      ]
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-004",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which choice accurately uses the data to support the planner’s claim?",
+      "passage": "A museum offered both guided and self-guided visits on two days. A planner claims that guided tours reached a larger share of visitors on Saturday, even though Friday had more guided visitors in absolute numbers.\n\n| Day | Guided visitors | All visitors |\n|---|---:|---:|\n| Friday | 32 | 160 |\n| Saturday | 24 | 80 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-004",
+      "stimulusSubjectArea": "history/social studies",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 59,
+      "options": [
+        "Friday’s larger guided count means Friday also had the larger guided share.",
+        "Guided visits accounted for 30% of Saturday visits and 20% of Friday visits, although more people took the tour on Friday.",
+        "Saturday’s guided share was 15%, half of Friday’s.",
+        "Guided visits accounted for the same share on both days because both guided counts were below 40."
+      ],
+      "correctOption": "B",
+      "answer": "Guided visits accounted for 30% of Saturday visits and 20% of Friday visits, although more people took the tour on Friday.",
+      "explanation": "Divide each guided count by that day’s total. Saturday has a higher proportion despite its lower guided count.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "24/80*100",
+          "expected": 30,
+          "purpose": "Verify comparison from model table"
+        },
+        {
+          "expression": "32/160*100",
+          "expected": 20,
+          "purpose": "Verify comparison from model table"
+        }
+      ]
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-005",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which row most directly challenges the class’s initial claim?",
+      "passage": "A class put moisture sensors in planters with and without mulch. Its initial claim was that adding mulch was associated with a higher reading in every planter location after two days. The readings are given as percentage soil moisture.\n\n| Location | No mulch (%) | Mulch (%) |\n|---|---:|---:|\n| Open yard | 19 | 24 |\n| Covered porch | 23 | 21 |\n| East fence | 18 | 22 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-005",
+      "stimulusSubjectArea": "science",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 74,
+      "options": [
+        "In the open yard, moisture was higher with mulch than without it.",
+        "At the east fence, moisture was higher with mulch than without it.",
+        "At the covered porch, moisture was lower with mulch than without it.",
+        "In the open yard, the no-mulch reading was lower than the porch no-mulch reading."
+      ],
+      "correctOption": "C",
+      "answer": "At the covered porch, moisture was lower with mulch than without it.",
+      "explanation": "A claim about every location is challenged by one opposite result. On the porch, 21% with mulch is below 23% without mulch.",
+      "score": 1,
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "SAT",
+      "subject": "Reading and Writing",
+      "topic": "Information and Ideas",
+      "subtopic": "Command of Evidence: Quantitative",
+      "learningObjective": "Integrate a short text with an original table to select supported evidence.",
+      "specificationId": "sat-rw-official-specifications-rechecked-2026",
+      "id": "ndv-290-006",
+      "objectiveId": "sat-rw-149-quant-evidence-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "College entry",
+      "type": "mcq",
+      "prompt": "Which sentence most directly supports both parts of the writer’s claim?",
+      "passage": "A bus agency compared its punctuality by route before and after a schedule change. A writer wants to support the claim that performance improved on some routes but remained uneven after the change.\n\n| Route | Before: on time (%) | After: on time (%) |\n|---|---:|---:|\n| Hillside | 62 | 83 |\n| Central | 86 | 87 |\n| Lake | 76 | 71 |",
+      "stimulusGroupId": "sat-rw-290-stimulus-006",
+      "stimulusSubjectArea": "history/social studies",
+      "stimulusProvenance": "wholly_original_practice_text_and_model_data",
+      "stimulusWhitespaceWordCount": 68,
+      "options": [
+        "Central’s rate was 86% before the change and 87% afterward.",
+        "Lake reached 83% after the change, matching Hillside.",
+        "All three routes improved and ended within one percentage point of each other.",
+        "Hillside’s on-time rate rose from 62% to 83%, while post-change rates still ranged from 71% on Lake to 87% on Central."
+      ],
+      "correctOption": "D",
+      "answer": "Hillside’s on-time rate rose from 62% to 83%, while post-change rates still ranged from 71% on Lake to 87% on Central.",
+      "explanation": "The Hillside comparison demonstrates improvement and the Lake–Central spread demonstrates uneven post-change performance.",
+      "score": 1,
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "87-71",
+          "expected": 16,
+          "purpose": "Verify comparison from model table"
+        }
+      ]
+    }
+  ]
+}
