@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Academic Discussion practice",
+  "questionCount": 4,
+  "note": "Original discussion threads and model posts. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-298-001",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "passage": "Professor: A university is replanting the grounds around its lecture halls. It can either plant one hardy species everywhere or select different species for different parts of campus. Which approach should it use?\n\nAri: I would pick one species. Staff could order replacements easily and use the same care routine in each place.\n\nBea: I would choose different plants. The sunny entrance and the shaded paths offer very different growing conditions.",
+      "prompt": "You have 10 minutes to post a response to the professor. State and support your position, engage with an idea from the thread, and make your own contribution. Aim for at least 100 words.",
+      "answer": "I would select different plants but repeat a small group of suitable species instead of choosing a different one for every site. Bea is right that the growing conditions matter. A plant chosen for a hot, open entrance might perform poorly under the trees, and repeated replacement would create work for the maintenance staff. Ari’s concern about learning many care routines still deserves attention. The university could divide the campus into three broad zones and use a short list for each. Staff would retain the benefits of buying in groups while being able to match plants to conditions. A short trial in each zone would help refine the lists before the full planting.",
+      "explanation": "The model addresses the professor’s choice, engages with a classmate and develops its own practical reasoning. Accept either position or a justified combination.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position and relevance. Credit a clear position that answers the professor’s question. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Support. Credit developed reasoning with an illustrative example or an explained consequence. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Engagement and contribution. Credit accurate engagement with a classmate and a distinct contribution of the writer’s own. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation. Credit a coherent sequence with effective links across ideas. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language. Credit clear and appropriate vocabulary, sentence structure and mechanics. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-298-002",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "passage": "Professor: A college writing centre has funds to train its first group of tutors. Should it train experienced students from many departments or build a small team drawn only from its writing programme?\n\nAri: Tutors from different departments can recognise what a history essay or a design report is trying to do. One group may miss those differences.\n\nBea: A small writing-programme team would be easier to train consistently. Students should get similar advice whichever tutor they meet.",
+      "prompt": "You have 10 minutes to post a response to the professor. State and support your position, engage with an idea from the thread, and make your own contribution. Aim for at least 100 words.",
+      "answer": "I favour training students from several departments, provided everyone uses a common process for giving feedback. Ari’s history example shows why subject knowledge matters: a tutor should recognise the difference between an essay interpreting evidence and a report explaining a procedure. At the same time, Bea is right to worry about conflicting advice. The centre could ask tutors from different departments to review the same sample drafts during training and explain their comments to one another. That would make their advice more consistent without requiring all assignments to follow the same conventions. Students could then choose a tutor familiar with their discipline while receiving the same basic approach to revision.",
+      "explanation": "The model addresses the professor’s choice, engages with a classmate and develops its own practical reasoning. Accept either position or a justified combination.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position and relevance. Credit a clear position that answers the professor’s question. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Support. Credit developed reasoning with an illustrative example or an explained consequence. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Engagement and contribution. Credit accurate engagement with a classmate and a distinct contribution of the writer’s own. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation. Credit a coherent sequence with effective links across ideas. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language. Credit clear and appropriate vocabulary, sentence structure and mechanics. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-298-003",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "passage": "Professor: A student radio station is preparing a series about the campus. Should it broadcast episodes live or record them in advance?\n\nAri: Live broadcasts let listeners send questions while a guest is speaking. That makes the programme feel like a conversation.\n\nBea: Recording first gives students time to verify details and edit background noise, which makes the episodes easier to follow.",
+      "prompt": "You have 10 minutes to post a response to the professor. State and support your position, engage with an idea from the thread, and make your own contribution. Aim for at least 100 words.",
+      "answer": "I would record the episodes before broadcasting, but I would collect listener questions before the recording sessions. Ari is right that questions make listeners part of the programme. For instance, students could submit questions about why some campus buildings close early, and the producer could put several of them to a guest. The crew could then verify important details and trim repetition, which would address Bea’s concern about clarity. This method would also let students who have classes during the usual broadcast hour take part in shaping the programme. A live session might be better for a special event, but advance recording suits a series that people may listen to later.",
+      "explanation": "The model addresses the professor’s choice, engages with a classmate and develops its own practical reasoning. Accept either position or a justified combination.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position and relevance. Credit a clear position that answers the professor’s question. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Support. Credit developed reasoning with an illustrative example or an explained consequence. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Engagement and contribution. Credit accurate engagement with a classmate and a distinct contribution of the writer’s own. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation. Credit a coherent sequence with effective links across ideas. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language. Credit clear and appropriate vocabulary, sentence structure and mechanics. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write for an Academic Discussion",
+      "subtopic": "Contributing an argument",
+      "learningObjective": "Contribute a relevant supported view to an academic discussion.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-298-004",
+      "objectiveId": "toefl-discussion-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "passage": "Professor: A campus shop is considering a refundable deposit on reusable cups. Should it start with a deposit or rely on voluntary returns?\n\nAri: A deposit gives customers a reason to bring cups back, so the shop may need fewer replacements.\n\nBea: Voluntary returns are simpler at checkout. A deposit might put off customers who do not have enough money with them.",
+      "prompt": "You have 10 minutes to post a response to the professor. State and support your position, engage with an idea from the thread, and make your own contribution. Aim for at least 100 words.",
+      "answer": "I would start with a deposit and make sure it can be refunded at several convenient places. Ari makes a good point about replacement costs: a system cannot rely on the same cups circulating if many leave and never return. However, Bea identifies a genuine barrier. Even a refundable charge can prevent someone from buying a drink when they have little money available. The shop could let customers bring their own clean cups or borrow from a small stock reserved for deposit-free use with a student card. During the trial, it should track both returns and the number of customers who decline a reusable cup. A good return rate alone would overlook changes in access.",
+      "explanation": "The model addresses the professor’s choice, engages with a classmate and develops its own practical reasoning. Accept either position or a justified combination.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write for an Academic Discussion",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Position and relevance. Credit a clear position that answers the professor’s question. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Support. Credit developed reasoning with an illustrative example or an explained consequence. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Engagement and contribution. Credit accurate engagement with a classmate and a distinct contribution of the writer’s own. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation. Credit a coherent sequence with effective links across ideas. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language. Credit clear and appropriate vocabulary, sentence structure and mechanics. Award 2 for clear fulfilment, 1 for partial fulfilment, and 0 if absent."
+        }
+      ]
+    }
+  ]
+}

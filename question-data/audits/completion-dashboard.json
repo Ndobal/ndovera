@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5369,
-    "validDrafts": 3690,
+    "raw": 5373,
+    "validDrafts": 3694,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1916,6 +1916,12 @@
       "sha256": "185c321f6e583c2cfc62ac1b5d7821351d1d16e26648e368e9fff7d2cf13abdc",
       "declared": 5,
       "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-298.json",
+      "sha256": "db34855ff0f01ae9edf0c7d7a888adbd0e00ed483aa0d9335e67ce949adec48b",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6826,19 +6832,19 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_skill_structure_seen_version_or_variant_mapping_pending",
-      "raw": 63,
-      "validDrafts": 60,
+      "raw": 67,
+      "validDrafts": 64,
       "reviewed": 0,
       "questionTypes": {
         "shortanswer": 29,
-        "essay": 31,
+        "essay": 35,
         "mcq": 3
       },
       "difficulty": {
-        "standard": 60,
+        "standard": 64,
         "missing": 3
       },
-      "remaining": 940,
+      "remaining": 936,
       "mappedObjectives": 3,
       "representedObjectives": 3,
       "coverage": "partial_objective_register",
@@ -7817,18 +7823,18 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "explanation_missing": 81,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 567,
@@ -44551,6 +44557,30 @@
       "errors": []
     },
     {
+      "id": "ndv-298-001",
+      "file": "original-multisubject-batch-298.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-298-002",
+      "file": "original-multisubject-batch-298.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-298-003",
+      "file": "original-multisubject-batch-298.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-298-004",
+      "file": "original-multisubject-batch-298.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -58986,21 +59016,21 @@
       "learningObjective": "Contribute a relevant supported view to an academic discussion.",
       "specificationId": "toefl-2026",
       "questionTypes": {
-        "essay": 13
+        "essay": 17
       },
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null,
       "sourceSections": [
         "ETS Updated TOEFL iBT Test Overview, PDF p15"
       ],
-      "lastSourceRecheck": "2026-11-15",
-      "questionCount": 13,
-      "validDrafts": 13,
+      "lastSourceRecheck": "2026-11-18",
+      "questionCount": 17,
+      "validDrafts": 17,
       "difficulty": {
-        "standard": 13
+        "standard": 17
       },
       "tiers": {
-        "not_specified": 13
+        "not_specified": 17
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -110622,6 +110652,7 @@
     "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.",
     "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
     "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
-    "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open."
+    "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
+    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open."
   ]
 }

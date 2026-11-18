@@ -2486,7 +2486,7 @@
       ],
       "status": "current_task_descriptions_rechecked_academic_review_pending",
       "note": "Direct cloud retrieval of EU ETS overview succeeded after main-host at-a-glance web reader rejected size. Legacy writing URL returned a generic Explore TOEFL page and is not relied on as a fresh task-content check. No numeric email minimum inferred. New scenario goals, discussion posts, models and analytic ten-point rubrics are original, not copied ETS examples or official score conversions. Twelve tasks are standalone practice, not a complete Writing section.",
-      "latestRecheck": "2026-11-18: ETS Writing overview and Portuguese ETS-hosted Updated TOEFL iBT Test Overview, p. 14, confirm the scenario-based Write an Email task and seven-minute timing. https://www.pt.ets.org/content/dam/ets-org/pt_pt/pdfs/toefl/toefl-ibt-test-overview.pdf"
+      "latestRecheck": "2026-11-18: ETS Writing overview confirms Academic Discussion. Updated overview p. 15 and ETS practice instructions support a timed classroom post and a 100-word development target."
     },
     {
       "id": "toefl-sentence-format-recheck-158-2026",
@@ -7674,7 +7674,7 @@
       "sourceSections": [
         "ETS Updated TOEFL iBT Test Overview, PDF p15"
       ],
-      "lastSourceRecheck": "2026-11-15"
+      "lastSourceRecheck": "2026-11-18"
     },
     {
       "id": "igcse-0610-cells-v1",
@@ -39218,6 +39218,7 @@
     "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.",
     "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
     "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
-    "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open."
+    "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
+    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open."
   ]
 }
