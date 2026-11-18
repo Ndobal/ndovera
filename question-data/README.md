@@ -1639,3 +1639,7 @@ point-based marking guides support rate calculations and collision reasoning.
 Batch 296 adds five Cambridge IGCSE Chemistry (0620) Paper 6 drafts on
 reaction-rate investigations, covering results tables, timing bias,
 repeat variability, controlled planning and instrument range.
+
+Batch 297 adds five TOEFL iBT Write an Email drafts for the current
+seven-minute task. Each includes an original model and a task-specific
+analytic rubric. Writing-section assembly and score calibration remain open.

@@ -161,7 +161,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | Listening | 1000 | 48 | 48 | 0 | 952 | partial_objective_register |
 | TOEFL | Reading | 1000 | 27 | 21 | 0 | 979 | partial_objective_register |
 | TOEFL | Speaking | 1000 | 38 | 38 | 0 | 962 | partial_objective_register |
-| TOEFL | Writing | 1000 | 58 | 55 | 0 | 945 | partial_objective_register |
+| TOEFL | Writing | 1000 | 63 | 60 | 0 | 940 | partial_objective_register |
 | WAEC | Agricultural Science | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Animal Husbandry | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Arabic | 1000 | 4 | 4 | 0 | 996 | partial_objective_register |
@@ -222,10 +222,10 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
-| TOEFL | 171 | 162 | 0 | 4000 | 3838 |
+| TOEFL | 176 | 167 | 0 | 4000 | 3833 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5364, "validDrafts": 3685, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5369, "validDrafts": 3690, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -321,3 +321,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.
 - Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.
 - Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.
+- Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.

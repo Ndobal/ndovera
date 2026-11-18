@@ -2485,7 +2485,8 @@
         "PDF p15: Write for an Academic Discussion, professor plus two student posts, ten minutes, effective response at least100 words"
       ],
       "status": "current_task_descriptions_rechecked_academic_review_pending",
-      "note": "Direct cloud retrieval of EU ETS overview succeeded after main-host at-a-glance web reader rejected size. Legacy writing URL returned a generic Explore TOEFL page and is not relied on as a fresh task-content check. No numeric email minimum inferred. New scenario goals, discussion posts, models and analytic ten-point rubrics are original, not copied ETS examples or official score conversions. Twelve tasks are standalone practice, not a complete Writing section."
+      "note": "Direct cloud retrieval of EU ETS overview succeeded after main-host at-a-glance web reader rejected size. Legacy writing URL returned a generic Explore TOEFL page and is not relied on as a fresh task-content check. No numeric email minimum inferred. New scenario goals, discussion posts, models and analytic ten-point rubrics are original, not copied ETS examples or official score conversions. Twelve tasks are standalone practice, not a complete Writing section.",
+      "latestRecheck": "2026-11-18: ETS Writing overview and Portuguese ETS-hosted Updated TOEFL iBT Test Overview, p. 14, confirm the scenario-based Write an Email task and seven-minute timing. https://www.pt.ets.org/content/dam/ets-org/pt_pt/pdfs/toefl/toefl-ibt-test-overview.pdf"
     },
     {
       "id": "toefl-sentence-format-recheck-158-2026",
@@ -7655,7 +7656,7 @@
       "sourceSections": [
         "ETS Updated TOEFL iBT Test Overview, PDF p14"
       ],
-      "lastSourceRecheck": "2026-11-15"
+      "lastSourceRecheck": "2026-11-18"
     },
     {
       "id": "toefl-discussion-v1",
@@ -39216,6 +39217,7 @@
     "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.",
     "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.",
     "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
-    "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open."
+    "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
+    "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open."
   ]
 }

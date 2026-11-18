@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 2,
+  "collection": "TOEFL iBT Writing: scenario-based email practice",
+  "questionCount": 5,
+  "note": "Original seven-minute email tasks with practice rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-297-001",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your department offered a campus exhibition tour, but the sign-up page lists only a walking route with several long flights of stairs. A classmate who plans to attend has asked whether the group can use a step-free route.\n\nWrite an email to the exhibition coordinator. In your email:\n- Explain the access question and why you are writing.\n- Suggest how the group could meet at a step-free entrance and still join the guide.\n- Ask the coordinator to confirm the route and say how the information should be shared.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Exhibition Coordinator,\n\nI am writing about our department’s exhibition tour next week. The route shown on the sign-up page includes several flights of stairs. A classmate has asked whether a step-free route is available. Could the whole group meet at the level entrance by the courtyard and join the guide in the main gallery? That would let everyone start together.\n\nCould you confirm that the courtyard route is step-free all the way to the gallery? If it is, would you prefer to update the sign-up page yourself, or should I pass the confirmed directions to the group?\n\nBest,\nTari",
+      "explanation": "The model fulfils the three communication goals in a tone suited to the recipient. Credit other workable responses that meet the goals using complete sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Identifies the staircase on the published route and requests step-free access. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Proposes a step-free meeting location and explains how to join the guide. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Asks for route confirmation and clarifies how directions will be shared. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a coherent, recipient-appropriate message, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences and wording, 1 if errors sometimes obscure meaning, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-297-002",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "Your statistics class received a spreadsheet for a group task. The instructions ask everyone to use the city labels, but the spreadsheet uses only letter codes. The group can start checking the data now, but cannot label its charts confidently.\n\nWrite an email to the teaching assistant. In your email:\n- Identify the mismatch and explain its effect on the assignment.\n- Ask for the information that would resolve the mismatch.\n- Say what the group can do while waiting.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Teaching Assistant,\n\nThe spreadsheet for this week’s statistics assignment identifies cities by letter codes, but the instructions ask us to label our charts with city names. We can begin looking for missing or duplicated rows, but we cannot confidently label the charts yet. Could you share the key that matches each letter to a city, or tell us which file contains it? In the meantime, we will check the data and prepare draft charts using the letter codes. Once we have the key, we can change the labels without repeating the calculations.\n\nThank you,\nLola",
+      "explanation": "The model fulfils the three communication goals in a tone suited to the recipient. Credit other workable responses that meet the goals using complete sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Identifies the codes versus names mismatch and its effect on chart labels. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Requests a code key or an equivalent authoritative source. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Describes a reasonable interim step that does not guess the mapping. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a coherent, recipient-appropriate message, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences and wording, 1 if errors sometimes obscure meaning, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-297-003",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "A student food cooperative offers boxes of produce for collection on Fridays. Several members have stopped ordering because they cannot arrive during the short collection window. The organisers ask for ideas they can test within their existing volunteer schedule.\n\nWrite an email to the cooperative organisers. In your email:\n- Explain the collection problem.\n- Recommend a trial that uses the existing volunteer time.\n- Suggest how to tell whether the trial helped.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Cooperative Organisers,\n\nSome members have stopped ordering because the Friday collection window overlaps with their classes. Could we test moving half the staffed collection time to Saturday morning for two weeks? We would keep a shorter Friday slot for members who prefer it and ask people to choose a slot when they order. That would keep the total number of staffed minutes the same.\n\nTo see whether the change helps, we could compare the share of orders collected during the trial with the previous two weeks and ask members who rejoined which slot they used.\n\nBest wishes,\nFarah",
+      "explanation": "The model fulfils the three communication goals in a tone suited to the recipient. Credit other workable responses that meet the goals using complete sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Explains the timing barrier and its effect on orders. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Offers a concrete trial within the existing volunteer allocation. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Proposes a useful comparison or participant check to evaluate the trial. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a coherent, recipient-appropriate message, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences and wording, 1 if errors sometimes obscure meaning, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-297-004",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "You agreed to lend a portable display stand to another student club. During a routine check, you discovered that the stand wobbles even on level ground. The club needs a display arrangement tomorrow.\n\nWrite an email to the club organiser. In your email:\n- Tell the organiser what changed and why the original arrangement will not work.\n- Offer an alternative and explain its limits.\n- Ask for a decision by a useful time.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Dear Club Organiser,\n\nI checked the display stand this afternoon and found that it wobbles even on level ground. I am sorry that I cannot lend it for tomorrow’s event. You are welcome to use our tabletop sign holder instead. It will hold a small notice, but it will not support your large poster. If a smaller sign is suitable, I can bring the holder to the venue before the doors open.\n\nCould you let me know by 6 p.m. today whether to bring it? That should leave time to arrange a different display if needed.\n\nBest,\nEmeka",
+      "explanation": "The model fulfils the three communication goals in a tone suited to the recipient. Credit other workable responses that meet the goals using complete sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Reports the defect and withdraws the unsafe stand clearly. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Offers a practical substitute and explains its size limitation. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Requests a timely decision and gives a reasonable next step. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a coherent, recipient-appropriate message, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences and wording, 1 if errors sometimes obscure meaning, or 0 if assessable meaning is absent."
+        }
+      ]
+    },
+    {
+      "exam": "TOEFL",
+      "subject": "Writing",
+      "topic": "Write an Email",
+      "subtopic": "Academic communication",
+      "learningObjective": "Address the goals of an academic or social email clearly and appropriately.",
+      "specificationId": "toefl-2026",
+      "id": "ndv-297-005",
+      "objectiveId": "toefl-email-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Academic",
+      "type": "essay",
+      "prompt": "An outdoor reading club moved its next session to a classroom because the usual courtyard is closed. A co-organiser has already sent the courtyard details to participants. You and the co-organiser have access to different communication channels.\n\nWrite an email to your co-organiser. In your email:\n- State the old and new arrangements clearly.\n- Propose how to correct the announcement across both channels.\n- Explain how to help anyone who still goes to the old location.\n\nYou have 7 minutes. Write in complete sentences.",
+      "answer": "Hi Rina,\n\nSaturday’s reading session is still at 2 p.m., but the courtyard is closed, so we will meet in Room 14 instead. Could you send a correction to the mailing list with the room number in the subject line? I will replace the pinned message in the group chat and ask people to acknowledge the update.\n\nI can also ask the building desk for permission to place a direction notice near the courtyard entrance, so anyone who follows the first message can still find us. Please tell me when the email has gone out.\n\nThanks,\nSam",
+      "explanation": "The model fulfils the three communication goals in a tone suited to the recipient. Credit other workable responses that meet the goals using complete sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "taskType": "Write an Email",
+      "contentSourceId": "toefl-writing-production-recheck-157-2026",
+      "score": 10,
+      "maxMarks": 10,
+      "requiresManualReview": true,
+      "rubricScale": "Original practice points only. No official TOEFL score equivalence.",
+      "markingGuide": [
+        {
+          "step": 1,
+          "marks": 2,
+          "description": "Identifies the original venue and new venue while keeping the time clear. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 2,
+          "marks": 2,
+          "description": "Proposes coordinated corrections across two channels. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 3,
+          "marks": 2,
+          "description": "Suggests a workable way to redirect anyone arriving at the courtyard. Award 2 for a clear and practical response to the full criterion, 1 for partial fulfilment, or 0 if omitted."
+        },
+        {
+          "step": 4,
+          "marks": 2,
+          "description": "Organisation and tone. Award 2 for a coherent, recipient-appropriate message, 1 if either feature is uneven, or 0 if both are absent."
+        },
+        {
+          "step": 5,
+          "marks": 2,
+          "description": "Language control. Award 2 for generally clear complete sentences and wording, 1 if errors sometimes obscure meaning, or 0 if assessable meaning is absent."
+        }
+      ]
+    }
+  ]
+}
