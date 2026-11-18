@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Yoruba composition practice",
+  "questionCount": 4,
+  "note": "Original composition tasks with illustrative responses and local practice rubrics. Existing cross-board mappings remain provisional. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ ìtàn",
+      "learningObjective": "Kọ ìtàn tí ìṣẹ̀lẹ̀ inú rẹ̀ tẹ̀ lé ara wọn, kí ìpinnu ẹni inú ìtàn sì ní àbájáde.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "ndv-305-001",
+      "objectiveId": "neco-yoruba-104-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "Kọ ìtàn nípa ọjọ́ tí o rí àṣìṣe kan nínú àkójọ àwọn ènìyàn tí yóò gba ẹ̀bùn ní ilé ẹ̀kọ́. Fi bí o ṣe ṣàwárí àṣìṣe náà hàn, ṣàlàyé ohun tí o pinnu láti ṣe àti àbájáde ìpinnu rẹ.",
+      "answer": "Ní ọjọ́ tí a fẹ́ pín ẹ̀bùn iṣẹ́ ọwọ́, mo rí orúkọ mi lẹ́gbẹ̀ẹ́ àwòrán kan lórí àtẹ. Inú mi dùn lákọ̀ọ́kọ́, ṣùgbọ́n nígbà tí mo sún mọ́ ọn, mo rí i pé àwòrán Adé ni. A ti yí àwọn àmì orúkọ wa padà. Ẹ̀bùn àkọ́kọ́ ni wọ́n fẹ́ fún ẹni tó ya àwòrán náà.\n\nMo ronú pé bóyá kí n dúró kí Adé fúnra rẹ̀ sọ̀rọ̀. Ṣùgbọ́n kò tíì dé, àwọn olùkọ́ sì ń múra láti bẹ̀rẹ̀ ìpín ẹ̀bùn. Mo lọ bá olùkọ́ iṣẹ́ ọwọ́, mo sì fi àmì orúkọ méjèèjì hàn án. Ó ṣàyẹ̀wò ìwé tí a fi forúkọ sílẹ̀ nígbà tí a mú iṣẹ́ wa wá. Ó rí i pé ohun tí mo sọ tọ̀nà.\n\nÓ tún àwọn àmì náà ṣe kí ó tó pe àwọn akẹ́kọ̀ọ́ síwájú. Nígbà tí Adé dé, kò mọ ohun tó ṣẹlẹ̀ títí tí olùkọ́ fi sọ fún un. Ó dúpẹ́ lọ́wọ́ mi. Bí ó tilẹ̀ jẹ́ pé èmi kò gba ẹ̀bùn àkọ́kọ́, inú mi dùn pé ẹni tó ṣe iṣẹ́ náà ni ó gba ẹ̀bùn rẹ̀.",
+      "explanation": "Gba ìtàn mìíràn tí ó bá fi àṣìṣe, ìpinnu àti àbájáde tí ó bá ìpinnu náà mu hàn.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Fi ibi àti àkókò ìṣẹ̀lẹ̀ hàn."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé bí a ṣe rí àṣìṣe nínú àkójọ náà."
+        },
+        {
+          "marks": 1,
+          "description": "Fi ìpinnu ẹni inú ìtàn hàn."
+        },
+        {
+          "marks": 1,
+          "description": "So àbájáde pọ̀ mọ́ ìpinnu náà."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣètò ìṣẹ̀lẹ̀ ní ọ̀nà tí ó tẹ̀ lé ara rẹ̀."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àpèjúwe",
+      "learningObjective": "Lo àlàyé nípa ipò àti ohun tí a lè rí tàbí gbọ́ láti ṣàpèjúwe ibi kan.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "ndv-305-002",
+      "objectiveId": "neco-yoruba-104-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "Ṣàpèjúwe ibi tí àwọn ènìyàn ti ń hun aṣọ fún ẹni tí kò tíì rí irú ibi bẹ́ẹ̀. Darí òǹkàwé láti ẹnu ọ̀nà sí inú yàrá. Lo àlàyé nípa ipò ohun èlò, àwọ̀ àti ìró láti mú kí ó lè fojú inú wo ibẹ̀.",
+      "answer": "Lẹ́nu ọ̀nà ilé tí a ti ń hun aṣọ náà ni àpẹẹrẹ aṣọ aláwọ̀ búlúù àti funfun kọ́ sí. Oòrùn láti inú fèrèsé ń tan sí àwọn aṣọ náà, ó sì mú kí àwọn ọ̀nà inú wọn hàn kedere. Ní ọwọ́ òsì ẹnu ọ̀nà ni àpò òwú tó ní oríṣiríṣi àwọ̀ wà lórí àpótí igi.\n\nNí àárín yàrá ni ohun èlò ìhun méjì wà, ọ̀kan lẹ́yìn èkejì. Òwú gígùn nà láti iwájú ohun èlò kọ̀ọ̀kan dé òpin rẹ̀. Obìnrin tó jókòó lẹ́gbẹ̀ẹ́ èyí tó sún mọ́ ẹnu ọ̀nà ń ṣiṣẹ́ pẹ̀lú ọwọ́ àti ẹsẹ̀ rẹ̀. Bí ó ṣe ń ṣiṣẹ́ ni ìró igi ń dún lemọ́lemọ́. Nígbà tí ó dáwọ́ dúró láti tún òwú kan ṣe, ìró náà dákẹ́.\n\nLẹ́gbẹ̀ẹ́ ògiri tó wà ní òpin yàrá ni a ti to aṣọ tí a ti parí sí. A dì wọ́n lọ́tọ̀ọ̀tọ̀, a sì fi bébà kọ́ sí ọ̀kọ̀ọ̀kan. Ọ̀nà tó wà láàárín àwọn ohun èlò ṣí sílẹ̀, tí ènìyàn lè gbà kọjá láìtẹ òwú mọ́lẹ̀.",
+      "explanation": "Àlàyé nípa ipò, àwọ̀ àti ìró yẹ kí ó ran òǹkàwé lọ́wọ́ láti fojú inú wo ibi náà. A lè ṣàpèjúwe ibi mìíràn tí a ti ń hun aṣọ.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Bẹ̀rẹ̀ láti ẹnu ọ̀nà kí àpèjúwe sì wọ inú yàrá."
+        },
+        {
+          "marks": 1,
+          "description": "Fi ipò àwọn ohun èlò hàn kedere."
+        },
+        {
+          "marks": 1,
+          "description": "Lo àwọ̀ tàbí ohun pàtó tí a lè rí."
+        },
+        {
+          "marks": 1,
+          "description": "Lo ìró kan tí ó bá ibi náà mu."
+        },
+        {
+          "marks": 1,
+          "description": "So àlàyé náà pọ̀ kí òǹkàwé lè fojú inú wo ibẹ̀."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àlàyé",
+      "learningObjective": "Ṣàlàyé bí ètò kan ṣe ń ṣiṣẹ́ nípasẹ̀ títẹ̀lé ìgbésẹ̀ rẹ̀ àti sísọ ìdí wọn.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "ndv-305-003",
+      "objectiveId": "neco-yoruba-104-3-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "prompt": "Ṣàlàyé bí àwọn akẹ́kọ̀ọ́ ṣe lè pín iṣẹ́ nínú iṣẹ́ àpapọ̀ láti ìgbà tí wọ́n gba iṣẹ́ náà títí tí wọ́n fi parí rẹ̀. Kọ ní ìpínrọ̀, kí o sì ṣàlàyé ìdí tí àyẹ̀wò iṣẹ́ ṣáájú ọjọ́ ìparí fi ṣe pàtàkì.",
+      "answer": "Àkọ́kọ́, kí gbogbo ẹni inú ẹgbẹ́ ka ìlànà iṣẹ́ náà kí wọ́n lè mọ ohun tí a ń béèrè. Lẹ́yìn náà, kí wọ́n pín iṣẹ́ náà sí apá kéékèèké, bíi wíwá àlàyé, ṣíṣe àwòrán àti ṣíṣe àgbékalẹ̀. Kí wọ́n jíròrò ohun tí ẹnì kọ̀ọ̀kan lè ṣe àti àkókò tó máa wà fún un kí wọ́n tó yan ẹni tí yóò ṣe apá kọ̀ọ̀kan.\n\nKí wọ́n kọ orúkọ ẹni kọ̀ọ̀kan àti iṣẹ́ rẹ̀ sínú ìwé tí gbogbo wọn lè rí. Wọ́n tún gbọ́dọ̀ yan ọjọ́ kan láti kó iṣẹ́ jọ ṣáájú ọjọ́ tí wọ́n yóò fi lé olùkọ́ lọ́wọ́. Ní ọjọ́ àyẹ̀wò náà, kí wọ́n wo bóyá àwọn apá náà bá ara wọn mu àti bóyá ohun kan ṣì kù.\n\nÀyẹ̀wò ṣáájú ọjọ́ ìparí máa ń fún wọn ní àkókò láti ṣe àtúnṣe. Bí apá kan kò bá tíì parí, wọ́n lè rí ẹni tó lè ràn ẹni tó ń ṣe é lọ́wọ́. Nígbà tí wọ́n bá ti ṣàtúnṣe, kí gbogbo wọn ka iṣẹ́ náà lẹ́ẹ̀kan sí i kí wọ́n tó fi ránṣẹ́.",
+      "explanation": "Gba ètò ìpín iṣẹ́ mìíràn tí ó bá ní ìṣètò, àyẹ̀wò àti àtúnṣe. Àlàyé gbọdọ̀ sọ ìdí tí ìgbésẹ̀ kan fi wúlò.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé bí ẹgbẹ́ ṣe máa mọ ohun tí iṣẹ́ náà béèrè."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé ọ̀nà tí a ó gbà pín iṣẹ́."
+        },
+        {
+          "marks": 1,
+          "description": "Fi bí a ṣe máa ṣe àyẹ̀wò iṣẹ́ hàn."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé ìdí tí àyẹ̀wò ṣáájú ọjọ́ ìparí fi wúlò."
+        },
+        {
+          "marks": 1,
+          "description": "Kọ ní ìpínrọ̀ tí ìgbésẹ̀ inú rẹ̀ tẹ̀ lé ara wọn."
+        }
+      ],
+      "requiresManualReview": true
+    },
+    {
+      "exam": "NECO",
+      "subject": "Yoruba",
+      "topic": "Àròkọ Yorùbá",
+      "subtopic": "Àròkọ àríyànjiyàn",
+      "learningObjective": "Gbé èrò kan kalẹ̀, kí o sì dáhùn sí àtakò pẹ̀lú ìdí tí ó bá ọ̀rọ̀ mu.",
+      "specificationId": "neco-yoruba-written-reference-2026",
+      "id": "ndv-305-004",
+      "objectiveId": "neco-yoruba-104-4-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "prompt": "Àwọn ará àdúgbò ń jíròrò bóyá kí wọ́n fi igi sí ẹ̀gbẹ́ ọ̀nà tàbí kí wọ́n fi ibi náà sílẹ̀ fún ìdúró ọkọ̀. Kọ àròkọ tí yóò fi èrò rẹ hàn. Fúnni ní ìdí méjì, ṣàlàyé àtakò kan tí ó ṣe pàtàkì, kí o sì dáhùn sí i.",
+      "answer": "Mo fẹ́ kí a gbin igi sí apá kan ní ẹ̀gbẹ́ ọ̀nà. Ní ọ̀sán, àwọn tí ń rìn níbẹ̀ kò ní ibòji tí wọ́n lè dúró sí. Igi tí ó bá dàgbà lè fún wọn ní ibòji, àwọn tó ń dúró de ọkọ̀ sì lè jàǹfààní rẹ̀. Ẹlẹ́ẹ̀kejì, bí àwọn ọ̀dọ́ bá kópa nínú gbígbin àti títọ́jú igi náà, wọ́n lè kọ́ bí a ṣe ń tọ́jú igi. Wọ́n lè pín iṣẹ́ bíbomirin láàárín ara wọn, kí wọ́n sì rí àbájáde iṣẹ́ wọn bí igi náà ṣe ń dàgbà.\n\nÀwọn tó fẹ́ ibi ìdúró ọkọ̀ sọ pé àwọn oníbàárà ilé ìtajà tó wà níbẹ̀ nílò ibi tí wọ́n lè fi ọkọ̀ sí. Wọ́n bẹ̀rù pé tí kò bá sí ibi ìdúró, àwọn awakọ̀ yóò fi ọkọ̀ dí ọ̀nà. Àtakò yìí ní ìdí.\n\nNítorí náà, mo dabaa pé kí a kọ́kọ́ wọn ibi tó wà. Kí a yan àwọn ibi díẹ̀ fún ìdúró ọkọ̀, kí a sì gbin igi sí àwọn ibi tó kù tí kò ní dí ọ̀nà. A gbọ́dọ̀ yan irú igi tó yẹ, kí a sì mọ ẹni tí yóò máa tọ́jú rẹ̀. Ètò yìí lè fún wa ní ibòji láìjẹ́ kí ìdúró ọkọ̀ di ìṣòro.",
+      "explanation": "Akẹ́kọ̀ọ́ lè yan èrò mìíràn. Gba ìdí tí ó bá àdúgbò náà mu àti ìdáhùn tó yẹ sí àtakò.",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Fi èrò tí a yàn hàn kedere."
+        },
+        {
+          "marks": 1,
+          "description": "Fúnni ní ìdí àkọ́kọ́ tí a ṣàlàyé."
+        },
+        {
+          "marks": 1,
+          "description": "Fúnni ní ìdí kejì tí ó yàtọ̀."
+        },
+        {
+          "marks": 1,
+          "description": "Ṣàlàyé àtakò kan tí ó ṣe pàtàkì."
+        },
+        {
+          "marks": 1,
+          "description": "Dáhùn sí àtakò náà pẹ̀lú ìdí tàbí ètò tí a lè ṣe."
+        }
+      ],
+      "requiresManualReview": true
+    }
+  ]
+}

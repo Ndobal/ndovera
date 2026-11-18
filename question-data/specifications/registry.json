@@ -1595,7 +1595,9 @@
         "https://www.waeconline.org.ng/e-learning/Yoruba/Yor240mq1.html"
       ],
       "retrievedOn": "2026-11-06",
-      "note": "The 2026 NECO SSCE Internal timetable lists Yoruba essay (4132) and objective (4133) papers and confirms a literature component. WAEC Yoruba Paper 2 examiner observations from 2023 inform provisional composition genres. Current NECO objectives, prescribed texts and marking guidance remain unverified."
+      "lastSourceRecheck": "2026-11-18",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "note": "The 2026 NECO SSCE Internal timetable lists Yoruba essay (4132) and objective (4133) papers and confirms a literature component. The published 2027 timetable retains these codes in a combined three-hour sitting. On 18 November 2026 the 2023 WAEC observations were rechecked for narrative, description, exposition and argument. WAEC Yoruba Paper 2 examiner observations from 2023 inform provisional composition genres. Current NECO objectives, prescribed texts and marking guidance remain unverified."
     },
     {
       "id": "waec-arabic-prescribed-texts-2026-2030",

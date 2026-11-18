@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5462,
-    "validDrafts": 3783,
+    "raw": 5466,
+    "validDrafts": 3787,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1956,6 +1956,12 @@
     {
       "path": "original-multisubject-batch-304.json",
       "sha256": "9e1cf1d5c46e2f7c315e963aa796f5e1e6fb0324a7a8394196b38cbf8059d057",
+      "declared": 4,
+      "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-305.json",
+      "sha256": "06ff51b2d7ddb1e804d546862ef20804ed46184e9424becfc6a905fad3690aaa",
       "declared": 4,
       "actual": 4
     },
@@ -5662,17 +5668,17 @@
           ]
         }
       },
-      "raw": 4,
-      "validDrafts": 4,
+      "raw": 8,
+      "validDrafts": 8,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 4
+        "structured": 8
       },
       "difficulty": {
-        "standard": 3,
-        "difficult": 1
+        "standard": 6,
+        "difficult": 2
       },
-      "remaining": 996,
+      "remaining": 992,
       "mappedObjectives": 4,
       "representedObjectives": 4,
       "coverage": "partial_objective_register",
@@ -7859,18 +7865,18 @@
     }
   ],
   "errorCounts": {
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 590,
@@ -45151,6 +45157,30 @@
       "errors": []
     },
     {
+      "id": "ndv-305-001",
+      "file": "original-multisubject-batch-305.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-305-002",
+      "file": "original-multisubject-batch-305.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-305-003",
+      "file": "original-multisubject-batch-305.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-305-004",
+      "file": "original-multisubject-batch-305.json",
+      "index": 3,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -69600,20 +69630,20 @@
       "specificationId": "neco-yoruba-written-reference-2026",
       "id": "neco-yoruba-104-1-v1",
       "questionTypes": {
-        "structured": 1
+        "structured": 2
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 1,
-      "validDrafts": 1,
+      "questionCount": 2,
+      "validDrafts": 2,
       "difficulty": {
-        "standard": 1
+        "standard": 2
       },
       "tiers": {
-        "not_specified": 1
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -69629,20 +69659,20 @@
       "specificationId": "neco-yoruba-written-reference-2026",
       "id": "neco-yoruba-104-2-v1",
       "questionTypes": {
-        "structured": 1
+        "structured": 2
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 1,
-      "validDrafts": 1,
+      "questionCount": 2,
+      "validDrafts": 2,
       "difficulty": {
-        "standard": 1
+        "standard": 2
       },
       "tiers": {
-        "not_specified": 1
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -69658,20 +69688,20 @@
       "specificationId": "neco-yoruba-written-reference-2026",
       "id": "neco-yoruba-104-3-v1",
       "questionTypes": {
-        "structured": 1
+        "structured": 2
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 1,
-      "validDrafts": 1,
+      "questionCount": 2,
+      "validDrafts": 2,
       "difficulty": {
-        "standard": 1
+        "standard": 2
       },
       "tiers": {
-        "not_specified": 1
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -69687,20 +69717,20 @@
       "specificationId": "neco-yoruba-written-reference-2026",
       "id": "neco-yoruba-104-4-v1",
       "questionTypes": {
-        "structured": 1
+        "structured": 2
       },
       "sourceSections": [
         "NECO Paper II (format only); WAEC Yoruba Paper 2, school candidates 2023, Question 1 examiner observations"
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 1,
-      "validDrafts": 1,
+      "questionCount": 2,
+      "validDrafts": 2,
       "difficulty": {
-        "difficult": 1
+        "difficult": 2
       },
       "tiers": {
-        "not_specified": 1
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
