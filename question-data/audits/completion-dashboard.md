@@ -31,7 +31,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | IELTS | Speaking | 1000 | 34 | 34 | 0 | 966 | partial_objective_register |
 | IELTS | Writing | 1000 | 21 | 18 | 0 | 982 | partial_objective_register |
 | IGCSE | Biology [0610] | 1000 | 78 | 74 | 0 | 926 | partial_objective_register |
-| IGCSE | Chemistry [0620] | 1000 | 88 | 86 | 0 | 914 | partial_objective_register |
+| IGCSE | Chemistry [0620] | 1000 | 93 | 91 | 0 | 909 | partial_objective_register |
 | IGCSE | Economics [0455] | 1000 | 89 | 89 | 0 | 911 | partial_objective_register |
 | IGCSE | Mathematics | 1000 | 26 | 12 | 0 | 988 | partial_objective_register |
 | IGCSE | Physics [0625] | 1000 | 78 | 77 | 0 | 923 | partial_objective_register |
@@ -216,7 +216,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 |---|---:|---:|---:|---:|---:|
 | BECE | 153 | 153 | 0 | 18000 | 17847 |
 | IELTS | 221 | 212 | 0 | 4000 | 3788 |
-| IGCSE | 359 | 338 | 0 | 5000 | 4662 |
+| IGCSE | 364 | 343 | 0 | 5000 | 4657 |
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 482 | 447 | 0 | 36000 | 35553 |
@@ -225,7 +225,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5359, "validDrafts": 3680, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5364, "validDrafts": 3685, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -320,3 +320,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.
 - Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.
 - Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.
+- Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.

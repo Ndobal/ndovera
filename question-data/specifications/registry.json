@@ -206,7 +206,7 @@
       "sourceSha256": "6aab46afe64e4de40a447c36d1bfa382a10e9865eab9230af7915629cf576f0c",
       "sourceBytes": 1121078,
       "pageCount": 59,
-      "latestRecheck": "Official 0620 version 2 syllabus checked for rate of reaction (6.2, printed p. 19) and Core/Extended Theory Papers 3 and 4 (printed p. 9)."
+      "latestRecheck": "Official 0620 version 2 checked for rate of reaction (6.2, p. 19) and written Alternative to Practical experimental skills (section 4, pp. 41–42)."
     },
     {
       "id": "waec-commerce-compilation-2026",
@@ -38979,6 +38979,151 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Recording a gas-volume series",
+      "learningObjective": "Present measured gas volumes in a table and recognise a reading inconsistent with cumulative collection.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Timing bias",
+      "learningObjective": "Explain how delayed timing changes an observed initial interval and improve synchronisation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Means and repeatability of rate comparisons",
+      "learningObjective": "Summarise repeat results and distinguish an observed difference from a well-supported conclusion.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Planning a controlled rate comparison",
+      "learningObjective": "Plan a comparison of initial gas production with one variable changed.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Choosing collection capacity",
+      "learningObjective": "Assess whether an instrument can capture the whole reaction profile from pilot results.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-05-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core",
+        "Extended"
+      ],
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -39070,6 +39215,7 @@
     "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
     "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.",
     "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.",
-    "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open."
+    "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
+    "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open."
   ]
 }

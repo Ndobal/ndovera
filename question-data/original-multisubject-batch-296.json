@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Chemistry 0620: reaction-rate investigations",
+  "questionCount": 5,
+  "note": "Original written Alternative to Practical exercises for 2026–2028. All experimental records are fictional. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Recording a gas-volume series",
+      "learningObjective": "Present measured gas volumes in a table and recognise a reading inconsistent with cumulative collection.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-296-001",
+      "objectiveId": "igcse-0620-296-practical-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "A class examines a simulated reaction-rate record. The notes read: start, no collected gas; at 10 seconds, 8 cubic centimetres; at 20 seconds, 15 cubic centimetres; at 30 seconds, 13 cubic centimetres; at 40 seconds, 24 cubic centimetres. The model collector does not release any gas once collected. Draw a two-column results table with units in the headings, and identify which adjacent readings cannot both be correct. Explain briefly.",
+      "answer": "Headings: time / s and cumulative gas volume / cm³. Rows: (0, 0), (10, 8), (20, 15), (30, 13), (40, 24). The 20 s and 30 s readings cannot both be correct because the collected volume decreases despite the stated retention rule. These data alone do not establish which reading is wrong.",
+      "explanation": "A results table preserves the observations so a contradiction can be investigated. Replacing 13 with an invented value would conceal it.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses suitable column headings and units."
+        },
+        {
+          "marks": 1,
+          "description": "Records all five observations accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the readings at 20 s and 30 s."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why their decrease contradicts the collection model."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Timing bias",
+      "learningObjective": "Explain how delayed timing changes an observed initial interval and improve synchronisation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-296-002",
+      "objectiveId": "igcse-0620-296-practical-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "Two students compare reaction runs. Student A starts timing when the reactants meet. Student B starts five seconds after mixing and resets the display baseline to zero then. A worksheet asks each student for gas collected during their first ten seconds on the display. State the real interval for each and explain how to make the two values comparable.",
+      "answer": "A records actual seconds 0–10. B records actual seconds 5–15. Set the same starting event for both runs, for example having one student signal at first contact so the other starts timing and recording immediately. The delayed value leaves out the earliest five seconds and includes a later five seconds.",
+      "explanation": "An equal interval length does not make readings comparable if the intervals occur at different stages of a changing reaction.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies 0–10 s for A."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies 5–15 s for B."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the displaced interval matters."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a common observable timing event or synchronisation procedure."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "5+10",
+          "expected": 15,
+          "purpose": "Check worked answer arithmetic"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Means and repeatability of rate comparisons",
+      "learningObjective": "Summarise repeat results and distinguish an observed difference from a well-supported conclusion.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-296-003",
+      "objectiveId": "igcse-0620-296-practical-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "Three independent model runs for each condition record gas collected at 15 s. Condition J gives 16, 19 and 22 cm³. Condition K gives 18, 20 and 22 cm³. Calculate each mean. A student reports that K always produces more gas by 15 s. Evaluate that statement and propose a sensible follow-up.",
+      "answer": "J averages 19 cm³ and K averages 20 cm³. The observed mean for K is slightly higher, but both sets include 22 cm³, and the individual results overlap. These data do not show K always produces more. Repeat both sets under matched conditions and compare the means and spread.",
+      "explanation": "Variation among repeats can be larger than a difference between means. Reporting both helps avoid overclaiming.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives 19 cm³ for J."
+        },
+        {
+          "marks": 1,
+          "description": "Gives 20 cm³ for K."
+        },
+        {
+          "marks": 1,
+          "description": "Uses overlap or the equal 22 cm³ readings to challenge “always”."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes matched repeats and a relevant comparison of results."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(16+19+22)/3",
+          "expected": 19,
+          "purpose": "Check worked answer arithmetic"
+        },
+        {
+          "expression": "(18+20+22)/3",
+          "expected": 20,
+          "purpose": "Check worked answer arithmetic"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Planning a controlled rate comparison",
+      "learningObjective": "Plan a comparison of initial gas production with one variable changed.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-296-004",
+      "objectiveId": "igcse-0620-296-practical-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "Plan how to use a classroom simulation of bicarbonate reacting with dilute citric acid to compare two acid concentrations. The simulation reports elapsed time and cumulative gas volume. Identify what to change, name two conditions to keep the same, and describe what to record, how to compare rates and how to check that the result is repeatable.",
+      "answer": "Change the acid concentration only. Keep the volume of acid, mass and form of bicarbonate, and initial temperature fixed. Start the clock when the simulated reactants meet. Record cumulative gas volume at the same short time intervals. Compare gas produced over the same early interval or compare initial graph slopes. Repeat both concentrations under matched conditions and check the spread or compare their mean rates.",
+      "explanation": "Early intervals provide a comparison of how quickly product forms. Matching other conditions and repeating makes a difference easier to attribute to the chosen variable.",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes acid concentration."
+        },
+        {
+          "marks": 1,
+          "description": "States two suitable controls."
+        },
+        {
+          "marks": 1,
+          "description": "Starts timing at the same reaction event."
+        },
+        {
+          "marks": 1,
+          "description": "Records gas volumes at matched time intervals."
+        },
+        {
+          "marks": 1,
+          "description": "Compares the same early interval or estimates initial slopes consistently."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats each condition and checks consistency or compares means."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "create",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Choosing collection capacity",
+      "learningObjective": "Assess whether an instrument can capture the whole reaction profile from pilot results.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-296-005",
+      "objectiveId": "igcse-0620-296-practical-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO3"
+      ],
+      "practiceComponent": "alternative-to-practical",
+      "practicePaper": 6,
+      "type": "structured",
+      "prompt": "A teacher’s pilot log shows 15 cm³ of gas at 10 s, 28 cm³ at 20 s, and 36 cm³ at 30 s. After 30 s the readings remain at 36 cm³. A group proposes measuring the same reaction with a collector that stops recording at 30 cm³. Explain which part of the comparison would still be usable, what could be misleading about its later readings, and which of two available collectors, 25 cm³ or 50 cm³, is better for measuring the whole curve.",
+      "answer": "Early readings below 30 cm³ can still be compared, including those at 10 s and 20 s. Later readings could flatten at the instrument limit even while the reaction continues. The 50 cm³ collector is suitable for the pilot’s expected final volume of 36 cm³, while 25 cm³ is too small.",
+      "explanation": "An observed plateau at the instrument limit cannot establish that the reaction has ended. A suitable range leaves room for the final reading.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies comparable early readings below capacity."
+        },
+        {
+          "marks": 1,
+          "description": "Explains an artificial plateau at the limit."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the 50 cm³ collector."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the expected 36 cm³ volume to justify the choice."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

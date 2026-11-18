@@ -1635,3 +1635,7 @@ Each uses a model system and includes an original marking guide.
 Batch 295 adds seven Cambridge IGCSE Chemistry (0620) Core and Extended
 Theory drafts on reaction rates for 2026–2028. Original model data and
 point-based marking guides support rate calculations and collision reasoning.
+
+Batch 296 adds five Cambridge IGCSE Chemistry (0620) Paper 6 drafts on
+reaction-rate investigations, covering results tables, timing bias,
+repeat variability, controlled planning and instrument range.

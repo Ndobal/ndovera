@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5359,
-    "validDrafts": 3680,
+    "raw": 5364,
+    "validDrafts": 3685,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1906,6 +1906,12 @@
       "actual": 7
     },
     {
+      "path": "original-multisubject-batch-296.json",
+      "sha256": "b691d6412946072b348ac34ca24074eb26ee21448851e0aeb73a41e58568150d",
+      "declared": 5,
+      "actual": 5
+    },
+    {
       "path": "original-practice-batch-001.json",
       "sha256": "182e07a2f6f22531d695ad3159e3ec61c7a8853003a33eb21b41e9158f65c262",
       "declared": 40,
@@ -2745,22 +2751,22 @@
         2028
       ],
       "note": "Only code-specific questions may count; legacy unassigned entries remain held. Other Cambridge codes are separate unresolved scope.",
-      "raw": 88,
-      "validDrafts": 86,
+      "raw": 93,
+      "validDrafts": 91,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 32,
-        "structured": 56
+        "structured": 61
       },
       "difficulty": {
-        "standard": 54,
+        "standard": 57,
         "easy": 17,
-        "difficult": 15,
+        "difficult": 17,
         "missing": 2
       },
-      "remaining": 914,
-      "mappedObjectives": 27,
-      "representedObjectives": 27,
+      "remaining": 909,
+      "mappedObjectives": 32,
+      "representedObjectives": 32,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7805,9 +7811,9 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -7815,11 +7821,11 @@
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "invalid_score": 81,
-    "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 564,
+    "explicitArithmeticClaims": 567,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -44476,6 +44482,36 @@
       "id": "ndv-295-007",
       "file": "original-multisubject-batch-295.json",
       "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-296-001",
+      "file": "original-multisubject-batch-296.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-296-002",
+      "file": "original-multisubject-batch-296.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-296-003",
+      "file": "original-multisubject-batch-296.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-296-004",
+      "file": "original-multisubject-batch-296.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-296-005",
+      "file": "original-multisubject-batch-296.json",
+      "index": 4,
       "errors": []
     },
     {
@@ -110262,6 +110298,201 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Recording a gas-volume series",
+      "learningObjective": "Present measured gas volumes in a table and recognise a reading inconsistent with cumulative collection.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Timing bias",
+      "learningObjective": "Explain how delayed timing changes an observed initial interval and improve synchronisation.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Means and repeatability of rate comparisons",
+      "learningObjective": "Summarise repeat results and distinguish an observed difference from a well-supported conclusion.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Planning a controlled rate comparison",
+      "learningObjective": "Plan a comparison of initial gas production with one variable changed.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "difficult": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Choosing collection capacity",
+      "learningObjective": "Assess whether an instrument can capture the whole reaction profile from pilot results.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "igcse-0620-296-practical-05-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": {
+        "Core": 1
+      },
+      "sourceSections": [
+        "6.2 Core 3–4, printed p. 19",
+        "Section 4 Paper 6 and experimental skills, printed pp. 41–42"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "assessmentObjectives": {
+        "AO3": 1
+      },
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -110353,6 +110584,7 @@
     "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
     "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open.",
     "Batch 294 adds selected Cambridge 0620 section 6.3 Extended Theory questions. Complete syllabus coverage, full paper assembly and independent review remain open.",
-    "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open."
+    "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
+    "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open."
   ]
 }
