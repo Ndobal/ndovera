@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5337,
-    "validDrafts": 3658,
+    "raw": 5342,
+    "validDrafts": 3663,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1880,6 +1880,12 @@
       "sha256": "a5e3b21b1d1cf6f8dabcd180d3e0874eed453a4d60988f3ef4cba19383b801d9",
       "declared": 4,
       "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-292.json",
+      "sha256": "6ccef34ece4c1a925e555c628666b302409c294a93781af9644d72c93f682d2f",
+      "declared": 5,
+      "actual": 5
     },
     {
       "path": "original-practice-batch-001.json",
@@ -7037,21 +7043,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 25,
-      "validDrafts": 25,
+      "raw": 30,
+      "validDrafts": 30,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 15,
-        "structured": 10
+        "structured": 15
       },
       "difficulty": {
         "easy": 8,
-        "standard": 13,
+        "standard": 18,
         "difficult": 4
       },
-      "remaining": 975,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 970,
+      "mappedObjectives": 13,
+      "representedObjectives": 13,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7783,19 +7789,19 @@
   "errorCounts": {
     "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "explanation_missing": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81,
-    "explanation_missing": 81
+    "invalid_score": 81
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 553,
+    "explicitArithmeticClaims": 556,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -44320,6 +44326,36 @@
       "id": "ndv-291-004",
       "file": "original-multisubject-batch-291.json",
       "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-292-001",
+      "file": "original-multisubject-batch-292.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-292-002",
+      "file": "original-multisubject-batch-292.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-292-003",
+      "file": "original-multisubject-batch-292.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-292-004",
+      "file": "original-multisubject-batch-292.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-292-005",
+      "file": "original-multisubject-batch-292.json",
+      "index": 4,
       "errors": []
     },
     {
@@ -109348,6 +109384,151 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Insurable interest",
+      "learningObjective": "Relate insurable interest to the financial consequences of loss.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Indemnity",
+      "learningObjective": "Use the principle of indemnity to distinguish insured loss from betterment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Subrogation",
+      "learningObjective": "Explain why an insurer may pursue recovery after settling a claim.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Contribution",
+      "learningObjective": "Allocate a covered loss under an explicitly stated contribution rule.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Material disclosure",
+      "learningObjective": "Explain why an insurer needs relevant information when assessing a risk.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-05-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -109435,6 +109616,7 @@
     "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open.",
     "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.",
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
-    "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open."
+    "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
+    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified."
   ]
 }

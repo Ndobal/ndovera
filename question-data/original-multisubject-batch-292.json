@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Commerce: applying insurance principles",
+  "questionCount": 5,
+  "note": "Original written practice scenarios with stated assumptions. Historical WAEC examiner material supports topic and format precedent. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Insurable interest",
+      "learningObjective": "Relate insurable interest to the financial consequences of loss.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-292-001",
+      "objectiveId": "waec-commerce-292-insurance-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A trader owns a delivery tricycle. A second trader rents it until Friday under an agreement that makes the renter liable for accidental damage during the rental. Explain how both traders could have an insurable interest and why their interests are different.",
+      "answer": "The owner has a financial interest in the value of the tricycle because damage can reduce its value. The renter can face a financial loss through the agreed liability for damage during the rental. Ownership of the asset and liability under the agreement provide different grounds for interest.",
+      "explanation": "The two parties may suffer different losses from the same event. Each claim would depend on the policy covering that party’s interest.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links ownership to the asset’s value."
+        },
+        {
+          "marks": 1,
+          "description": "Links the renter’s interest to the liability agreement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the parties’ respective financial exposures differ."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Indemnity",
+      "learningObjective": "Use the principle of indemnity to distinguish insured loss from betterment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-292-002",
+      "objectiveId": "waec-commerce-292-insurance-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A covered accident damages a shop’s cabinet. A repair costing ₦90,000 would restore it to its condition before the accident. The shopkeeper wants ₦140,000 to replace it with a larger cabinet. Assume the policy pays the reasonable restoration cost, with no excess. State the amount payable and explain why the insurer need not fund the larger cabinet.",
+      "answer": "₦90,000. The repair restores the prior condition. The extra ₦50,000 would pay for an upgrade beyond the loss covered by the policy.",
+      "explanation": "Indemnity seeks to put the insured in the financial position they occupied before the loss, within the policy terms.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies ₦90,000 as payable."
+        },
+        {
+          "marks": 1,
+          "description": "Links payment to restoring the earlier position."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the additional improvement is excluded under the stated terms."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "140000-90000",
+          "expected": 50000,
+          "purpose": "Verify model insurance calculation"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Subrogation",
+      "learningObjective": "Explain why an insurer may pursue recovery after settling a claim.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-292-003",
+      "objectiveId": "waec-commerce-292-insurance-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "An insurer pays a shop the full covered cost of damage caused by a delivery driver. The driver’s company later accepts responsibility. In the simplified scenario, the insurer has the right to pursue the responsible company after paying. Name this principle and explain why the shop cannot also retain a second payment for the same loss.",
+      "answer": "Subrogation. After settling the loss, the insurer can exercise the shop’s recovery rights against the responsible party, to the extent of its payment. A second payment retained by the shop would compensate it twice for the same loss.",
+      "explanation": "Subrogation concerns recovery from the responsible third party after payment. It does not make the original loss larger.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names subrogation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the insurer’s right of recovery after settlement."
+        },
+        {
+          "marks": 1,
+          "description": "Links the restriction to avoiding double recovery for the same loss."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Contribution",
+      "learningObjective": "Allocate a covered loss under an explicitly stated contribution rule.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-292-004",
+      "objectiveId": "waec-commerce-292-insurance-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A wholesaler has two policies covering the same stock and risk. The insurers have agreed to share any covered loss in the ratio 3:2, with no excess. A covered incident causes ₦250,000 in damage. Calculate what each insurer pays and state why the wholesaler does not receive ₦250,000 from each of them.",
+      "answer": "The first insurer pays ₦150,000 and the second pays ₦100,000. The agreed ratio divides the single ₦250,000 loss between the insurers.",
+      "explanation": "There are five ratio parts of ₦50,000 each. Contribution divides the loss across policies while keeping total compensation at the covered amount.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses five parts or ₦50,000 per part."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates ₦150,000 for the first insurer."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates ₦100,000 for the second insurer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why payment is shared for one covered loss."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "250000*3/5",
+          "expected": 150000,
+          "purpose": "Verify model insurance calculation"
+        },
+        {
+          "expression": "250000*2/5",
+          "expected": 100000,
+          "purpose": "Verify model insurance calculation"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Material disclosure",
+      "learningObjective": "Explain why an insurer needs relevant information when assessing a risk.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-292-005",
+      "objectiveId": "waec-commerce-292-insurance-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A baker moves production from a shared kitchen to a separate site before applying for fire insurance. The application asks where baking takes place and about the equipment at that site. Explain why giving the old address would matter to the insurer and state what the baker should disclose.",
+      "answer": "Site and equipment details can affect the insurer’s assessment of fire risk and the terms it offers. The baker should give the new operating address and accurately describe the equipment used there.",
+      "explanation": "Under the classroom principle of utmost good faith, relevant facts help the insurer assess the actual business risk.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the new operating address as relevant."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an accurate equipment description as relevant."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how those details can affect risk assessment or policy terms."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}

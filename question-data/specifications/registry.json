@@ -216,7 +216,8 @@
       "file": "WAEC_All_Subjects_Syllabus.docx",
       "officialCrossCheck": "https://waeconline.org.ng/e-learning/Commerce/Commmain.html",
       "status": "provisional_full_current_official_specification_and_country_alignment_pending",
-      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised."
+      "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised.",
+      "latestRecheck": "2026-11-18: WAEC examiner resource WASSCE Private Candidates 2023, Question 7, supports past written assessment of insurance principles. Complete current Nigerian WASSCE syllabus and paper blueprint remain unverified."
     },
     {
       "id": "waec-accounts-compilation-2026",
@@ -38471,6 +38472,91 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Insurable interest",
+      "learningObjective": "Relate insurable interest to the financial consequences of loss.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Indemnity",
+      "learningObjective": "Use the principle of indemnity to distinguish insured loss from betterment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Subrogation",
+      "learningObjective": "Explain why an insurer may pursue recovery after settling a claim.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Contribution",
+      "learningObjective": "Allocate a covered loss under an explicitly stated contribution rule.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Insurance",
+      "subtopic": "Material disclosure",
+      "learningObjective": "Explain why an insurer needs relevant information when assessing a risk.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-292-insurance-05-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "WAEC historical examiner resource: WASSCE (PC) 2023 Question 7, https://waeconline.org.ng/e-learning/Commerce/comm240jq7.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38558,6 +38644,7 @@
     "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open.",
     "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.",
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
-    "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open."
+    "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
+    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified."
   ]
 }

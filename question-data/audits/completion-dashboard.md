@@ -173,7 +173,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | WAEC | Christian Religious Knowledge (CRK) | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Citizenship and Heritage Studies | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | WAEC | Civic Education | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
-| WAEC | Commerce | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
+| WAEC | Commerce | 1000 | 30 | 30 | 0 | 970 | partial_objective_register |
 | WAEC | Computer Hardware and GSM Repairs | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
 | WAEC | Computer Studies | 1000 | 25 | 25 | 0 | 975 | partial_objective_register |
 | WAEC | Data Processing | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
@@ -223,9 +223,9 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 171 | 162 | 0 | 4000 | 3838 |
-| WAEC | 1317 | 518 | 0 | 45000 | 44482 |
+| WAEC | 1322 | 523 | 0 | 45000 | 44477 |
 
-Overall: {"raw": 5337, "validDrafts": 3658, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5342, "validDrafts": 3663, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -316,3 +316,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.
 - Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.
 - Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.
+- Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.

@@ -1619,3 +1619,7 @@ versus counts, early versus final results, and counterevidence.
 Batch 291 adds four SAT Reading and Writing quantitative evidence drafts
 with original line graphs or grouped bar charts and data-equivalent text
 alternatives. Application rendering remains open.
+
+Batch 292 adds five structured WAEC Commerce drafts on insurance
+principles. Official historical examiner material supports written
+assessment precedent. The current full specification remains open.
