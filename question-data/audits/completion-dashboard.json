@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5319,
-    "validDrafts": 3640,
+    "raw": 5327,
+    "validDrafts": 3648,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1862,6 +1862,12 @@
       "sha256": "4c2001aa99ebe434a781204fdc0b6880463e01974ef17671be74311bbfcd2d9f",
       "declared": 4,
       "actual": 4
+    },
+    {
+      "path": "original-multisubject-batch-289.json",
+      "sha256": "2e611c69fbad31aa43dd4a793b8da5a06a5d7aef73c5b1dd989ac90eb59e2f6a",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6681,18 +6687,18 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "official_current_section_domains_seen",
-      "raw": 60,
-      "validDrafts": 57,
+      "raw": 68,
+      "validDrafts": 65,
       "reviewed": 0,
       "questionTypes": {
-        "mcq": 60
+        "mcq": 68
       },
       "difficulty": {
-        "standard": 46,
-        "difficult": 11,
+        "standard": 50,
+        "difficult": 15,
         "missing": 3
       },
-      "remaining": 943,
+      "remaining": 935,
       "mappedObjectives": 15,
       "representedObjectives": 15,
       "coverage": "partial_objective_register",
@@ -7764,17 +7770,17 @@
   ],
   "errorCounts": {
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 537,
@@ -44197,6 +44203,54 @@
       "errors": []
     },
     {
+      "id": "ndv-289-001",
+      "file": "original-multisubject-batch-289.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-002",
+      "file": "original-multisubject-batch-289.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-003",
+      "file": "original-multisubject-batch-289.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-004",
+      "file": "original-multisubject-batch-289.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-005",
+      "file": "original-multisubject-batch-289.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-006",
+      "file": "original-multisubject-batch-289.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-007",
+      "file": "original-multisubject-batch-289.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-289-008",
+      "file": "original-multisubject-batch-289.json",
+      "index": 7,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -79113,20 +79167,21 @@
       "learningObjective": "Compare related texts and identify agreement or response.",
       "specificationId": "sat-rw-official-specifications-rechecked-2026",
       "questionTypes": {
-        "mcq": 2
+        "mcq": 6
       },
       "sourceSections": [
         "Craft and Structure / Cross-Text Connections"
       ],
       "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 2,
-      "validDrafts": 2,
+      "questionCount": 6,
+      "validDrafts": 6,
       "difficulty": {
-        "difficult": 2
+        "difficult": 5,
+        "standard": 1
       },
       "tiers": {
-        "not_specified": 2
+        "not_specified": 6
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -79171,21 +79226,21 @@
       "learningObjective": "Use supplied notes to fulfil a stated rhetorical goal.",
       "specificationId": "sat-rw-official-specifications-rechecked-2026",
       "questionTypes": {
-        "mcq": 4
+        "mcq": 8
       },
       "sourceSections": [
         "Expression of Ideas / Rhetorical Synthesis"
       ],
       "mappingStatus": "author_proposed_against_official_skill_labels_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 4,
-      "validDrafts": 4,
+      "questionCount": 8,
+      "validDrafts": 8,
       "difficulty": {
-        "standard": 3,
-        "difficult": 1
+        "standard": 6,
+        "difficult": 2
       },
       "tiers": {
-        "not_specified": 4
+        "not_specified": 8
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -109274,6 +109329,7 @@
     "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.",
     "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial.",
     "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open.",
-    "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open."
+    "Batch 288 adds selected Cambridge 0625 Paper 6 cooling-data analysis and experiment planning for either tier. Paper 5 hands-on assessment and full papers remain open.",
+    "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open."
   ]
 }

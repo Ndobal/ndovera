@@ -1607,3 +1607,7 @@ Paper 4 practice use original point-based marking guides.
 Batch 288 adds four Cambridge IGCSE Physics (0625) Paper 6 drafts on
 cooling data, graph scaling, probe bias and investigation design. The
 tasks are written Alternative to Practical practice for 2026–2028.
+
+Batch 289 adds eight SAT Reading and Writing drafts on Cross-Text
+Connections and Rhetorical Synthesis. Each uses its own original stimulus.
+Adaptive assembly and calibration remain open.
