@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Nigerian History mobilisation and UN admission practice",
+  "questionCount": 8,
+  "note": "Original drafts under existing provisional cross-board mappings. Practice marks and rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-001",
+      "prompt": "Explain how the formation of trade unions could contribute to nationalist mobilisation in colonial Nigeria. Give one reason why evidence of a union’s existence alone would be insufficient to establish its contribution to a particular constitutional reform.",
+      "answer": "Unions could organise workers around shared grievances and support collective demands. Establishing a link to a specific reform requires evidence of what the union demanded, what it did and how decision makers responded.",
+      "explanation": "The answer must connect organisation with action and identify the further evidence needed to support a causal claim.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a way unions could organise or mobilise workers."
+        },
+        {
+          "marks": 1,
+          "description": "Links collective demands or action to political pressure."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies evidence needed to connect a union to a particular reform."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-002",
+      "prompt": "How could collaboration with nationalist groups outside Nigeria strengthen Nigerian campaigns for constitutional change? Explain one possible benefit and one limit of using such collaboration as evidence that a particular reform would occur.",
+      "answer": "Collaboration could spread information, provide support or share organising experience. It could strengthen a campaign while the outcome still depended on decisions and negotiations affecting Nigeria. A contact abroad alone does not establish that a reform had been agreed.",
+      "explanation": "Credit a clear mechanism for support and a limit on what it demonstrates about the constitutional outcome.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a possible form of cross-border collaboration."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it could strengthen campaigning."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the contact alone cannot establish an agreed reform."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-003",
+      "prompt": "A historian finds a nationalist programme combining cultural events with political discussion. Which interpretation best explains how the activities could support a common aim?",
+      "answer": "Cultural participation could build shared identification while political discussion connected it to demands for change.",
+      "explanation": "The interpretation explains a link between cultural awareness and political mobilisation.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Cultural events automatically transferred legislative authority to their organisers.",
+        "A political programme prevented participants from taking part in cultural activities.",
+        "Cultural participation could build shared identification while political discussion connected it to demands for change.",
+        "Public discussion established the date of independence without further decisions."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Nationalist methods and constitutional change",
+      "learningObjective": "Explain how mobilisation and negotiation contributed to constitutional change.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-004",
+      "prompt": "Why did the formation of political parties matter for nationalist participation in the constitutional institutions of the 1950s?",
+      "answer": "Parties could organise candidates and support for the electoral opportunities created by constitutional change.",
+      "explanation": "The answer links political organisation to participation in representative institutions.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Parties could organise candidates and support for the electoral opportunities created by constitutional change.",
+        "Parties replaced every regional institution immediately upon registration.",
+        "Party membership was equivalent to membership of the United Nations.",
+        "Creating a party ended all differences over the allocation of powers."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-005",
+      "prompt": "United Nations records show a Security Council recommendation and a General Assembly decision concerning Nigeria on 7 October 1960. Explain what each body did and why the two records concern stages of one admission process.",
+      "answer": "The Council recommended admission. The Assembly considered the application and admitted Nigeria. The recommendation and decision belong to the membership process that followed Nigeria’s independence.",
+      "explanation": "The Assembly record explicitly refers to receiving the Council’s recommendation before deciding to admit Nigeria.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the Council’s recommendation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the Assembly’s admission decision."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the procedural relationship and places admission after independence."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-006",
+      "prompt": "The UN Mandate Registry labels Nigeria’s admission resolution as published in 1961, while the resolution text ends with 7 October 1960. A learner uses the publication label as the admission date. Explain how to resolve this discrepancy.",
+      "answer": "Publication metadata and the date of the decision describe different events. The resolution’s decision date is 7 October 1960, which the UN Nigeria membership account corroborates. The 1961 publication label does not change the date of admission.",
+      "explanation": "The task distinguishes the date of a historical act from the date assigned to its publication.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes publication metadata from decision dating."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the 7 October 1960 date in the resolution."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the corroborating UN Nigeria account."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-007",
+      "prompt": "Which statement about Security Council resolution 160 (1960) and General Assembly resolution 1492 (XV) best fits the UN records of Nigeria’s admission?",
+      "answer": "The Council recommended membership and the Assembly decided to admit Nigeria.",
+      "explanation": "The documents record complementary institutional actions in the admission process.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Both documents created Nigeria’s independence constitution.",
+        "The Council admitted Nigeria while the Assembly selected its first government.",
+        "The Assembly decided the borders of the three Nigerian regions.",
+        "The Council recommended membership and the Assembly decided to admit Nigeria."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Nigerian History",
+      "topic": "Decolonisation",
+      "subtopic": "Independence and international recognition",
+      "learningObjective": "Distinguish the 1960 independence settlement from admission to the United Nations.",
+      "specificationId": "neco-history-independence-reference-2026",
+      "objectiveId": "neco-history-076-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "id": "ndv-308-008",
+      "prompt": "A museum display has one panel on the 1 October 1960 independence settlement and another on the UN action of 7 October. Which evidence would best help visitors understand the second panel’s institutional purpose?",
+      "answer": "The admission resolution’s reference to Nigeria’s application and the Council’s recommendation.",
+      "explanation": "Those references explain what the UN bodies were considering and deciding.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The number of modern UN offices operating in Nigeria.",
+        "The admission resolution’s reference to Nigeria’s application and the Council’s recommendation.",
+        "A current timetable for Nigerian school examinations.",
+        "A list of cultural festivals held many years after independence."
+      ],
+      "correctOption": "B"
+    }
+  ]
+}

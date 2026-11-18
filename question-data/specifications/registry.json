@@ -1233,7 +1233,11 @@
         "https://nigeria.un.org/en/about/about-the-un"
       ],
       "retrievedOn": "2026-11-05",
-      "note": "The 2026 timetable confirms Paper II (4112, essay) and Paper III (4113, objective). WAEC examiner materials support provisional scope. The enacted Independence Act and United Nations records anchor the independence and admission dates. Official NECO learning objectives remain unverified."
+      "lastSourceRecheck": "2026-11-18",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "admissionRecheck": ["https://digitallibrary.un.org/record/280616", "https://mandates.un.org/mandate/A/RES/1492(XV)?subject=Nigeria"],
+      "retrievalNote": "The legislation HTML could not be parsed by the web retrieval tool and a direct XML request returned zero bytes on 18 November 2026. No fresh Act retrieval is claimed. The UN admission resolution and UN Nigeria membership account were accessible. The separate UN document A/4533 PDF returned 403. The Assembly registry publication label is 1961 while the resolution decision is dated 7 October 1960.",
+      "note": "The 2026 timetable confirms Paper II (4112, essay) and Paper III (4113, objective). The published 2027 timetable retains these codes in a combined three-hour sitting. WAEC examiner materials support provisional scope. The enacted Independence Act and United Nations records anchor the independence and admission dates. Official NECO learning objectives remain unverified."
     },
     {
       "id": "neco-foods-planning-hygiene-reference-2026",
