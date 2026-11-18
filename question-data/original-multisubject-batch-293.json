@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 2,
+  "collection": "WAEC Commerce: trade document interpretation",
+  "questionCount": 5,
+  "note": "Original written practice. Historical examiner resources support topic and format precedent. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Delivery checks",
+      "learningObjective": "Use a delivery note to document a shortage before accepting a consignment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-293-001",
+      "objectiveId": "waec-commerce-293-docs-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A school shop orders 18 cartons of exercise books. Its delivery note lists 18, but only 16 are unloaded. The driver asks the clerk to sign the note before leaving. Explain how the clerk should record the delivery and why the signed note matters to both businesses.",
+      "answer": "Record 16 cartons received and a shortage of two on the delivery note before signing. Keep a copy of the annotated record and notify the supplier. The record gives both sides evidence of what arrived so the supplier can investigate the shortage.",
+      "explanation": "An unqualified signature could suggest the whole consignment was accepted. Recording the count and discrepancy preserves evidence for reconciliation.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Records actual receipt of 16 cartons."
+        },
+        {
+          "marks": 1,
+          "description": "Records the shortage of two before signing."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps or shares the annotated record with the supplier."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its evidential role in resolving a shortage."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "18-16",
+          "expected": 2,
+          "purpose": "Check document reconciliation arithmetic"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Consignment instructions",
+      "learningObjective": "Explain what information a carrier needs to transport goods to the correct recipient.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-293-002",
+      "objectiveId": "waec-commerce-293-docs-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A textile wholesaler hires a road carrier to take labelled bundles to two branches in the same town. The branches sell similar stock. Explain how a consignment note could prevent a mix-up and identify two details that the consignor should record to make the dispatch traceable.",
+      "answer": "Prepare a separate consignment record for each branch. Include the consignee’s name and full delivery address and identify the goods, for example with bundle numbers, quantities or descriptions. The carrier can match the packages to their intended branch and the wholesaler can trace a disputed delivery.",
+      "explanation": "The note connects carriage instructions to the packages. Similar stock makes package identifiers and branch details particularly useful.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains identifying each destination separately."
+        },
+        {
+          "marks": 1,
+          "description": "Gives consignee name and address or equivalent unambiguous destination."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a meaningful package identifier, quantity or description."
+        },
+        {
+          "marks": 1,
+          "description": "Links those details to a delivery check or traceable dispatch."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Bill of lading and receipt for carriage",
+      "learningObjective": "Interpret what an on-board bill of lading shows about shipment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-293-003",
+      "objectiveId": "waec-commerce-293-docs-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A Lagos importer receives an ocean carrier’s on-board bill of lading for a crate of replacement parts. A colleague says the document proves the crate has already reached the importer’s warehouse. Explain the error and state two things the document can show at the shipment stage.",
+      "answer": "An on-board bill records that the goods were loaded for the sea voyage. It does not prove receipt at the inland warehouse. It can acknowledge the goods loaded and evidence the contract of carriage, including shipment details such as the vessel and destination port.",
+      "explanation": "Shipment evidence and proof of final delivery refer to different points in the journey.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes loading for sea carriage from inland delivery."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the bill’s receipt function for the shipment."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that it evidences carriage terms or identifies an example of a carriage detail."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Debit note for underbilling",
+      "learningObjective": "Interpret how a seller’s debit note changes the buyer’s outstanding balance.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-293-004",
+      "objectiveId": "waec-commerce-293-docs-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A supplier invoices a retailer for ₦72,000 on credit. The supplier discovers that an agreed ₦4,500 delivery charge was omitted. The parties use seller-issued debit notes to correct undercharges. Identify the document to issue, calculate the corrected balance before payment and explain the direction of the adjustment.",
+      "answer": "The supplier issues a debit note for ₦4,500. The corrected balance is ₦76,500 because the debit note adds the agreed charge omitted from the original invoice.",
+      "explanation": "Under the stated convention, a seller-issued debit note increases the outstanding balance. No payment has yet reduced it.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a seller-issued debit note."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates ₦76,500."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the omitted agreed charge increases the amount due."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "72000+4500",
+          "expected": 76500,
+          "purpose": "Check document reconciliation arithmetic"
+        }
+      ]
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Reconciling receipts and dispatches",
+      "learningObjective": "Reconcile road dispatch paperwork with a signed receipt record.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "ndv-293-005",
+      "objectiveId": "waec-commerce-293-docs-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "type": "structured",
+      "prompt": "A retailer receives two motorcycle deliveries from one supplier on the same day. The carrier’s consignment note for the morning lists 12 parcels, and the signed morning delivery note records 12 received. The afternoon consignment note lists 9, but the afternoon delivery note records 6 received. Calculate the total number received and identify which record comparison should guide the supplier’s follow-up.",
+      "answer": "The retailer received 18 parcels. Comparing the afternoon consignment note with the signed afternoon delivery note shows a gap of three. The morning records agree. The supplier should investigate the afternoon dispatch without assuming from those documents alone where the parcels went.",
+      "explanation": "The dispatch record reports the parcels consigned. The signed receiving record reports the parcels actually received.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the receiving records to total 18 parcels."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the two afternoon records as the relevant comparison."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates an afternoon gap of three."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids claiming that the records alone establish the cause."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "12+6",
+          "expected": 18,
+          "purpose": "Check document reconciliation arithmetic"
+        },
+        {
+          "expression": "9-6",
+          "expected": 3,
+          "purpose": "Check document reconciliation arithmetic"
+        }
+      ]
+    }
+  ]
+}

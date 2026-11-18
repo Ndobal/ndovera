@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5342,
-    "validDrafts": 3663,
+    "raw": 5347,
+    "validDrafts": 3668,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1884,6 +1884,12 @@
     {
       "path": "original-multisubject-batch-292.json",
       "sha256": "6ccef34ece4c1a925e555c628666b302409c294a93781af9644d72c93f682d2f",
+      "declared": 5,
+      "actual": 5
+    },
+    {
+      "path": "original-multisubject-batch-293.json",
+      "sha256": "37d6f77af774193e2edaafeec8b04d86fe65230795795c6d6a4bbc593786edde",
       "declared": 5,
       "actual": 5
     },
@@ -7043,21 +7049,21 @@
       "level": "",
       "target": 1000,
       "scopeStatus": "candidate_from_supplied_compilation",
-      "raw": 30,
-      "validDrafts": 30,
+      "raw": 35,
+      "validDrafts": 35,
       "reviewed": 0,
       "questionTypes": {
         "mcq": 15,
-        "structured": 15
+        "structured": 20
       },
       "difficulty": {
         "easy": 8,
-        "standard": 18,
+        "standard": 23,
         "difficult": 4
       },
-      "remaining": 970,
-      "mappedObjectives": 13,
-      "representedObjectives": 13,
+      "remaining": 965,
+      "mappedObjectives": 18,
+      "representedObjectives": 18,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7787,21 +7793,21 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
-    "explicitArithmeticClaims": 556,
+    "explicitArithmeticClaims": 560,
     "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
     "failureCount": 0,
     "logicTables": 2
@@ -44355,6 +44361,36 @@
     {
       "id": "ndv-292-005",
       "file": "original-multisubject-batch-292.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-293-001",
+      "file": "original-multisubject-batch-293.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-293-002",
+      "file": "original-multisubject-batch-293.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-293-003",
+      "file": "original-multisubject-batch-293.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-293-004",
+      "file": "original-multisubject-batch-293.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-293-005",
+      "file": "original-multisubject-batch-293.json",
       "index": 4,
       "errors": []
     },
@@ -109529,6 +109565,151 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Delivery checks",
+      "learningObjective": "Use a delivery note to document a shortage before accepting a consignment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-01-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Consignment instructions",
+      "learningObjective": "Explain what information a carrier needs to transport goods to the correct recipient.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-02-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Bill of lading and receipt for carriage",
+      "learningObjective": "Interpret what an on-board bill of lading shows about shipment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-03-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Debit note for underbilling",
+      "learningObjective": "Interpret how a seller’s debit note changes the buyer’s outstanding balance.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-04-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2022: https://waeconline.org.ng/e-learning/Commerce/comm235jq3.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Reconciling receipts and dispatches",
+      "learningObjective": "Reconcile road dispatch paperwork with a signed receipt record.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-05-v1",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -109617,6 +109798,7 @@
     "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.",
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
     "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
-    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified."
+    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
+    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open."
   ]
 }

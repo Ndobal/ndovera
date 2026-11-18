@@ -217,7 +217,7 @@
       "officialCrossCheck": "https://waeconline.org.ng/e-learning/Commerce/Commmain.html",
       "status": "provisional_full_current_official_specification_and_country_alignment_pending",
       "note": "No current tax rates or changing statutory thresholds assumed. JAMB accounts full official PDF was not retrieved. WAEC country-specific starred sections are not silently generalised.",
-      "latestRecheck": "2026-11-18: WAEC examiner resource WASSCE Private Candidates 2023, Question 7, supports past written assessment of insurance principles. Complete current Nigerian WASSCE syllabus and paper blueprint remain unverified."
+      "latestRecheck": "2026-11-18: Historical WAEC WASSCE Private Candidates examiner resources confirm written assessment of trade documents. Full current Nigerian syllabus and paper blueprint remain unverified."
     },
     {
       "id": "waec-accounts-compilation-2026",
@@ -38557,6 +38557,91 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Delivery checks",
+      "learningObjective": "Use a delivery note to document a shortage before accepting a consignment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Consignment instructions",
+      "learningObjective": "Explain what information a carrier needs to transport goods to the correct recipient.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Bill of lading and receipt for carriage",
+      "learningObjective": "Interpret what an on-board bill of lading shows about shipment.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Debit note for underbilling",
+      "learningObjective": "Interpret how a seller’s debit note changes the buyer’s outstanding balance.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2022: https://waeconline.org.ng/e-learning/Commerce/comm235jq3.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "WAEC",
+      "subject": "Commerce",
+      "topic": "Trade and distribution",
+      "subtopic": "Reconciling receipts and dispatches",
+      "learningObjective": "Reconcile road dispatch paperwork with a signed receipt record.",
+      "specificationId": "waec-commerce-compilation-2026",
+      "id": "waec-commerce-293-docs-05-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Historical WASSCE Private Candidates examiner resource, 2016: https://www.waeconline.org.ng/e-learning/Commerce/comm225nq4.html"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38645,6 +38730,7 @@
     "Batch 289 extends SAT Cross-Text Connections and Rhetorical Synthesis with original paired texts and research-note stimuli. Adaptive assembly, score calibration and academic review remain open.",
     "Batch 290 extends SAT quantitative evidence with six original model tables. Graph-based coverage, table rendering in the application, adaptive assembly, calibration and independent review remain open.",
     "Batch 291 adds four original SAT quantitative evidence graphs with complete data in text alternatives. In-app rendering, adaptive assembly, calibration and independent review remain open.",
-    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified."
+    "Batch 292 adds original structured WAEC Commerce insurance scenarios. The official historical examiner resource supports topic and format precedent only. Full current Nigerian paper specification and the official JAMB Commerce syllabus remain unverified.",
+    "Batch 293 adds original written WAEC Commerce practice on trade documents, with historical examiner topic precedent. Current Nigerian syllabus and paper blueprint remain open."
   ]
 }

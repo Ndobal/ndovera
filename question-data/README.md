@@ -1623,3 +1623,7 @@ alternatives. Application rendering remains open.
 Batch 292 adds five structured WAEC Commerce drafts on insurance
 principles. Official historical examiner material supports written
 assessment precedent. The current full specification remains open.
+
+Batch 293 adds five structured WAEC Commerce drafts on trade documents
+and reconciliation. Historical WAEC examiner resources support topic
+precedent. The full current Nigerian specification remains open.
