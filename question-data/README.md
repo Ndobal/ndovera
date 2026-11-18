@@ -1631,3 +1631,7 @@ precedent. The full current Nigerian specification remains open.
 Batch 294 adds five Cambridge IGCSE Chemistry (0620) Extended Theory
 drafts on reversible reactions and dynamic equilibrium for 2026–2028.
 Each uses a model system and includes an original marking guide.
+
+Batch 295 adds seven Cambridge IGCSE Chemistry (0620) Core and Extended
+Theory drafts on reaction rates for 2026–2028. Original model data and
+point-based marking guides support rate calculations and collision reasoning.

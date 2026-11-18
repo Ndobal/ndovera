@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Chemistry 0620: rates of reaction",
+  "questionCount": 7,
+  "note": "Original Core Paper 3 and Extended Paper 4 theory practice for 2026–2028. All data are illustrative. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Surface area and reaction progress",
+      "learningObjective": "Use measurements to distinguish faster reaction from greater final yield.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-001",
+      "objectiveId": "igcse-0620-295-rate-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "prompt": "Equal masses of one solid react with the same excess solution. Trial F uses fine grains and trial C uses coarse grains. Gas volumes after 20 s are 32 cm³ in F and 18 cm³ in C. When both reactions finish, each has produced 48 cm³. Compare the early rates and final volumes. Use the form of the solid to explain the early difference.",
+      "answer": "F has the greater average rate over the first 20 s, 1.6 cm³/s compared with 0.9 cm³/s. Both give 48 cm³. Fine grains expose more surface of the same mass to the solution, so the solid can react faster.",
+      "explanation": "More gas in the same early interval indicates a higher average rate. Equal final volumes show no change in the amount of gas eventually formed.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies F as faster over the first interval with supporting volumes or rates."
+        },
+        {
+          "marks": 1,
+          "description": "States both final volumes are the same."
+        },
+        {
+          "marks": 1,
+          "description": "Links fine grains to greater exposed area."
+        },
+        {
+          "marks": 1,
+          "description": "Links greater exposed area to faster reaction."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "32/20",
+          "expected": 1.6,
+          "purpose": "Verify average reaction rate"
+        },
+        {
+          "expression": "18/20",
+          "expected": 0.9,
+          "purpose": "Verify average reaction rate"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Comparing reaction intervals",
+      "learningObjective": "Use cumulative gas data to compare mean rates over intervals of different lengths.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-002",
+      "objectiveId": "igcse-0620-295-rate-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "prompt": "A model records 6 cm³ of gas at 10 s, 20 cm³ at 30 s, and 29 cm³ at 60 s. Compare the average rate of gas production from 10 s to 30 s with the average rate from 30 s to 60 s. State which interval has the faster rate.",
+      "answer": "The first interval gives (20 − 6)/(30 − 10) = 0.70 cm³/s. The second gives (29 − 20)/(60 − 30) = 0.30 cm³/s. The first interval is faster.",
+      "explanation": "The data are cumulative. Subtract consecutive volumes to obtain the gas produced during each interval, then divide by the interval duration.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses volume changes of 14 and 9 cm³."
+        },
+        {
+          "marks": 1,
+          "description": "Uses durations of 20 and 30 s."
+        },
+        {
+          "marks": 1,
+          "description": "Gives both correct rates with units."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the faster interval."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "verification": [
+        {
+          "expression": "(20-6)/(30-10)",
+          "expected": 0.7,
+          "purpose": "Verify average reaction rate"
+        },
+        {
+          "expression": "(29-20)/(60-30)",
+          "expected": 0.3,
+          "purpose": "Verify average reaction rate"
+        }
+      ]
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Recognising catalyst evidence",
+      "learningObjective": "Distinguish evidence of catalysis from evidence that a substance is consumed.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-003",
+      "objectiveId": "igcse-0620-295-rate-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "prompt": "A colourless product is made in a model reaction. With additive Z, 12 g of product is present after 25 s. Without Z, the same mass is first reached after 50 s. Both runs eventually give 16 g of product. State whether the rate data are consistent with Z being a catalyst. Give one additional result about Z that would support this interpretation.",
+      "answer": "The data are consistent with catalysis because the same amount of product forms sooner with Z. Evidence that Z is chemically unchanged after the reaction would strengthen the interpretation.",
+      "explanation": "A shorter time to a fixed product amount shows a higher average rate to that point. The data on product formation do not establish what happened to Z itself.",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the results are consistent with catalysis."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the shorter time to reach the same mass as evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Stresses that Z should remain chemically unchanged or be recovered unchanged."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Concentration and collision frequency",
+      "learningObjective": "Explain why changing concentration affects the number of successful collisions.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-004",
+      "objectiveId": "igcse-0620-295-rate-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A simulation compares two runs at the same temperature with identical solid samples. The more concentrated solution produces more gas in the first 15 s. Use collision theory to explain the result and state what happens to the mean kinetic energy of the dissolved particles when concentration alone is increased.",
+      "answer": "More reactant particles per unit volume reach the solid surface. Collisions occur more often, so there are more successful collisions per second. The mean kinetic energy does not increase because temperature is unchanged.",
+      "explanation": "Increasing concentration increases collision frequency at the surface without making particles hotter.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States more reactant particles per unit volume."
+        },
+        {
+          "marks": 1,
+          "description": "Connects this to more frequent collisions at the solid surface."
+        },
+        {
+          "marks": 1,
+          "description": "Explains more successful collisions in the same time."
+        },
+        {
+          "marks": 1,
+          "description": "States unchanged mean kinetic energy at constant temperature."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Temperature versus catalyst",
+      "learningObjective": "Differentiate two changes that increase the number of successful collisions.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-005",
+      "objectiveId": "igcse-0620-295-rate-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Two identical reaction mixtures initially react at the same rate. One mixture is warmed. The other stays at its original temperature and receives a catalyst. Both react faster. Explain how each change increases the number of successful collisions per second.",
+      "answer": "Warming increases particle kinetic energy and the fraction of collisions whose energy reaches the activation energy. A catalyst provides a different pathway with a lower activation energy, so a greater fraction of collisions can lead to reaction at the original temperature.",
+      "explanation": "Both routes increase the fraction of effective collisions. The temperature change acts on the particles’ energies, while the catalyst changes the energy barrier.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies increased kinetic energy on warming."
+        },
+        {
+          "marks": 1,
+          "description": "Connects warming to a higher fraction at or above the activation energy."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an alternative reaction pathway."
+        },
+        {
+          "marks": 1,
+          "description": "Connects lower activation energy to more successful collisions at the same temperature."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Diagnosing gas collection error",
+      "learningObjective": "Assess whether collection failure can mimic a slower reaction.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-006",
+      "objectiveId": "igcse-0620-295-rate-06-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Two identical model reactions generate the same gas. One collector rises more slowly than the other, but its apparatus was later found to have a loose connection. Explain how the connection could affect both the measured rate and the final volume. State a check that should be carried out before using these readings to compare reaction rates.",
+      "answer": "Gas may escape before reaching the measuring device. The recorded volume can therefore rise more slowly and finish at a lower value even when the reaction proceeds normally. Check that the connection and collection system are gas-tight and repeat with the same reaction conditions.",
+      "explanation": "The readings measure gas collected, which may differ from gas produced. Comparing runs requires equivalent collection efficiency.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies loss of gas from the loose connection."
+        },
+        {
+          "marks": 1,
+          "description": "Explains possible reduction in the measured rate."
+        },
+        {
+          "marks": 1,
+          "description": "Explains possible reduction in the recorded final volume."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a tightness check and a repeat under matched conditions."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Chemistry",
+      "topic": "Rate of reaction",
+      "subtopic": "Compression and gas collision rates",
+      "learningObjective": "Use an idealised compression model to relate gas pressure to collision frequency.",
+      "specificationId": "igcse-0620-2026-2028-v2",
+      "qualificationCode": "0620",
+      "syllabusVersion": "2",
+      "id": "ndv-295-007",
+      "objectiveId": "igcse-0620-295-rate-07-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "Two gaseous reactants are in a model cylinder. A piston reduces its volume without changing temperature or the number of particles. Explain the change in pressure and why the gas reaction may proceed faster immediately after compression.",
+      "answer": "The same number of particles occupies less volume and strikes the walls more often per unit area, raising pressure. Reactant particles are closer together and collide with one another more frequently, so more successful collisions occur per second. The average kinetic energy remains the same at constant temperature.",
+      "explanation": "The increased rate can follow from more frequent collisions at the same temperature. Compression in this model does not supply extra mean kinetic energy.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects smaller volume to greater particle density."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the higher pressure using wall collisions."
+        },
+        {
+          "marks": 1,
+          "description": "Links compression to more frequent reactant collisions."
+        },
+        {
+          "marks": 1,
+          "description": "Links the increased frequency to more successful collisions per second."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}
