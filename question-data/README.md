@@ -1599,3 +1599,7 @@ specification remains open.
 Batch 286 adds eight Cambridge IGCSE Physics (0625) drafts on thermal
 conduction, convection and infrared radiation for 2026–2028. Core and
 Extended practice are mapped to their respective multiple-choice papers.
+
+Batch 287 adds five structured Cambridge IGCSE Physics (0625) theory
+drafts on thermal transfer for 2026–2028. Core Paper 3 and Extended
+Paper 4 practice use original point-based marking guides.

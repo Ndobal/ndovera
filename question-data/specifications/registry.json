@@ -754,7 +754,7 @@
       "pageCount": 61,
       "updateSha256": "7896813e962a224fa6b03407563eba8feafcea6c214d3dd5769b3b0070eab815",
       "updateBytes": 112730,
-      "latestRecheck": "Official v2 PDF checked for thermal energy transfer (2.3.1–2.3.3, printed p. 21) and Core/Extended multiple-choice components."
+      "latestRecheck": "Official v2 PDF checked for thermal transfer (2.3.1–2.3.4, pp. 21–22) and Theory Papers 3 and 4 (p. 9)."
     },
     {
       "id": "ncee-mathematics-primary-six-reference-2026",
@@ -38197,6 +38197,146 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal insulation",
+      "learningObjective": "Explain how a lid and insulating wrap reduce different thermal transfers.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-287-01-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.4 Core 1, p. 22",
+        "Paper 3 Theory, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction in solids",
+      "learningObjective": "Compare the microscopic mechanisms of conduction in a metal and a nonmetal.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-287-02-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3.1 Supplement 2 and 4, p. 21",
+        "Paper 4 Theory, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Convection and ventilation",
+      "learningObjective": "Explain why openings at two levels can sustain natural ventilation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-287-03-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Core"
+      ],
+      "sourceSections": [
+        "2.3.2 Core 2 and 2.3.4 Core 1, pp. 21–22",
+        "Paper 3 Theory, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Radiative equilibrium",
+      "learningObjective": "Explain how an object approaches a new steady temperature after an input change.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-287-04-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3.3 Supplement 4–5, p. 21",
+        "Paper 4 Theory, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction versus convection in fluids",
+      "learningObjective": "Distinguish energy transfer by particle interactions from energy transfer by bulk motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "igcse-0625-287-05-v1",
+      "questionTypes": [
+        "structured"
+      ],
+      "examinationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tiers": [
+        "Extended"
+      ],
+      "sourceSections": [
+        "2.3.1 Supplement 3 and 2.3.2 Core 2, p. 21",
+        "Paper 4 Theory, p. 9"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -38279,6 +38419,7 @@
     "Batch 283 maps provisional NCEE National Values Education practice to historical ICPC Primary Six Social Studies guidance on attitude to work, group conflict and international conflict. NECO 2026 confirms the component and eligibility. Current adoption, the full NCEE specification, and the actual option count remain unverified.",
     "Batch 284 adds NCEE Verbal Aptitude practice on same-spelling homonyms, provisionally mapped to historical NERDC Primary Six English Studies p. 42. The 2026 NECO notice confirms Paper II Part B and final-year primary eligibility. Four options are a practice design choice. The official NCEE Verbal Aptitude blueprint and current curriculum adoption remain unverified.",
     "Batch 285 adds provisional NCEE Quantitative and Vocational Aptitude mappings for average speed and the principles of produce preservation. NECO confirms the 2026 component, while historical NERDC pp. 64 and 18 guide topic selection. The official topic blueprint, option count and practical assessment details remain open.",
-    "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial."
+    "Batch 286 adds selected Cambridge 0625 thermal-energy transfer Core and Extended multiple-choice practice. Theory, practical coverage and qualification-level assembly remain partial.",
+    "Batch 287 adds selected Cambridge 0625 structured thermal-transfer theory practice for Papers 3 and 4. Thermal-transfer practical performance and full paper assembly remain open."
   ]
 }

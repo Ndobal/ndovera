@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "collection": "Cambridge IGCSE Physics 0625 thermal transfer theory",
+  "questionCount": 5,
+  "note": "Original paper-specific structured theory practice for 2026–2028. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Thermal insulation",
+      "learningObjective": "Explain how a lid and insulating wrap reduce different thermal transfers.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-287-001",
+      "objectiveId": "igcse-0625-287-01-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "prompt": "A lidded metal pot is holding hot water away from the stove. A cook wraps the pot’s sides in a layer of dry fabric. Explain how the lid and the fabric separately reduce energy loss. Discuss air movement at the top and thermal transfer through the sides.",
+      "answer": "The lid limits the movement of warmed air away from the water and its replacement by cooler air. The fabric is a poor conductor and slows transfer from the metal sides to the surrounding air.",
+      "explanation": "Heat still escapes, but the lid reduces convective exchange at the opening and the wrap reduces conduction through the side covering.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies reduced movement of air out of the opening."
+        },
+        {
+          "marks": 1,
+          "description": "Links that change to reduced transfer by convection."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the fabric as a poor thermal conductor."
+        },
+        {
+          "marks": 1,
+          "description": "Explains reduced energy transfer through the insulated sides."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction in solids",
+      "learningObjective": "Compare the microscopic mechanisms of conduction in a metal and a nonmetal.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-287-002",
+      "objectiveId": "igcse-0625-287-02-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "One end of a brass rod and one end of a glass rod are warmed. The rods have the same dimensions. Explain how energy travels along both rods without either rod’s material flowing along its length, and why energy normally travels more readily along the brass.",
+      "answer": "Vibrating particles at the warm end transfer energy to neighbouring particles in both rods by interactions. Brass also has mobile electrons that gain energy in warmer regions and transfer it to the lattice in cooler regions. The particles of the solid remain near their lattice positions.",
+      "explanation": "Both solids transfer energy by vibrations. Mobile electrons provide an additional mechanism in the metal.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies greater vibration at the warmed end."
+        },
+        {
+          "marks": 1,
+          "description": "Describes transfer to neighbouring particles in both solids."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies mobile electrons in brass."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that mobile electrons redistribute energy within the metal."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Convection and ventilation",
+      "learningObjective": "Explain why openings at two levels can sustain natural ventilation.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-287-003",
+      "objectiveId": "igcse-0625-287-03-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Core",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 3,
+      "type": "structured",
+      "prompt": "A closed produce shed has a low vent and a high vent on the same wall. The air inside is warmer than the outdoor air. Assume still outdoor conditions. Predict the main flow through each vent once both are opened, and explain how the flows can continue.",
+      "answer": "Warm indoor air exits through the upper vent and cooler outdoor air enters through the lower vent. The warmer air is less dense than the cooler air and tends to rise. The lower opening lets denser air replace escaping air while the temperature difference persists.",
+      "explanation": "The density difference drives exchange even in the absence of wind.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Predicts outflow at the high vent."
+        },
+        {
+          "marks": 1,
+          "description": "Predicts inflow at the low vent."
+        },
+        {
+          "marks": 1,
+          "description": "Connects lower density to warmer air rising."
+        },
+        {
+          "marks": 1,
+          "description": "Explains replacement of escaping air by cooler air."
+        }
+      ],
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Radiative equilibrium",
+      "learningObjective": "Explain how an object approaches a new steady temperature after an input change.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-287-004",
+      "objectiveId": "igcse-0625-287-04-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A model surface in a vacuum receives a steady input from a lamp. It is at constant temperature. The lamp is dimmed and then kept at its new setting. The surroundings are unchanged and radiation is the only form of energy transfer. Explain how and why the surface temperature changes until it becomes constant again.",
+      "answer": "Initially the surface loses more energy than it absorbs, because its emission does not immediately fall when the lamp is dimmed. The surface cools and emits less infrared as its temperature falls. It reaches a lower steady temperature when the emitted power again equals the absorbed power.",
+      "explanation": "At constant temperature there is no net energy transfer. The new, smaller input can balance a lower rate of emission.",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that absorbed power decreases immediately."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that initial emission exceeds absorption and the surface cools."
+        },
+        {
+          "marks": 1,
+          "description": "Links cooling to reduced infrared emission."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the new balance and lower steady temperature."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "IGCSE",
+      "subject": "Physics",
+      "topic": "Thermal physics",
+      "subtopic": "Conduction versus convection in fluids",
+      "learningObjective": "Distinguish energy transfer by particle interactions from energy transfer by bulk motion.",
+      "specificationId": "cambridge-0625-2026-2028-v2",
+      "qualificationCode": "0625",
+      "syllabusVersion": "2",
+      "id": "ndv-287-005",
+      "objectiveId": "igcse-0625-287-05-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "IGCSE",
+      "examinationYear": 2026,
+      "applicableExaminationYears": [
+        2026,
+        2027,
+        2028
+      ],
+      "tier": "Extended",
+      "assessmentObjectives": [
+        "AO2"
+      ],
+      "practiceComponent": "theory",
+      "practicePaper": 4,
+      "type": "structured",
+      "prompt": "A model has two shallow air layers between horizontal plates. One layer has a warm upper plate and cool lower plate. The other has a warm lower plate and cool upper plate. Explain why bulk air motion is more likely in the second layer and why air can still conduct a little energy in the first.",
+      "answer": "When the lower plate is warm, the air near it expands, becomes less dense and rises, displacing cooler air downwards. When the upper plate is warm, the less dense air is already above the denser air. Even without bulk motion, moving gas particles transfer energy through collisions, although the relatively large gaps between particles make air a poor conductor.",
+      "explanation": "Convection depends on air moving in bulk. Conduction can transfer some energy through particle collisions even with no sustained circulation.",
+      "score": 5,
+      "maxMarks": 5,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that heating below makes the bottom air less dense."
+        },
+        {
+          "marks": 1,
+          "description": "Describes rising warm air and descending cooler air."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that heating from above gives a stable density arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies collision-mediated conduction with no bulk flow."
+        },
+        {
+          "marks": 1,
+          "description": "Links relatively large particle spacing to poor conduction."
+        }
+      ],
+      "difficulty": "difficult",
+      "cognitiveDemand": "analyse",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    }
+  ]
+}
