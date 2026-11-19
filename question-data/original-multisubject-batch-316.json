@@ -1,0 +1,1023 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 inclusion and introductory programming",
+  "questionCount": 24,
+  "note": "Twenty-four original structured drafts from nine exact-class objectives. Seven tasks require observed device operation and seventeen are written precursors. Independent academic review and classroom delivery pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Meaning of inclusivity",
+      "learningObjective": "Explain the meaning of inclusivity in digital content creation.",
+      "id": "ndv-316-001",
+      "objectiveId": "nerdc-bdl-primary4-316-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher makes a digital story with readable text, a useful spoken version and characters that include girls and boys. Explain what inclusivity in digital content creation means, using this example.",
+      "answer": "It means planning digital material so different people can take part and access its meaning. The different ways of receiving the story and the representation of girls and boys help include different learners.",
+      "explanation": "Inclusion concerns access and respectful representation, rather than expecting every learner to use the same method.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains inclusion of different people or needs."
+        },
+        {
+          "marks": 1,
+          "description": "Connects at least one feature of the story with inclusion."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Meaning of inclusivity",
+      "learningObjective": "Explain the meaning of inclusivity in digital content creation.",
+      "id": "ndv-316-002",
+      "objectiveId": "nerdc-bdl-primary4-316-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Tunde says, My digital poster is inclusive because it is on a computer. Is using a computer enough? Explain one other consideration.",
+      "answer": "No. The creator must also consider who can understand and use the content, for example whether a pupil who cannot see a picture can obtain its information.",
+      "explanation": "A digital format alone does not remove access barriers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects digital format alone as sufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant access or respectful-representation consideration."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Examples of inclusion",
+      "learningObjective": "List examples of inclusivity in digital content creation.",
+      "id": "ndv-316-003",
+      "objectiveId": "nerdc-bdl-primary4-316-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A digital careers story shows only boys using computers and only girls cooking. Suggest a more inclusive example of the people it could show.",
+      "answer": "Show girls as well as boys using computers and show boys as well as girls cooking.",
+      "explanation": "The task challenges restrictive gender stereotypes without assigning interests or ability by gender.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes girls in computing."
+        },
+        {
+          "marks": 1,
+          "description": "Includes boys in cooking, or otherwise clearly allows both groups to take either role."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Examples of inclusion",
+      "learningObjective": "List examples of inclusivity in digital content creation.",
+      "id": "ndv-316-004",
+      "objectiveId": "nerdc-bdl-primary4-316-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A recorded class announcement is the only way to find out the meeting place. Give an example of an inclusive addition for someone who cannot hear it, and say what information the addition should contain.",
+      "answer": "Provide an accurate written version containing the meeting-place information and any other essential announcement details.",
+      "explanation": "The same essential meaning should be available through the added format.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a written transcript or equivalent readable version."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the essential meeting information."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Examples of inclusion",
+      "learningObjective": "List examples of inclusivity in digital content creation.",
+      "id": "ndv-316-005",
+      "objectiveId": "nerdc-bdl-primary4-316-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name two inclusive digital features: one that can speak written text and one that can enlarge what is on the screen.",
+      "answer": "Text-to-speech can speak written text. A magnifier can enlarge screen content.",
+      "explanation": "These are different features addressing different access needs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names text-to-speech for spoken text."
+        },
+        {
+          "marks": 1,
+          "description": "Names magnifier or screen magnification for enlargement."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Importance of inclusion",
+      "learningObjective": "Discuss the importance of creating inclusive digital content.",
+      "id": "ndv-316-006",
+      "objectiveId": "nerdc-bdl-primary4-316-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class notice gives the collection day only inside a picture. Why is it important to include the day in accessible text as well?",
+      "answer": "A person who cannot see or read the picture still needs the collection day. Accessible text gives another way to obtain that essential information.",
+      "explanation": "Do not assume that an image of text is equivalent to readable text for every learner.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a person or need excluded by picture-only information."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how accessible text preserves access to the essential day."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool.",
+      "contentSourceId": "w3c-image-alternatives-316"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Importance of inclusion",
+      "learningObjective": "Discuss the importance of creating inclusive digital content.",
+      "id": "ndv-316-007",
+      "objectiveId": "nerdc-bdl-primary4-316-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two pupils use a story differently: one enlarges its text and another listens to it. Explain why providing both options can help participation.",
+      "answer": "Different learners may need different ways to access the same story. Both options let more pupils understand and contribute to the class activity.",
+      "explanation": "One access option is not assumed to meet every need.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the options to different access needs."
+        },
+        {
+          "marks": 1,
+          "description": "Explains participation or learning benefits."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Importance of inclusion",
+      "learningObjective": "Discuss the importance of creating inclusive digital content.",
+      "id": "ndv-316-008",
+      "objectiveId": "nerdc-bdl-primary4-316-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An accessibility checker reports no errors in a class document, but a pupil says its picture descriptions do not explain the useful information. Why should the class still improve the descriptions?",
+      "answer": "A checker cannot judge every access need or the quality of every description. Useful descriptions help pupils obtain the picture information, so the class should review and improve them.",
+      "explanation": "Passing an automated check does not establish complete accessibility.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that a checker can miss an issue."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that meaningful descriptions matter for access."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool.",
+      "contentSourceId": "microsoft-accessibility-checker-316"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Using inclusive features",
+      "learningObjective": "Use basic inclusive features in digital devices.",
+      "id": "ndv-316-009",
+      "objectiveId": "nerdc-bdl-primary4-316-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher provides a practice page containing the sentence Bring a notebook to the library. Use the device magnifier to enlarge the sentence until you can inspect it comfortably. Show the teacher, then return to the recorded starting magnification. Do not edit the sentence.",
+      "answer": "The pupil activates supported screen magnification, enlarges the page without changing its text and restores the starting setting.",
+      "explanation": "Observe use of the magnifier, rather than crediting a change to document font size.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses screen magnification to enlarge the view."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the unchanged sentence at the enlarged view."
+        },
+        {
+          "marks": 1,
+          "description": "Restores the teacher-recorded setting."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Using inclusive features",
+      "learningObjective": "Use basic inclusive features in digital devices.",
+      "id": "ndv-316-010",
+      "objectiveId": "nerdc-bdl-primary4-316-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. On a teacher-prepared device, use text-to-speech to read this practice sentence: Our class library opens after lunch. Show the teacher how you start and stop the reading, then compare the spoken words with the written sentence.",
+      "answer": "The pupil starts and stops text-to-speech and checks whether its spoken output matches the sentence.",
+      "explanation": "Teacher supplies a supported voice and tool. Report a mismatch rather than assuming all generated speech is accurate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Starts the supported text-to-speech feature."
+        },
+        {
+          "marks": 1,
+          "description": "Stops the reading using its control."
+        },
+        {
+          "marks": 1,
+          "description": "Checks the spoken output against the given sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Using inclusive features",
+      "learningObjective": "Use basic inclusive features in digital devices.",
+      "id": "ndv-316-011",
+      "objectiveId": "nerdc-bdl-primary4-316-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Insert the supplied collection-bins picture into a teacher-prepared practice document. The picture tells readers that paper and plastic go into separate labelled bins. Add useful alternative text that conveys this information, then show where that text is stored.",
+      "answer": "A saved document contains the picture and useful alternative text, such as Separate bins for paper and plastic. The pupil shows the image alternative-text field.",
+      "explanation": "Assess use of the feature and whether the alternative conveys the picture's purpose. Equivalent wording is acceptable. The text alternative supplied with the stimulus provides equivalent access to the visual information.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Inserts the supplied picture."
+        },
+        {
+          "marks": 1,
+          "description": "Enters meaningful alternative text in the image's alternative-text field."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the field and saves the document."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified.",
+      "contentSourceId": "w3c-image-alternatives-316",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Two labelled collection bins",
+        "assetPath": "stimuli/batch-316/collection-bins.svg",
+        "textAlternative": "Two separate bins, one labelled Paper and one labelled Plastic."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Using inclusive features",
+      "learningObjective": "Use basic inclusive features in digital devices.",
+      "id": "ndv-316-012",
+      "objectiveId": "nerdc-bdl-primary4-316-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher supplies a document containing the collection-bins picture with its alternative text removed. Run a supported accessibility checker. Find the missing-description issue, add meaningful alternative text and check again. Tell the teacher why a clean report is still not a guarantee that the document suits everyone.",
+      "answer": "The pupil runs the checker, repairs the image's missing alternative text and checks again. The pupil explains that human review and feedback are still needed because automated tools miss some issues.",
+      "explanation": "Teacher must prepare and verify the missing-alt-text issue before assessment. Observe the feature being used and inspect the saved document.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Runs the checker and finds the prepared missing-alt-text issue."
+        },
+        {
+          "marks": 1,
+          "description": "Adds meaningful alternative text and checks again."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one limitation of automated checking."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified.",
+      "contentSourceId": "microsoft-accessibility-checker-316"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Meaning of programming",
+      "learningObjective": "Explain the meaning of programming.",
+      "id": "ndv-316-013",
+      "objectiveId": "nerdc-bdl-primary4-316-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil wants a screen character to greet a visitor. Explain what programming involves in making that happen.",
+      "answer": "Programming involves creating instructions that the computer can follow so the character responds with the greeting.",
+      "explanation": "The intended outcome is translated into instructions that the tool can execute.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies creating instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Connects execution of the instructions with the greeting."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Meaning of programming",
+      "learningObjective": "Explain the meaning of programming.",
+      "id": "ndv-316-014",
+      "objectiveId": "nerdc-bdl-primary4-316-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil has made and saved a program that displays a class greeting when started. The next day, the teacher starts the saved program again. Explain why the pupil does not need to build the same instructions again each day.",
+      "answer": "The saved program contains the instructions. The computer can follow those stored instructions again when the program is started.",
+      "explanation": "Programming produces instructions that can be stored and run again; it is not necessary to recreate the same instructions for each run.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the saved program retains its instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Connects restarting the program with executing the stored instructions again."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Uses of programming",
+      "learningObjective": "Mention the uses of programming.",
+      "id": "ndv-316-015",
+      "objectiveId": "nerdc-bdl-primary4-316-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school wants a simple quiz that checks a learner's chosen answer and shows a helpful message. State one use of programming in this project and explain what the instructions would control.",
+      "answer": "Programming can create the quiz application or game. Its instructions would control checking a choice and showing the corresponding feedback.",
+      "explanation": "The response connects a software purpose to a specific behaviour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies creating an application, game or problem-solving program."
+        },
+        {
+          "marks": 1,
+          "description": "Links instructions to checking choices or showing feedback."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Uses of programming",
+      "learningObjective": "Mention the uses of programming.",
+      "id": "ndv-316-016",
+      "objectiveId": "nerdc-bdl-primary4-316-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A library wants a website where readers can search a list of books. Explain how this is an example of a use of programming, beyond just drawing the page.",
+      "answer": "Programming can make the search respond to a reader's input and display matching books. It controls behaviour as well as the page's appearance.",
+      "explanation": "Accept a clear explanation of the search behaviour without requiring a particular web language.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies website creation as a programming use."
+        },
+        {
+          "marks": 1,
+          "description": "Describes responding to input or displaying search results."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Programming tools",
+      "learningObjective": "List programming tools.",
+      "id": "ndv-316-017",
+      "objectiveId": "nerdc-bdl-primary4-316-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name three tools listed in the curriculum that can be used for programming.",
+      "answer": "Any three of ScratchJr, PictoBlox, Scratch, Blockly and Kodu.",
+      "explanation": "Accept the listed tools with recognisable spelling. This recall question does not demonstrate the ability to program.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names one listed programming tool."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second different listed tool."
+        },
+        {
+          "marks": 1,
+          "description": "Names a third different listed tool."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Programming process",
+      "learningObjective": "Explain the steps for programming.",
+      "id": "ndv-316-018",
+      "objectiveId": "nerdc-bdl-primary4-316-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Before building a lost-property display program, a pupil says, We need to help children find the collection desk. Explain why stating this problem before choosing commands is useful.",
+      "answer": "It identifies what the program needs to achieve. The pupil can then design instructions and check whether the result helps users find the desk.",
+      "explanation": "Problem definition supplies a purpose against which design and testing can be judged.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects problem definition with the required goal."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the goal guides design or testing."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Programming process",
+      "learningObjective": "Explain the steps for programming.",
+      "id": "ndv-316-019",
+      "objectiveId": "nerdc-bdl-primary4-316-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A plan for a reminder program says: start the program, display Bring your water bottle, then wait for the learner to close the reminder. Explain the difference between this design and coding it in a visual tool.",
+      "answer": "The design describes the intended steps. Coding represents those steps using the visual tool's actual blocks or commands so the computer can execute them.",
+      "explanation": "Planning and implementation are related but distinct activities.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the plan as intended steps or behaviour."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies coding as implementing those steps with executable blocks."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Programming process",
+      "learningObjective": "Explain the steps for programming.",
+      "id": "ndv-316-020",
+      "objectiveId": "nerdc-bdl-primary4-316-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A visual project should display a reminder when the green flag is clicked. The display block is present, but it is lying apart from the green-flag event block. Nothing appears when the pupil clicks the flag. Explain what debugging would involve and how to test the correction.",
+      "answer": "Inspect the separated blocks, connect the display action below the green-flag event and click the flag again to check that the intended reminder appears.",
+      "explanation": "The action must be connected to the event that should trigger it. Testing the actual event checks the repair.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies connecting the display action to the green-flag event as the repair."
+        },
+        {
+          "marks": 1,
+          "description": "Explains testing by clicking the flag and checking the intended reminder."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Programming process",
+      "learningObjective": "Explain the steps for programming.",
+      "id": "ndv-316-021",
+      "objectiveId": "nerdc-bdl-primary4-316-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil has tested only the start of a two-button information program. The first button works. Why should the second button also be tested before the program is called finished?",
+      "answer": "Each button has its own required response. The first working button does not prove that the second button shows the right information or responds at all.",
+      "explanation": "Testing should compare all required behaviours with their intended results.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the second button has a separate required behaviour."
+        },
+        {
+          "marks": 1,
+          "description": "States a relevant check of that button's response."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate operation of an accessibility feature or a visual programming tool."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Creating a visual program",
+      "learningObjective": "Create a basic program using a visual programming language.",
+      "id": "ndv-316-022",
+      "objectiveId": "nerdc-bdl-primary4-316-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Use a teacher-approved visual programming tool to make a small visitor information project. Create two selectable objects labelled Library and Office. Selecting Library should display Ask for a reading book. Selecting Office should display Ask for the school administrator. Test both objects and save the project locally.",
+      "answer": "Each object has its own selection event connected to the corresponding display-message action. Both interactions work in the saved visual project.",
+      "explanation": "Equivalent supported selection events are acceptable. Inspect blocks and both running responses, not a static drawing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates two clearly labelled selectable objects."
+        },
+        {
+          "marks": 1,
+          "description": "Programs Library to display its specified message."
+        },
+        {
+          "marks": 1,
+          "description": "Programs Office to display its specified message."
+        },
+        {
+          "marks": 1,
+          "description": "Tests both responses and saves the project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Creating a visual program",
+      "learningObjective": "Create a basic program using a visual programming language.",
+      "id": "ndv-316-023",
+      "objectiveId": "nerdc-bdl-primary4-316-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher provides a visual project with two independent objects: a bell picture that plays an approved bell sound when selected, and a Notice object that has no program. Program Notice to display Reading time when selected. Keep the bell working, test each object and save the project locally.",
+      "answer": "Notice has a selection event connected to a display Reading time action. The existing bell interaction remains functional, and both are demonstrated.",
+      "explanation": "The project provides a visible text route as well as sound. No recording of pupil information or account creation is needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Adds the required display-message action to Notice's selection event."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates that Notice displays Reading time."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that the separate bell interaction still works."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the edited visual project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of programming",
+      "subtopic": "Creating a visual program",
+      "learningObjective": "Create a basic program using a visual programming language.",
+      "id": "ndv-316-024",
+      "objectiveId": "nerdc-bdl-primary4-316-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in Scratch. Make one sprite with two costumes: a closed book and an open book. Name the costumes Closed and Open. Program the green flag to set Closed. Program each click on the book to select the next costume. Show that two separate clicks change Closed to Open and then back to Closed. Save the project locally.",
+      "answer": "The sprite has exactly two costumes in the order Closed, Open. A green-flag event connects to switch costume to Closed. A when this sprite clicked event connects to next costume. Starting and clicking twice demonstrates Closed, Open, Closed, and the project is saved.",
+      "explanation": "This project links a click to a change in visual state. With two costumes, next costume cycles between them. The start event establishes the initial state. Inspect the blocks and run both transitions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates one sprite with exactly the two recognisable book costumes, named Closed and Open."
+        },
+        {
+          "marks": 1,
+          "description": "Connects green flag to setting Closed."
+        },
+        {
+          "marks": 1,
+          "description": "Connects sprite click to next costume and demonstrates both transitions."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the functioning visual project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device, the specified material and a supported tool. Observe the pupil, the feature or running program and the saved result. No personal information, live accounts or public sharing. Tool provision, app rendering and actual classroom delivery are unverified.",
+      "contentSourceId": "raspberrypi-scratch-looks-316"
+    }
+  ]
+}

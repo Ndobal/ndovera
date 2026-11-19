@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5586,
-    "validDrafts": 3907,
+    "raw": 5610,
+    "validDrafts": 3931,
     "reviewed": 0,
     "registeredBanks": 202,
     "target": 184000,
@@ -2024,6 +2024,12 @@
       "sha256": "39675370d152493447875a855819206c120eeef185fae595562e5c726427ae86",
       "declared": 20,
       "actual": 20
+    },
+    {
+      "path": "original-multisubject-batch-316.json",
+      "sha256": "a78ffaed6f2f734f370b13b640c99d5ae9906ab72bbfbc283b8972e172fb32dd",
+      "declared": 24,
+      "actual": 24
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5755,18 +5761,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-bdl-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 44,
-      "validDrafts": 44,
+      "raw": 68,
+      "validDrafts": 68,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 44
+        "structured": 68
       },
       "difficulty": {
-        "standard": 44
+        "standard": 68
       },
-      "remaining": 956,
-      "mappedObjectives": 20,
-      "representedObjectives": 20,
+      "remaining": 932,
+      "mappedObjectives": 29,
+      "representedObjectives": 29,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7951,18 +7957,18 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "invalid_score": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 599,
@@ -45984,6 +45990,150 @@
       "id": "ndv-315-020",
       "file": "original-multisubject-batch-315.json",
       "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-001",
+      "file": "original-multisubject-batch-316.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-002",
+      "file": "original-multisubject-batch-316.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-003",
+      "file": "original-multisubject-batch-316.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-004",
+      "file": "original-multisubject-batch-316.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-005",
+      "file": "original-multisubject-batch-316.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-006",
+      "file": "original-multisubject-batch-316.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-007",
+      "file": "original-multisubject-batch-316.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-008",
+      "file": "original-multisubject-batch-316.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-009",
+      "file": "original-multisubject-batch-316.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-010",
+      "file": "original-multisubject-batch-316.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-011",
+      "file": "original-multisubject-batch-316.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-012",
+      "file": "original-multisubject-batch-316.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-013",
+      "file": "original-multisubject-batch-316.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-014",
+      "file": "original-multisubject-batch-316.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-015",
+      "file": "original-multisubject-batch-316.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-016",
+      "file": "original-multisubject-batch-316.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-017",
+      "file": "original-multisubject-batch-316.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-018",
+      "file": "original-multisubject-batch-316.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-019",
+      "file": "original-multisubject-batch-316.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-020",
+      "file": "original-multisubject-batch-316.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-021",
+      "file": "original-multisubject-batch-316.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-022",
+      "file": "original-multisubject-batch-316.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-023",
+      "file": "original-multisubject-batch-316.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-316-024",
+      "file": "original-multisubject-batch-316.json",
+      "index": 23,
       "errors": []
     },
     {
@@ -112599,6 +112749,276 @@
       },
       "tiers": {
         "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-1-v1",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Meaning of inclusivity",
+      "learningObjective": "Explain the meaning of inclusivity in digital content creation.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Inclusivity in digital content creation, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-2-v1",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Examples of inclusion",
+      "learningObjective": "List examples of inclusivity in digital content creation.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Inclusivity in digital content creation, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-3-v1",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Importance of inclusion",
+      "learningObjective": "Discuss the importance of creating inclusive digital content.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Inclusivity in digital content creation, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-4-v1",
+      "topic": "Inclusivity in digital content creation",
+      "subtopic": "Using inclusive features",
+      "learningObjective": "Use basic inclusive features in digital devices.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Inclusivity in digital content creation, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-5-v1",
+      "topic": "Basics of programming",
+      "subtopic": "Meaning of programming",
+      "learningObjective": "Explain the meaning of programming.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-6-v1",
+      "topic": "Basics of programming",
+      "subtopic": "Uses of programming",
+      "learningObjective": "Mention the uses of programming.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-7-v1",
+      "topic": "Basics of programming",
+      "subtopic": "Programming tools",
+      "learningObjective": "List programming tools.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-8-v1",
+      "topic": "Basics of programming",
+      "subtopic": "Programming process",
+      "learningObjective": "Explain the steps for programming.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-316-9-v1",
+      "topic": "Basics of programming",
+      "subtopic": "Creating a visual program",
+      "learningObjective": "Create a basic program using a visual programming language.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 5; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

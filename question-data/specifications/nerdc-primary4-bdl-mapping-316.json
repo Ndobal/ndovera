@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-316-1-v1",
+    "nerdc-bdl-primary4-316-2-v1",
+    "nerdc-bdl-primary4-316-3-v1",
+    "nerdc-bdl-primary4-316-4-v1",
+    "nerdc-bdl-primary4-316-5-v1",
+    "nerdc-bdl-primary4-316-6-v1",
+    "nerdc-bdl-primary4-316-7-v1",
+    "nerdc-bdl-primary4-316-8-v1",
+    "nerdc-bdl-primary4-316-9-v1"
+  ],
+  "tables": [
+    {
+      "topic": "Inclusivity in digital content creation",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "evidenceStatus": "Fresh PDF download matched checksum. Tables 27–28 text and rendered pages checked. No official objective codes or term placement invented.",
+  "activityEvaluationAlignment": "Inclusion meaning, examples and importance use original scenarios. Four device tasks exercise magnifier, text-to-speech, image alternatives and accessibility checking. The source infographic activity remains unassessed. Programming definition, uses, tool recall and process use written tasks; three executable visual projects require direct observation. Coding and testing are iterative. The two topic tables do not supply formal marks or approved test-paper formats; all rubrics are original practice guides.",
+  "accuracySources": [
+    "w3c-image-alternatives-316",
+    "microsoft-accessibility-checker-316",
+    "raspberrypi-scratch-looks-316"
+  ],
+  "asset": {
+    "path": "stimuli/batch-316/collection-bins.svg",
+    "provenance": "original_vector_illustration",
+    "purpose": "Image-alternative feature exercise",
+    "delivery": "Asset provided; teacher document setup and app rendering unverified"
+  },
+  "remaining": [
+    "Infographic creation activity and full competency inventory",
+    "Other exact-class source topics, beginning with Programming a Game environment at PDF p. 29",
+    "Coding with Scratch PDF p. 30 has historical-device learning-outcome text inconsistent with its coding objectives; evaluation says State where content says Stage",
+    "Basics of Robotics PDF p. 33 has evaluation text about audio/image/video rather than robots",
+    "School adoption, official term placement, device/tool provision and observed classroom delivery",
+    "Password guidance reconciliation and unspecified phishing taxonomy remain deferred"
+  ],
+  "manualNoveltyInspection": "Compared with existing JSS 1 coding/game drafts in batches 241 and 245. Replaced a message-order debugging draft with disconnected-event diagnosis and replaced a two-message performance draft with a two-costume state cycle before final audit. Original collection-bin SVG rendered and visually inspected. Seven actual device tasks remain required, not asserted delivered."
+}

@@ -1669,3 +1669,12 @@ internet use, phishing and cyberbullying. The source inventory records
 current safety guidance, failed CISA retrieval, password-policy conflicts
 and an unspecified phishing taxonomy. School adoption, observed online
 behaviour and independent academic review remain open.
+
+Batch 316 adds twenty-four Primary 4 Basic Digital Literacy drafts on
+inclusivity and introductory programming, using printed pp. 14–15
+(PDF pp. 27–28). Nine additional author-proposed mappings distinguish
+seventeen written precursors from seven observed-device tasks. An original
+collection-bin SVG supports alternative-text practice. The source inventory
+records accessibility guidance, programming crosschecks, remaining infographic
+work and wording conflicts in later coding/robotics tables. Tool provision,
+app rendering, school adoption and independent review remain open.
