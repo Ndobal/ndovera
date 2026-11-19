@@ -1678,3 +1678,13 @@ collection-bin SVG supports alternative-text practice. The source inventory
 records accessibility guidance, programming crosschecks, remaining infographic
 work and wording conflicts in later coding/robotics tables. Tool provision,
 app rendering, school adoption and independent review remain open.
+
+Batch 317 adds twenty-three Primary 4 Basic Digital Literacy drafts from
+printed pp. 16–19 (PDF pp. 29–32), covering environments, algorithms,
+Scratch Pen drawing and sequence. Fourteen new author-proposed mappings
+group shared interface functions across two tables. Six device tasks and
+seventeen written precursors include two original SVG diagrams. The source
+inventory preserves the historical-device/Stage wording conflicts, limited
+save-sprite interpretation, omitted commercial-game examples and model
+geometry checks. Classroom performance, school adoption and full coverage
+remain open.

@@ -1,0 +1,1017 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 Scratch environments, algorithms and Pen drawing",
+  "questionCount": 23,
+  "note": "Twenty-three original structured drafts from fourteen author-proposed mappings. Six tasks require observed device work and seventeen are written precursors. Independent academic review pending; no actual classroom delivery or full game completion claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Meaning of games",
+      "learningObjective": "Explain the meaning of games.",
+      "id": "ndv-317-001",
+      "objectiveId": "nerdc-bdl-primary4-317-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A mobile activity asks a player to choose the matching shape. Its rules say that a correct match earns a point. Explain why this activity is a game, identifying one feature in the description.",
+      "answer": "It is an activity played under rules towards a goal or challenge. Choosing the matching shape is the challenge, and the scoring rule gives feedback on success.",
+      "explanation": "Accept an age-appropriate definition connected to the stated rule or challenge.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains playing under rules with a goal or challenge."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the definition to the matching challenge or scoring rule."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Backgrounds and characters",
+      "learningObjective": "Describe a game environment.",
+      "id": "ndv-317-002",
+      "objectiveId": "nerdc-bdl-primary4-317-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Use the garden plan. A future player will move the watering can, while the garden bed and path stay fixed. Describe which parts belong in the backdrop and which part should be a separate sprite.",
+      "answer": "The fixed bed, plants and path can be drawn in the backdrop. The watering can should be a separate sprite so it can move independently.",
+      "explanation": "A game environment includes the setting and the objects that act within it. Different valid scene designs may use extra sprites, but the can must remain independent for the stated plan.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the fixed setting in the backdrop."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the watering can a separate movable sprite."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "raspberrypi-scratch-basics-317",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Garden game environment plan",
+        "assetPath": "stimuli/batch-317/garden-plan.svg",
+        "textAlternative": "A garden bed with three plants above a path. A separate watering can is at the left end of the path."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Backgrounds and characters",
+      "learningObjective": "Describe a game environment.",
+      "id": "ndv-317-003",
+      "objectiveId": "nerdc-bdl-primary4-317-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a garden game scene, the watering-can sprite is so large that it hides all the plants. Suggest one layout change and explain how it would help a player understand the environment.",
+      "answer": "Reduce or reposition the can so both it and the plants can be seen. The player needs to see the objects and the setting to understand where the action takes place.",
+      "explanation": "Judge whether the proposed change preserves the relevant scene information.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a suitable size or position change."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how visibility helps the player understand the scene."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Scratch interface functions",
+      "learningObjective": "Explain the features and functions of the Scratch programming interface.",
+      "id": "ndv-317-004",
+      "objectiveId": "nerdc-bdl-primary4-317-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil wants to change the drawing of a sprite and also add instructions for it. Explain which work belongs in Costumes and which belongs in Code, including the purpose of the Blocks Palette.",
+      "answer": "The drawing is edited in Costumes. The program is assembled in Code, using instructions chosen from the Blocks Palette.",
+      "explanation": "The task distinguishes editing an asset from giving it executable instructions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links Costumes with editing the sprite image."
+        },
+        {
+          "marks": 1,
+          "description": "Links Code with assembling its program."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the Blocks Palette supplies programming blocks."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "raspberrypi-scratch-basics-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Scratch interface functions",
+      "learningObjective": "Explain the features and functions of the Scratch programming interface.",
+      "id": "ndv-317-005",
+      "objectiveId": "nerdc-bdl-primary4-317-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The Stage displays a garden backdrop and a watering-can sprite. A pupil clicks the Stage thumbnail, then looks for the can's movement script. Explain why selecting the correct object matters and what the pupil should select to inspect that script.",
+      "answer": "Different objects have their own code. Select the watering-can sprite in the sprite list to inspect the movement script attached to it.",
+      "explanation": "The Stage is the scene display and has its own code and backdrops. A sprite's script belongs to that sprite.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that code is attached to the selected object."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the watering-can sprite to inspect its movement code."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "raspberrypi-scratch-basics-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Programming a Game environment",
+      "subtopic": "Creating a scene",
+      "learningObjective": "Create a game environment using Scratch.",
+      "id": "ndv-317-006",
+      "objectiveId": "nerdc-bdl-primary4-317-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in Scratch. Use the garden plan to make a scene named Watering Garden. Paint a backdrop containing the bed, three plants and a path. Paint a separate watering-can sprite and place it beside the path without covering the plants. Save the project locally and show that the sprite can be repositioned separately from the backdrop. No game rules or scoring are required in this scene task.",
+      "answer": "The saved project has a painted garden backdrop and a separate painted watering-can sprite. Moving the can leaves the backdrop unchanged.",
+      "explanation": "This assesses environment creation, not a complete playable game. Accept simple recognisable drawings rather than exact artistic copies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the requested recognisable backdrop."
+        },
+        {
+          "marks": 1,
+          "description": "Paints a separate watering-can sprite."
+        },
+        {
+          "marks": 1,
+          "description": "Arranges the can without obscuring the plants and demonstrates independent repositioning."
+        },
+        {
+          "marks": 1,
+          "description": "Names and saves the project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "raspberrypi-scratch-basics-317",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Garden game environment plan",
+        "assetPath": "stimuli/batch-317/garden-plan.svg",
+        "textAlternative": "A garden bed with three plants above a path. A separate watering can is at the left end of the path."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Coding with Scratch",
+      "subtopic": "Stepwise thinking",
+      "learningObjective": "Explain the meaning of stepwise thinking.",
+      "id": "ndv-317-007",
+      "objectiveId": "nerdc-bdl-primary4-317-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says stepwise thinking means dealing with a task in smaller ordered parts. Explain this idea using the task of making a digital birthday card, without writing any program commands.",
+      "answer": "The pupil can consider parts such as planning the message, adding a picture and checking the finished card. Thinking through these smaller parts in a sensible order makes the whole task manageable.",
+      "explanation": "Accept other clear parts and defensible orderings. The response explains planning rather than claiming an executed program.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains breaking the overall task into manageable parts."
+        },
+        {
+          "marks": 1,
+          "description": "Gives at least two relevant parts in a sensible order."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Coding with Scratch",
+      "subtopic": "Meaning of an algorithm",
+      "learningObjective": "Explain the meaning of an algorithm.",
+      "id": "ndv-317-008",
+      "objectiveId": "nerdc-bdl-primary4-317-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Which is closer to an algorithm: Be tidy, or Put the pencil in the case, close the case, then place it in the bag? Explain what makes the better example clear enough to follow.",
+      "answer": "The second is closer to an algorithm because it gives specific instructions in an order that can be followed to complete the task. Be tidy gives a goal without the necessary steps.",
+      "explanation": "An algorithm describes an ordered method for a task. Do not require a particular programming language.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the specific ordered instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains their clarity and order in completing the task."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Coding with Scratch",
+      "subtopic": "Planning an algorithm",
+      "learningObjective": "Discuss stepwise thinking in relation to an algorithm.",
+      "id": "ndv-317-009",
+      "objectiveId": "nerdc-bdl-primary4-317-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil plans a digital card in three parts: background, message and checking. Explain how stepwise thinking can help turn this plan into an algorithm another person could follow.",
+      "answer": "Each part can be broken into clear actions, such as choose a background, enter the message and check the text. Put the actions in a workable order with enough detail for another person to follow.",
+      "explanation": "The relationship is between breaking down the task and expressing the resulting method as ordered instructions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects stepwise thinking to breaking the task into actions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains turning those actions into a clear ordered method."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Coding with Scratch",
+      "subtopic": "Planning an algorithm",
+      "learningObjective": "Discuss stepwise thinking in relation to an algorithm.",
+      "id": "ndv-317-010",
+      "objectiveId": "nerdc-bdl-primary4-317-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two pupils give different methods for making the same simple title card. One chooses a background before entering the title; the other enters the title before choosing a background. Both then check and save. Must one method be wrong just because the steps differ? Explain.",
+      "answer": "No. More than one clear workable algorithm can achieve the same goal. These two actions can be done in either order if the final title remains readable and the completed work is checked and saved.",
+      "explanation": "Ordered instructions need to work for the goal; every valid solution need not be identical.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that different workable methods may be valid."
+        },
+        {
+          "marks": 1,
+          "description": "Relates validity to producing and checking the required finished card."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Coding with Scratch",
+      "subtopic": "Programming a moving ball",
+      "learningObjective": "Create a simple program using Scratch.",
+      "id": "ndv-317-011",
+      "objectiveId": "nerdc-bdl-primary4-317-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in Scratch. Make a ball travel slowly along a straight horizontal line. On the green flag, place it at x = -100, y = 0 and display Travelling. Glide for two seconds to x = 100, y = 0, then display Arrived. Run the project and show that Arrived appears after the journey. Save it locally.",
+      "answer": "A green-flag script goes to (-100,0), says Travelling, glides for 2 seconds to (100,0), then says Arrived. The y value stays 0 during the glide, giving a horizontal path.",
+      "explanation": "Assess the timed change from travel to arrival, as well as the straight path. This does not assess a three-waypoint route or a player-controlled motion routine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Initialises the specified start on the green flag."
+        },
+        {
+          "marks": 1,
+          "description": "Shows Travelling before the timed horizontal glide."
+        },
+        {
+          "marks": 1,
+          "description": "Shows Arrived after the glide finishes."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the sequence and saves the project."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "raspberrypi-scratch-basics-317",
+      "verification": [
+        {
+          "expression": "100-(-100)",
+          "expected": 200,
+          "purpose": "Check horizontal displacement in the original model"
+        },
+        {
+          "expression": "0-0",
+          "expected": 0,
+          "purpose": "Check equal start and finish vertical positions"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Meaning of Pen blocks",
+      "learningObjective": "Explain the meaning of Pen blocks.",
+      "id": "ndv-317-012",
+      "objectiveId": "nerdc-bdl-primary4-317-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil uses Scratch Pen blocks to leave a line behind a moving sprite. Explain what Pen blocks are and where the line is drawn.",
+      "answer": "Pen blocks are commands from Scratch's Pen extension that control drawing or stamping on the Stage. With the pen down, a moving sprite leaves a drawn trail on the Stage.",
+      "explanation": "The sprite acts as the drawing position; the blocks control the digital drawing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies commands for digital drawing or stamping."
+        },
+        {
+          "marks": 1,
+          "description": "Locates the trail on the Stage as the sprite moves."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Pen block functions",
+      "learningObjective": "Identify the functions of Pen blocks.",
+      "id": "ndv-317-013",
+      "objectiveId": "nerdc-bdl-primary4-317-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A sprite faces right on a clear Stage. Its script is: pen down; move 20 steps; pen up; move 15 steps; pen down; move 20 steps. Describe the visible marks and explain the blank part.",
+      "answer": "There are two straight drawn segments with a blank gap between them. The middle move leaves no line because the pen is up.",
+      "explanation": "The sprite still changes position while the pen is up. No turn occurs, so the two segments lie along the same direction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes two separate straight segments."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the gap using the pen-up move."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Pen block functions",
+      "learningObjective": "Identify the functions of Pen blocks.",
+      "id": "ndv-317-014",
+      "objectiveId": "nerdc-bdl-primary4-317-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A project has a backdrop, a live sprite and several old pen trails. Which Pen block should clear the old drawing, and why is deleting the sprite a different action?",
+      "answer": "Use erase all to clear the Pen-layer drawing. Deleting a sprite removes that programmable object; it is not the same as clearing pen marks.",
+      "explanation": "The backdrop and live sprite are different from the pen layer. Do not interpret erase all as deleting the project.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies erase all."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes clearing drawn marks from deleting the sprite object."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Pen block functions",
+      "learningObjective": "Identify the functions of Pen blocks.",
+      "id": "ndv-317-015",
+      "objectiveId": "nerdc-bdl-primary4-317-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A sprite stamps its image on the Stage and then moves away. A pupil expects the stamped image to follow it. Explain what the stamp block produces and why the expectation is wrong.",
+      "answer": "Stamp leaves an image of the sprite at that moment on the Stage's pen layer. It is not another moving sprite and stays where it was stamped when the original moves.",
+      "explanation": "A stamp is drawn output, not a separately programmable object.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the stamp as a fixed image of the sprite."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why moving the original does not move the stamp."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Pen block functions",
+      "learningObjective": "Identify the functions of Pen blocks.",
+      "id": "ndv-317-016",
+      "objectiveId": "nerdc-bdl-primary4-317-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil wants a thin blue pen line followed by a thicker blue line. Name the kind of Pen setting to change and explain why changing the sprite's costume size is not the same operation.",
+      "answer": "Change the pen size for the later line. Sprite costume size changes the appearance of the sprite; it does not specify the pen line's thickness.",
+      "explanation": "Pen size is a drawing property separate from the displayed sprite size.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies pen size as the relevant setting."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes line thickness from sprite size."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Creating 2D images",
+      "learningObjective": "Use Pen Extension blocks to create 2D images.",
+      "id": "ndv-317-018",
+      "objectiveId": "nerdc-bdl-primary4-317-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in Scratch with the Pen extension. Draw the two separate patterns in the supplied diagram: a rectangle and a four-segment zigzag. Use Pen blocks and movement commands, not the costume paint editor. Keep a clear gap with no connecting line. Run the program and save it locally. Exact dimensions are not required.",
+      "answer": "One possible program uses pen up to go to (-180,-40), erase all, then pen down and visits (-180,40), (-60,40), (-60,-40), (-180,-40). It lifts the pen, goes to (20,-40), lowers the pen and visits (60,40), (100,-40), (140,40), (180,-40), then lifts the pen.",
+      "explanation": "Accept other commands and dimensions producing a closed rectangle and separate four-segment zigzag. This task combines pattern construction with control of the pen between patterns; it does not require a repeat block.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses Pen and movement blocks to draw a closed rectangle."
+        },
+        {
+          "marks": 1,
+          "description": "Draws a recognisable four-segment zigzag."
+        },
+        {
+          "marks": 1,
+          "description": "Lifts the pen between patterns so no connector is drawn."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the output and saves the program locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "scratch-pen-technical-guidance-317",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Two separate pen patterns",
+        "assetPath": "stimuli/batch-317/pen-patterns.svg",
+        "textAlternative": "A rectangle on the left and a separate four-segment zigzag on the right. No line joins the patterns."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Creating 2D images",
+      "learningObjective": "Use Pen Extension blocks to create 2D images.",
+      "id": "ndv-317-019",
+      "objectiveId": "nerdc-bdl-primary4-317-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher supplies a leaf sprite with a single costume in a Scratch project with Pen enabled. Create a row of three separated leaf stamps. Move the original sprite away from the row and hide it, so only the stamped pattern remains visible. Save the project locally and show the blocks.",
+      "answer": "The pupil clears old marks, positions and stamps the leaf at three distinct separated places, then moves and hides the original sprite. The three stamp images remain on the Stage.",
+      "explanation": "Assess stamping, positioning and the distinction between drawn images and the original object. Loops are optional.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes three separated stamps in a row."
+        },
+        {
+          "marks": 1,
+          "description": "Moves and hides the original without removing the stamps."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the relevant blocks and saves the local project."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Creating 2D images",
+      "learningObjective": "Use Pen Extension blocks to create 2D images.",
+      "id": "ndv-317-020",
+      "objectiveId": "nerdc-bdl-primary4-317-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher provides a Pen project that draws one shape, moves to the start of another shape and draws it, leaving an unwanted straight connector. Add the Pen instructions needed to remove that connector from the next clean run. Clear the old drawing, run again and save the repaired project.",
+      "answer": "Insert pen up before the repositioning move and pen down after it, clear old pen marks with erase all and run the corrected script. The two shapes remain, with no connector.",
+      "explanation": "Teacher must prepare a starter in which the faulty pen state is the cause. Preserve the shape-drawing commands; inspect both drawing and blocks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places pen up before the travel move and pen down after it."
+        },
+        {
+          "marks": 1,
+          "description": "Clears the previous marks and demonstrates two shapes without a connector."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the repaired project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "scratch-pen-technical-guidance-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sequence in programming",
+      "subtopic": "Meaning of sequence",
+      "learningObjective": "Describe the meaning of sequence.",
+      "id": "ndv-317-021",
+      "objectiveId": "nerdc-bdl-primary4-317-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In programming, what does sequence mean? Use the instructions open a new project, paint a sprite, then save it as your example.",
+      "answer": "Sequence is the order in which steps or instructions are followed. In this example the new project is opened before the sprite is painted, and the completed work is then saved.",
+      "explanation": "The answer should explain order, not merely repeat the word sequence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains sequence as the order of steps or instructions."
+        },
+        {
+          "marks": 1,
+          "description": "Relates the definition correctly to the given example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sequence in programming",
+      "subtopic": "Why order matters",
+      "learningObjective": "Explain the importance of sequence.",
+      "id": "ndv-317-022",
+      "objectiveId": "nerdc-bdl-primary4-317-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A sprite starts facing left. One script says move 30 steps, then point right. Another says point right, then move 30 steps. Explain why the final positions differ even though the scripts use the same two actions.",
+      "answer": "The first moves left before changing direction. The second turns right before moving, so it moves right. The order determines which direction applies during the move.",
+      "explanation": "This compares two operations whose order changes the result. The starting position can be the same in both tests.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly identifies left movement in the first script and right movement in the second."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that direction must be set before the move to affect that move."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency.",
+      "contentSourceId": "raspberrypi-scratch-basics-317"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sequence in programming",
+      "subtopic": "Why order matters",
+      "learningObjective": "Explain the importance of sequence.",
+      "id": "ndv-317-023",
+      "objectiveId": "nerdc-bdl-primary4-317-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil saves a painted sprite, adds a new star to it and closes the project without saving again. Why does the order of editing and saving matter when the file is reopened?",
+      "answer": "The later star edit was made after the last save, so that saved file may not include it. Saving the completed version after the edit preserves that change.",
+      "explanation": "Use a local practice file without an autosave assumption. The task concerns the dependency between making and preserving a change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the last save can predate the star edit."
+        },
+        {
+          "marks": 1,
+          "description": "Places saving after the final edit to preserve the completed version."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not establish operation of Scratch or practical competency."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Sequence in programming",
+      "subtopic": "Painting a sprite in sequence",
+      "learningObjective": "Create a sprite using the steps in sequence.",
+      "id": "ndv-317-024",
+      "objectiveId": "nerdc-bdl-primary4-317-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in Scratch. Start a new practice project and choose Paint to create a new sprite. Use shape and brush tools to make a simple flag with a pole. Fill the flag shape with one colour, name the sprite Class Flag, and save the project locally after the final edit. Show the teacher the creation steps and reopen the saved project to check that the sprite is present.",
+      "answer": "The pupil creates the sprite in Paint, draws a recognisable flag and pole using the requested tools, fills the flag shape, names it and saves after editing. The reopened project retains the sprite.",
+      "explanation": "The source says save the sprite. This task verifies preservation inside a saved project; separate .sprite3 export is not claimed. Teacher observes the ordered process, not only the finished picture.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a new sprite through Paint."
+        },
+        {
+          "marks": 1,
+          "description": "Uses shape and brush tools for a recognisable flag and pole."
+        },
+        {
+          "marks": 1,
+          "description": "Fills the flag shape and names the sprite Class Flag."
+        },
+        {
+          "marks": 1,
+          "description": "Saves after the final edit and confirms the sprite in the reopened file."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares an authorised practice device with Scratch 3, any named starter file and the supplied assets. Observe the pupil, blocks or paint tools, running result and local saved file. No live accounts, personal information or public sharing. Device provision, app rendering and actual classroom delivery remain unverified.",
+      "contentSourceId": "raspberrypi-scratch-basics-317"
+    }
+  ]
+}

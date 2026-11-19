@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+<title id="t">Plan for a garden game environment</title>
+<desc id="d">A garden bed has three separate plants above a path. A watering can is at the left end of the path.</desc>
+<rect width="640" height="400" fill="#edf7ff"/>
+<rect x="0" y="110" width="640" height="290" fill="#d9edc9"/>
+<rect x="170" y="150" width="390" height="150" rx="15" fill="#77523b"/>
+<path d="M0 345H640" stroke="#f3d8a5" stroke-width="65"/>
+<g stroke="#255032" stroke-width="8" fill="#378c4a">
+<path d="M240 255V175M240 213Q195 170 205 225Q220 240 240 232M240 200Q285 157 275 212Q260 227 240 220"/>
+<path d="M365 255V175M365 213Q320 170 330 225Q345 240 365 232M365 200Q410 157 400 212Q385 227 365 220"/>
+<path d="M490 255V175M490 213Q445 170 455 225Q470 240 490 232M490 200Q535 157 525 212Q510 227 490 220"/>
+</g>
+<g stroke="#17324d" stroke-width="5" fill="#ffd36b">
+<path d="M50 300H120V350H50ZM120 310L155 285L164 294L120 335Z"/>
+<path d="M50 305C15 285 15 340 50 333" fill="none"/>
+</g>
+<g fill="#17324d" font-family="sans-serif" font-size="22" text-anchor="middle">
+<text x="360" y="68">Garden environment plan</text>
+<text x="340" y="388">Path</text>
+</g>
+</svg>

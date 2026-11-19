@@ -3427,13 +3427,17 @@
         "Phishing, printed p. 12 (PDF p. 25)",
         "Cyberbullying, printed p. 13 (PDF p. 26)",
         "Inclusivity in digital content creation, printed p. 14 (PDF p. 27)",
-        "Basics of programming, printed p. 15 (PDF p. 28)"
+        "Basics of programming, printed p. 15 (PDF p. 28)",
+        "Programming a Game environment, printed p. 16 (PDF p. 29)",
+        "Coding with Scratch, printed p. 17 (PDF p. 30)",
+        "Sketch with Block Coding (Using Scratch), printed p. 18 (PDF p. 31)",
+        "Sequence in programming, printed p. 19 (PDF p. 32)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation.",
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3495,6 +3499,31 @@
       "source": "https://github.com/raspberrypilearning/getting-started-scratch/blob/master/en/step_7.md",
       "retrievedOn": "2026-11-19",
       "note": "Publisher tutorial source retrieved in full. Scratch 3 Looks, costume and event examples support technical accuracy. The project website returned a JavaScript-only shell, so the publisher GitHub text was used. Scratch official legacy cardtip7 also corroborates clicking with next costume; the legacy tutorial is not proof of a current curriculum or school adoption. No tutorial project copied."
+    },
+    {
+      "id": "scratch-pen-technical-guidance-317",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_software_teaching_guidance",
+      "source": "https://scratchfoundation.org/learn/learning-library/pen-blocks-turtle-graphics",
+      "supportingSource": "https://cms.scratchfoundation.org/assets/537a5440-5295-4395-8f65-97d41788bbf4",
+      "retrievedOn": "2026-11-19",
+      "note": "Scratch Foundation page and 12-page coding-card PDF retrieved. PDF p. 8 rendered for block-label crosscheck. Pen drawing, positioning and sequence support technical accuracy; original tasks and diagrams do not reproduce the cards. Stamp is described on the Foundation page. This is software guidance, not Nigerian curriculum-adoption evidence."
+    },
+    {
+      "id": "raspberrypi-scratch-basics-317",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "publisher_visual_programming_tutorial",
+      "source": "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_5.md",
+      "supportingSources": [
+        "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_6.md",
+        "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_7.md"
+      ],
+      "retrievedOn": "2026-11-19",
+      "note": "Publisher Scratch 3 text retrieved directly for setup, movement, appearance and saving. Web retrieval of GitHub pages failed, so direct text was used. Software operation crosschecks do not establish school tool provision, exact classroom interface or adoption. Account setup is not required or requested."
     }
   ],
   "banks": [
@@ -39794,6 +39823,259 @@
       ],
       "sourceSections": [
         "Printed p. 15 (PDF p. 28), Basics of programming, performance objective 5; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-1-v1",
+      "topic": "Programming a Game environment",
+      "subtopic": "Meaning of games",
+      "learningObjective": "Explain the meaning of games.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Programming a Game environment, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-2-v1",
+      "topic": "Programming a Game environment",
+      "subtopic": "Backgrounds and characters",
+      "learningObjective": "Describe a game environment.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Programming a Game environment, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-3-v1",
+      "topic": "Programming a Game environment",
+      "subtopic": "Scratch interface functions",
+      "learningObjective": "Explain the features and functions of the Scratch programming interface.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Programming a Game environment, performance objective 4; content, learning activities and evaluation guide",
+        "Printed p. 17 (PDF p. 30), Coding with Scratch, performance objective 4 and content: Sprite, Stage and Block Palette. Shared interface functions are grouped rather than counted as a second objective mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-4-v1",
+      "topic": "Programming a Game environment",
+      "subtopic": "Creating a scene",
+      "learningObjective": "Create a game environment using Scratch.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Programming a Game environment, performance objective 5; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-5-v1",
+      "topic": "Coding with Scratch",
+      "subtopic": "Stepwise thinking",
+      "learningObjective": "Explain the meaning of stepwise thinking.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Coding with Scratch, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-6-v1",
+      "topic": "Coding with Scratch",
+      "subtopic": "Meaning of an algorithm",
+      "learningObjective": "Explain the meaning of an algorithm.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Coding with Scratch, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-7-v1",
+      "topic": "Coding with Scratch",
+      "subtopic": "Planning an algorithm",
+      "learningObjective": "Discuss stepwise thinking in relation to an algorithm.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Coding with Scratch, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-8-v1",
+      "topic": "Coding with Scratch",
+      "subtopic": "Programming a moving ball",
+      "learningObjective": "Create a simple program using Scratch.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Coding with Scratch, performance objective 5; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-9-v1",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Meaning of Pen blocks",
+      "learningObjective": "Explain the meaning of Pen blocks.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 18 (PDF p. 31), Sketch with Block Coding (Using Scratch), performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-10-v1",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Pen block functions",
+      "learningObjective": "Identify the functions of Pen blocks.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 18 (PDF p. 31), Sketch with Block Coding (Using Scratch), performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-11-v1",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "subtopic": "Creating 2D images",
+      "learningObjective": "Use Pen Extension blocks to create 2D images.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 18 (PDF p. 31), Sketch with Block Coding (Using Scratch), performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-12-v1",
+      "topic": "Sequence in programming",
+      "subtopic": "Meaning of sequence",
+      "learningObjective": "Describe the meaning of sequence.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 19 (PDF p. 32), Sequence in programming, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-13-v1",
+      "topic": "Sequence in programming",
+      "subtopic": "Why order matters",
+      "learningObjective": "Explain the importance of sequence.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 19 (PDF p. 32), Sequence in programming, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-317-14-v1",
+      "topic": "Sequence in programming",
+      "subtopic": "Painting a sprite in sequence",
+      "learningObjective": "Create a sprite using the steps in sequence.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 19 (PDF p. 32), Sequence in programming, performance objective 3; content, learning activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

@@ -1,0 +1,224 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-317-1-v1",
+    "nerdc-bdl-primary4-317-2-v1",
+    "nerdc-bdl-primary4-317-3-v1",
+    "nerdc-bdl-primary4-317-4-v1",
+    "nerdc-bdl-primary4-317-5-v1",
+    "nerdc-bdl-primary4-317-6-v1",
+    "nerdc-bdl-primary4-317-7-v1",
+    "nerdc-bdl-primary4-317-8-v1",
+    "nerdc-bdl-primary4-317-9-v1",
+    "nerdc-bdl-primary4-317-10-v1",
+    "nerdc-bdl-primary4-317-11-v1",
+    "nerdc-bdl-primary4-317-12-v1",
+    "nerdc-bdl-primary4-317-13-v1",
+    "nerdc-bdl-primary4-317-14-v1"
+  ],
+  "tables": [
+    {
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "performanceObjectives": [
+        1,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "Sequence in programming",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "evidenceStatus": "Fresh PDF checksum matched; four tables read and visually inspected. Fourteen author-proposed mapping IDs include a shared interface mapping across two source objectives. No official codes invented.",
+  "activityEvaluationAlignment": "Discussion and ordered-method tasks remain written precursors. Six practical tasks require environment painting, a timed straight-line ball, two separate Pen patterns, stamped output, connector repair and ordered sprite creation. The environment plan and Pen-pattern SVGs are original supplied assets. The ball task follows the Coding evaluation; its animate-name activity remains open. Pen rectangle and zigzag are combined in one practical task without requiring a loop, unlike the existing JSS 1 repeat-block task.",
+  "accuracySources": [
+    "scratch-pen-technical-guidance-317",
+    "raspberrypi-scratch-basics-317"
+  ],
+  "unresolved": [
+    {
+      "pdfPage": 30,
+      "issue": "Learning outcome/focal competence refer to device history; performance objectives/content/activity/evaluation concern coding. Limited mappings follow the latter columns, without claiming the conflict resolved officially."
+    },
+    {
+      "pdfPage": 30,
+      "issue": "Evaluation says State; performance objective/content say Stage. Stage is used with the discrepancy recorded."
+    },
+    {
+      "pdfPages": [
+        29,
+        32
+      ],
+      "issue": "Save sprite is assessed inside a saved project; standalone sprite export not assessed."
+    },
+    {
+      "pdfPage": 29,
+      "issue": "Common-mobile-game objective 2 and named commercial examples remain unmapped; no availability or age rating inferred."
+    }
+  ],
+  "remaining": [
+    "Actual tool provisioning, app diagram rendering, school adoption and official term placement",
+    "Animate-name activity and remaining full competency inventory",
+    "Robotics tables pp. 33–34, including unrelated evaluation wording at p. 33",
+    "PictoBlox game development and AI pp. 35–36; referenced activity guides not yet retrieved",
+    "Earlier password, phishing taxonomy and infographic gaps remain open"
+  ],
+  "manualInspection": "Compared all proposed prompts with earlier JSS 1 coding/game batches 241, 244, 245 and Primary 4 batch 316. Removed one redundant pen-up positioning prompt before final validation. The combined rectangle/zigzag task assesses separate patterns and pen-state control without requiring the earlier JSS 1 loop construction. Both original SVGs rendered and visually inspected.",
+  "softwareTextRetrievals": [
+    {
+      "url": "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_5.md",
+      "bytes": 3536,
+      "sha256": "5defe7260309a6c00d3d12bd384eaff776774b98e47688ef6e35afa0cf1f9b60"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_6.md",
+      "bytes": 8194,
+      "sha256": "624bfae9b76b7ce3f461134a07392ef057053fb074f94d8f314967d9d68894fb"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/raspberrypilearning/getting-started-scratch/master/en/step_7.md",
+      "bytes": 7653,
+      "sha256": "125ed3d3792181816848808a303c1ccde1490f93fbe41a789a4c122af57d9250"
+    }
+  ],
+  "modelVerification": {
+    "penPatterns": {
+      "rectangleCoordinates": [
+        [
+          -180,
+          -40
+        ],
+        [
+          -180,
+          40
+        ],
+        [
+          -60,
+          40
+        ],
+        [
+          -60,
+          -40
+        ],
+        [
+          -180,
+          -40
+        ]
+      ],
+      "rectangleEdges": [
+        [
+          0,
+          80
+        ],
+        [
+          120,
+          0
+        ],
+        [
+          0,
+          -80
+        ],
+        [
+          -120,
+          0
+        ]
+      ],
+      "zigzagCoordinates": [
+        [
+          20,
+          -40
+        ],
+        [
+          60,
+          40
+        ],
+        [
+          100,
+          -40
+        ],
+        [
+          140,
+          40
+        ],
+        [
+          180,
+          -40
+        ]
+      ],
+      "zigzagEdges": [
+        [
+          40,
+          80
+        ],
+        [
+          40,
+          -80
+        ],
+        [
+          40,
+          80
+        ],
+        [
+          40,
+          -80
+        ]
+      ],
+      "scope": "Independent coordinate model check, not execution in Scratch. Pen lift between patterns manually inspected."
+    },
+    "penStateTrace": {
+      "id": "ndv-317-013",
+      "segments": [
+        [
+          0,
+          20
+        ],
+        [
+          35,
+          55
+        ]
+      ],
+      "gap": [
+        20,
+        35
+      ],
+      "scope": "Parsed stated straight-line instructions; confirms two drawn segments with a pen-up gap."
+    }
+  }
+}

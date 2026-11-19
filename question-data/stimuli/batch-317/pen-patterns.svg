@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+<title id="t">Two separate pen patterns</title>
+<desc id="d">A rectangle is on the left. A separate zigzag with four sloping segments is on the right. There is no line joining the two patterns.</desc>
+<rect width="640" height="360" fill="#ffffff"/>
+<g fill="none" stroke="#17324d" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+<path d="M60 235V125H260V235Z"/>
+<path d="M350 230L405 140L460 230L515 140L570 230"/>
+</g>
+<g fill="#17324d" font-family="sans-serif" font-size="24" text-anchor="middle">
+<text x="160" y="300">Rectangle</text><text x="460" y="300">Zigzag</text>
+</g>
+</svg>
