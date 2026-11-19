@@ -1709,3 +1709,11 @@ The source inventory preserves numbering, incomplete-reference and
 connectivity questions. Practical delivery requires verified tool/model
 readiness and authorised non-learner test images; no live camera or identity
 recognition is requested. School adoption and full coverage remain open.
+
+### Batch 320 — Primary 4 device foundations and source inventory
+
+Added 22 original Primary 4 Basic Digital Literacy drafts (17 written tasks and five conditional observed-device tasks), mapped to 17 author-proposed objectives from PDF pp. 14, 16–19. All remain drafts awaiting independent academic review. Primary 4 now has 147 valid draft candidates; global totals are 5,689 raw and 4,010 valid drafts, with zero independently reviewed.
+
+The [numbered-objective inventory](specifications/nerdc-primary4-bdl-objective-inventory-320.json) and its CSV enumerate all 84 numbered performance objectives in this exact source’s 23 body tables. Seventy-five have partial draft links; nine remain unmapped. These links do not establish full content, practical competency, delivery or adopted curriculum coverage. Shared mappings must not be summed as unique questions. The 74 author mappings include a separate accessory-function knowledge extension that does not satisfy physical identification. History (two objectives), passwording (three), phishing types, common mobile games, physical robotics accessory identification and autonomous programming remain deferred. Existing guide, version/model, equipment, adoption, term-placement and app-delivery gaps persist.
+
+The fresh source checksum matched. All 56 validator tests, the strict-new audit and whitespace checks passed; previous exceptions and similarity groups are unchanged. Details and source wording conflicts are in [mapping evidence](specifications/nerdc-primary4-bdl-mapping-320.json).

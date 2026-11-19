@@ -1,0 +1,1262 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "sourceSha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "scope": "All 84 numbered performance objectives in the 23 body tables at PDF pp. 14–36 of this exact Primary 4 document. Short labels and inventory IDs are authored navigation aids, not official objective codes. Full practical/content/evaluation coverage, academic review, school adoption and term placement are not asserted.",
+  "tableCount": 23,
+  "numberedObjectiveCount": 84,
+  "objectivesWithPartialDraftMapping": 75,
+  "unmappedNumberedObjectives": 9,
+  "registeredAuthorMappings": 74,
+  "knowledgeExtensions": [
+    {
+      "objectiveId": "nerdc-bdl-primary4-318-7-v1",
+      "sourcePdfPage": 34,
+      "note": "Accessory-function knowledge extension; does not satisfy physical identification PO2."
+    }
+  ],
+  "objectives": [
+    {
+      "inventoryId": "p4-bdl-p14-po1",
+      "topic": "Digital Devices",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p14-po2",
+      "topic": "Digital Devices",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Identification",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p14-po3",
+      "topic": "Digital Devices",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Uses",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p15-po1",
+      "topic": "History of digital devices",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Historical development",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Chronology and source labels require primary-source reconciliation; abacus is not silently treated as an electronic digital computer.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p15-po2",
+      "topic": "History of digital devices",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Historical classification",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Chronology and source labels require primary-source reconciliation; abacus is not silently treated as an electronic digital computer.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p16-po1",
+      "topic": "Parts of digital devices",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Computer part functions",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p16-po2",
+      "topic": "Parts of digital devices",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Mobile part functions",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p17-po1",
+      "topic": "Peripheral devices",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p17-po2",
+      "topic": "Peripheral devices",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Functions",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p17-po3",
+      "topic": "Peripheral devices",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Effective use",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po1",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Keyboard meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po2",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Key groups",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po3",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Keyboard operations",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-11-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po4",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Mouse description",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-12-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po5",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Mouse buttons",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-13-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p18-po6",
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 6,
+      "shortLabel": "Mouse operations",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-14-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p19-po1",
+      "topic": "Output Devices",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-15-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p19-po2",
+      "topic": "Output Devices",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Examples",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-16-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p19-po3",
+      "topic": "Output Devices",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Output operations",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-320-17-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p20-po1",
+      "topic": "Interface Customisation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p20-po2",
+      "topic": "Interface Customisation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Examples",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p20-po3",
+      "topic": "Interface Customisation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Themes and wallpaper",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p21-po1",
+      "topic": "File Management",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Files and folders",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-313-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p21-po2",
+      "topic": "File Management",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "File types",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-313-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p21-po3",
+      "topic": "File Management",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Storage categories",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-313-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p21-po4",
+      "topic": "File Management",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "File/folder operations",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-313-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 6,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p22-po1",
+      "topic": "Digital Content Creation",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Word content",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p22-po2",
+      "topic": "Digital Content Creation",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "PowerPoint content",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p22-po3",
+      "topic": "Digital Content Creation",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Excel content",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-314-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p23-po1",
+      "topic": "Safety and protection",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Passwording meaning",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Source password examples require reconciliation with current context-specific guidance; no universal short/mixed-type rule adopted.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p23-po2",
+      "topic": "Safety and protection",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Password types",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Source password examples require reconciliation with current context-specific guidance; no universal short/mixed-type rule adopted.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p23-po3",
+      "topic": "Safety and protection",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Strong passwords",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Source password examples require reconciliation with current context-specific guidance; no universal short/mixed-type rule adopted.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p24-po1",
+      "topic": "Safe Internet Use",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Safe sites",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p24-po2",
+      "topic": "Safe Internet Use",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Upsetting content",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p24-po3",
+      "topic": "Safe Internet Use",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Report to adult",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p24-po4",
+      "topic": "Safe Internet Use",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Online manners",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p25-po1",
+      "topic": "Phishing",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p25-po2",
+      "topic": "Phishing",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Source does not specify a stable phishing-type taxonomy.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p25-po3",
+      "topic": "Phishing",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Detection",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p25-po4",
+      "topic": "Phishing",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Countermeasures",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p26-po1",
+      "topic": "Cyberbullying",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p26-po2",
+      "topic": "Cyberbullying",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Forms",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p26-po3",
+      "topic": "Cyberbullying",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Response",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-315-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p27-po1",
+      "topic": "Inclusivity in digital content creation",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p27-po2",
+      "topic": "Inclusivity in digital content creation",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Examples",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p27-po3",
+      "topic": "Inclusivity in digital content creation",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Importance",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p27-po4",
+      "topic": "Inclusivity in digital content creation",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Inclusive features",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 4,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p28-po1",
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p28-po2",
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Uses",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p28-po3",
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Tools",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p28-po4",
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Steps",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 4,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p28-po5",
+      "topic": "Basics of programming",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Visual program",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-316-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p29-po1",
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Games meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p29-po2",
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Common mobile games",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Common mobile game selection, age suitability and product availability not verified.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p29-po3",
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Environment",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p29-po4",
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Interface features",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p29-po5",
+      "topic": "Programming a Game environment",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Create environment",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p30-po1",
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Stepwise thinking",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p30-po2",
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Algorithm meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p30-po3",
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Relationship to algorithms",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p30-po4",
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Sprite Stage and Palette",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p30-po5",
+      "topic": "Coding with Scratch",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Create program",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p31-po1",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Pen meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p31-po2",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Pen functions",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 4,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p31-po3",
+      "topic": "Sketch with Block Coding (Using Scratch)",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Draw 2D shapes",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-11-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p32-po1",
+      "topic": "Sequence in programming",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-12-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p32-po2",
+      "topic": "Sequence in programming",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Importance",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-13-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p32-po3",
+      "topic": "Sequence in programming",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Create sprite in sequence",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-317-14-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p33-po1",
+      "topic": "Basics of Robotics",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p33-po2",
+      "topic": "Basics of Robotics",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p33-po3",
+      "topic": "Basics of Robotics",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Features",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p33-po4",
+      "topic": "Basics of Robotics",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Benefits",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p34-po1",
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Uses",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p34-po2",
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Physical accessory identification",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Actual physical kit/accessories, age suitability, manuals and autonomous-control delivery unverified.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p34-po3",
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Component identification",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p34-po4",
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Component functions",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-318-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 4,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p34-po5",
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Autonomous program",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_deferred",
+      "limitation": "Actual physical kit/accessories, age suitability, manuals and autonomous-control delivery unverified.",
+      "linkedValidDrafts": 0,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p35-po1",
+      "topic": "Game Development with Pictoblox",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p35-po2",
+      "topic": "Game Development with Pictoblox",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Commands",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p35-po3",
+      "topic": "Game Development with Pictoblox",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Create with variables",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 1,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p36-po1",
+      "topic": "Artificial Intelligence (AI)",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p36-po2",
+      "topic": "Artificial Intelligence (AI)",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Advantages",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p36-po3",
+      "topic": "Artificial Intelligence (AI)",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Face detection",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 2,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-bdl-p36-po4",
+      "topic": "Artificial Intelligence (AI)",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Program face detection",
+      "mappedObjectiveIds": [
+        "nerdc-bdl-primary4-319-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "Mapping is not evidence of complete objective, practical competency or delivery.",
+      "linkedValidDrafts": 3,
+      "countNote": "Shared mappings can occur in more than one row; do not sum rows as unique questions."
+    }
+  ]
+}

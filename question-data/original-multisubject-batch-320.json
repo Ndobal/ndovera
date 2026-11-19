@@ -1,0 +1,906 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 digital devices and input/output foundations",
+  "questionCount": 22,
+  "note": "Original exact-class drafts from 17 author-proposed mappings. Five observed-device tasks, with equipment preparation and delivery unverified. Historical chronology is deferred. All independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Digital Devices",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain the meaning of a digital device.",
+      "id": "ndv-320-001",
+      "objectiveId": "nerdc-bdl-primary4-320-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Bisi says a laptop is a digital device because it is shiny. Explain what makes it digital rather than describing its appearance.",
+      "answer": "It processes information represented by numbers, such as the coded information used for text, pictures and sound. A shiny case does not make a device digital.",
+      "explanation": "Digital describes how information is represented and processed, rather than colour, size or finish. Primary-level wording such as working with information in number codes is acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes processing information in numerical/coded form."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that feature from physical appearance."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Digital Devices",
+      "subtopic": "Identification",
+      "learningObjective": "Identify common digital devices.",
+      "id": "ndv-320-002",
+      "objectiveId": "nerdc-bdl-primary4-320-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "A teacher describes a device worn on the wrist. It has a small electronic display, runs apps and can show messages from a phone. Which digital device is being described?",
+      "answer": "Smartwatch",
+      "explanation": "The description identifies a wearable digital device; no health measurement or medical accuracy is assumed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Desktop computer",
+        "Smartwatch",
+        "Projector",
+        "Laptop computer"
+      ],
+      "correctOption": "B",
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Digital Devices",
+      "subtopic": "Uses",
+      "learningObjective": "List uses of digital devices.",
+      "id": "ndv-320-003",
+      "objectiveId": "nerdc-bdl-primary4-320-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The class has a laptop with a text editor and a saved educational film. There is no internet connection. State two useful learning activities the class can still carry out with this setup.",
+      "answer": "Type and edit a class story; watch the already saved educational film.",
+      "explanation": "The specified editor and saved film allow these activities locally; the answer does not assume that every app works offline.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names typing/editing text using the installed editor."
+        },
+        {
+          "marks": 1,
+          "description": "Names watching the saved educational film."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Parts of digital devices",
+      "subtopic": "Computer parts",
+      "learningObjective": "Describe functions of the basic parts of a computer.",
+      "id": "ndv-320-004",
+      "objectiveId": "nerdc-bdl-primary4-320-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil records a poem on a computer, then listens to the recording. Name the part that captures the voice and the part that plays the sound back. Explain why these are different jobs.",
+      "answer": "The microphone captures the voice as input. The speakers play the recorded sound as output.",
+      "explanation": "Recording sound into a computer and producing sound from it are opposite directions of information movement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the microphone as capturing the voice."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies speakers as playing the recording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes sound input from sound output."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Parts of digital devices",
+      "subtopic": "Computer parts",
+      "learningObjective": "Describe functions of the basic parts of a computer.",
+      "id": "ndv-320-005",
+      "objectiveId": "nerdc-bdl-primary4-320-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A laptop pointer moves when Tunde slides a finger on the flat pad below the keyboard. What is this part called, and what job is it doing?",
+      "answer": "It is the trackpad or touchpad. It provides pointing input to move the on-screen pointer.",
+      "explanation": "The trackpad is a pointing input part; it is not the screen displaying the pointer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the trackpad/touchpad."
+        },
+        {
+          "marks": 1,
+          "description": "Describes supplying pointing input to move the pointer."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Parts of digital devices",
+      "subtopic": "Mobile device parts",
+      "learningObjective": "Describe functions of the basic parts of a mobile digital device.",
+      "id": "ndv-320-006",
+      "objectiveId": "nerdc-bdl-primary4-320-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "On a teacher-approved phone, a pupil takes a photograph of a leaf and then looks at the photograph. Which part captures the picture, and which part displays it?",
+      "answer": "The camera captures the picture; the screen displays it.",
+      "explanation": "Capturing an image and displaying it involve different parts even when both are built into the same phone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the camera as capturing the image."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the screen as displaying the image."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Parts of digital devices",
+      "subtopic": "Mobile device parts",
+      "learningObjective": "Describe functions of the basic parts of a mobile digital device.",
+      "id": "ndv-320-007",
+      "objectiveId": "nerdc-bdl-primary4-320-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A mobile device displays a blue Start button on its touchscreen. A pupil touches the button and the activity begins. Explain the two jobs the touchscreen performed.",
+      "answer": "It displayed the button as output and detected the pupil’s touch as input.",
+      "explanation": "One component can have both input and output functions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies showing the button as output."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies detecting the touch as input."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Peripheral devices",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain the meaning of peripheral devices.",
+      "id": "ndv-320-008",
+      "objectiveId": "nerdc-bdl-primary4-320-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A printer is connected to a computer so that the class can produce paper notices. Explain why the printer is called a peripheral device in this setup.",
+      "answer": "It is an attached hardware device that provides an extra function, producing paper output for the computer.",
+      "explanation": "Peripheral devices provide input, output or storage functions alongside the computer’s main processing system. This example does not imply that every peripheral must be outside the case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the printer as connected hardware."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the additional output function it supplies."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Peripheral devices",
+      "subtopic": "Functions",
+      "learningObjective": "Describe functions of peripheral devices.",
+      "id": "ndv-320-009",
+      "objectiveId": "nerdc-bdl-primary4-320-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom computer already has a screen. The whole class needs to see its map enlarged on a wall. Choose a suitable peripheral and explain the function it adds.",
+      "answer": "A projector can display the computer’s map as a larger image on the wall or a projection screen.",
+      "explanation": "The task asks for a display function suitable for a group, not for storing or capturing the map.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects a projector."
+        },
+        {
+          "marks": 1,
+          "description": "Connects its enlarged visual output to the whole-class need."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Peripheral devices",
+      "subtopic": "Using a peripheral",
+      "learningObjective": "Use peripheral devices effectively.",
+      "id": "ndv-320-010",
+      "objectiveId": "nerdc-bdl-primary4-320-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. A teacher has connected and tested a flatbed scanner and opened its scanning software. Use it to scan your own simple leaf drawing on paper. Place the page as demonstrated, make a preview, check that the whole drawing is visible and the right way up, then scan and save the image in the teacher’s practice folder. Open the saved image and show it to the teacher.",
+      "answer": "A successful performance places the drawing correctly, uses the preview to check the whole image, saves the scan in the stated folder and opens the saved image for inspection.",
+      "explanation": "This is a limited original scanner-use route. Connection, driver installation and use of other peripheral types remain outside the demonstrated skill.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Positions the drawing as demonstrated without forcing the lid."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a preview and checks completeness and orientation."
+        },
+        {
+          "marks": 1,
+          "description": "Scans and saves the image in the specified practice folder."
+        },
+        {
+          "marks": 1,
+          "description": "Opens the saved image and shows that it contains the drawing."
+        }
+      ],
+      "deliveryNote": "Observed device-performance task. Teacher must prepare and test the named equipment, software and sample materials, demonstrate the local controls and supervise. Do not award practical marks from a written plan alone. Equipment availability, exact model/version, accessibility arrangements and actual classroom delivery are unverified. No mains wiring, repair or account sign-in is required."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Keyboard meaning",
+      "learningObjective": "Explain the meaning of a keyboard.",
+      "id": "ndv-320-011",
+      "objectiveId": "nerdc-bdl-primary4-320-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "Which description best explains the job of a computer keyboard?",
+      "answer": "A set of keys used to enter text and commands",
+      "explanation": "A keyboard supplies input; it does not itself print a document, project an image or reproduce recorded sound.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "A device that projects a picture on a wall",
+        "A set of keys used to enter text and commands",
+        "A device that prints a paper page",
+        "A part that plays recorded sound"
+      ],
+      "correctOption": "B",
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Groups of keys",
+      "learningObjective": "Identify groups of keys on a keyboard.",
+      "id": "ndv-320-012",
+      "objectiveId": "nerdc-bdl-primary4-320-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Match each key to a useful group: Shift, Left Arrow and comma (,). Use modifier, navigation and punctuation once each.",
+      "answer": "Shift: modifier; Left Arrow: navigation; comma: punctuation.",
+      "explanation": "These are useful instructional groups, not a claim that every keyboard key fits one exclusive category.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches Shift to modifier."
+        },
+        {
+          "marks": 1,
+          "description": "Matches Left Arrow to navigation."
+        },
+        {
+          "marks": 1,
+          "description": "Matches comma to punctuation."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Groups of keys",
+      "learningObjective": "Identify groups of keys on a keyboard.",
+      "id": "ndv-320-013",
+      "objectiveId": "nerdc-bdl-primary4-320-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "In a typing activity, one pupil presses the letter M key and another presses the number 4 key. Which group includes both keys?",
+      "answer": "Alphanumeric keys",
+      "explanation": "Alphanumeric means letters and numbers; Shift is a modifier and arrows are used for navigation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Navigation keys",
+        "Function keys",
+        "Alphanumeric keys",
+        "Modifier keys"
+      ],
+      "correctOption": "C",
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Keyboard operations",
+      "learningObjective": "Carry out operations using a keyboard.",
+      "id": "ndv-320-014",
+      "objectiveId": "nerdc-bdl-primary4-320-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in a teacher-prepared text editor with an English keyboard layout. Type exactly: We have 18 blue books. Use Shift for the capital W. Move the text cursor with arrow keys and change 18 to 19 without retyping the whole sentence. Show the teacher the final line and the keys used.",
+      "answer": "The final line reads We have 19 blue books. The pupil uses Shift with W, enters spaces and the full stop, moves the cursor with arrow keys and replaces only the final digit of the number.",
+      "explanation": "Accept Backspace or Delete in an appropriate cursor position. Keyboard layout and editor behaviour must be tested first. This task does not assess every function or special key.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses Shift with W and types the sentence with spaces and a full stop."
+        },
+        {
+          "marks": 1,
+          "description": "Uses arrow keys to move the text cursor to the number."
+        },
+        {
+          "marks": 1,
+          "description": "Edits only the needed digit to produce 19 while preserving the rest of the sentence."
+        }
+      ],
+      "deliveryNote": "Observed device-performance task. Teacher must prepare and test the named equipment, software and sample materials, demonstrate the local controls and supervise. Do not award practical marks from a written plan alone. Equipment availability, exact model/version, accessibility arrangements and actual classroom delivery are unverified. No mains wiring, repair or account sign-in is required."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Mouse meaning",
+      "learningObjective": "Describe a computer mouse.",
+      "id": "ndv-320-015",
+      "objectiveId": "nerdc-bdl-primary4-320-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A computer mouse is moved across a desk while its pointer moves on the screen. Explain what kind of device the mouse is and one way a pupil uses it to give a command.",
+      "answer": "It is a pointing input device. A pupil can point to an item and click a button to select it or activate a control.",
+      "explanation": "The physical mouse supplies input; the pointer is the on-screen indication of pointing position.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a pointing input device."
+        },
+        {
+          "marks": 1,
+          "description": "Describes pointing and clicking to select or activate an item."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Mouse buttons",
+      "learningObjective": "Identify standard mouse buttons.",
+      "id": "ndv-320-016",
+      "objectiveId": "nerdc-bdl-primary4-320-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the source’s usual mouse arrangement, the left button is primary and the right button is secondary. A teacher has deliberately swapped the buttons in Windows settings for a learner. Must the learner still use the left physical button for a primary click? Explain.",
+      "answer": "No. With the buttons swapped, the right physical button performs the primary-click role. The role depends on the configured setting.",
+      "explanation": "Microsoft documents that the primary button can be set to Left or Right. The source’s default labels are not a universal rule for every configured mouse.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the right physical button is primary in the stated swapped setup."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that settings determine the role."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence.",
+      "contentSourceId": "microsoft-mouse-settings-320"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Mouse buttons",
+      "learningObjective": "Identify standard mouse buttons.",
+      "id": "ndv-320-017",
+      "objectiveId": "nerdc-bdl-primary4-320-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher points to the two main buttons on a standard mouse before discussing their settings. Name these buttons by their physical positions.",
+      "answer": "The left button and the right button.",
+      "explanation": "Physical positions stay left and right even if software swaps their primary and secondary roles. A wheel or additional side buttons may also be present.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the left button."
+        },
+        {
+          "marks": 1,
+          "description": "Names the right button."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Input Devices",
+      "subtopic": "Mouse operations",
+      "learningObjective": "Use a mouse to perform basic operations.",
+      "id": "ndv-320-018",
+      "objectiveId": "nerdc-bdl-primary4-320-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical mouse task. The teacher has prepared a practice folder and verified that double-clicking with the configured primary button opens it. Point to the folder, select it with one primary click, then open it with a primary double-click. Inside, use a secondary click on the teacher’s sample file to show its context menu, then dismiss the menu without choosing a command.",
+      "answer": "The pupil selects the folder, opens it with a primary double-click, shows the file’s context menu with a secondary click and dismisses it without changing the file.",
+      "explanation": "The task makes the configured button roles and double-click setting explicit. It assesses pointer and button control rather than a memorised physical-left rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Points accurately and selects the folder with one primary click."
+        },
+        {
+          "marks": 1,
+          "description": "Opens it with a primary double-click."
+        },
+        {
+          "marks": 1,
+          "description": "Shows and dismisses the sample file’s context menu without applying a command."
+        }
+      ],
+      "deliveryNote": "Observed device-performance task. Teacher must prepare and test the named equipment, software and sample materials, demonstrate the local controls and supervise. Do not award practical marks from a written plan alone. Equipment availability, exact model/version, accessibility arrangements and actual classroom delivery are unverified. No mains wiring, repair or account sign-in is required.",
+      "contentSourceId": "microsoft-mouse-settings-320"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Output Devices",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain the meaning of output devices.",
+      "id": "ndv-320-019",
+      "objectiveId": "nerdc-bdl-primary4-320-15-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A computer sends a spoken instruction to its speaker. Explain what makes the speaker an output device in this example.",
+      "answer": "It takes information sent out by the computer and presents it as sound that people can hear.",
+      "explanation": "The direction is from the computer to the listener. The speaker is not recording the listener’s voice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes information leaving the computer."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies audible sound as the presented output."
+        }
+      ],
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Output Devices",
+      "subtopic": "Examples",
+      "learningObjective": "Identify examples of output devices.",
+      "id": "ndv-320-020",
+      "objectiveId": "nerdc-bdl-primary4-320-16-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "Which list contains only devices that can present output from a computer?",
+      "answer": "Monitor, printer, speakers",
+      "explanation": "The three present visual, paper and sound output respectively; the distractors each include an input device.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Monitor, microphone, printer",
+        "Keyboard, projector, speakers",
+        "Camera, printer, monitor",
+        "Monitor, printer, speakers"
+      ],
+      "correctOption": "D",
+      "deliveryNote": "Written understanding task; not evidence of practical device competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Output Devices",
+      "subtopic": "Output operations",
+      "learningObjective": "Use output devices to carry out operations.",
+      "id": "ndv-320-021",
+      "objectiveId": "nerdc-bdl-primary4-320-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical printing task. The teacher has prepared a working printer and an original one-page class notice with a distinctive heading. Open the notice, check the preview, choose the teacher’s printer and request one copy. When the teacher indicates it is ready to collect, inspect the actual paper and show that it has the expected heading and the full notice.",
+      "answer": "The pupil selects the correct document and printer, checks one page and one copy, submits the job and inspects the resulting paper for the expected complete notice.",
+      "explanation": "A preview or print-dialog screenshot alone is not evidence of printed output. Do not award the paper-result mark if equipment fails; arrange another observed opportunity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Checks that the preview is the intended complete one-page notice."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the teacher’s printer and one copy."
+        },
+        {
+          "marks": 1,
+          "description": "Submits the print job using the prepared controls."
+        },
+        {
+          "marks": 1,
+          "description": "Inspects the actual paper and identifies its heading and completeness."
+        }
+      ],
+      "deliveryNote": "Observed device-performance task. Teacher must prepare and test the named equipment, software and sample materials, demonstrate the local controls and supervise. Do not award practical marks from a written plan alone. Equipment availability, exact model/version, accessibility arrangements and actual classroom delivery are unverified. No mains wiring, repair or account sign-in is required."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Output Devices",
+      "subtopic": "Output operations",
+      "learningObjective": "Use output devices to carry out operations.",
+      "id": "ndv-320-022",
+      "objectiveId": "nerdc-bdl-primary4-320-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical speaker task. The teacher has opened a short, approved chime recording with working speakers at a comfortable volume. Play it, pause it, then resume from the paused point. Show the teacher the change in sound at each step and leave playback stopped at the end.",
+      "answer": "The pupil makes the chime audible, pauses it so the sound stops, resumes it from the pause position and stops playback at the end.",
+      "explanation": "Audible playback is evidence of using the sound output. The teacher must test the controls and speaker route; silent button pressing is insufficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Starts playback and the chime is audible at the prepared comfortable volume."
+        },
+        {
+          "marks": 1,
+          "description": "Pauses playback and demonstrates that the sound stops."
+        },
+        {
+          "marks": 1,
+          "description": "Resumes from the paused point and leaves playback stopped when finished."
+        }
+      ],
+      "deliveryNote": "Observed device-performance task. Teacher must prepare and test the named equipment, software and sample materials, demonstrate the local controls and supervise. Do not award practical marks from a written plan alone. Equipment availability, exact model/version, accessibility arrangements and actual classroom delivery are unverified. No mains wiring, repair or account sign-in is required."
+    }
+  ]
+}

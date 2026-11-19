@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-320-1-v1",
+    "nerdc-bdl-primary4-320-2-v1",
+    "nerdc-bdl-primary4-320-3-v1",
+    "nerdc-bdl-primary4-320-4-v1",
+    "nerdc-bdl-primary4-320-5-v1",
+    "nerdc-bdl-primary4-320-6-v1",
+    "nerdc-bdl-primary4-320-7-v1",
+    "nerdc-bdl-primary4-320-8-v1",
+    "nerdc-bdl-primary4-320-9-v1",
+    "nerdc-bdl-primary4-320-10-v1",
+    "nerdc-bdl-primary4-320-11-v1",
+    "nerdc-bdl-primary4-320-12-v1",
+    "nerdc-bdl-primary4-320-13-v1",
+    "nerdc-bdl-primary4-320-14-v1",
+    "nerdc-bdl-primary4-320-15-v1",
+    "nerdc-bdl-primary4-320-16-v1",
+    "nerdc-bdl-primary4-320-17-v1"
+  ],
+  "evidenceStatus": "Fresh source retrieved and checksum matched. Text of all 23 numbered objective columns checked; new-question tables on PDF pp. 14,16–19 also visually inspected. Historical questions deferred.",
+  "tables": [
+    {
+      "topic": "Digital Devices",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "Parts of digital devices",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "performanceObjectives": [
+        1,
+        2
+      ]
+    },
+    {
+      "topic": "Peripheral devices",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "Input Devices",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "topic": "Output Devices",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "inventory": "nerdc-primary4-bdl-objective-inventory-320.json",
+  "technicalSourceIds": [
+    "microsoft-mouse-settings-320"
+  ],
+  "sourceConflicts": [
+    "PDF p.16 repeats a historical-development outcome header above a parts/functions table; mapped to numbered objectives/content/evaluation, not that header.",
+    "PDF p.18 labels physical left/right as primary/secondary defaults. Microsoft confirms button roles can be swapped; tasks state the actual configuration.",
+    "Keyboard categories are useful groups, not disjoint sets.",
+    "PDF p.19 lists camera as a teaching resource, not as an output example in the content column; no camera-as-output inference.",
+    "PDF p.15 historical first labels and abacus terminology remain unresolved."
+  ],
+  "remaining": [
+    "Five practical tasks are conditional original routes; no actual equipment execution, classroom performance or driver/setup skill is claimed.",
+    "Keyboard task covers typing/navigation/editing only, not all function/special keys or named Mavis Beacon software.",
+    "Scanner is teacher-connected; independent connection and other peripheral types remain open.",
+    "Full learning activities, competency and evaluation coverage is not established by numbered-objective inventory.",
+    "Existing adoption, term-placement, password, phishing taxonomy, common-game, robotics, model/version, authentic guide and app-delivery gaps persist."
+  ],
+  "manualInspection": "Reviewed each prompt, answer, explanation and rubric; directions and criteria match. Compared scanner/printer concepts with batch229 and used observed scan/print tasks rather than repeating office equipment selection. Touchscreen dual roles, microphone input, trackpad pointing, configurable buttons and output evidence are distinct. No arithmetic answer claims. MCQ references and positive marking totals independently checked."
+}
