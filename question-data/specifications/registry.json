@@ -943,7 +943,10 @@
         "https://waeconline.org.ng/e-learning/Government/Govt228jq1.html"
       ],
       "retrievedOn": "2026-11-04",
-      "note": "NECO confirms Papers II and III, essay and objective. Historical WAEC examiner references support provisional topics. Scenarios are fictional and do not assert current Nigerian legal requirements. Official NECO objectives and option counts remain open."
+      "lastSourceRecheck": "2026-11-19",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "sourceCaution": "Govt228jq1.html has a title identifying November/December 2018 and a page heading identifying private candidates 2019. Its year remains ambiguous. Use it only as historical thematic evidence. Generic examiner statements about executive powers do not establish current Nigerian law.",
+      "note": "NECO confirms Papers II and III, essay and objective. The published 2027 timetable retains Government codes 4042 and 4043 in a combined two-hour-forty-minute sitting. Historical delegated-legislation and rule-of-law observations were rechecked on 19 November 2026. Historical WAEC examiner references support provisional topics. Scenarios are fictional and do not assert current Nigerian legal requirements. Official NECO objectives and option counts remain open."
     },
     {
       "id": "neco-geography-settlement-map-reference-2026",

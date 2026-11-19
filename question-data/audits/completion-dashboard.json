@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5506,
-    "validDrafts": 3827,
+    "raw": 5518,
+    "validDrafts": 3839,
     "reviewed": 0,
     "registeredBanks": 201,
     "target": 183000,
@@ -1988,6 +1988,12 @@
       "sha256": "437522fddee01fca315153f739d9c44100e6cd3fbed5010f5dba2af4ae24cd09",
       "declared": 18,
       "actual": 18
+    },
+    {
+      "path": "original-multisubject-batch-310.json",
+      "sha256": "c23ff35e23be64759670dd97f0a9f106682650cb4b28bbab866269cee45eac5e",
+      "declared": 12,
+      "actual": 12
     },
     {
       "path": "original-practice-batch-001.json",
@@ -4775,18 +4781,19 @@
           ]
         }
       },
-      "raw": 11,
-      "validDrafts": 10,
+      "raw": 23,
+      "validDrafts": 22,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 6,
-        "mcq": 5
+        "structured": 12,
+        "mcq": 11
       },
       "difficulty": {
-        "standard": 10,
+        "standard": 19,
+        "difficult": 3,
         "missing": 1
       },
-      "remaining": 990,
+      "remaining": 978,
       "mappedObjectives": 2,
       "representedObjectives": 2,
       "coverage": "partial_objective_register",
@@ -7889,17 +7896,17 @@
     }
   ],
   "errorCounts": {
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -45445,6 +45452,78 @@
       "errors": []
     },
     {
+      "id": "ndv-310-001",
+      "file": "original-multisubject-batch-310.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-002",
+      "file": "original-multisubject-batch-310.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-003",
+      "file": "original-multisubject-batch-310.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-004",
+      "file": "original-multisubject-batch-310.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-005",
+      "file": "original-multisubject-batch-310.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-006",
+      "file": "original-multisubject-batch-310.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-007",
+      "file": "original-multisubject-batch-310.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-008",
+      "file": "original-multisubject-batch-310.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-009",
+      "file": "original-multisubject-batch-310.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-010",
+      "file": "original-multisubject-batch-310.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-011",
+      "file": "original-multisubject-batch-310.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-310-012",
+      "file": "original-multisubject-batch-310.json",
+      "index": 11,
+      "errors": []
+    },
+    {
       "id": "original-00001",
       "file": "original-practice-batch-001.json",
       "index": 0,
@@ -66202,8 +66281,8 @@
       "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
       "specificationId": "neco-government-accountability-reference-2026",
       "questionTypes": {
-        "structured": 3,
-        "mcq": 2
+        "structured": 6,
+        "mcq": 5
       },
       "sourceSections": [
         "NECO 2026 SSCE Internal Government Papers II and III",
@@ -66211,13 +66290,14 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 5,
-      "validDrafts": 5,
+      "questionCount": 11,
+      "validDrafts": 11,
       "difficulty": {
-        "standard": 5
+        "standard": 10,
+        "difficult": 1
       },
       "tiers": {
-        "not_specified": 5
+        "not_specified": 11
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
@@ -66233,8 +66313,8 @@
       "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
       "specificationId": "neco-government-accountability-reference-2026",
       "questionTypes": {
-        "structured": 3,
-        "mcq": 2
+        "structured": 6,
+        "mcq": 5
       },
       "sourceSections": [
         "NECO 2026 SSCE Internal Government Papers II and III",
@@ -66242,13 +66322,14 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null,
-      "questionCount": 5,
-      "validDrafts": 5,
+      "questionCount": 11,
+      "validDrafts": 11,
       "difficulty": {
-        "standard": 5
+        "standard": 9,
+        "difficult": 2
       },
       "tiers": {
-        "not_specified": 5
+        "not_specified": 11
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Government delegated powers and fair process practice",
+  "questionCount": 12,
+  "note": "Original fictional public-administration scenarios under existing provisional cross-board mappings. Practice marks and rubrics. Independent academic review pending. The scenarios do not assert current Nigerian legal requirements.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-001",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "In a fictional state, an Act allows emergency flood regulations for thirty days. A ministry says that continuing flood danger automatically makes those regulations permanent. Assess this claim and explain how a legislature could address the continuing danger while retaining oversight.",
+      "answer": "The continuing danger does not itself remove the thirty-day limit in the Act. The legislature could consider a time-limited renewal or change the legal authority through its proper procedure, requiring reasons and further review.",
+      "explanation": "The conclusion follows the stated limit. Credit alternative renewal arrangements if they preserve the legislature’s control over the authority granted.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Applies the thirty-day limit to reject automatic permanence."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a procedure for lawful renewal or amendment."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a way to maintain scrutiny of continuing necessity."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-002",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional Act requires a minister to consult both vehicle manufacturers and passenger groups before setting safety regulations. The minister consults only manufacturers because they have technical expertise. Explain the value of their expertise and assess whether it satisfies the stated condition.",
+      "answer": "Manufacturers can contribute technical knowledge about the equipment. Their expertise does not fulfil the separate requirement to consult passenger groups. Both groups must be consulted under the rule described.",
+      "explanation": "Expertise explains one benefit of delegation, while the enabling condition still governs how the delegated power is exercised.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a relevant contribution of manufacturer expertise."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises that the Act requires two categories of consultation."
+        },
+        {
+          "marks": 1,
+          "description": "Concludes that consulting manufacturers alone is insufficient."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-003",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "In a fictional country, an Act lets a standards board set maximum application fees, subject to a ceiling of ₦2,000. The board sets the maximum at ₦2,800 and says applicants can choose whether to apply. Evaluate its reasoning.",
+      "answer": "The ceiling limits the board’s authority to set the fee. Whether applicants choose to apply does not authorise a higher maximum. A maximum above ₦2,000 requires a change to the stated legal authority.",
+      "explanation": "The issue is the limit placed on delegated power by the enabling Act.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the statutory ceiling of ₦2,000."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why voluntary application does not remove that limit."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the need for an authorised change before exceeding the ceiling."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-004",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional legislature fixes the main duties in an Act and allows a technical body to update a schedule of machine-testing methods. Which benefit most directly supports this arrangement?",
+      "answer": "Specialist details can be updated without passing a new Act for every technical change.",
+      "explanation": "Delegation can provide technical expertise and flexibility within the framework set by the legislature.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The technical body acquires unlimited authority over every subject.",
+        "The Act ceases to apply as soon as the first schedule is issued.",
+        "Specialist details can be updated without passing a new Act for every technical change.",
+        "The technical body can ignore any restriction in the Act."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-005",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional Act states that regulations take effect only after an approving vote of the legislature. A ministry submits its regulations to the legislative office, but no vote occurs. What follows from the stated condition?",
+      "answer": "Submission alone has not brought the regulations into effect.",
+      "explanation": "The Act requires approval through a vote, so delivery of the document is insufficient.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Submission alone has not brought the regulations into effect.",
+        "Submission automatically replaces the required vote.",
+        "The ministry can infer approval from the absence of a reply.",
+        "The regulations become a new enabling Act upon submission."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Delegated legislation",
+      "subtopic": "Authority, limits and scrutiny",
+      "learningObjective": "Explain why detailed rules may be delegated and assess whether a rule stays within the delegated authority.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-006",
+      "objectiveId": "neco-government-accountability-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional Act authorises a named public board to issue regulations and expressly forbids transferring that power. The board asks a private contractor to issue binding regulations in its own name. Which issue is most directly raised?",
+      "answer": "The board is attempting a transfer that the Act expressly prohibits.",
+      "explanation": "The stated prohibition governs who may exercise the delegated power.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The contractor’s regulations must automatically have greater authority than the Act.",
+        "Using a contractor always turns regulations into primary legislation.",
+        "The prohibition applies only when the legislature agrees with the contractor.",
+        "The board is attempting a transfer that the Act expressly prohibits."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-007",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional permit authority refuses an application because of an adverse inspection report. The applicant is told neither what the report alleges nor how to answer it before the decision is final. Explain the fairness problem and propose two steps to improve the process.",
+      "answer": "The applicant cannot meaningfully respond to allegations that have not been disclosed. Give the applicant the substance of the adverse findings and a reasonable opportunity to submit a response before an impartial decision is reached.",
+      "explanation": "The answer concerns the opportunity to understand and answer the case affecting the applicant.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why undisclosed allegations obstruct an effective response."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes disclosure of the relevant adverse findings."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a meaningful opportunity to respond before impartial determination."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-008",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional district provides independent hearings to challenge administrative penalties, but its only hearing venue is far away and filing costs exceed many residents’ monthly income. Assess the difference between the existence of the hearing process and its practical accessibility. Suggest one improvement.",
+      "answer": "A process can exist formally while distance and expense prevent people from using it. Remote or local filing, affordable fees or a suitable waiver could make challenges more accessible. Independence also needs to be retained as access improves.",
+      "explanation": "Credit a feasible change linked to one of the barriers in the scenario.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes formal availability from practical access."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the effect of cost or distance on an effective challenge."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests an improvement linked to a stated barrier."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-009",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional review panel has power to reverse agency penalties. The agency’s head threatens to dismiss panel members whenever they decide against the agency. Explain why having reversal powers on paper does not establish independent review and suggest a safeguard.",
+      "answer": "The dismissal threat gives the agency a means to influence outcomes. Reviewers need protection from removal merely for reaching an adverse decision, such as secure terms and a separate, defined removal procedure.",
+      "explanation": "Independence depends on whether reviewers can exercise their powers without improper pressure.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies pressure through threatened dismissal."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the pressure can undermine genuine review."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a safeguard addressing that pressure."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-010",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional authority fines a driver under a rule that was publicly introduced after the journey. The rule contains no provision applying it to earlier journeys. Which objection best fits these facts?",
+      "answer": "The authority is applying the new rule to conduct that preceded its stated operation.",
+      "explanation": "Predictable administration requires attention to which rules applied when the conduct occurred.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Every road rule must be made by a private association.",
+        "The authority is applying the new rule to conduct that preceded its stated operation.",
+        "The driver’s occupation determines which rule applies.",
+        "Publication after the journey proves the driver had already been warned."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-011",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional licensing office applies a published safety threshold. One applicant meets it and another fails it. Which response best reflects equal treatment under a consistent rule?",
+      "answer": "Explain the different outcomes by reference to the same safety threshold and the evidence for each applicant.",
+      "explanation": "Equal application of a rule can produce different outcomes when relevant circumstances differ.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Issue identical decisions regardless of whether either applicant meets the threshold.",
+        "Grant whichever result is preferred by the better-connected applicant.",
+        "Explain the different outcomes by reference to the same safety threshold and the evidence for each applicant.",
+        "Avoid recording the evidence so that no comparison can be made."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Government",
+      "topic": "Rule of law",
+      "subtopic": "Equal treatment and independent review",
+      "learningObjective": "Analyse how consistent rules, fair process and independent review constrain public power.",
+      "specificationId": "neco-government-accountability-reference-2026",
+      "id": "ndv-310-012",
+      "objectiveId": "neco-government-accountability-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A fictional government says its agencies are bound by written rules, yet lets officials alter the version of a rule shown to each applicant without recording the changes. Which reform most directly improves predictable administration?",
+      "answer": "Maintain a publicly accessible, dated version of the rule and a record of authorised changes.",
+      "explanation": "A stable, traceable rule helps applicants know the applicable requirements and supports scrutiny of decisions.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Maintain a publicly accessible, dated version of the rule and a record of authorised changes.",
+        "Let officials use whichever version produces their preferred outcome.",
+        "Publish applicants’ personal details in place of the rule.",
+        "Judge the validity of a rule only by the official’s popularity."
+      ],
+      "correctOption": "A"
+    }
+  ]
+}
