@@ -1646,3 +1646,11 @@ analytic rubric. Writing-section assembly and score calibration remain open.
 
 Batch 298 adds four TOEFL Academic Discussion drafts with a professor’s
 question, two student posts, a model response and an analytic rubric.
+
+Batch 313 rechecks revised NERDC access and opens Basic Digital Literacy for
+Primary 4 using the directly retrieved September 2025 PDF. Twelve original
+File Management drafts map four initial performance objectives on printed p. 8
+(PDF p. 21). Six device tasks require teacher preparation and observation.
+Class landing pages still returned 403 and an indexed Primary 1 CCA PDF returned
+404. The access inventory records these results, the successful PDF checksum
+and remaining coverage, adoption and delivery gaps.

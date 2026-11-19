@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5542,
-    "validDrafts": 3863,
+    "raw": 5554,
+    "validDrafts": 3875,
     "reviewed": 0,
-    "registeredBanks": 201,
-    "target": 183000,
+    "registeredBanks": 202,
+    "target": 184000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -2004,6 +2004,12 @@
     {
       "path": "original-multisubject-batch-312.json",
       "sha256": "836a2b6699cf3e0a5bc4e4ef613bfc8d8918b2c9baebe0ad9785139c8fc2d5bf",
+      "declared": 12,
+      "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-313.json",
+      "sha256": "3f77d50a3a061f9afcf6359c05b3be69fc575ecb36dd1182ac93bb234af1362a",
       "declared": 12,
       "actual": 12
     },
@@ -5731,6 +5737,29 @@
     },
     {
       "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "raw": 12,
+      "validDrafts": 12,
+      "reviewed": 0,
+      "questionTypes": {
+        "structured": 12
+      },
+      "difficulty": {
+        "standard": 12
+      },
+      "remaining": 988,
+      "mappedObjectives": 4,
+      "representedObjectives": 4,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NERDC",
       "subject": "Basic Science",
       "level": "JSS 2",
       "target": 1000,
@@ -7910,18 +7939,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16
+    "invalid_score": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 599,
@@ -45678,6 +45707,78 @@
     {
       "id": "ndv-312-012",
       "file": "original-multisubject-batch-312.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-001",
+      "file": "original-multisubject-batch-313.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-002",
+      "file": "original-multisubject-batch-313.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-003",
+      "file": "original-multisubject-batch-313.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-004",
+      "file": "original-multisubject-batch-313.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-005",
+      "file": "original-multisubject-batch-313.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-006",
+      "file": "original-multisubject-batch-313.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-007",
+      "file": "original-multisubject-batch-313.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-008",
+      "file": "original-multisubject-batch-313.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-009",
+      "file": "original-multisubject-batch-313.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-010",
+      "file": "original-multisubject-batch-313.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-011",
+      "file": "original-multisubject-batch-313.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-313-012",
+      "file": "original-multisubject-batch-313.json",
       "index": 11,
       "errors": []
     },
@@ -111699,6 +111800,126 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-1-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Meaning of file and folder",
+      "learningObjective": "Explain the meaning of a file and a folder.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 1"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-2-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Types of files",
+      "learningObjective": "Identify text, audio and video files by their contents.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 2"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-3-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Storage categories",
+      "learningObjective": "Identify internal and external storage devices.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 3"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-4-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 6
+      },
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 4"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -111793,6 +112014,7 @@
     "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
     "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
     "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
-    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open."
+    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.",
+    "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint."
   ]
 }

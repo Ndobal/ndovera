@@ -1243,7 +1243,10 @@
       "retrievedOn": "2026-11-05",
       "lastSourceRecheck": "2026-11-18",
       "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
-      "admissionRecheck": ["https://digitallibrary.un.org/record/280616", "https://mandates.un.org/mandate/A/RES/1492(XV)?subject=Nigeria"],
+      "admissionRecheck": [
+        "https://digitallibrary.un.org/record/280616",
+        "https://mandates.un.org/mandate/A/RES/1492(XV)?subject=Nigeria"
+      ],
       "retrievalNote": "The legislation HTML could not be parsed by the web retrieval tool and a direct XML request returned zero bytes on 18 November 2026. No fresh Act retrieval is claimed. The UN admission resolution and UN Nigeria membership account were accessible. The separate UN document A/4533 PDF returned 403. The Assembly registry publication label is 1961 while the resolution decision is dated 7 October 1960.",
       "note": "The 2026 timetable confirms Paper II (4112, essay) and Paper III (4113, objective). The published 2027 timetable retains these codes in a combined three-hour sitting. WAEC examiner materials support provisional scope. The enacted Independence Act and United Nations records anchor the independence and admission dates. Official NECO learning objectives remain unverified."
     },
@@ -3401,6 +3404,29 @@
       ],
       "checkedOn": "2026-11-15",
       "note": "Official Academic and General Training pages describe an introduction and identity check followed by familiar-topic questions, with 4–5 minutes for Part 1 overall. The four assessment criteria inform original practice rubrics."
+    },
+    {
+      "id": "nerdc-bdl-primary4-revised-2025",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+      "viewer": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/viewer.html?file=14.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 3520514,
+      "pageCount": 37,
+      "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+      "sourceSections": [
+        "Cover, PDF p. 1",
+        "File Management, printed p. 8 (PDF p. 21)"
+      ],
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject."
     }
   ],
   "banks": [
@@ -6144,6 +6170,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-intermediate-science-jss1-revised",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -39172,6 +39207,78 @@
       ],
       "mappingStatus": "provisional_cross_board_reference_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-1-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Meaning of file and folder",
+      "learningObjective": "Explain the meaning of a file and a folder.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 1"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-2-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Types of files",
+      "learningObjective": "Identify text, audio and video files by their contents.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 2"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-3-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Storage categories",
+      "learningObjective": "Identify internal and external storage devices.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 3"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-313-4-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), File Management performance objective 4"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -39266,6 +39373,7 @@
     "Batch 295 extends Cambridge 0620 Core and Extended structured Theory in section 6.2. These written questions sample rate data and collision reasoning. Full-paper assembly and hands-on practical assessment remain open.",
     "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
     "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
-    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open."
+    "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.",
+    "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint."
   ]
 }

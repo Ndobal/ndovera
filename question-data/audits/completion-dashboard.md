@@ -105,6 +105,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Technical Drawing | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | NECO | Visual Arts | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | NECO | Yoruba | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
+| NERDC | Basic Digital Literacy / Primary 4 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -220,12 +221,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1082 | 1017 | 0 | 35000 | 33983 |
+| NERDC | 1094 | 1029 | 0 | 36000 | 34971 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5542, "validDrafts": 3863, "reviewed": 0, "registeredBanks": 201, "target": 183000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5554, "validDrafts": 3875, "reviewed": 0, "registeredBanks": 202, "target": 184000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -323,3 +324,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.
 - Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.
 - Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.
+- On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.

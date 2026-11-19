@@ -1,0 +1,510 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 Basic Digital Literacy file management",
+  "questionCount": 12,
+  "note": "Original written and device-performance practice from exact-class revised curriculum. Six practical tasks need teacher preparation and observation. No term mapping or official marks inferred. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Meaning of file and folder",
+      "learningObjective": "Explain the meaning of a file and a folder.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-001",
+      "objectiveId": "nerdc-bdl-primary4-313-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil saves a short story on a computer. She puts it with other stories in a folder called Reading. Explain what the story file holds and what the Reading folder is used for.",
+      "answer": "The file holds the saved story. The folder groups the story with related files.",
+      "explanation": "Files contain saved information, while folders help organise files.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the file contains the story."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the folder organises related files."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Meaning of file and folder",
+      "learningObjective": "Explain the meaning of a file and a folder.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-002",
+      "objectiveId": "nerdc-bdl-primary4-313-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A folder called Music contains three saved songs. A pupil says that opening the folder is the same as playing all three songs. Explain the difference.",
+      "answer": "Opening the folder shows its contents. The pupil must open a song file in a suitable player to hear it.",
+      "explanation": "A folder can contain files without playing their contents.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes viewing a folder’s contents from playing sound."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that a song file must be opened in a suitable player."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Types of files",
+      "learningObjective": "Identify text, audio and video files by their contents.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-003",
+      "objectiveId": "nerdc-bdl-primary4-313-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Choose a suitable file type for each item and explain your choices. The items are a typed class notice, a recording of a poem being read aloud, and a recording showing a pupil performing a dance.",
+      "answer": "Text for the typed notice, audio for the spoken poem, and video for the dance recording.",
+      "explanation": "The choice depends on whether the saved information is writing, sound or moving images.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the notice to text."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the spoken recording to audio."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the dance recording to video."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Types of files",
+      "learningObjective": "Identify text, audio and video files by their contents.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-004",
+      "objectiveId": "nerdc-bdl-primary4-313-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Your group wants to show how a paper model moves when it is opened. Would an audio file or a video file better show the movement? Give a reason.",
+      "answer": "A video file, because it can show moving images of the model. Audio alone records sound.",
+      "explanation": "The file type should carry the information the group needs to show.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses video."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that moving images show the movement."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Storage categories",
+      "learningObjective": "Identify internal and external storage devices.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-005",
+      "objectiveId": "nerdc-bdl-primary4-313-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A computer keeps a saved story on its built-in drive. The teacher also gives you a USB drive that can be connected and removed. Name the storage category of each.",
+      "answer": "The built-in drive is internal storage. The removable USB drive is external storage.",
+      "explanation": "The categories distinguish storage within the computer from a separate connected storage device.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the built-in drive as internal."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the USB drive as external."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "Storage categories",
+      "learningObjective": "Identify internal and external storage devices.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-006",
+      "objectiveId": "nerdc-bdl-primary4-313-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Your teacher wants you to keep a copy of a class file on an external storage device. A built-in hard drive and an SD card are available. Which fits the request, and why?",
+      "answer": "The SD card fits because it is a removable external storage device. The built-in hard drive is internal.",
+      "explanation": "The choice follows the requested storage category.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the SD card."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the category using its removable external role."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-007",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. In the practice area your teacher has prepared, create a folder called Stories. Use a text application to write two sentences about your morning. Save the file as My Morning inside Stories. Open the saved file to show your teacher.",
+      "answer": "A folder named Stories contains the pupil’s saved text file named My Morning, which opens and contains two sentences.",
+      "explanation": "Assess the saved result and the pupil’s actions on the device.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the Stories folder in the assigned practice area."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the two-sentence file inside it with the requested name."
+        },
+        {
+          "marks": 1,
+          "description": "Opens the saved file and shows its contents."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-008",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher has put a practice file named Work in your practice folder. Open it to see what it contains. Rename it with a clear name that matches the contents. Keep it in the same folder and show that it still opens.",
+      "answer": "The pupil gives the file a relevant descriptive name, keeps its file type and contents intact, and opens it from the original folder.",
+      "explanation": "Accept different sensible names. Observe that renaming has preserved the file and its contents.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a name that matches the file’s contents."
+        },
+        {
+          "marks": 1,
+          "description": "Renames the file without changing its file type or folder."
+        },
+        {
+          "marks": 1,
+          "description": "Opens it and shows that the contents remain available."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-009",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher has prepared a file called Class Poem and two folders called Practice and Spare Copy. The file is in Practice. Copy it into Spare Copy. Show your teacher that it can be opened from both folders.",
+      "answer": "Class Poem remains in Practice and a separate copy can be opened from Spare Copy.",
+      "explanation": "Copying should leave the source file in place and create another at the chosen location.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a copy operation on the prepared file."
+        },
+        {
+          "marks": 1,
+          "description": "Places the copy in Spare Copy."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that both source and copy can be opened."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-010",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher has prepared a text file called Plant Notes in a folder called Unsorted. Move it into the folder called Class Project. Show where it is now and check whether it remains in Unsorted.",
+      "answer": "Plant Notes is available in Class Project and is no longer in Unsorted.",
+      "explanation": "The task assesses moving a prepared practice file between folders.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Moves the prepared file into Class Project."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that it opens from the new folder."
+        },
+        {
+          "marks": 1,
+          "description": "Confirms that it is no longer in Unsorted."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-011",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Your teacher has placed two practice files in a folder. One is called Keep for Class and the other is called Delete This Practice File. Delete only the second file. Show that Keep for Class is still available.",
+      "answer": "The named disposable practice file is removed from the folder while Keep for Class remains available.",
+      "explanation": "The assessment is limited to the teacher-prepared practice files.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the exact file marked for deletion."
+        },
+        {
+          "marks": 1,
+          "description": "Deletes that file from the practice folder."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that Keep for Class remains available."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "File Management",
+      "subtopic": "File and folder operations",
+      "learningObjective": "Perform basic file and folder operations.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-313-012",
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. Open the teacher-prepared story file in your practice folder. Add a suitable final sentence and save your changes. Close the file and open it again to check that your sentence was saved.",
+      "answer": "The reopened story file includes the pupil’s final sentence.",
+      "explanation": "Reopening checks the saved file rather than only what was displayed before closing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Adds a suitable sentence to the prepared file."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the change to that file."
+        },
+        {
+          "marks": 1,
+          "description": "Reopens the file and confirms that the sentence is present."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named practice files and folders on an available device with suitable applications and file management. Assess by observing the pupil and saved artefact. Interface steps may vary. Device availability and practical delivery are unverified."
+    }
+  ]
+}

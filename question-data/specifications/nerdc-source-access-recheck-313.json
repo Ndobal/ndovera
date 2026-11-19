@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "title": "New Revised Basic Education Curriculum, Basic Digital Literacy for Primary 4",
+  "publication": "September 2025",
+  "accessChecks": [
+    {
+      "url": "https://www.nerdc.gov.ng/content_manager/new_curriculum_home.html",
+      "result": "accessible; links classes Primary 1–6 and JSS 1–3"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_1",
+      "result": "HTTP 403 in web and direct cloud retrieval"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_2",
+      "result": "HTTP 403 in web and direct cloud retrieval"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/jss_1",
+      "result": "HTTP 403 in web and direct cloud retrieval"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_1/web/12.pdf",
+      "result": "indexed Primary 1 CCA candidate; HTTP 404 in web and direct cloud retrieval"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/viewer.html?file=14.pdf",
+      "result": "viewer accessible; used to resolve relative PDF file path"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+      "result": "direct cloud HTTP 200; PDF parsed and p. 21 visually rendered"
+    }
+  ],
+  "initialObjectives": [
+    {
+      "objectiveId": "nerdc-bdl-primary4-313-1-v1",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "performanceObjectiveNumber": 1,
+      "learningObjective": "Explain the meaning of a file and a folder."
+    },
+    {
+      "objectiveId": "nerdc-bdl-primary4-313-2-v1",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "performanceObjectiveNumber": 2,
+      "learningObjective": "Identify text, audio and video files by their contents."
+    },
+    {
+      "objectiveId": "nerdc-bdl-primary4-313-3-v1",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "performanceObjectiveNumber": 3,
+      "learningObjective": "Identify internal and external storage devices."
+    },
+    {
+      "objectiveId": "nerdc-bdl-primary4-313-4-v1",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "performanceObjectiveNumber": 4,
+      "learningObjective": "Perform basic file and folder operations."
+    }
+  ],
+  "openIssues": [
+    "Full topic/competency/evaluation mapping pending",
+    "No school-specific adoption or term placement verified",
+    "Device provision and actual practical delivery unverified",
+    "Introduction includes apparent Mathematics/BST template wording",
+    "Primary 1 CCA indexed path did not resolve"
+  ],
+  "rolloutEvidence": "NERDC notice of 8 September 2025, PDF p. 3, specifies entry at each three-year cycle including Primary 4. National rollout does not verify any school-specific adoption."
+}
