@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo explicit letters, spelling and conditional excursion accounts",
+  "questionCount": 8,
+  "note": "Eight original structured drafts: six written and two live/recorded spoken tasks; one spoken spelling task also requires written evidence. Three actual-excursion tasks require verified prior experience; two fictional planning tasks claim no attendance. Six new mappings plus reuse of two existing word-definition drafts; unresolved mkpụrụedide remains unmapped.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmepụta mkpụrụokwu ndị dị mfe",
+      "subtopic": "Explicit letter-card word formation",
+      "learningObjective": "Form familiar simple Igbo words from explicitly identified letter cards.",
+      "id": "ndv-332-001",
+      "objectiveId": "nerdc-igbo-primary4-332-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Jiri kaadị mkpụrụedemede ndị a mepụta okwu abụọ: k | a | a maka akụkụ ahụ e ji ejide ihe; e | u | b maka mkpụrụosisi. Jiri okwu mbụ mee otu ahịrịokwu.",
+      "answer": "aka; ube. Aka m dị ọcha.",
+      "explanation": "The task explicitly uses letters, which the source header names. It does not reinterpret the separate unresolved mkpụrụedide term or make a syllable/morpheme claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Forms aka using the supplied first set, retaining both a cards."
+        },
+        {
+          "marks": 1,
+          "description": "Forms ube using the supplied second set."
+        },
+        {
+          "marks": 1,
+          "description": "Uses aka meaning hand in an intelligible relevant Igbo sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "teacherSupport": "The supplied units are explicitly letter cards (mkpụrụedemede). No digraph splitting or letter/syllable count is assessed. Aka means hand here; ube follows the source fruit list."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmepụta mkpụrụokwu ndị dị mfe",
+      "subtopic": "Spelling and writing",
+      "learningObjective": "Spell and write familiar Igbo words while preserving relevant written distinctions.",
+      "id": "ndv-332-002",
+      "objectiveId": "nerdc-igbo-primary4-332-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Onye nkụzi ga-akpọ okwu abụọ n’otu n’otu. Sụpee okwu ọ bụla n’olu, deekwa ya n’akwụkwọ.",
+      "answer": "Examiner words are aka and ube. Ordered written-letter models are a–k–a and u–b–e. The learner must actually spell each orally using the prechecked local letter names and submit the corresponding written words: aka; ube.",
+      "explanation": "This task preserves oral spelling and actual writing as separate evidence. The word list is examiner-only; it is not a claimed audio recording or pronunciation standard.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the correct ordered letter sequence for aka orally using checked local names."
+        },
+        {
+          "marks": 1,
+          "description": "Writes aka correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the correct ordered letter sequence for ube orally."
+        },
+        {
+          "marks": 1,
+          "description": "Writes ube correctly."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "spoken",
+      "teacherSupport": "Examiner-only words: aka, ube. Check the intended local pronunciations and letter names first, then say each word with suitable opportunity to respond. Retain actual oral and written evidence; no fixed accent or tone-testing standard is invented.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require actual individual live/recorded speech. Examiner checks the local word forms, instructions and assessment conditions in advance. Written preparation alone is insufficient. No audio retrieval, learner performance or examiner calibration is claimed.",
+      "requiresWrittenEvidence": true,
+      "examinerOnlyWords": [
+        "aka",
+        "ube"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmepụta mkpụrụokwu ndị dị mfe",
+      "subtopic": "Spelling and writing",
+      "learningObjective": "Spell and write familiar Igbo words while preserving relevant written distinctions.",
+      "id": "ndv-332-003",
+      "objectiveId": "nerdc-igbo-primary4-332-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ederede a, mmadụ hapụrụ ntụpọ ndị dị mkpa. Degharịa okwu abụọ ahụ nke ọma. Kọwaa otu ihe i tinyere n’odide ha.",
+      "answer": "ụlọ; akwụkwọ. Agbakwunyere m ntụpọ n’okpuru ụdaume kwesịrị ekwesị.",
+      "explanation": "Meaningful underdots are part of these familiar written forms. The task does not test a complete tone-marking convention or resolve the source’s unidentified unit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects the first word to ụlọ."
+        },
+        {
+          "marks": 1,
+          "description": "Corrects the second word to akwụkwọ."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the added underdots/distinct written vowel forms in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "passage": "Okwu maka ụlọ mmadụ bi: ulo.\nOkwu maka ihe a na-agụ: akwukwo.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkwupụta uche onye (site na njem nlereanya)",
+      "subtopic": "Topic of an attended excursion",
+      "learningObjective": "Choose an appropriate topic for an excursion personally attended and verified by the teacher.",
+      "id": "ndv-332-004",
+      "objectiveId": "nerdc-igbo-primary4-332-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Họrọ otu njem nlereanya ị gara nke onye nkụzi gị kwadoro. Nye akụkọ njem ahụ isiokwu kwesịrị ekwesị. Kọwaa otú isiokwu ahụ si kwekọọ n’ihe unu gara ịmụ.",
+      "answer": "There is no universal filled answer. A successful Igbo response gives a clear topic/title tied to the real teacher-verified excursion, identifies its learning purpose and explains the connection using an accurate detail from that experience.",
+      "explanation": "The source explicitly refers to an excursion pupils made. A generic invented destination is not accepted as proof of attendance or the learner’s observations.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate intelligible Igbo title/topic tied to the verified excursion."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies its actual learning purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an accurate verified detail to explain the topic-purpose connection."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "teacherSupport": "Use the linked teacher-only protocol before the task. Accept a broad site category/topic without private names, addresses or identifying details. No fictional exemplar is supplied as an attended event.",
+      "requiresVerifiedPriorExcursion": true,
+      "excursionProtocolPath": "stimuli/batch-332/excursion-protocol.json",
+      "deliveryNote": " Conditional task: teacher must verify a real prior excursion and the learner’s attendance/experience under the linked protocol. Do not administer or score this as attended-excursion performance without that evidence. A fictional alternative practises language only and does not satisfy this source experience requirement. No trip is arranged or assumed here."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkwupụta uche onye (site na njem nlereanya)",
+      "subtopic": "Excursion vocabulary",
+      "learningObjective": "Explain personally learned words from a teacher-verified excursion account.",
+      "id": "ndv-332-005",
+      "objectiveId": "nerdc-igbo-primary4-332-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Site n’otu njem nlereanya ị gara nke onye nkụzi kwadoro, họrọ okwu abụọ ị mụtara. Dee okwu ndị ahụ, kọwaa nghọta ha n’ebe ahụ ma jiri nke ọ bụla mee ahịrịokwu.",
+      "answer": "A successful answer supplies two actual personally learned excursion words, their teacher-checked contextual meanings and an intelligible Igbo sentence for each. Exact words depend on the verified excursion record; no invented universal vocabulary list is required.",
+      "explanation": "Word-newness is learner-specific. The teacher must verify the words arose in the actual excursion/account and check meanings rather than assuming every pupil learned the same new items.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies the first word from the verified record."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its agreed contextual meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Uses it meaningfully in an Igbo sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies a second different verified word."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its agreed contextual meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the second word meaningfully in an Igbo sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "teacherSupport": "Teacher records individually learned vocabulary and checked glosses under the protocol. If no suitable newly learned items are verified, postpone this source-specific task; do not invent them or mark already-known words as new.",
+      "requiresVerifiedPriorExcursion": true,
+      "excursionProtocolPath": "stimuli/batch-332/excursion-protocol.json",
+      "deliveryNote": " Conditional task: teacher must verify a real prior excursion and the learner’s attendance/experience under the linked protocol. Do not administer or score this as attended-excursion performance without that evidence. A fictional alternative practises language only and does not satisfy this source experience requirement. No trip is arranged or assumed here."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkwupụta uche onye (site na njem nlereanya)",
+      "subtopic": "Benefits and drawbacks",
+      "learningObjective": "Discuss benefits and drawbacks of an excursion with a reasoned response to a stated situation.",
+      "id": "ndv-332-006",
+      "objectiveId": "nerdc-igbo-primary4-332-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Site na ndetu mmega a, kọwaa otu uru njem ahụ nwere ike ịba, otu ihe nwere ike igbochi mmụta, na otu ihe ha nwere ike ime tupu njem ahụ iji nyere ha aka.",
+      "answer": "Ha nwere ike ịhụ otú e si edobe akwụkwọ. Oge dị mkpụmkpụ nwere ike ime ka ha ghara ịjụ ajụjụ. Ha nwere ike ide ajụjụ ha tupu ha apụ.",
+      "explanation": "The author’s fictional planning situation supports discussion of benefits and limitations only. It does not claim that any class has taken this trip.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the potential learning benefit about observing book arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies limited question time as a possible learning constraint."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a relevant preparation step, such as writing questions in advance."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in intelligible Igbo how that step helps address the constraint."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "passage": "Ndetu mmega e chepụtara: Klaasị chọrọ ịga ọba akwụkwọ. Ha ga-ahụ otú e si edobe akwụkwọ. Ha ga-eji oge ụfọdụ n’ụzọ. Oge a ga-eji jụọ ajụjụ n’ebe ahụ nwere ike ịdị mkpụmkpụ.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkwupụta uche onye (site na njem nlereanya)",
+      "subtopic": "Benefits and drawbacks",
+      "learningObjective": "Discuss benefits and drawbacks of an excursion with a reasoned response to a stated situation.",
+      "id": "ndv-332-007",
+      "objectiveId": "nerdc-igbo-primary4-332-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ echiche A na B. Ha abụọ hà nwere ike ịbụ eziokwu banyere njem nlereanya? Kọwaa azịza gị ma tụọ otu ụzọ a ga-esi nweta uru ma belata nsogbu ahụ.",
+      "answer": "Ee, ha abụọ nwere ike ịbụ eziokwu. Ịhụ ihe nwere ike inyere mmụta aka, mana njem na-ewe oge, okwu ụfọdụ nwekwara ike isiri ụmụaka ike. Onye nkụzi nwere ike ịkọwa okwu ndị dị mkpa tupu njem ahụ.",
+      "explanation": "A reasoned discussion can recognise a benefit and a drawback simultaneously. This is a hypothetical opinion task, not evidence of a witnessed excursion or a real travel plan.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that a benefit and drawback can coexist."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the observation/learning benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the stated time or vocabulary difficulty."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a relevant way to preserve benefit while addressing a stated difficulty."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "written",
+      "passage": "Echiche mmega e chepụtara:\nA. Anyị nwere ike ịmụta site n’ịhụ ihe n’onwe anyị.\nB. Njem na-ewe oge, okwu ụfọdụ nwekwara ike isiri anyị ike.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkwupụta uche onye (site na njem nlereanya)",
+      "subtopic": "Reporting an attended excursion",
+      "learningObjective": "Recount a teacher-verified excursion personally attended, describing observations in a clear sequence.",
+      "id": "ndv-332-008",
+      "objectiveId": "nerdc-igbo-primary4-332-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọrọ onye nkụzi akụkọ otu njem nlereanya ị gara nke o kwadoro. Kwuo ihe unu gara ịmụ, usoro ihe abụọ unu mere ma kọwaa ihe abụọ ị hụrụ n’onwe gị. Zaa otu ajụjụ ọ ga-ajụ gbasara ihe ị kọọrọ ya.",
+      "answer": "A successful actual Igbo account identifies the verified excursion’s learning purpose, reports two real activities in a clear order, describes two genuine firsthand observations and gives a relevant response to the examiner’s follow-up. No universal destination, activity or observation is supplied.",
+      "explanation": "The account must distinguish actual learner experience from fiction or secondhand information. The authoring process has not arranged, attended or verified any learner’s excursion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the verified learning purpose in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Reports two accurate activities in a meaningful sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Describes one genuine firsthand observation consistent with the verified record."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a second distinct firsthand observation."
+        },
+        {
+          "marks": 1,
+          "description": "Responds relevantly to a follow-up about the account without inventing missing facts."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible forms after examiner checking. No complete tone system, mandatory letter-name pronunciation, local school adoption or national grading scheme is established.",
+      "responseMode": "spoken",
+      "teacherSupport": "Teacher uses the protocol and asks one relevant follow-up, for example “Gịnị mere nke ahụ ji bụrụ ihe dị mkpa n’ihe unu gara ịmụ?” Accept an honest limit of knowledge; never force an invented observation. No reading-speed, tone or universal accent score is imposed.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require actual individual live/recorded speech. Examiner checks the local word forms, instructions and assessment conditions in advance. Written preparation alone is insufficient. No audio retrieval, learner performance or examiner calibration is claimed. Conditional task: teacher must verify a real prior excursion and the learner’s attendance/experience under the linked protocol. Do not administer or score this as attended-excursion performance without that evidence. A fictional alternative practises language only and does not satisfy this source experience requirement. No trip is arranged or assumed here.",
+      "requiresVerifiedPriorExcursion": true,
+      "excursionProtocolPath": "stimuli/batch-332/excursion-protocol.json"
+    }
+  ]
+}

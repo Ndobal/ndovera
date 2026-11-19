@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    17,
+    20
+  ],
+  "authorMappings": [
+    {
+      "inventoryId": "p4-igbo-table7-po3",
+      "objectiveId": "nerdc-igbo-primary4-332-1-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po4",
+      "objectiveId": "nerdc-igbo-primary4-332-2-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po2",
+      "objectiveId": "nerdc-igbo-primary4-330-10-v1",
+      "reused": true
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po1",
+      "objectiveId": "nerdc-igbo-primary4-332-3-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po2",
+      "objectiveId": "nerdc-igbo-primary4-332-4-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po3",
+      "objectiveId": "nerdc-igbo-primary4-332-5-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po4",
+      "objectiveId": "nerdc-igbo-primary4-332-6-v1",
+      "reused": false
+    }
+  ],
+  "reusedQuestionIds": [
+    "ndv-330-015",
+    "ndv-330-016"
+  ],
+  "unresolvedSourceObjective": "p4-igbo-table7-po1",
+  "terminologySearch": {
+    "date": "2026-11-19",
+    "queries": [
+      "site.nou.edu.ng mkpụrụedide",
+      "site.edu.ng mkpụrụedide syllable/letter",
+      "mkpụrụedide",
+      "mkpuruedide Igbo",
+      "mkpụrụ edide Igbo"
+    ],
+    "result": "No resolving primary evidence returned by the queried search systems. This is not proof of a meaning or of nonexistence. Source wording retained; no letter/syllable/morpheme equivalence inferred."
+  },
+  "supplementarySources": [
+    "elias-igbo-letter-reference-332"
+  ],
+  "protocolPath": "stimuli/batch-332/excursion-protocol.json",
+  "decisions": [
+    "Explicit source header mkpụrụedemede permits limited letter-card practice without settling the separate source term. Unresolved definition objective stays unmapped.",
+    "The identical explain-a-word objective reuses existing objective330-10 and its two actual drafts. No duplicate question or extra question count created.",
+    "New word tasks use explicit cards, actual oral-plus-written spelling and meaningful underdots. No syllable/phoneme count, full tone convention or reference audio claimed.",
+    "Actual-excursion topic/vocabulary/report tasks are conditional on a real verified prior experience. Model fields are criteria rather than fabricated filled histories.",
+    "Two author-written fictional planning prompts practise benefits/drawbacks only and cannot be used as attendance evidence.",
+    "Teacher-only protocol is unfilled and contains no learner data or claimed trip. No new excursion, messages, uploads of personal evidence or real travel arranged.",
+    "All native linguistic review, full functional range, local marking/adoption, sound/reference model, numeric-range and earlier delivery gaps remain open."
+  ],
+  "newQuestions": 8,
+  "written": 6,
+  "spoken": 2,
+  "uniqueAuthorMappings": 44,
+  "partiallyLinkedSourceObjectives": 45,
+  "academicReviewStatus": "pending"
+}

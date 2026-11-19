@@ -1,0 +1,30 @@
+{
+  "protocolVersion": 1,
+  "status": "unfilled_teacher_setup_required",
+  "purpose": "Prerequisite for ndv-332-004,005,008 only; no actual trip/attendance verified in authoring.",
+  "requiredBeforeAdministration": [
+    "Teacher verifies an actual prior excursion occurred and the individual learner participated/experienced it.",
+    "Use a broad site category and learning purpose; no private names, home addresses, exact travel routes or photographs are required in question-data.",
+    "Check actual activities and firsthand observations against the teacher’s available record. Record which details were witnessed versus reported.",
+    "For vocabulary, record two individually learned words and locally checked contextual glosses from the real account; postpone if these are not available.",
+    "Retain appropriate teacher-held evidence and actual response evidence under local classroom policy; do not upload personal evidence to this repository."
+  ],
+  "blankRecord": {
+    "teacherVerifiedPriorExcursion": null,
+    "learnerParticipationVerified": null,
+    "broadSiteCategory": null,
+    "learningPurpose": null,
+    "teacherHeldEvidenceReference": null,
+    "checkedActivities": [],
+    "checkedFirsthandObservations": [],
+    "individualVocabularyWithCheckedGlosses": []
+  },
+  "gates": [
+    "If prior experience/participation is not verified, do not administer or score an actual-excursion task.",
+    "Do not fill blanks with fictional examples, infer attendance from a script or reuse another learner’s account.",
+    "Fictional preparation tasks006/007 may assess generic discussion only; they do not satisfy actual-excursion evidence.",
+    "This protocol does not arrange/authorise a new trip or certify safeguarding, transport, permission or school adoption."
+  ],
+  "actualPerformanceEstablished": false,
+  "independentAcademicReview": "pending"
+}
