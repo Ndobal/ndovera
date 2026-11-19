@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5850,
-    "validDrafts": 4171,
+    "raw": 5870,
+    "validDrafts": 4191,
     "reviewed": 0,
     "registeredBanks": 203,
     "target": 185000,
@@ -2096,6 +2096,12 @@
       "sha256": "cdc676353bc4151c59f325d4fe8a878d845d27426048a0f89002142e4a384093",
       "declared": 18,
       "actual": 18
+    },
+    {
+      "path": "original-multisubject-batch-329.json",
+      "sha256": "2ba4c90698facfb29521b54f8fad5abb2a70ed8d13179d5ff5a8eb39c01efb5d",
+      "declared": 20,
+      "actual": 20
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6264,18 +6270,18 @@
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified.",
-      "raw": 30,
-      "validDrafts": 30,
+      "raw": 50,
+      "validDrafts": 50,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 30
+        "structured": 50
       },
       "difficulty": {
-        "standard": 30
+        "standard": 50
       },
-      "remaining": 970,
-      "mappedObjectives": 17,
-      "representedObjectives": 17,
+      "remaining": 950,
+      "mappedObjectives": 25,
+      "representedObjectives": 25,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8052,18 +8058,18 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "explanation_missing": 81,
+    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "explanation_missing": 81
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 601,
@@ -47669,6 +47675,126 @@
       "id": "ndv-328-018",
       "file": "original-multisubject-batch-328.json",
       "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-001",
+      "file": "original-multisubject-batch-329.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-002",
+      "file": "original-multisubject-batch-329.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-003",
+      "file": "original-multisubject-batch-329.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-004",
+      "file": "original-multisubject-batch-329.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-005",
+      "file": "original-multisubject-batch-329.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-006",
+      "file": "original-multisubject-batch-329.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-007",
+      "file": "original-multisubject-batch-329.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-008",
+      "file": "original-multisubject-batch-329.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-009",
+      "file": "original-multisubject-batch-329.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-010",
+      "file": "original-multisubject-batch-329.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-011",
+      "file": "original-multisubject-batch-329.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-012",
+      "file": "original-multisubject-batch-329.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-013",
+      "file": "original-multisubject-batch-329.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-014",
+      "file": "original-multisubject-batch-329.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-015",
+      "file": "original-multisubject-batch-329.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-016",
+      "file": "original-multisubject-batch-329.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-017",
+      "file": "original-multisubject-batch-329.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-018",
+      "file": "original-multisubject-batch-329.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-019",
+      "file": "original-multisubject-batch-329.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-329-020",
+      "file": "original-multisubject-batch-329.json",
+      "index": 19,
       "errors": []
     },
     {
@@ -118318,6 +118444,246 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-1-v1",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Simple-sentence meaning",
+      "learningObjective": "Explain a simple sentence using a complete one-clause example.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, Mbunuche objective 1; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-2-v1",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Verb meaning",
+      "learningObjective": "Explain the meaning and function of verbs, including identity or state as well as action.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, Mbunuche objective 2; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-3-v1",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain descriptive composition and identify its title, introduction, body and conclusion.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Mbunuche objective 1; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-4-v1",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Understanding a descriptive topic",
+      "learningObjective": "Select and organise relevant details for a stated descriptive-composition topic.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Mbunuche objective 2; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-5-v1",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Original descriptive writing",
+      "learningObjective": "Write and revise an original descriptive composition with relevant details and coherent organisation.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Mbunuche objective 3; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-6-v1",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain narrative composition and identify its opening, event development and ending.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Mbunuche objective 1; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-7-v1",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Understanding a narrative topic",
+      "learningObjective": "Plan and organise a narrative around a stated event, participants and sequence.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Mbunuche objective 2; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-329-8-v1",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "questionTypes": {
+        "structured": 5
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Mbunuche objective 3; content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -118419,6 +118785,7 @@
     "Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed.",
     "Run326 inventories all55 numbered Primary4 Igbo objectives in15 tables, with zero draft mappings. Source terminology, mixed pronunciation notation and the fifty-versus-500 range discrepancy remain unresolved. Inventory is not question coverage or academic review. Native-language prompts/keys, actual oral/practical evidence, school language choice/adoption and official term placement remain open.",
     "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.",
-    "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open."
+    "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open.",
+    "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open."
   ]
 }

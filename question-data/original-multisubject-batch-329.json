@@ -1,0 +1,1009 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo basic grammar and original composition",
+  "questionCount": 20,
+  "note": "Twenty original written structured drafts under eight new limited mappings. Original descriptive/narrative stimuli, revision tasks and complete model compositions. Contexts are fictional; no real visit, match, national writing-length rule or independent native academic approval claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Simple-sentence meaning",
+      "learningObjective": "Explain a simple sentence using a complete one-clause example.",
+      "id": "ndv-329-001",
+      "objectiveId": "nerdc-igbo-primary4-329-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ahịrịokwu mfe. Nye otu ọmụmaatụ n’asụsụ Igbo, ma kọwaa ihe ọ na-agwa anyị.",
+      "answer": "Ahịrịokwu mfe nwere otu nkebiahịrị nnoroonwe na nghọta zuru ezu. Ọmụmaatụ: M na-ese ihe. Ọ na-agwa anyị ihe onye na-ekwu okwu na-eme.",
+      "explanation": "The explanation and original example focus on one independent clause; simple does not mean merely short.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a complete single-clause sentence in intelligible Igbo, using equivalent class-appropriate terminology."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies a grammatical simple sentence, such as the original example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the message conveyed by that example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Simple-sentence meaning",
+      "learningObjective": "Explain a simple sentence using a complete one-clause example.",
+      "id": "ndv-329-002",
+      "objectiveId": "nerdc-igbo-primary4-329-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ime A na B, họrọ nke bụ ahịrịokwu mfe zuru ezu mgbe ọ kwụ naanị ya. Kọwaa ihe mere i ji họrọ ya.",
+      "answer": "B: M na-agụ akwụkwọ. Ọ nwere onye na-eme ihe na ihe ọ na-eme; echiche ya zuru ezu. Akwụkwọ m bụ naanị nkebiokwu ebe a.",
+      "explanation": "In this standalone declarative exercise the noun phrase alone is not the requested complete sentence. A phrase can still be a meaningful reply in a different dialogue context.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects B."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the complete subject-predicate message rather than relying only on length or punctuation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "A. Akwụkwọ m\nB. M na-agụ akwụkwọ.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Assess the supplied standalone statements, not conversational ellipsis. No full secondary-level clause taxonomy is required."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Verb meaning",
+      "learningObjective": "Explain the meaning and function of verbs, including identity or state as well as action.",
+      "id": "ndv-329-003",
+      "objectiveId": "nerdc-igbo-primary4-329-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị bụ ngwaa? Nye otu ọmụmaatụ n’ahịrịokwu, ma kọwaa ọrụ ọ na-arụ n’ebe ahụ.",
+      "answer": "Ngwaa bụ nkejiasụsụ na-egosi omume ma ọ bụ ọnọdụ. N’ahịrịokwu M na-eri nri, na-eri na-egosi ihe m na-eme.",
+      "explanation": "Verbs contribute action or state/identity meanings. The task asks for explanation in context, not an action-only definition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains verb as a word class expressing action or state in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies an appropriate original sentence and identifies its verb or verb phrase."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that verb’s contribution to the sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Verb meaning",
+      "learningObjective": "Explain the meaning and function of verbs, including identity or state as well as action.",
+      "id": "ndv-329-004",
+      "objectiveId": "nerdc-igbo-primary4-329-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Otu nwa kwuru na ngwaa niile na-egosi ịgba ọsọ ma ọ bụ ime ihe a na-ahụ anya. Jiri ahịrịokwu Aha m bụ Somto kọwaa ihe mere echiche a ji ezughị ezu.",
+      "answer": "N’ahịrịokwu ahụ, bụ na-egosi aha onye ahụ; ọ naghị egosi ịgba ọsọ. Ngwaa nwekwara ike igosi onye ma ọ bụ ihe mmadụ bụ.",
+      "explanation": "The original identity sentence provides a counterexample to the claim that every verb must denote visible physical action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies bụ as expressing identity/name in the supplied sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the action-only claim does not cover this use."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain descriptive composition and identify its title, introduction, body and conclusion.",
+      "id": "ndv-329-005",
+      "objectiveId": "nerdc-igbo-primary4-329-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa edemede nkọwasị. Depụta akụkụ atọ e nwere ike iji hazie ya ma e wepụ isiokwu.",
+      "answer": "Edemede nkọwasị na-akọwa onye, ihe ma ọ bụ ebe nke ọma. Akụkụ ndị ahụ bụ mmalite, etiti na mmechi.",
+      "explanation": "The source names title, introduction, body and conclusion. The question explicitly excludes title from its requested three sections.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains descriptive writing as conveying relevant features of a person, thing or place."
+        },
+        {
+          "marks": 1,
+          "description": "Names introduction/mmalite."
+        },
+        {
+          "marks": 1,
+          "description": "Names body/etiti."
+        },
+        {
+          "marks": 1,
+          "description": "Names conclusion/mmechi."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain descriptive composition and identify its title, introduction, body and conclusion.",
+      "id": "ndv-329-006",
+      "objectiveId": "nerdc-igbo-primary4-329-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ Ebe ọgụgụ anyị. Họpụta isiokwu, mmalite na mmechi. Kọwaa otu etiti ederede si enyere onye na-agụ ya aka ịhụ ebe ahụ n’uche.",
+      "answer": "Isiokwu: Ebe ọgụgụ anyị. Mmalite: N’akụkụ klas anyị e nwere obere ebe ọgụgụ. Mmechi: Ebe a na-enyere anyị aka ịchọta akwụkwọ ma gụọ ya nke ọma. Etiti na-akọwa tebụl, windo, oche na shelf.",
+      "explanation": "The sections introduce the place, develop concrete features and close with its value to the class. A descriptive text need not recount a sequence of events.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the title."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the opening sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the concluding sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how at least two accurate body details help the reader picture the place."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Ebe ọgụgụ anyị\nN’akụkụ klas anyị e nwere obere ebe ọgụgụ.\nE nwere tebụl ogologo n’akụkụ windo na oche ndị dị gburugburu ya. Akwụkwọ dị n’elu shelf. A na-edobe kaadị aha n’ihu shelf nke ọ bụla.\nEbe a na-enyere anyị aka ịchọta akwụkwọ ma gụọ ya nke ọma.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Understanding a descriptive topic",
+      "learningObjective": "Select and organise relevant details for a stated descriptive-composition topic.",
+      "id": "ndv-329-007",
+      "objectiveId": "nerdc-igbo-primary4-329-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ị ga-ede banyere ụlọakụ e chepụtara maka mmega. Họrọ ihe abụọ n’ime ndepụta a ga-adabara nkọwa ụlọakụ ahụ. Kọwaa ihe mere i ji hapụ ihe nke ọzọ.",
+      "answer": "A na C dabara: ebe oche dị na aha e dere n’elu ọnụ ụzọ na-akọwa ụlọakụ ahụ. B bụ maka agba akpụkpọ ụkwụ onye dere edemede; e nyeghị njikọ ya na isiokwu ụlọakụ ahụ.",
+      "explanation": "Relevance depends on the stated descriptive topic. No visit, real bank layout or financial service is verified by this fictional planning task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects A and C as relevant supplied features."
+        },
+        {
+          "marks": 1,
+          "description": "Explains their connection to the fictional bank’s appearance/layout."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the unrelated personal shoe-colour detail lacks a supplied connection."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "A. Ebe oche ndị na-echere dị.\nB. Agba akpụkpọ ụkwụ m kacha amasị m.\nC. Aha e dere n’elu ọnụ ụzọ.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Understanding a descriptive topic",
+      "learningObjective": "Select and organise relevant details for a stated descriptive-composition topic.",
+      "id": "ndv-329-008",
+      "objectiveId": "nerdc-igbo-primary4-329-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Isiokwu gị bụ Nkọwa ebe ọgụgụ klas anyị. Hazie ndetu atọ ị ga-eji dee etiti edemede ahụ. Gwa anyị ihe mere ị ga-eji malite na ndetu nke mbụ.",
+      "answer": "1. Ebe tebụl na oche dị. 2. Ebe a na-edobe akwụkwọ. 3. Otu e si ahazi akwụkwọ ka a chọta ha. M ga-amalite n’ebe tebụl na oche dị ka onye na-agụ ya hụ nhazi ebe ahụ n’uche.",
+      "explanation": "Different sensible plans are acceptable. The task assesses understanding and organisation of a descriptive topic, not one compulsory sequence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies three relevant descriptive notes about the reading area."
+        },
+        {
+          "marks": 1,
+          "description": "Orders them coherently, for example spatially or from general to specific."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the choice of the first note in relation to the reader’s understanding."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Original descriptive writing",
+      "learningObjective": "Write and revise an original descriptive composition with relevant details and coherent organisation.",
+      "id": "ndv-329-009",
+      "objectiveId": "nerdc-igbo-primary4-329-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Meziwanye nkọwa a site n’iji ihe dị na ndetu. Dee ahịrịokwu abụọ ga-enyere onye na-agụ ya aka ịhụ ụlọakụ ahụ n’uche. Emebela ihe ndị na-adịghị na ndetu.",
+      "answer": "Ụlọakụ ahụ nwere nnukwu ọnụ ụzọ. Aha ya dị n’elu ọnụ ụzọ ahụ, oche ndị na-echere dịkwa n’aka ekpe.",
+      "explanation": "Specific supplied features replace a vague positive judgement. The response must remain within the fictional notes rather than inventing extra facts.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the large entrance accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the sign/name above the entrance accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Places the waiting chairs to the left as supplied."
+        },
+        {
+          "marks": 1,
+          "description": "Writes two intelligible linked Igbo sentences without unsupported additions."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Nkọwa a ga-emezi: Ụlọakụ ahụ dị mma. Ọ dị mma nke ukwuu.\nNdetu: nnukwu ọnụ ụzọ; aha dị n’elu ọnụ ụzọ; oche ndị na-echere n’aka ekpe.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Original descriptive writing",
+      "learningObjective": "Write and revise an original descriptive composition with relevant details and coherent organisation.",
+      "id": "ndv-329-010",
+      "objectiveId": "nerdc-igbo-primary4-329-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Jiri ndetu ndị a dee edemede nkọwasị n’asụsụ Igbo gbasara ụlọakụ e chepụtara. Nye ya isiokwu, mmalite, etiti na mmechi. Nke a bụ mmega, ọ bụghị njem i mere n’eziokwu.",
+      "answer": "Ụlọakụ e chepụtara\nNke a bụ ụlọakụ e chepụtara maka mmega.\nAha ụlọakụ ahụ dị n’elu ọnụ ụzọ. N’ime ya e nwere tebụl. Oche ndị na-echere dị n’ihu tebụl. Onye ọrụ na-anọdụ n’azụ tebụl. A na-edobe ihe niile n’usoro.\nNhazi ụlọakụ a na-eme ka ebe ndị mmadụ ga-anọ doo anya.",
+      "explanation": "The source bank-visit topic is practised through an explicitly fictional descriptive route. This does not establish a witnessed excursion or real bank procedures.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate title and opening introducing the fictional place."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the name/sign and entrance using the notes."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the table and waiting chairs coherently."
+        },
+        {
+          "marks": 1,
+          "description": "Places the worker behind the table as supplied."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a relevant concluding comment."
+        },
+        {
+          "marks": 1,
+          "description": "Uses coherent intelligible Igbo with clear sentence/section boundaries."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Ndetu mmega: aha ụlọakụ dị n’elu ọnụ ụzọ; tebụl dị n’ime ụlọ; oche ndị na-echere dị n’ihu tebụl; onye ọrụ nọ n’azụ tebụl.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede nkọwasị",
+      "subtopic": "Original descriptive writing",
+      "learningObjective": "Write and revise an original descriptive composition with relevant details and coherent organisation.",
+      "id": "ndv-329-011",
+      "objectiveId": "nerdc-igbo-primary4-329-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Chepụta ebe ọgụgụ maka klas. Dee edemede nkọwasị gbasara ya. Kọwaa ebe oche na akwụkwọ dị na otu nhazi ahụ ga-esi nyere ndị na-agụ akwụkwọ aka.",
+      "answer": "Ebe ọgụgụ m chepụtara\nAchọrọ m obere ebe ọgụgụ dị n’akụkụ klas.\nA ga-enwe tebụl n’etiti na oche gburugburu ya. Akwụkwọ ga-adị n’elu shelf dị n’akụkụ mgbidi. A ga-edobe kaadị aha n’ihu shelf ka ụmụaka chọta akwụkwọ ha chọrọ.\nEbe a ga-eme ka ịgụ akwụkwọ dịrị anyị mfe.",
+      "explanation": "The source permits pupils’ own descriptive compositions; the reading-area context is an authored transfer task rather than another prescribed official topic.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable title and opening."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the seating arrangement clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Describes book storage clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how at least one design feature helps readers."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a coherent descriptive structure with a relevant ending in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "teacherSupport": "An invented layout is sufficient. No physical room, furniture installation or classroom delivery is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain narrative composition and identify its opening, event development and ending.",
+      "id": "ndv-329-012",
+      "objectiveId": "nerdc-igbo-primary4-329-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị bụ edemede akụkọ? Kọwaa ihe mmalite na mmechi ga-enyere onye na-agụ ya aka ịghọta.",
+      "answer": "Edemede akụkọ na-akọ ihe mere ma ọ bụ ihe e chepụtara. Mmalite na-egosi ndị nọ n’akụkọ na ebe ma ọ bụ oge ihe malitere. Mmechi na-egosi otú ihe si kwụsị.",
+      "explanation": "A narrative may be factual or fictional when labelled appropriately. Opening and ending have functions beyond simply being the first and last sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains narrative as recounting connected events, including an explicitly fictional possibility."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant opening function, such as introducing participants and setting."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant ending function, such as resolving or closing the event."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Meaning and features",
+      "learningObjective": "Explain narrative composition and identify its opening, event development and ending.",
+      "id": "ndv-329-013",
+      "objectiveId": "nerdc-igbo-primary4-329-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’Egwuregwu e chepụtara, hụta otu ihe mmalite mere na otu ihe mmechi mere. Kọwaa ihe mere ederede a ji bụrụ akụkọ karịa ndepụta ihe dị n’ama egwuregwu.",
+      "answer": "Mmalite mere ka anyị mata otu Ugo na otu Enyi na ebe ha zukọrọ. Mmechi gwara anyị na ha ga-egwu ụbọchị ọzọ, e nweghịkwa onye meriri. Ọ bụ akụkọ n’ihi na ọ na-akọ ihe ndị mere n’usoro.",
+      "explanation": "The original narrative develops an event and its interruption, whereas a descriptive inventory would primarily list features of the venue. It is not a historical match report.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an accurate opening function/detail."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an accurate ending function/detail."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that connected events and their sequence make this a narrative."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Egwuregwu e chepụtara\nN’ehihie Satọdee, ndị otu Ugo na ndị otu Enyi zukọrọ n’ama egwuregwu ụlọ akwụkwọ. Onye nlekọta gwara ha iwu mmega ahụ.\nMgbe egwuregwu malitere, mmiri ozuzo malitere izo. Onye nlekọta kwụsịrị egwuregwu ahụ. Ndị egwuregwu gara n’ebe e kpuchiri ekpuchi.\nHa kwetara na ha ga-egwu ya ụbọchị ọzọ. Ọ dịghị otu a kpọrọ onye meriri n’akụkọ a.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Understanding a narrative topic",
+      "learningObjective": "Plan and organise a narrative around a stated event, participants and sequence.",
+      "id": "ndv-329-014",
+      "objectiveId": "nerdc-igbo-primary4-329-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Hazie ndetu ndị a ka ha bụrụ atụmatụ akụkọ egwuregwu e chepụtara. Dee mkpụrụedemede ha n’usoro ma kọwaa ihe mere C na-agaghị abụ nke mbụ.",
+      "answer": "B, D, A, C. C bụ mkpebi e mere mgbe mmiri kwụsịrị egwuregwu; ọ bụghị mmalite ihe ndị mere.",
+      "explanation": "The supplied notes determine the chronology; the outcome is postponement, not a winner or score calculation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Begins with B then D."
+        },
+        {
+          "marks": 1,
+          "description": "Places A next and C last."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the rescheduling decision follows the interruption."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "A. Onye nlekọta kwụsịrị egwuregwu n’ihi mmiri ozuzo.\nB. Ndị otu rutere n’ama egwuregwu.\nC. Ha kwetara igwu egwuregwu ụbọchị ọzọ.\nD. Onye nlekọta malitere egwuregwu.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Understanding a narrative topic",
+      "learningObjective": "Plan and organise a narrative around a stated event, participants and sequence.",
+      "id": "ndv-329-015",
+      "objectiveId": "nerdc-igbo-primary4-329-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ị ga-ede akụkọ gbasara egwuregwu ụlọ akwụkwọ e chepụtara. Depụta ihe atọ ị ga-ekpebi tupu ịmalite ide: ndị nọ na ya, ihe gbanwere n’etiti, na otú ọ kwụsịrị.",
+      "answer": "Ndị nọ na ya: otu Udo na otu Ọganihu na onye nlekọta. Ihe gbanwere: bọọlụ furu n’ime ọhịa dị n’akụkụ ama. Mmechi: ha chọtara bọọlụ ahụ wee mechaa mmega ahụ.",
+      "explanation": "Planning participants, a development and an ending supports a coherent narrative. The learner’s own sensible fictional plan is acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names suitable participants."
+        },
+        {
+          "marks": 1,
+          "description": "Plans an event or change that develops the story."
+        },
+        {
+          "marks": 1,
+          "description": "Plans a connected ending that addresses the development."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "id": "ndv-329-016",
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A gwakọtara usoro akụkọ a. Degharịa ya n’asụsụ Igbo ka onye na-agụ ya ghọta mmalite, nsogbu na mmechi. Debe ihe ndị mere n’akụkọ ahụ.",
+      "answer": "Chinaza wetara akwụkwọ n’ụlọ akwụkwọ. Mgbe ọ rutere klas, ọ chọpụtaghị akwụkwọ ahụ n’akpa ya. Enyi ya hụrụ ya n’oche ma nyeghachi ya. Chinaza keleere enyi ya.",
+      "explanation": "The revised order establishes the book’s arrival, the problem, recovery and thanks. This assesses narrative revision rather than a factual claim about a real pupil.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Begins with Chinaza bringing the book to school."
+        },
+        {
+          "marks": 1,
+          "description": "Places the discovery that it is missing before its recovery."
+        },
+        {
+          "marks": 1,
+          "description": "Places the friend’s finding/return before Chinaza’s thanks."
+        },
+        {
+          "marks": 1,
+          "description": "Rewrites a coherent connected Igbo narrative preserving the supplied events."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Chinaza keleere enyi ya. Mgbe ọ rutere klas, ọ chọpụtaghị akwụkwọ ahụ n’akpa ya. Chinaza wetara akwụkwọ n’ụlọ akwụkwọ. Enyi ya hụrụ ya n’oche ma nyeghachi ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "id": "ndv-329-017",
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Dee akụkọ egwuregwu e chepụtara n’asụsụ Igbo, jiri ndetu ndị a. Nye ya isiokwu, mmalite, etiti na mmechi. Edepụtala ya dị ka egwuregwu mere n’eziokwu.",
+      "answer": "Egwuregwu anyị e chepụtara\nN’ehihie Satọdee, otu Ugo na otu Enyi bịara n’ama egwuregwu ụlọ akwụkwọ. Onye nlekọta kọwaara ha iwu mmega ahụ.\nHa malitere igwu bọọlụ. Mgbe mmiri ozuzo malitere, onye nlekọta kwụsịrị egwuregwu. Ndị egwuregwu gara n’ebe e kpuchiri ekpuchi.\nHa kwetara igwu ya ụbọchị ọzọ. Ọ dịghị onye a kpọrọ onye meriri.",
+      "explanation": "The model develops all supplied fictional events without inventing a historical result or a match score. Other clear Igbo narratives preserving the notes are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Introduces the fictional teams and school-ground setting with a suitable title/opening."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the supervisor’s explanation of the exercise rules."
+        },
+        {
+          "marks": 1,
+          "description": "Develops the start of play and arrival of rain in order."
+        },
+        {
+          "marks": 1,
+          "description": "Includes stopping play and moving to the covered place."
+        },
+        {
+          "marks": 1,
+          "description": "Ends with rescheduling and no declared winner."
+        },
+        {
+          "marks": 1,
+          "description": "Uses coherent connected Igbo with intelligible section/sentence boundaries."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Ndetu: otu Ugo na otu Enyi; ama egwuregwu ụlọ akwụkwọ; onye nlekọta kọwara iwu mmega; egwuregwu malitere; mmiri ozuzo; a kwụsịrị ya; ndị egwuregwu gara n’ebe e kpuchiri ekpuchi; ha ga-egwu ụbọchị ọzọ; ọ dịghị onye meriri.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "id": "ndv-329-018",
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Mechaa akụkọ a n’ahịrịokwu atọ ma ọ bụ karịa. Gosi otú ha ga-esi dozie nsogbu ahụ na ihe mere ha ji họrọ ụzọ ahụ.",
+      "answer": "Ndị otu ahụ gwara onye nlekọta ihe mere. Ha chere ka o wetara ha bọọlụ ọzọ. Mgbe ha nwetara ya, ha gara n’ihu n’egwuregwu. Ha chọrọ ịga n’ihu n’egwuregwu.",
+      "explanation": "The continuation should address the torn ball and close the fictional event coherently. It need not reproduce the sample solution or impose a real sport regulation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Continues from the torn-ball problem without contradicting it."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a plausible response or resolution."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a reason for that response."
+        },
+        {
+          "marks": 1,
+          "description": "Uses at least three connected intelligible Igbo sentences with a meaningful ending."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Akụkọ e chepụtara: Ndị otu abụọ malitere egwuregwu n’ama ụlọ akwụkwọ. Mgbe ha na-egwu, bọọlụ ahụ gbawara. Ha niile kwụsịrị.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "The sentence minimum is an original practice instruction, not an official NERDC length requirement. No real equipment use or practical action is required."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "id": "ndv-329-019",
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Degharịa akụkọ a ka Uche n’onwe ya bụrụ onye na-akọ ya. Jiri M ma ọ bụ m ebe kwesịrị ekwesị. Agbanwela ihe ndị mere.",
+      "answer": "M gara n’ama egwuregwu. Ahụrụ m bọọlụ n’akụkụ oche. M nyere onye nlekọta bọọlụ ahụ.",
+      "explanation": "Changing narrator requires consistent first-person reference while preserving the three events. Equivalent natural first-person forms are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes the going-to-ground event consistently to first person."
+        },
+        {
+          "marks": 1,
+          "description": "Changes the finding/seeing event to an appropriate first-person construction."
+        },
+        {
+          "marks": 1,
+          "description": "Changes the giving event consistently to first person."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves all supplied events and coherent Igbo expression."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written",
+      "passage": "Uche gara n’ama egwuregwu. Ọ hụrụ bọọlụ n’akụkụ oche. O nyere onye nlekọta bọọlụ ahụ.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede Akụkọ",
+      "subtopic": "Original narrative writing",
+      "learningObjective": "Write and revise an original narrative with a clear sequence and appropriate ending.",
+      "id": "ndv-329-020",
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Chepụta akụkọ gbasara otu klas si hazie ngosi eserese. Dee ya n’asụsụ Igbo. Gosi ihe ha mere mgbe ha chọpụtara na aha ndị sere ụfọdụ eserese adịghị na ha, na otú akụkọ ahụ si kwụsị.",
+      "answer": "Ngosi eserese anyị\nKlas anyị kwadebere ngosi eserese n’ụlọ akwụkwọ. Anyị tinyere eserese n’elu tebụl.\nMgbe anyị na-ahazi ha, anyị chọpụtara na aha adịghị na ụfọdụ. Onye nkụzi gwara onye ọ bụla ka ọ chọta eserese ya. Anyị dere aha anyị n’elu obere kaadị ma tinye ha n’akụkụ eserese.\nMgbe ndị ọbịa bịara, ha matara onye sere eserese nke ọ bụla. Ngosi ahụ gara nke ọma.",
+      "explanation": "This authored transfer task applies the general own-narrative objective to an art display with missing artist names. The response must connect the problem, a suitable response and an ending; it need not reproduce the sample plot.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies a suitable title/opening establishing the class display and missing artist names."
+        },
+        {
+          "marks": 1,
+          "description": "Develops a sensible response to the missing-name problem."
+        },
+        {
+          "marks": 1,
+          "description": "Connects that response to identification of the artists or another relevant resolution."
+        },
+        {
+          "marks": 1,
+          "description": "Provides an appropriate ending."
+        },
+        {
+          "marks": 1,
+          "description": "Uses coherent intelligible Igbo narrative with meaningful sequence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent intelligible Igbo after examiner checking. These original practice rubrics do not establish national grading, compulsory length, a complete tone-marking convention or local school adoption.",
+      "responseMode": "written"
+    }
+  ]
+}

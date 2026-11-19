@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    16,
+    22,
+    23
+  ],
+  "authorMappings": [
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-1-v1",
+      "inventoryId": "p4-igbo-table3-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-2-v1",
+      "inventoryId": "p4-igbo-table3-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-3-v1",
+      "inventoryId": "p4-igbo-table9-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-4-v1",
+      "inventoryId": "p4-igbo-table9-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-5-v1",
+      "inventoryId": "p4-igbo-table9-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-6-v1",
+      "inventoryId": "p4-igbo-table10-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-7-v1",
+      "inventoryId": "p4-igbo-table10-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-329-8-v1",
+      "inventoryId": "p4-igbo-table10-po3"
+    }
+  ],
+  "supplementarySources": [
+    "noun-igbo-syntax-224-reference-329",
+    "noun-igbo-grammar-122-reference-329"
+  ],
+  "decisions": [
+    "The six composition objectives explicitly require written explanation, planning and original writing despite their oral/literature theme header. Preserve the source placement.",
+    "NOUN grammar is supplementary technical support, not proof of Primary4 scope/adoption. Use original accessible examples; no university exercise or source evaluation question copied.",
+    "Simple sentence is treated through a complete one-clause example; standalone phrase discrimination does not deny meaningful elliptical dialogue replies. Verbs can express identity/state, not solely physical actions.",
+    "The source bank-visit and football contexts are practised fictionally. No actual excursion, licensed financial service, historical match, score or sports regulation is established.",
+    "Own-composition objectives permit limited transfer to a fictional reading area and art-display event. These are authored contexts, not additional official named topics.",
+    "Original practice rubrics and one stated sentence minimum are not an official marking scheme, prescribed length or academic approval.",
+    "Native linguistic review, local orthography/marking, tone/reference pronunciation, source mkpụrụedide terminology, numeric-range conflict, school language choice/adoption and actual delivery remain open."
+  ],
+  "newQuestions": 20,
+  "written": 20,
+  "spoken": 0,
+  "academicReviewStatus": "pending"
+}
