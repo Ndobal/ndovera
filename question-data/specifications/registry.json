@@ -3740,7 +3740,8 @@
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified."
+      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified. Batch323 fresh PDF hash matched. All numbered objective columns read for a complete source inventory; early oral/aural tables and Songs/Poems rendered and visually inspected. New tasks require live/recorded individual evidence. No audio or actual classroom performance verified. Source vowel notation, non-minimal pairs and overgeneral stress patterns are recorded rather than silently imposed.",
+      "lastSourceRecheck": "2026-11-19"
     },
     {
       "id": "ncsc-phishing-channels-322",
@@ -3751,6 +3752,36 @@
       "source": "https://www.ncsc.gov.uk/collection/phishing-scams",
       "retrievedOn": "2026-11-19",
       "note": "UK NCSC family guidance opened and read. Email, text messages and phone calls support a narrow delivery-channel grouping for the NERDC table’s unspecified types. Not a NERDC-prescribed or exhaustive taxonomy. UK reporting routes/statistics are not transplanted to Nigerian pupil tasks."
+    },
+    {
+      "id": "bc-word-stress-reference-323",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_teaching_reference",
+      "source": "https://africa.teachingenglish.org.uk/classroom/pronunciation/word-stress",
+      "retrievedOn": "2026-11-19",
+      "note": "British Council page opened and read: word prominence, common patterns and exceptions. Technical supplement, not a Nigerian accent mandate."
+    },
+    {
+      "id": "bc-tag-intonation-reference-323",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_teaching_reference",
+      "source": "https://africa.teachingenglish.org.uk/classroom/pronunciation/question-tags-intonation",
+      "retrievedOn": "2026-11-19",
+      "note": "British Council page opened and read: pitch movement and tag-question meaning in context. Original scenarios, no source dialogue copied."
+    },
+    {
+      "id": "bc-voicing-reference-323",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_teaching_reference",
+      "source": "https://www.teachingenglish.org.uk/teaching-resources/teaching-secondary/activities/beginner-a1/voiced-and-unvoiced-consonants",
+      "retrievedOn": "2026-11-19",
+      "note": "British Council editorial explanation opened and read; voiced/unvoiced contrast and van/fan support phonetic accuracy. Its secondary activity age tag is not used to establish Primary4 suitability; the exact-class NERDC objectives do that. No source activity or answer sequence copied."
     }
   ],
   "banks": [
@@ -41177,6 +41208,384 @@
       ],
       "sourceSections": [
         "Printed p. 12 (PDF p. 25), Phishing, performance objective 2 and evaluation item 2; NCSC supplementary delivery-channel grouping"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-1-v1",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Identifying modals",
+      "learningObjective": "Identify modal auxiliary verbs in spoken sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 1 (PDF p. 14), Conversations/dialogues using appropriate modal auxiliaries, performance objective(s) 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-2-v1",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Using modals",
+      "learningObjective": "Use modal auxiliary verbs in spoken sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 1 (PDF p. 14), Conversations/dialogues using appropriate modal auxiliaries, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-3-v1",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Discussing issues",
+      "learningObjective": "Discuss age-appropriate issues using modal auxiliary verbs.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 1 (PDF p. 14), Conversations/dialogues using appropriate modal auxiliaries, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-4-v1",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Meaning and patterns",
+      "learningObjective": "State the meaning and basic patterns of question tags.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 2 (PDF p. 15), Dialogue using tag questions, performance objective(s) 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-5-v1",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Asking and responding",
+      "learningObjective": "Ask and respond to question tags orally.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 2 (PDF p. 15), Dialogue using tag questions, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-6-v1",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Tag-question dialogue",
+      "learningObjective": "Engage in dialogues using tag questions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 2 (PDF p. 15), Dialogue using tag questions, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-7-v1",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Oral visit narration",
+      "learningObjective": "Narrate highlights of a village or market visit orally.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 3 (PDF p. 16), Oral Composition: Descriptive and Narrative Composition, performance objective(s) 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-8-v1",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Describing a place or route",
+      "learningObjective": "Speak about a home or directions to it using a fictional classroom route.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 3 (PDF p. 16), Oral Composition: Descriptive and Narrative Composition, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-9-v1",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Event features",
+      "learningObjective": "Identify major features of an event: time, place, occasion and significance.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 3 (PDF p. 16), Oral Composition: Descriptive and Narrative Composition, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-10-v1",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Consonant contrasts",
+      "learningObjective": "Discriminate between consonant sounds in heard words.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 4 (PDF p. 17), Aural Discrimination in Vowels and Consonants, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-11-v1",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Voicing contrast",
+      "learningObjective": "Distinguish voiced and voiceless consonant sounds.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 4 (PDF p. 17), Aural Discrimination in Vowels and Consonants, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-12-v1",
+      "topic": "Introduction to Stress",
+      "subtopic": "Meaning of stress",
+      "learningObjective": "State the meaning of stress in speech.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 5 (PDF p. 18), Introduction to Stress, performance objective(s) 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-13-v1",
+      "topic": "Introduction to Stress",
+      "subtopic": "Word and sentence stress",
+      "learningObjective": "Discuss word stress and sentence stress.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 5 (PDF p. 18), Introduction to Stress, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-14-v1",
+      "topic": "Introduction to Stress",
+      "subtopic": "Stress placement",
+      "learningObjective": "Apply stress placement in selected common words without treating tendencies as universal rules.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 5 (PDF p. 18), Introduction to Stress, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-15-v1",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Meaning of intonation",
+      "learningObjective": "State the meaning of intonation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 6 (PDF p. 19), Introduction to Intonation, performance objective(s) 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-16-v1",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Rising and falling patterns",
+      "learningObjective": "Discuss rising and falling intonation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 6 (PDF p. 19), Introduction to Intonation, performance objective(s) 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-17-v1",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Using intonation",
+      "learningObjective": "State and demonstrate contextual uses of rising and falling intonation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 6 (PDF p. 19), Introduction to Intonation, performance objective(s) 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-18-v1",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Intonation and meaning",
+      "learningObjective": "Explain how intonation can change meaning.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 6 (PDF p. 19), Introduction to Intonation, performance objective(s) 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-19-v1",
+      "topic": "Songs and Poems",
+      "subtopic": "Poem memorisation and recitation",
+      "learningObjective": "Memorise and recite an original short poem as speech practice.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Songs and Poems, performance objective(s) 1,2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-20-v1",
+      "topic": "Songs and Poems",
+      "subtopic": "Singing as speech practice",
+      "learningObjective": "Sing an original short song with clear words and a steady phrase pattern.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Songs and Poems, performance objective(s) 1,3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-323-21-v1",
+      "topic": "Songs and Poems",
+      "subtopic": "Poem meaning effect and theme",
+      "learningObjective": "Discuss a poem’s meaning, effect and theme orally.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 17 (PDF p. 30), Songs and Poems, performance objective(s) 4,5; content, learning activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

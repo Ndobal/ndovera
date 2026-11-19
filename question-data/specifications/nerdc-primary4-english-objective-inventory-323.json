@@ -1,0 +1,923 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-english-primary4-revised-2025",
+  "sourceSha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+  "scope": "All59 numbered performance objectives in19 topic groups on printed pp.1–17 (PDF14–30), including adjective/adverb objective4 continued on PDF22. IDs/short labels are authored navigation aids, not official codes. Includes content/activity/evaluation gaps; does not claim complete competency coverage.",
+  "topicGroups": 19,
+  "numberedObjectives": 59,
+  "objectivesWithPartialDraftMapping": 34,
+  "unmappedNumberedObjectives": 25,
+  "registeredAuthorMappings": 32,
+  "objectives": [
+    {
+      "inventoryId": "p4-english-table1-po1",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Identify modals",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table1-po2",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Use modals",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table1-po3",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Discuss issues using modals",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table2-po1",
+      "topic": "Dialogue using tag questions",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning and rules",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table2-po2",
+      "topic": "Dialogue using tag questions",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Ask and respond",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table2-po3",
+      "topic": "Dialogue using tag questions",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Dialogue",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table3-po1",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Narrate a visit",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table3-po2",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Describe home/directions",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table3-po3",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Time place occasion significance",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table4-po1",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Vowel discrimination",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table4-po2",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Consonant discrimination",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table4-po3",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Voicing discrimination",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-11-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table5-po1",
+      "topic": "Introduction to Stress",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-12-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table5-po2",
+      "topic": "Introduction to Stress",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-13-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table5-po3",
+      "topic": "Introduction to Stress",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Placement",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-14-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table6-po1",
+      "topic": "Introduction to Intonation",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-15-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table6-po2",
+      "topic": "Introduction to Intonation",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-16-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table6-po3",
+      "topic": "Introduction to Intonation",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Use rise/fall",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-17-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table6-po4",
+      "topic": "Introduction to Intonation",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Changes of meaning",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-18-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table7-po1",
+      "topic": "Vocabulary (Common Idioms)",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table7-po2",
+      "topic": "Vocabulary (Common Idioms)",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Sentence use",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table8-po1",
+      "topic": "Homophones and homograph",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table8-po2",
+      "topic": "Homophones and homograph",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Examples",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table8-po3",
+      "topic": "Homophones and homograph",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Sentence meanings",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table9-po1",
+      "topic": "Using past, present and future tenses",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Past",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table9-po2",
+      "topic": "Using past, present and future tenses",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Present",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table9-po3",
+      "topic": "Using past, present and future tenses",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Future",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table10-po1",
+      "topic": "Nouns and pronouns",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Identify",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table10-po2",
+      "topic": "Nouns and pronouns",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Sentence use",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table11-po1",
+      "topic": "Adjectives and Adverbs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meanings",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table11-po2",
+      "topic": "Adjectives and Adverbs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table11-po3",
+      "topic": "Adjectives and Adverbs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Degrees",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table11-po4",
+      "topic": "Adjectives and Adverbs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Sentence use (continues PDF22)",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table12-po1",
+      "topic": "Reading poems, short stories and plays",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Poem comprehension",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 3,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table12-po2",
+      "topic": "Reading poems, short stories and plays",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Figures of speech",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 3,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table12-po3",
+      "topic": "Reading poems, short stories and plays",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Story/play discussion",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 10,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table13-po1",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meanings",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table13-po2",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Examples",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table13-po3",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Written and spoken use",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table14-po1",
+      "topic": "Vocabulary associated with fields or contexts",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Identify register vocabulary",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table14-po2",
+      "topic": "Vocabulary associated with fields or contexts",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Construct sentences",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table15-po1",
+      "topic": "Comprehension: contextual clues",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Read topical texts",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table15-po2",
+      "topic": "Comprehension: contextual clues",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Literal inferential critical questions",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table15-po3",
+      "topic": "Comprehension: contextual clues",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Contextual meaning",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table15-po4",
+      "topic": "Comprehension: contextual clues",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Use unfamiliar words",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table16-po1",
+      "topic": "Comprehension: main and supporting ideas",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Read informational texts",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table16-po2",
+      "topic": "Comprehension: main and supporting ideas",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Main ideas",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table16-po3",
+      "topic": "Comprehension: main and supporting ideas",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Supporting facts",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table17-po1",
+      "topic": "Informal Letters",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table17-po2",
+      "topic": "Informal Letters",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Features",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 0,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table17-po3",
+      "topic": "Informal Letters",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Write letters",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table18-po1",
+      "topic": "Narrative and Descriptive Composition",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Differentiate",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-11-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table18-po2",
+      "topic": "Narrative and Descriptive Composition",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Write narrative",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table18-po3",
+      "topic": "Narrative and Descriptive Composition",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Write description",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-322-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table19-po1",
+      "topic": "Songs and Poems",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Recite/sing for speech",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-19-v1",
+        "nerdc-english-primary4-323-20-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 2,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table19-po2",
+      "topic": "Songs and Poems",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Memorise/recite",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-19-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table19-po3",
+      "topic": "Songs and Poems",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Sing songs",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-20-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table19-po4",
+      "topic": "Songs and Poems",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Meaning/effect",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-21-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    },
+    {
+      "inventoryId": "p4-english-table19-po5",
+      "topic": "Songs and Poems",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Themes",
+      "mappedObjectiveIds": [
+        "nerdc-english-primary4-323-21-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_review",
+      "limitation": "A draft link is not full content, competency, observed performance, delivery or adoption evidence.",
+      "linkedValidDrafts": 1,
+      "countNote": "Mappings may span several source objectives; do not sum rows as unique questions."
+    }
+  ],
+  "independentColumnCount": {
+    "byPdfPage": [
+      [
+        14,
+        3
+      ],
+      [
+        15,
+        3
+      ],
+      [
+        16,
+        3
+      ],
+      [
+        17,
+        3
+      ],
+      [
+        18,
+        3
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        20,
+        5
+      ],
+      [
+        21,
+        8
+      ],
+      [
+        22,
+        1
+      ],
+      [
+        23,
+        3
+      ],
+      [
+        24,
+        3
+      ],
+      [
+        25,
+        2
+      ],
+      [
+        26,
+        4
+      ],
+      [
+        27,
+        3
+      ],
+      [
+        28,
+        3
+      ],
+      [
+        29,
+        3
+      ],
+      [
+        30,
+        5
+      ]
+    ],
+    "total": 59,
+    "method": "Numbered lines independently extracted from performance-objective columns; continued objective on PDF22 included. Checked against the topic-by-topic inventory."
+  }
+}

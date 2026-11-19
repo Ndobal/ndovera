@@ -1,0 +1,1118 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary4 live English speaking and listening practice",
+  "questionCount": 24,
+  "note": "Twenty-four original structured spoken-response drafts from21 author-proposed mappings. Five examiner-only listening scripts and two original verse stimuli. Requires live/recorded evidence; no generated audio, observed performance or academic approval claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Identifying modals",
+      "learningObjective": "Identify modal auxiliary verbs in spoken sentences.",
+      "id": "ndv-323-001",
+      "objectiveId": "nerdc-english-primary4-323-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to the teacher’s three short sentences. After each sentence, say the modal auxiliary you heard. Do not read the teacher’s script.",
+      "answer": "can; should; might.",
+      "explanation": "The listener identifies the auxiliary heard, not the action word following it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies can."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies should."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies might."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "examinerScript": "Keep this text from the learner during listening. Read at a natural clear pace, with a brief pause after each: 1. We can carry the empty tray. 2. You should label your drawing. 3. It might rain after lunch. Allow one repeat of a whole sentence if needed; do not isolate or emphasise the answer word.",
+      "examinerScriptVisibility": "examiner_only_during_listening"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Using modals",
+      "learningObjective": "Use modal auxiliary verbs in spoken sentences.",
+      "id": "ndv-323-002",
+      "objectiveId": "nerdc-english-primary4-323-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Work with a partner in a live role-play. You need to borrow a ruler. Ask politely using could or may, listen to your partner’s answer and respond appropriately. Then swap roles.",
+      "answer": "Could I borrow your ruler, please? — Yes, you may. — Thank you. If the partner cannot lend it: That is all right; I will ask someone else. Accept other fitting exchanges.",
+      "explanation": "Score the learner’s own request and response, including an appropriate reaction to what the partner actually says.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a suitable modal in a polite request."
+        },
+        {
+          "marks": 1,
+          "description": "Makes the request understandable and relevant."
+        },
+        {
+          "marks": 1,
+          "description": "Responds appropriately to the partner’s actual reply."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Discussing issues",
+      "learningObjective": "Discuss age-appropriate issues using modal auxiliary verbs.",
+      "id": "ndv-323-003",
+      "objectiveId": "nerdc-english-primary4-323-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a small group, discuss this fictional issue: everyone wants the first turn with a shared classroom game. Suggest a fair plan using should or could, give a reason and respond respectfully to another pupil’s idea.",
+      "answer": "We could take turns using a list. We should let everyone have a turn because the game belongs to the class. I agree with your idea about a time limit. Accept another fair plan and relevant response.",
+      "explanation": "The task assesses modal use and participation in an age-appropriate national-value discussion about fairness, not a compulsory single policy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses at least one suitable modal for a proposal."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant reason linked to fairness."
+        },
+        {
+          "marks": 1,
+          "description": "Listens and responds to another contribution without dismissing it."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Conversations/dialogues using appropriate modal auxiliaries",
+      "subtopic": "Using modals",
+      "learningObjective": "Use modal auxiliary verbs in spoken sentences.",
+      "id": "ndv-323-004",
+      "objectiveId": "nerdc-english-primary4-323-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Speak two sentences about tomorrow’s class activity: one announces a definite plan using will; the other describes a possible change using might. Explain the difference in meaning.",
+      "answer": "We will arrange the books tomorrow. We might move the reading mat if the room is crowded. Will presents the plan as intended; might presents the change as possible.",
+      "explanation": "Accept varied sensible plans. This samples meanings in the stated context, not a universal rule that will always guarantees an event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses will appropriately for the stated plan."
+        },
+        {
+          "marks": 1,
+          "description": "Uses might appropriately for a possibility."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the difference between intention/plan and possibility."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Meaning and patterns",
+      "learningObjective": "State the meaning and basic patterns of question tags.",
+      "id": "ndv-323-005",
+      "objectiveId": "nerdc-english-primary4-323-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain aloud what a question tag is. Give an original example with a positive statement and a negative tag, and say how the tag connects to the statement.",
+      "answer": "A question tag is a short question added to a statement. For example, The boxes are ready, aren’t they? The auxiliary matches are, the negative tag contrasts with the positive statement, and they refers to the boxes.",
+      "explanation": "The opposite-polarity pattern is a basic classroom pattern, not the only possible conversational tag construction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a short question added to a statement."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable original positive-statement/negative-tag example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a matching auxiliary and subject reference."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Asking and responding",
+      "learningObjective": "Ask and respond to question tags orally.",
+      "id": "ndv-323-006",
+      "objectiveId": "nerdc-english-primary4-323-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Fact card for a live exchange: the class library is open today. Your partner asks, The library isn’t open today, is it? Answer truthfully in a full short response. Then ask your partner a tag question confirming that the library is open.",
+      "answer": "Yes, it is. It is open today. The library is open today, isn’t it?",
+      "explanation": "The answer follows the fact, not the negative wording of the partner’s statement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Answers Yes, it is or an equally clear affirmative correction."
+        },
+        {
+          "marks": 1,
+          "description": "Asks an appropriate positive statement with a negative tag."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Dialogue using tag questions",
+      "subtopic": "Tag-question dialogue",
+      "learningObjective": "Engage in dialogues using tag questions.",
+      "id": "ndv-323-007",
+      "objectiveId": "nerdc-english-primary4-323-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Create a brief spoken dialogue with a partner planning a class display. Each learner should use one tag question and answer the partner’s question. Include one positive statement with a negative tag and one negative statement with a positive tag across the dialogue.",
+      "answer": "A: Our labels are ready, aren’t they? B: Yes, they are. We haven’t placed the map yet, have we? A: No, we haven’t. Let us place it now. Accept another coherent exchange.",
+      "explanation": "Assess each learner’s own contribution. A memorised written script alone is insufficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses an appropriate tag question that contributes to the shared plan."
+        },
+        {
+          "marks": 1,
+          "description": "Answers the partner consistently with the agreed fictional facts."
+        },
+        {
+          "marks": 1,
+          "description": "Takes turns and keeps the exchange coherent."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Oral visit narration",
+      "learningObjective": "Narrate highlights of a village or market visit orally.",
+      "id": "ndv-323-008",
+      "objectiveId": "nerdc-english-primary4-323-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give an oral narration of a market visit. You may use an imagined visit. Describe arrival, one buying or selling event and how the visit ended. Tell events in a clear order and include one detail that helps the listener picture the market.",
+      "answer": "On Saturday I went to a small market with my aunt. We passed baskets of bright tomatoes before stopping at a yam stall. My aunt compared two yams and paid for one. We thanked the seller and returned home before noon. Accept a different coherent market visit.",
+      "explanation": "An imagined route samples oral narration; it does not establish that a pupil witnessed a real market event. No personal trip or expenditure is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Establishes a market setting and arrival."
+        },
+        {
+          "marks": 1,
+          "description": "Develops a relevant buying/selling event."
+        },
+        {
+          "marks": 1,
+          "description": "Orders events with a clear ending."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible connected speech and a helpful descriptive detail."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Describing a place or route",
+      "learningObjective": "Speak about a home or directions to it using a fictional classroom route.",
+      "id": "ndv-323-009",
+      "objectiveId": "nerdc-english-primary4-323-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using only the fictional route card, give spoken directions from the school gate to Green House. Do not give your real home address. Route card: walk straight from the gate to a well; turn left at the well; pass one empty shop; Green House is the next building on the left.",
+      "answer": "Walk straight to the well. Turn left there and pass the empty shop. Green House is the next building on your left.",
+      "explanation": "The supplied route makes accuracy assessable without collecting personal location information. It is a limited original route for the source home/directions objective.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes walking straight to the well."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the left turn and passing the shop."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the next building on the left in a clear spoken sequence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Oral Composition: Descriptive and Narrative Composition",
+      "subtopic": "Event features",
+      "learningObjective": "Identify major features of an event: time, place, occasion and significance.",
+      "id": "ndv-323-010",
+      "objectiveId": "nerdc-english-primary4-323-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to a short report about a fictional event. Retell its time, place and occasion, then explain why the event mattered.",
+      "answer": "It happened on Friday afternoon in the school courtyard. It was the class reading celebration. Pupils shared poems with younger learners, helping them enjoy books and feel welcome. Accept a supported explanation of significance.",
+      "explanation": "This tests extracting event features from a heard report and retelling them, not recalling a private personal event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States Friday afternoon."
+        },
+        {
+          "marks": 1,
+          "description": "States the school courtyard."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the reading celebration."
+        },
+        {
+          "marks": 1,
+          "description": "Explains significance linked to sharing with younger learners."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "examinerScript": "Do not show this script during listening. Read twice at a natural pace: On Friday afternoon, our class held a reading celebration in the school courtyard. We read poems to younger pupils and helped them choose picture books. Several younger pupils said they now wanted to visit the library again. Pause before asking for the retelling.",
+      "examinerScriptVisibility": "examiner_only_during_listening"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Consonant contrasts",
+      "learningObjective": "Discriminate between consonant sounds in heard words.",
+      "id": "ndv-323-011",
+      "objectiveId": "nerdc-english-primary4-323-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to four pairs of words. For each pair, say same or different according to the first consonant sound. The teacher will not show you the words.",
+      "answer": "Different; same; different; same.",
+      "explanation": "The comparison concerns initial consonant sounds, not spelling or whole-word meanings. Targets use /ʃ/ and /tʃ/.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly classifies pairs 1 and 2."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classifies pairs 3 and 4."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "examinerScript": "Precheck a clear /ʃ/–/tʃ/ contrast in the teaching model. Explain the same/different task with an unrelated practice pair. Read each test pair twice with a short pause between words, showing no spellings: 1. ship–chip; 2. chip–chip; 3. chip–ship; 4. ship–ship. Do not add an extra vowel or exaggerate one answer. If the intended contrast cannot be reliably modelled/heard, postpone and arrange a suitable examiner.",
+      "examinerScriptVisibility": "examiner_only_during_listening",
+      "contentSourceId": "bc-voicing-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Voicing contrast",
+      "learningObjective": "Distinguish voiced and voiceless consonant sounds.",
+      "id": "ndv-323-012",
+      "objectiveId": "nerdc-english-primary4-323-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to the first sound in each of four words. Say voiced or voiceless after each word, using the distinction practised with the teacher.",
+      "answer": "Voiced; voiceless; voiceless; voiced.",
+      "explanation": "The target is the first consonant /v/ or /f/, not the voicing of the vowel later in the word.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the initial sounds in van and fan correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the initial sounds in fine and vine correctly."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "examinerScript": "Precheck /v/–/f/ contrast, then practise the concept using a separate voiced/voiceless pair. During the scored task, keep this script hidden and read twice naturally: van, fan, fine, vine. Accept a clear spoken label or agreed spoken equivalent. Score the initial consonant only.",
+      "examinerScriptVisibility": "examiner_only_during_listening",
+      "contentSourceId": "bc-voicing-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Voicing contrast",
+      "learningObjective": "Distinguish voiced and voiceless consonant sounds.",
+      "id": "ndv-323-013",
+      "objectiveId": "nerdc-english-primary4-323-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Say the initial sounds /f/ and /v/ separately, then say fan and van. Explain one difference in how the sounds are made.",
+      "answer": "/f/ is voiceless and /v/ is voiced, with vocal-fold vibration for /v/. The learner produces a recognisable contrast in the sounds and words.",
+      "explanation": "This production task complements discrimination. It does not require touching the throat or judging every feature of an accent.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces a recognisable /f/–/v/ contrast."
+        },
+        {
+          "marks": 1,
+          "description": "Transfers the contrast into fan and van."
+        },
+        {
+          "marks": 1,
+          "description": "Explains voice/vibration present for /v/ and absent for /f/."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-voicing-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Stress",
+      "subtopic": "Meaning of stress",
+      "learningObjective": "State the meaning of stress in speech.",
+      "id": "ndv-323-014",
+      "objectiveId": "nerdc-english-primary4-323-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain word stress aloud. Say the word table and show which part is more prominent without shouting.",
+      "answer": "Word stress makes one syllable more prominent than another. In table, the first syllable is prominent: TAble.",
+      "explanation": "Prominence can involve duration, pitch and clarity as well as loudness. It does not mean shouting every word.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains prominence of one syllable."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates first-syllable prominence in table."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-word-stress-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Stress",
+      "subtopic": "Word and sentence stress",
+      "learningObjective": "Discuss word stress and sentence stress.",
+      "id": "ndv-323-015",
+      "objectiveId": "nerdc-english-primary4-323-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Demonstrate the difference between word stress and sentence stress. First say happy with its usual word stress. Then say I chose the BLUE folder to correct someone who thought you chose a red folder. Explain the two different choices of emphasis.",
+      "answer": "HAPpy has first-syllable word stress. Prominence on BLUE selects the colour being corrected within the sentence.",
+      "explanation": "Word stress concerns syllables within a word; sentence stress can highlight information or contrast. Capital letters are rehearsal cues rather than a request to shout.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Demonstrates HAPpy with first-syllable prominence."
+        },
+        {
+          "marks": 1,
+          "description": "Highlights blue naturally in the sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes syllable prominence from information emphasis."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-word-stress-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Stress",
+      "subtopic": "Stress placement",
+      "learningObjective": "Apply stress placement in selected common words without treating tendencies as universal rules.",
+      "id": "ndv-323-016",
+      "objectiveId": "nerdc-english-primary4-323-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Say these four words aloud using the teacher-prechecked classroom patterns: table, happy, arrive, begin. Then group them orally according to whether the first or second syllable is stressed.",
+      "answer": "TAble and HAPpy have first-syllable stress; aRRIVE and beGIN have second-syllable stress.",
+      "explanation": "These selected examples illustrate tendencies. Not every two-syllable noun/adjective or verb follows a single rule; dictionary/model checking remains necessary.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces the first-syllable pattern for table and happy."
+        },
+        {
+          "marks": 1,
+          "description": "Produces the second-syllable pattern for arrive and begin."
+        },
+        {
+          "marks": 1,
+          "description": "Groups the four examples correctly."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-word-stress-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Stress",
+      "subtopic": "Word and sentence stress",
+      "learningObjective": "Discuss word stress and sentence stress.",
+      "id": "ndv-323-017",
+      "objectiveId": "nerdc-english-primary4-323-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a live correction, a partner says that Amina lent you the notebook. The fictional fact is that Amina lent you the atlas. Correct your partner in one sentence, using emphasis to make the changed item clear.",
+      "answer": "Amina lent me the ATLAS, not the notebook. Accept a natural equivalent with clear focus on atlas.",
+      "explanation": "The task uses sentence prominence to signal the corrected information rather than changing the word’s ordinary internal stress.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives the correction consistent with the fact."
+        },
+        {
+          "marks": 1,
+          "description": "Makes atlas the clear focus of the spoken correction."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Meaning of intonation",
+      "learningObjective": "State the meaning of intonation.",
+      "id": "ndv-323-018",
+      "objectiveId": "nerdc-english-primary4-323-15-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain intonation aloud. Demonstrate it by saying the same short phrase once with your pitch moving up at the end and once with it moving down.",
+      "answer": "Intonation is the movement of pitch across speech. The learner demonstrates a rise and a fall, for example with The door is open.",
+      "explanation": "Pitch movement is different from simply speaking louder or faster. This task identifies the feature before assigning a contextual meaning.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains pitch movement."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates an audible rise and fall."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-tag-intonation-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Rising and falling patterns",
+      "learningObjective": "Discuss rising and falling intonation.",
+      "id": "ndv-323-019",
+      "objectiveId": "nerdc-english-primary4-323-16-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to two versions of the same sentence. Say which ends with rising pitch and which ends with falling pitch.",
+      "answer": "The first rises; the second falls.",
+      "explanation": "The learner must hear the pitch movement. A printed question mark or arrow must not supply the answer during listening.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the first as rising."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the second as falling."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "examinerScript": "Precheck that the two contours are audible. Keep this script and any arrows hidden. Say The parcel is here with a clear final rise, pause, then say the identical words with a clear final fall. Repeat the pair once without changing the order. Do not announce question/statement labels.",
+      "examinerScriptVisibility": "examiner_only_during_listening",
+      "contentSourceId": "bc-tag-intonation-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Using intonation",
+      "learningObjective": "State and demonstrate contextual uses of rising and falling intonation.",
+      "id": "ndv-323-020",
+      "objectiveId": "nerdc-english-primary4-323-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play these two situations aloud. First, you do not know whether a partner has finished and ask Have you finished? Second, you report that you have finished and say I have finished. Use a clear classroom rising pattern for the first and a falling pattern for the second, then explain the different purposes.",
+      "answer": "The learner uses a rise for the genuine yes/no information question and a fall for the completion report, explaining asking versus reporting.",
+      "explanation": "These are appropriate practice choices in the specified situations, not an absolute rule that every question rises or every statement falls.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Demonstrates the requested rise in the information question."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates the requested fall in the report."
+        },
+        {
+          "marks": 1,
+          "description": "Explains asking for information versus reporting completion."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-tag-intonation-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Introduction to Intonation",
+      "subtopic": "Intonation and meaning",
+      "learningObjective": "Explain how intonation can change meaning.",
+      "id": "ndv-323-021",
+      "objectiveId": "nerdc-english-primary4-323-18-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Say The hall is ready, isn’t it? in two short role-plays: first you are unsure and want to find out; next you can see that it is ready and invite agreement. Explain how your final pitch helps show the difference.",
+      "answer": "A final rise on isn’t it? can signal the genuine uncertainty; a fall can invite agreement when the speaker expects confirmation.",
+      "explanation": "The auxiliary pattern stays the same while intonation and context affect the intended meaning. Accept a clear demonstration and explanation consistent with the taught model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a rise for the uncertainty role."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a fall for inviting agreement."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the pitch choices to the stated meanings."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "contentSourceId": "bc-tag-intonation-reference-323"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Songs and Poems",
+      "subtopic": "Poem memorisation and recitation",
+      "learningObjective": "Memorise and recite an original short poem as speech practice.",
+      "id": "ndv-323-022",
+      "objectiveId": "nerdc-english-primary4-323-19-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Learn the original poem The Patient Builder with the teacher. After a separate practice period, recite it aloud without looking at the text. Keep the order clear and use suitable pauses.",
+      "answer": "A successful performance recalls the poem in order with clear words and sensible phrasing. Minor self-corrections are acceptable; assess the recitation heard, not whether a written copy was submitted.",
+      "explanation": "The teacher may model the poem during practice, then remove the visible text for the scored recitation. This samples memory and speech practice; it does not test all poetry skills.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recalls the first half in the correct sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Recalls the second half in the correct sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible words and pauses that fit the phrases."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "passage": "The Patient Builder\nI set a little block in place,\nThen watched my tower sway;\nI made the base a little wide,\nAnd tried another way.\nOne careful step, another step,\nThe work began to stand;\nI learnt that trying once again\nCould strengthen heart and hand.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Songs and Poems",
+      "subtopic": "Singing as speech practice",
+      "learningObjective": "Sing an original short song with clear words and a steady phrase pattern.",
+      "id": "ndv-323-023",
+      "objectiveId": "nerdc-english-primary4-323-20-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In practice, choose a simple original tune for Pass the Beat with the teacher or create your own. Sing the four lines aloud in that tune. Keep the words clear and the phrases steady; this is singing, not only spoken recitation.",
+      "answer": "The pupil sings the supplied original words with an audible tune and steady phrases. Accept any simple original tune that fits; musical sophistication and one exact melody are not required.",
+      "explanation": "No copyrighted tune is prescribed or reproduced. Enjoyment is invited, not graded as an emotion. Actual sung evidence is necessary; no audio performance has been generated or verified here.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Sings with a discernible tune rather than only speaking."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the main words intelligible and in sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains a reasonably steady phrase pattern."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "passage": "Pass the Beat\nPass the beat around the ring,\nListen, then begin to sing.\nWhen a friend has had a turn,\nWait and hear what you can learn.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Songs and Poems",
+      "subtopic": "Poem meaning effect and theme",
+      "learningObjective": "Discuss a poem’s meaning, effect and theme orally.",
+      "id": "ndv-323-024",
+      "objectiveId": "nerdc-english-primary4-323-21-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Discuss The Patient Builder aloud. Explain what happens after the tower sways, suggest its main theme and say how the repeated idea of another step affects the poem.",
+      "answer": "The speaker widens the base and tries again. A suitable theme is patient improvement through repeated effort. The repeated steps suggest steady progress rather than instant success. Accept supported alternative wording.",
+      "explanation": "This is an oral discussion of meaning, effect and theme, with evidence from the original text.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the repair/change and further attempt."
+        },
+        {
+          "marks": 1,
+          "description": "States a supported theme about persistence or careful improvement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the repeated steps reinforce steady effort."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Live or recorded spoken-performance evidence is required; do not award performance marks from a written script alone. A qualified teacher prepares the setting, prechecks models/contrasts, gives practice and records each learner’s individual evidence. Classroom delivery, examiner calibration and app audio/recording support are unverified. Assess intelligibility and the stated target; do not demand imitation of a particular accent or penalise unrelated accent features. Original practice rubric, not an official national mark scheme.",
+      "passage": "The Patient Builder\nI set a little block in place,\nThen watched my tower sway;\nI made the base a little wide,\nAnd tried another way.\nOne careful step, another step,\nThe work began to stand;\nI learnt that trying once again\nCould strengthen heart and hand.",
+      "stimulusProvenance": "original"
+    }
+  ]
+}

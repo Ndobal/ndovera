@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-english-primary4-revised-2025",
+  "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/1.pdf",
+  "sha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+  "bytes": 1214109,
+  "pages": 31,
+  "objectiveIds": [
+    "nerdc-english-primary4-323-1-v1",
+    "nerdc-english-primary4-323-2-v1",
+    "nerdc-english-primary4-323-3-v1",
+    "nerdc-english-primary4-323-4-v1",
+    "nerdc-english-primary4-323-5-v1",
+    "nerdc-english-primary4-323-6-v1",
+    "nerdc-english-primary4-323-7-v1",
+    "nerdc-english-primary4-323-8-v1",
+    "nerdc-english-primary4-323-9-v1",
+    "nerdc-english-primary4-323-10-v1",
+    "nerdc-english-primary4-323-11-v1",
+    "nerdc-english-primary4-323-12-v1",
+    "nerdc-english-primary4-323-13-v1",
+    "nerdc-english-primary4-323-14-v1",
+    "nerdc-english-primary4-323-15-v1",
+    "nerdc-english-primary4-323-16-v1",
+    "nerdc-english-primary4-323-17-v1",
+    "nerdc-english-primary4-323-18-v1",
+    "nerdc-english-primary4-323-19-v1",
+    "nerdc-english-primary4-323-20-v1",
+    "nerdc-english-primary4-323-21-v1"
+  ],
+  "sourceInventory": "nerdc-primary4-english-objective-inventory-323.json",
+  "sourceChecks": "Fresh checksum matched. All numbered objective columns read. New-task tables PDF14–19 and30 read and visually inspected. Inventory covers numbered objectives, with separate functional/delivery gaps.",
+  "supplementarySourceIds": [
+    "bc-word-stress-reference-323",
+    "bc-tag-intonation-reference-323",
+    "bc-voicing-reference-323"
+  ],
+  "accessNotes": [
+    "Main TeachingEnglish word-stress URL timed out; official Africa TeachingEnglish equivalent opened and read.",
+    "Cambridge ship/chip pages were indexed with IPA, but direct opens403. No full dictionary/audio retrieval claimed; no dictionary recording redistributed.",
+    "Phonemic-chart candidate unavailable. No interactive chart or phonics app use claimed."
+  ],
+  "sourceIssues": [
+    "PDF17 uses /˄/ and /3:/ typography; vowel contrast and regional-model reconciliation remain unmapped. Some source pairs (cup/curb, vest/first) change more than one segment; not silently adopted as minimal pairs.",
+    "PDF18 gives broad noun/verb/preposition and compound stress rules. Tasks use checked examples, not universal category rules.",
+    "PDF14 lists core modals alongside need to/used to/dare; initial mappings sample unambiguous core modals only.",
+    "Tag polarity and rising/falling patterns are useful basic/contextual choices, not exhaustive descriptions of all English conversation.",
+    "Oral visit task permits an imagined visit; it does not fulfil the witnessed-event activity. Fictional directions are an original limited route, not real-address collection."
+  ],
+  "manualInspection": "Inspected every prompt, answer, positive mark total, script order and source link. Five listening scripts specify hidden delivery and repeats. Each spoken record requires live/recorded evidence. Produced two original verse texts; no copied poem, song or prescribed tune. Song enjoyment is not graded as emotion. Reviewed comparable written batch322 to keep oral production separate.",
+  "independentScriptChecks": {
+    "modalOrder": [
+      "can",
+      "should",
+      "might"
+    ],
+    "consonantSameDifferent": [
+      "different",
+      "same",
+      "different",
+      "same"
+    ],
+    "initialVoicing": [
+      "voiced",
+      "voiceless",
+      "voiceless",
+      "voiced"
+    ],
+    "intonationOrder": [
+      "rising",
+      "falling"
+    ],
+    "scope": "Script/key consistency only; no audio, pitch measurement, examiner model or learner performance executed."
+  },
+  "remaining": [
+    "All25 unmapped numbered objectives, especially grammar, vocabulary and vowel discrimination; links are not full coverage.",
+    "Teacher pronunciation calibration, age/class accessibility provision, actual hearing/listening delivery, recording/privacy arrangements and individual scoring evidence.",
+    "No audio recording, melody, exact timing, formal national mark calibration or app delivery verified.",
+    "Dictionary use, online research, witnessed visits, group presentations beyond sampled tasks, word-processing, school adoption and term placement."
+  ]
+}

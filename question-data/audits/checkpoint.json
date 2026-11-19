@@ -2,35 +2,36 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_322_automated_validation_passed",
+  "phase": "batch_323_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-323.json",
+  "nextBatch": "original-multisubject-batch-324.json",
   "nextPriorities": [
-    "Build the full source-objective/competency inventory for newly retrieved revised Primary 4 English Studies (31-page September 2025 PDF at pry_4/necurrdc/1.pdf). Prioritise unrepresented exact-class listening/speaking, dialogue, oral composition, aural discrimination, stress/intonation and grammatical-accuracy tables. Verify source details and preserve actual spoken/listening tasks; do not relabel written grammar as observed speech. Current English mapping samples 11 reading/writing objectives only; group presentation, dictionary use, online retrieval, word-processing and app line-break delivery remain unverified. Primary 4 BDL inventory322 has 84 numbered objectives, 81 partial links and three unmapped: common mobile games, physical robotics accessory identification and autonomous programming. The new email/text/voice grouping is supplementary NCSC interpretation, not a prescribed/exhaustive NERDC taxonomy. Keep source-first labels, full history/wearable chronology, actual password enrolment/local policy, connected peripherals/all key groups, authentic AI guides17/18/24/25, incomplete game reference, PictoBlox model/version/runtime/image-authorisation, robotics kit/manual/cohort suitability, all observed delivery, school adoption, term placement, sprite-export, animate-name, infographic and source wording gaps open. Broader class-subject lists remain unresolved. Adaptive assembly and scaled scoring remain open. Cambridge 0620 hands-on Paper 5 and full assembly remain open. SAT graphic delivery remains open. Cambridge 0625 Paper 5 and full-paper assembly remain open. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Use current Primary 4 English inventory 323: 59 numbered objectives in 19 topic groups, 34 partial links and 25 unmapped, with 32 author mappings. Prioritise unrepresented grammatical accuracy: idioms, homophones/homographs, past/present/future, nouns/pronouns, adjectives/adverbs, sense relations and field/register vocabulary at PDF 20–25. Verify semantic overlap and source terminology; add original contextual and production tasks without padding. Vowel discrimination remains unmapped pending reconciliation of source notation/non-minimal examples, pronunciation models and regional contrasts. Oral/aural tasks now exist but actual examiner models, audio delivery, recording arrangements and learner evidence remain unverified. Stress tendencies and tag/intonation patterns are contextual, not universal rules. Full activities/competencies, dictionary use, online retrieval, witnessed events, presentations and word-processing delivery, adoption and official term placement remain open. Primary 4 BDL inventory322 has 84 numbered objectives, 81 partial links and three unmapped: common mobile games, physical robotics accessory identification and autonomous programming. The new email/text/voice grouping is supplementary NCSC interpretation, not a prescribed/exhaustive NERDC taxonomy. Keep source-first labels, full history/wearable chronology, actual password enrolment/local policy, connected peripherals/all key groups, authentic AI guides17/18/24/25, incomplete game reference, PictoBlox model/version/runtime/image-authorisation, robotics kit/manual/cohort suitability, all observed delivery, school adoption, term placement, sprite-export, animate-name, infographic and source wording gaps open. Broader class-subject lists remain unresolved. Adaptive assembly and scaled scoring remain open. Cambridge 0620 hands-on Paper 5 and full assembly remain open. SAT graphic delivery remains open. Cambridge 0625 Paper 5 and full-paper assembly remain open. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify remaining NERDC exact class-subject-objective sources and adoption. Some direct revised JSS 1 and Primary 4 PDFs are accessible while tested class landing pages return 403. Older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-322.json",
-  "lastRemoteVerifiedCommit": "4cfbbc390838a282853eb424f097ead5dfa742aa",
+  "lastValidatedBatch": "original-multisubject-batch-323.json",
+  "lastRemoteVerifiedCommit": "bd611067d819d971fd1bcc68b72a4278834f5074",
   "verifiedTotals": {
-    "raw": 5736,
-    "validDrafts": 4057,
+    "raw": 5760,
+    "validDrafts": 4081,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-322.json",
+  "lastPopulatedBatch": "original-multisubject-batch-323.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5736,
+  "inventoryRaw": 5760,
   "lastSourceUpdate": "registry.json",
   "lastSourceRecheck": {
     "id": "nerdc-english-primary4-revised-2025",
     "date": "2026-11-19",
     "alsoChecked": [
-      "nerdc-bdl-primary4-revised-2025",
-      "ncsc-phishing-channels-322"
+      "bc-word-stress-reference-323",
+      "bc-tag-intonation-reference-323",
+      "bc-voicing-reference-323"
     ]
   }
 }
