@@ -3714,6 +3714,43 @@
       "source": "https://www.apple.com/ca/newsroom/2010/01/27Apple-Launches-iPad/",
       "retrievedOn": "2026-11-19",
       "note": "Dated manufacturer announcement of 27 January 2010; announcement is not equated with consumer availability or first-ever tablet."
+    },
+    {
+      "id": "nerdc-english-primary4-revised-2025",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/1.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 1214109,
+      "pageCount": 31,
+      "sha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+      "sourceSections": [
+        "Cover and title, PDF pp. 1–2",
+        "Contents, PDF p. 13",
+        "Reading poems, short stories and plays, printed p. 10 (PDF p. 23)",
+        "Contextual clues, printed p. 13 (PDF p. 26)",
+        "Main and supporting ideas, printed p. 14 (PDF p. 27)",
+        "Informal letters, printed p. 15 (PDF p. 28)",
+        "Narrative and descriptive composition, printed p. 16 (PDF p. 29)"
+      ],
+      "adoptionReferences": [
+        "nerdc-revised-bec-rollout-2025",
+        "fme-curriculum-review-implementation-2026"
+      ],
+      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified."
+    },
+    {
+      "id": "ncsc-phishing-channels-322",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_cybersecurity_guidance",
+      "source": "https://www.ncsc.gov.uk/collection/phishing-scams",
+      "retrievedOn": "2026-11-19",
+      "note": "UK NCSC family guidance opened and read. Email, text messages and phone calls support a narrow delivery-channel grouping for the NERDC table’s unspecified types. Not a NERDC-prescribed or exhaustive taxonomy. UK reporting routes/statistics are not transplanted to Nigerian pupil tasks."
     }
   ],
   "banks": [
@@ -6466,6 +6503,15 @@
       "target": 1000,
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-english-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
     }
   ],
@@ -40918,6 +40964,222 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-1-v1",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Poem comprehension",
+      "learningObjective": "Read short poems with reasonable comprehension.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Reading poems, short stories and plays, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-2-v1",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Figures of speech",
+      "learningObjective": "Read short poems and identify figures of speech.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Reading poems, short stories and plays, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-3-v1",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Reading poems, short stories and plays, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-4-v1",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Meaning from context",
+      "learningObjective": "Use contextual clues to get meanings of unfamiliar words.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Comprehension: contextual clues, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-5-v1",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Using new words",
+      "learningObjective": "Use unfamiliar words appropriately in sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Comprehension: contextual clues, performance objective 4; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-6-v1",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Main ideas",
+      "learningObjective": "Identify main ideas in class-appropriate informational texts.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Comprehension: main and supporting ideas, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-7-v1",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Supporting facts",
+      "learningObjective": "Identify supporting facts in class-appropriate informational texts.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Comprehension: main and supporting ideas, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-8-v1",
+      "topic": "Informal Letters",
+      "subtopic": "Writing to friends and relatives",
+      "learningObjective": "Write informal letters.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Informal Letters, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-9-v1",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Narrative writing",
+      "learningObjective": "Write a narrative composition.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Narrative and Descriptive Composition, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-10-v1",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Descriptive writing",
+      "learningObjective": "Write a descriptive composition.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Narrative and Descriptive Composition, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-322-11-v1",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Distinguishing purposes",
+      "learningObjective": "Differentiate between narrative and descriptive compositions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 16 (PDF p. 29), Narrative and Descriptive Composition, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-322-1-v1",
+      "topic": "Phishing",
+      "subtopic": "Delivery-channel types",
+      "learningObjective": "State and distinguish email, text-message and voice-call forms of phishing.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 2 and evaluation item 2; NCSC supplementary delivery-channel grouping"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -41014,6 +41276,7 @@
     "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
     "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.",
     "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.",
-    "Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open."
+    "Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open.",
+    "Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist."
   ]
 }

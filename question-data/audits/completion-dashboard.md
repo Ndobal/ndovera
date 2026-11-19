@@ -105,7 +105,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NECO | Technical Drawing | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | NECO | Visual Arts | 1000 | 16 | 16 | 0 | 984 | partial_objective_register |
 | NECO | Yoruba | 1000 | 8 | 8 | 0 | 992 | partial_objective_register |
-| NERDC | Basic Digital Literacy / Primary 4 | 1000 | 165 | 165 | 0 | 835 | partial_objective_register |
+| NERDC | Basic Digital Literacy / Primary 4 | 1000 | 168 | 168 | 0 | 832 | partial_objective_register |
 | NERDC | Basic Science / JSS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Nursery | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Basic Science / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
@@ -122,7 +122,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | English / Primary | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / JSS 1 | 1000 | 56 | 55 | 0 | 945 | partial_objective_register |
 | NERDC | English Studies / Primary 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | English Studies / Primary 4 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
+| NERDC | English Studies / Primary 4 | 1000 | 27 | 26 | 0 | 974 | partial_objective_register |
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Intermediate Science / JSS 1 | 1000 | 124 | 124 | 0 | 876 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
@@ -221,12 +221,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1247 | 1182 | 0 | 36000 | 34818 |
+| NERDC | 1276 | 1211 | 0 | 36000 | 34789 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5707, "validDrafts": 4028, "reviewed": 0, "registeredBanks": 202, "target": 184000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5736, "validDrafts": 4057, "reviewed": 0, "registeredBanks": 202, "target": 184000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -326,3 +326,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.
 - On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.
 - Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open.
+- Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist.

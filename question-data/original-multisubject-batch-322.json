@@ -1,0 +1,1226 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary 4 English reading and writing; phishing delivery forms",
+  "questionCount": 29,
+  "note": "Twenty-six original English Studies structured tasks and three Basic Digital Literacy structured tasks. Eight original reading stimuli plus four written-production/purpose tasks. All drafts await independent academic review. Written work does not establish oral, aural or digital performance.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-001",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Where does the main action of The Borrowed Sign take place? Give one detail that supports your answer.",
+      "answer": "At a school preparing for an exhibition, around the courtyard and displays. The library stall, display or school exhibition supports this setting.",
+      "explanation": "A setting answer must fit the story rather than inventing a different location.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the school exhibition setting."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a relevant detail such as the courtyard, display or library stall."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Borrowed Sign\nBefore the school exhibition, Nnenna borrowed a cardboard sign from the library. A sudden gust bent it while she carried it across the courtyard. She hid it behind her display, afraid that the librarian would refuse to lend her anything again. When visitors began asking where the library stall was, Nnenna brought out the damaged sign and explained what had happened. The librarian fetched tape, and they repaired it together. Nnenna then placed a small stone beside its stand to steady it. She felt relieved: the stall had its sign, and she no longer had to hide the truth.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-002",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why does Nnenna hide the bent sign at first, and what later shows a change in her behaviour?",
+      "answer": "She fears losing the librarian’s trust or future loans. She later brings out the sign and honestly explains the accident.",
+      "explanation": "The change is from concealing damage to accepting responsibility.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains her fear about future borrowing."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies bringing out the sign and explaining the accident."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Borrowed Sign\nBefore the school exhibition, Nnenna borrowed a cardboard sign from the library. A sudden gust bent it while she carried it across the courtyard. She hid it behind her display, afraid that the librarian would refuse to lend her anything again. When visitors began asking where the library stall was, Nnenna brought out the damaged sign and explained what had happened. The librarian fetched tape, and they repaired it together. Nnenna then placed a small stone beside its stand to steady it. She felt relieved: the stall had its sign, and she no longer had to hide the truth.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-003",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Suggest a theme for The Borrowed Sign and connect it to the ending.",
+      "answer": "Honesty helps people solve problems. Once Nnenna admits the accident, she and the librarian repair the sign together. Accept responsibility or asking for help with a supported link.",
+      "explanation": "A theme is a wider idea supported by events, not simply the name of the damaged object.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a relevant theme."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to admission and cooperative repair."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Borrowed Sign\nBefore the school exhibition, Nnenna borrowed a cardboard sign from the library. A sudden gust bent it while she carried it across the courtyard. She hid it behind her display, afraid that the librarian would refuse to lend her anything again. When visitors began asking where the library stall was, Nnenna brought out the damaged sign and explained what had happened. The librarian fetched tape, and they repaired it together. Nnenna then placed a small stone beside its stand to steady it. She felt relieved: the stall had its sign, and she no longer had to hide the truth.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-004",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What is the main problem in The Wrong Beat? Explain why playing louder does not solve it.",
+      "answer": "Musa rushes and adds an extra beat, so the group loses time. More volume does not correct the rhythm and makes the confusion worse.",
+      "explanation": "The conflict concerns timing and listening rather than weak sound.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies rushing/adding a beat or losing the shared rhythm."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why loudness does not correct the timing."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Wrong Beat\nMusa could play the opening drum pattern for the class performance, but he always hurried the last part. At rehearsal he played louder whenever his friends lost their place. That only made everyone more confused. Their teacher asked the group to clap the pattern slowly without drums. Musa noticed that he was adding an extra beat. He practised the difficult part softly until he could keep time with the others. On performance day, he watched the group leader’s hand before beginning. The audience heard one steady rhythm. Musa smiled when he realised that listening had helped more than playing loudly.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-005",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give two events that help Musa improve, in the order they happen.",
+      "answer": "First the group claps slowly without drums, helping him notice the extra beat. Then he practises the difficult part softly in time with the others.",
+      "explanation": "The question asks for the learning steps, not a retelling of the whole performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the slow clapping/notice first."
+        },
+        {
+          "marks": 1,
+          "description": "Places the soft focused practice next."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Wrong Beat\nMusa could play the opening drum pattern for the class performance, but he always hurried the last part. At rehearsal he played louder whenever his friends lost their place. That only made everyone more confused. Their teacher asked the group to clap the pattern slowly without drums. Musa noticed that he was adding an extra beat. He practised the difficult part softly until he could keep time with the others. On performance day, he watched the group leader’s hand before beginning. The audience heard one steady rhythm. Musa smiled when he realised that listening had helped more than playing loudly.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-006",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What does Musa’s action of watching the group leader’s hand show about him at the end? Support your answer.",
+      "answer": "He has become more attentive and cooperative. He waits for the group’s signal instead of relying on loudness or rushing ahead.",
+      "explanation": "Accept another supported description of his improved behaviour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Infers attention/cooperation or care with timing."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the inference to watching the signal and playing with the group."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Wrong Beat\nMusa could play the opening drum pattern for the class performance, but he always hurried the last part. At rehearsal he played louder whenever his friends lost their place. That only made everyone more confused. Their teacher asked the group to clap the pattern slowly without drums. Musa noticed that he was adding an extra beat. He practised the difficult part softly until he could keep time with the others. On performance day, he watched the group leader’s hand before beginning. The audience heard one steady rhythm. Musa smiled when he realised that listening had helped more than playing loudly.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Poem comprehension",
+      "learningObjective": "Read short poems with reasonable comprehension.",
+      "id": "ndv-322-007",
+      "objectiveId": "nerdc-english-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What change has the rain made to the yard in After the Rain? Use the poem in your answer.",
+      "answer": "It has washed away dust and refreshed the green plants. The ending says the rain washed the dusty yard and brought its green again.",
+      "explanation": "The answer identifies a change rather than merely stating that rain fell.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the cleaner/refreshed yard."
+        },
+        {
+          "marks": 1,
+          "description": "Supports it with the ending or unfolding leaves."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "After the Rain\nThe gutter hums a silver song,\nThe thirsty leaves unfold;\nA puddle holds the cloudy sky,\nA mirror edged with gold.\nMy sandals splash the narrow path,\nThen rest beside the door;\nThe rain has washed the dusty yard,\nAnd brought its green once more.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Figures of speech",
+      "learningObjective": "Read short poems and identify figures of speech.",
+      "id": "ndv-322-008",
+      "objectiveId": "nerdc-english-primary4-322-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In After the Rain, which human action is given to the gutter, and what figure of speech is this?",
+      "answer": "The gutter is said to hum or sing. This is personification.",
+      "explanation": "The flowing water is described as if the gutter could make a deliberate song.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies humming/singing."
+        },
+        {
+          "marks": 1,
+          "description": "Names personification."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "After the Rain\nThe gutter hums a silver song,\nThe thirsty leaves unfold;\nA puddle holds the cloudy sky,\nA mirror edged with gold.\nMy sandals splash the narrow path,\nThen rest beside the door;\nThe rain has washed the dusty yard,\nAnd brought its green once more.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Figures of speech",
+      "learningObjective": "Read short poems and identify figures of speech.",
+      "id": "ndv-322-009",
+      "objectiveId": "nerdc-english-primary4-322-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The puddle is called a mirror in After the Rain. Explain this comparison and name the figure of speech.",
+      "answer": "The puddle reflects the sky as a mirror reflects an image. Calling it a mirror directly is a metaphor.",
+      "explanation": "No like or as is used in this direct comparison.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains reflection of the sky."
+        },
+        {
+          "marks": 1,
+          "description": "Names metaphor."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "After the Rain\nThe gutter hums a silver song,\nThe thirsty leaves unfold;\nA puddle holds the cloudy sky,\nA mirror edged with gold.\nMy sandals splash the narrow path,\nThen rest beside the door;\nThe rain has washed the dusty yard,\nAnd brought its green once more.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Poem comprehension",
+      "learningObjective": "Read short poems with reasonable comprehension.",
+      "id": "ndv-322-010",
+      "objectiveId": "nerdc-english-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare the seed’s situation at the start and later in The Seed Box.",
+      "answer": "At first it is dry in a box and does not grow. After planting and watering, a shoot and green leaves appear.",
+      "explanation": "The poem follows a change from storage to growth.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the dry stored seed."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the later shoot/leaves after planting."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Seed Box\nA seed slept in my little box,\nToo dry to stretch or grow;\nI tucked it into soft brown earth\nAnd watered it just so.\nA shoot rose like a tiny spear,\nThen opened leaves of green;\nI checked its pot each morning,\nTo find what could be seen.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Figures of speech",
+      "learningObjective": "Read short poems and identify figures of speech.",
+      "id": "ndv-322-011",
+      "objectiveId": "nerdc-english-primary4-322-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What two things are compared using like in The Seed Box? Name the figure of speech.",
+      "answer": "The rising shoot and a tiny spear are compared. This is a simile.",
+      "explanation": "The comparison draws attention to the shoot’s pointed form.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies shoot and tiny spear."
+        },
+        {
+          "marks": 1,
+          "description": "Names simile."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Seed Box\nA seed slept in my little box,\nToo dry to stretch or grow;\nI tucked it into soft brown earth\nAnd watered it just so.\nA shoot rose like a tiny spear,\nThen opened leaves of green;\nI checked its pot each morning,\nTo find what could be seen.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Poem comprehension",
+      "learningObjective": "Read short poems with reasonable comprehension.",
+      "id": "ndv-322-012",
+      "objectiveId": "nerdc-english-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What do the last two lines suggest about the speaker’s attitude to the plant? Explain.",
+      "answer": "The speaker is interested, curious or patient, checking the pot each morning to see changes.",
+      "explanation": "Accept a reasonable attitude supported by the repeated observation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a suitable attitude."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to checking the pot every morning."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Seed Box\nA seed slept in my little box,\nToo dry to stretch or grow;\nI tucked it into soft brown earth\nAnd watered it just so.\nA shoot rose like a tiny spear,\nThen opened leaves of green;\nI checked its pot each morning,\nTo find what could be seen.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-013",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What do the words in square brackets tell a reader at the start of One More Rehearsal?",
+      "answer": "They show that the scene is in a classroom and that two pupils are preparing a play.",
+      "explanation": "Stage directions provide setting and action beyond the spoken lines.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the classroom."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies preparation for a short play."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "One More Rehearsal\n[In a classroom. Two pupils are preparing a short play.]\nZAINAB: We have time for one more rehearsal before lunch.\nEMEKA: Then let us practise the part where I enter. I keep missing your last line.\nZAINAB: I can shout it.\nEMEKA: You do not need to shout. Pause after it, and I will listen for the word basket.\n[They try the scene. Emeka enters at the right moment.]\nZAINAB: That worked! We should remember the pause.\nEMEKA: And I should listen instead of counting the lines on my fingers.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-014",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "How do Zainab and Emeka solve the missed-entry problem together?",
+      "answer": "Zainab pauses after the line, and Emeka listens for basket as his cue.",
+      "explanation": "The solution combines both characters’ actions; shouting is only a rejected suggestion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Zainab’s pause."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Emeka listening for the cue word."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "One More Rehearsal\n[In a classroom. Two pupils are preparing a short play.]\nZAINAB: We have time for one more rehearsal before lunch.\nEMEKA: Then let us practise the part where I enter. I keep missing your last line.\nZAINAB: I can shout it.\nEMEKA: You do not need to shout. Pause after it, and I will listen for the word basket.\n[They try the scene. Emeka enters at the right moment.]\nZAINAB: That worked! We should remember the pause.\nEMEKA: And I should listen instead of counting the lines on my fingers.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-015",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What decision creates the short plot of The Basket at the Gate, and what information helps resolve it?",
+      "answer": "The pupils must decide what to do with the uncollected basket. Its Primary Three label and the teacher’s knowledge show where it belongs.",
+      "explanation": "The answer identifies the uncertainty and the evidence used to resolve it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies deciding where the basket belongs/what to do with it."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the label and teacher’s help as resolving information."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Basket at the Gate\n[At the school gate after a book swap.]\nBOLA: This basket is still full. Shall we carry it into our classroom?\nSANI: The label says Primary Three. It may belong to their class.\nBOLA: But no one is here to collect it.\nSANI: Let us ask the teacher on duty before moving it.\n[The teacher reads the label and points towards the library.]\nTEACHER: Their class is waiting there. I will help you return it.\nBOLA: I am glad we checked instead of guessing.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Reading poems, short stories and plays",
+      "subtopic": "Characters plot setting and theme",
+      "learningObjective": "Read short stories and plays and discuss characters, plots, settings and themes.",
+      "id": "ndv-322-016",
+      "objectiveId": "nerdc-english-primary4-322-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Which character first suggests checking with an adult, and what theme does the final line support?",
+      "answer": "Sani suggests asking the teacher. The ending supports checking facts or seeking help before acting on guesses.",
+      "explanation": "Accept a related theme supported by Bola’s final comment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Sani."
+        },
+        {
+          "marks": 1,
+          "description": "States a supported theme about checking before acting."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Basket at the Gate\n[At the school gate after a book swap.]\nBOLA: This basket is still full. Shall we carry it into our classroom?\nSANI: The label says Primary Three. It may belong to their class.\nBOLA: But no one is here to collect it.\nSANI: Let us ask the teacher on duty before moving it.\n[The teacher reads the label and points towards the library.]\nTEACHER: Their class is waiting there. I will help you return it.\nBOLA: I am glad we checked instead of guessing.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Main ideas",
+      "learningObjective": "Identify main ideas in class-appropriate informational texts.",
+      "id": "ndv-322-017",
+      "objectiveId": "nerdc-english-primary4-322-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "State the main idea of The Shared Book Shelf in one sentence.",
+      "answer": "Careful organisation and simple routines make a shared book shelf work well for its readers.",
+      "explanation": "The main idea covers several details instead of focusing only on one label or one day.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies effective organisation/routines for sharing books."
+        },
+        {
+          "marks": 1,
+          "description": "Connects that organisation to keeping books useful/available for readers."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Shared Book Shelf\nA class can make a book-sharing shelf useful by organising it carefully. In one fictional school, pupils placed storybooks on the lower shelf and information books above them. A simple label showed where each kind belonged. The class also kept a borrowing card inside each book. A borrower wrote a class code and a return date on the card, so the book could be found when it was needed again. The teacher checked the shelf every Friday and helped repair loose covers. These small routines kept the books available for more readers. A shelf filled with books was helpful, but a clear system made sharing work.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Supporting facts",
+      "learningObjective": "Identify supporting facts in class-appropriate informational texts.",
+      "id": "ndv-322-018",
+      "objectiveId": "nerdc-english-primary4-322-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give two supporting facts from The Shared Book Shelf that show how the class organised borrowing and care.",
+      "answer": "The borrowing card records a class code and return date. The teacher checks the shelf weekly and helps repair loose covers.",
+      "explanation": "Accept other relevant facts that support the organisation idea, such as labels or grouping by book type.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one relevant stated fact."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct relevant stated fact."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Shared Book Shelf\nA class can make a book-sharing shelf useful by organising it carefully. In one fictional school, pupils placed storybooks on the lower shelf and information books above them. A simple label showed where each kind belonged. The class also kept a borrowing card inside each book. A borrower wrote a class code and a return date on the card, so the book could be found when it was needed again. The teacher checked the shelf every Friday and helped repair loose covers. These small routines kept the books available for more readers. A shelf filled with books was helpful, but a clear system made sharing work.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Meaning from context",
+      "learningObjective": "Use contextual clues to get meanings of unfamiliar words.",
+      "id": "ndv-322-019",
+      "objectiveId": "nerdc-english-primary4-322-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What does routines mean in The Shared Book Shelf? Give one clue from the passage.",
+      "answer": "Routines are regular repeated activities or ways of doing things. The Friday shelf checks, borrowing-card process or regular return procedure provide a clue.",
+      "explanation": "The meaning is inferred from recurring procedures in the paragraph.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains regular/repeated procedures."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an appropriate passage clue."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Shared Book Shelf\nA class can make a book-sharing shelf useful by organising it carefully. In one fictional school, pupils placed storybooks on the lower shelf and information books above them. A simple label showed where each kind belonged. The class also kept a borrowing card inside each book. A borrower wrote a class code and a return date on the card, so the book could be found when it was needed again. The teacher checked the shelf every Friday and helped repair loose covers. These small routines kept the books available for more readers. A shelf filled with books was helpful, but a clear system made sharing work.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Main ideas",
+      "learningObjective": "Identify main ideas in class-appropriate informational texts.",
+      "id": "ndv-322-020",
+      "objectiveId": "nerdc-english-primary4-322-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What is the main message of Choosing Books to Give?",
+      "answer": "A useful book donation should be chosen and checked to match the readers’ needs, rather than judged only by its size.",
+      "explanation": "The final sentence brings together asking, selecting, checking and listing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies matching the recipients’ needs."
+        },
+        {
+          "marks": 1,
+          "description": "Includes careful selection/checking rather than quantity alone."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Choosing Books to Give\nA class wanted to donate books to a small reading club. Before collecting anything, the pupils asked the club organiser which books would be useful. The organiser requested short stories with clear print. The pupils sorted the donations, separating books with complete pages from those with missing endings. They set aside damaged copies for repair instead of putting them straight into the gift box. They also made a short list of the titles. This helped the organiser plan reading sessions. A thoughtful donation was not simply the heaviest box: it was a collection that matched the readers’ needs.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Supporting facts",
+      "learningObjective": "Identify supporting facts in class-appropriate informational texts.",
+      "id": "ndv-322-021",
+      "objectiveId": "nerdc-english-primary4-322-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Which two details show that the class considered the reading club’s needs?",
+      "answer": "They asked the organiser what would be useful and selected short stories with clear print; they checked for complete pages. Accept making a title list to help plan sessions as another detail.",
+      "explanation": "Use stated evidence; do not invent a payment or a delivery trip.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one relevant stated detail."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct relevant detail."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Choosing Books to Give\nA class wanted to donate books to a small reading club. Before collecting anything, the pupils asked the club organiser which books would be useful. The organiser requested short stories with clear print. The pupils sorted the donations, separating books with complete pages from those with missing endings. They set aside damaged copies for repair instead of putting them straight into the gift box. They also made a short list of the titles. This helped the organiser plan reading sessions. A thoughtful donation was not simply the heaviest box: it was a collection that matched the readers’ needs.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Using new words",
+      "learningObjective": "Use unfamiliar words appropriately in sentences.",
+      "id": "ndv-322-022",
+      "objectiveId": "nerdc-english-primary4-322-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Choosing Books to Give, donate means give to help others without selling. Write your own sentence using donate correctly.",
+      "answer": "Our class will donate some storybooks to the reading club. Accept any new sentence using donate to mean giving to help, without selling.",
+      "explanation": "The answer is a model, not a required sentence. A correct sentence must show the meaning and a workable grammatical form.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses donate with the intended meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Writes a clear grammatical sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Choosing Books to Give\nA class wanted to donate books to a small reading club. Before collecting anything, the pupils asked the club organiser which books would be useful. The organiser requested short stories with clear print. The pupils sorted the donations, separating books with complete pages from those with missing endings. They set aside damaged copies for repair instead of putting them straight into the gift box. They also made a short list of the titles. This helped the organiser plan reading sessions. A thoughtful donation was not simply the heaviest box: it was a collection that matched the readers’ needs.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Writing to friends and relatives",
+      "learningObjective": "Write informal letters.",
+      "id": "ndv-322-023",
+      "objectiveId": "nerdc-english-primary4-322-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write an informal letter to a fictional cousin about a class reading corner. Describe what pupils can find there, explain one activity you enjoyed and invite your cousin to tell you about reading at their school. Include a fictional sender’s address, date, greeting, friendly body, closing and name/signature. Do not use your real address.",
+      "answer": "14 Lantern Close,\nExample Town.\n19 November 2026.\nDear Femi,\nHow are you? We have made a reading corner beside our classroom window. It has storybooks, poems and a mat where we can sit comfortably.\nYesterday I read a funny play with two classmates. We changed our voices for the different characters, and everyone laughed at the ending.\nWhat do you enjoy reading at your school? Please write and tell me.\nYour cousin,\nSade\nSade (signature)",
+      "explanation": "Accept varied original letters that fulfil the purpose. This is original practice, with no official word limit or national mark scheme claimed. Handwriting or a prepared word processor may be used; digital saving is not assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes a fictional address, suitable date and personal greeting."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the reading corner clearly."
+        },
+        {
+          "marks": 1,
+          "description": "Develops an enjoyed activity and invites a reply about the cousin’s reading."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a friendly organised body with understandable sentences."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a suitable closing and sender’s name/signature."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Narrative writing",
+      "learningObjective": "Write a narrative composition.",
+      "id": "ndv-322-024",
+      "objectiveId": "nerdc-english-primary4-322-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write a short narrative called The Day Our Display Fell Over. You may invent the event. Introduce the people and place, tell events in a clear order, explain how the problem was handled and give an ending.",
+      "answer": "We were arranging our class display before the visitors arrived. I stood paper models on a table while Amina fixed the labels. When I lifted a large sheet, it caught one model and knocked the others down.\nFor a moment, we stared at the floor. Then Amina brought a tray, and we collected the pieces. We rebuilt the smallest models first and moved the display away from the loose sheet.\nOur display was simpler than we had planned, but it was ready on time. I felt proud that we had worked together instead of arguing.",
+      "explanation": "The model is one possible narrative; assess development and sequence rather than matching its wording. No actual personal experience or official word limit is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Establishes people and setting."
+        },
+        {
+          "marks": 1,
+          "description": "Develops the falling-display problem and a response."
+        },
+        {
+          "marks": 1,
+          "description": "Orders the events clearly with a suitable ending."
+        },
+        {
+          "marks": 1,
+          "description": "Uses understandable linked sentences and suitable narrative tense."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Descriptive writing",
+      "learningObjective": "Write a descriptive composition.",
+      "id": "ndv-322-025",
+      "objectiveId": "nerdc-english-primary4-322-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Describe a quiet corner of an imagined school library. Help a reader picture its position, furniture, light and sounds. Keep the focus on describing the place rather than telling a long sequence of events.",
+      "answer": "The quiet corner is beside a wide window at the back of the library. Two low wooden chairs face a small round table. A blue cushion rests on each chair, and a basket of picture books stands underneath the table.\nMorning light falls across the clean floor. From this corner, I can hear the soft turn of pages and the faint rustle of leaves outside. A little sign asks readers to speak gently. The corner feels calm and welcoming.",
+      "explanation": "Accept varied coherent descriptions. The place may be invented; assess useful detail and organisation, not claims about a real school.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a clear overall picture and position."
+        },
+        {
+          "marks": 1,
+          "description": "Develops specific details of furniture/light."
+        },
+        {
+          "marks": 1,
+          "description": "Includes relevant sounds or another sensory detail."
+        },
+        {
+          "marks": 1,
+          "description": "Organises understandable sentences while maintaining a descriptive focus."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Narrative and Descriptive Composition",
+      "subtopic": "Distinguishing purposes",
+      "learningObjective": "Differentiate between narrative and descriptive compositions.",
+      "id": "ndv-322-026",
+      "objectiveId": "nerdc-english-primary4-322-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A writer wants to tell how a lost library book was found. Another wants to help readers picture the library building. Which purpose mainly calls for narrative writing, and which mainly calls for descriptive writing? Explain one difference.",
+      "answer": "Finding the lost book mainly calls for a narrative because it follows events. Picturing the building mainly calls for description because it develops details of a place.",
+      "explanation": "Narratives may include description, and descriptions may mention actions. The distinction is the main purpose rather than an absolute ban on either feature.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the search/finding event to narrative."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the building picture to description."
+        },
+        {
+          "marks": 1,
+          "description": "Explains events versus developed details without treating them as entirely separate ingredients."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Delivery-channel types",
+      "learningObjective": "State and distinguish email, text-message and voice-call forms of phishing.",
+      "id": "ndv-322-027",
+      "objectiveId": "nerdc-bdl-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name three forms of phishing grouped by the channel used to contact a person.",
+      "answer": "Email phishing, text-message phishing and voice-call phishing.",
+      "explanation": "NCSC recognises these channels. This is an author-proposed supplementary grouping for the source’s unspecified types; it is not the sole possible taxonomy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names email phishing."
+        },
+        {
+          "marks": 1,
+          "description": "Names text-message phishing."
+        },
+        {
+          "marks": 1,
+          "description": "Names voice-call phishing."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "ncsc-phishing-channels-322"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Delivery-channel types",
+      "learningObjective": "State and distinguish email, text-message and voice-call forms of phishing.",
+      "id": "ndv-322-028",
+      "objectiveId": "nerdc-bdl-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Three fictional scam attempts are shown: A arrives in an email inbox; B arrives as an SMS on a phone; C is spoken by a caller on a phone call. Match each to email phishing, text-message phishing or voice-call phishing.",
+      "answer": "A: email phishing; B: text-message phishing; C: voice-call phishing.",
+      "explanation": "Classify the stated delivery channel; no real messages, links or calls need to be opened.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches A to email."
+        },
+        {
+          "marks": 1,
+          "description": "Matches B to text message."
+        },
+        {
+          "marks": 1,
+          "description": "Matches C to voice call."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "ncsc-phishing-channels-322"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Delivery-channel types",
+      "learningObjective": "State and distinguish email, text-message and voice-call forms of phishing.",
+      "id": "ndv-322-029",
+      "objectiveId": "nerdc-bdl-primary4-322-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional phishing attempt arrives as an email. Its subject line says Telephone Help, but all of the request is written in the email. Under the lesson’s delivery grouping, is it email phishing or voice-call phishing? Explain.",
+      "answer": "It is email phishing because it is delivered as a written email; mentioning a telephone in the subject does not make it a voice call.",
+      "explanation": "The channel is how the attempt actually reaches the reader, not a word in its title. Other grouping systems may describe targeting or techniques instead.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects email phishing."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the actual delivery channel rather than the subject-line wording."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "ncsc-phishing-channels-322"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-19",
+  "sourceChecks": [
+    {
+      "id": "nerdc-bdl-primary4-revised-2025",
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+      "bytes": 3520514,
+      "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+      "status": "Fresh download matched registered hash; PDF p.25 read and visually inspected."
+    },
+    {
+      "id": "nerdc-english-primary4-revised-2025",
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/1.pdf",
+      "bytes": 1214109,
+      "pages": 31,
+      "sha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+      "status": "Candidate direct path succeeded. Exact subject/class/date independently verified from rendered cover and text title. Contents and selected tables at pp.23,26–29 read and visually inspected."
+    },
+    {
+      "id": "ncsc-phishing-channels-322",
+      "url": "https://www.ncsc.gov.uk/collection/phishing-scams",
+      "status": "Opened and read; supports three delivery channels, not a sole official taxonomy."
+    }
+  ],
+  "accessFailures": [
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4",
+      "status": "403 via official revised-index link"
+    },
+    {
+      "url": "https://www.cisa.gov/sites/default/files/publications/Phishing%20General%20Security%20Postcard_6.24.2021_508c.pdf",
+      "status": "403 via web and fresh cloud download; indexed text is not claimed as full retrieval or used as the task taxonomy"
+    },
+    {
+      "url": "https://www.nigc.gov/images/uploads/AIT002_Cybersafety_NTC_PG_062525.pdf",
+      "status": "403 via web; not adopted as retrieved evidence"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/web/8.pdf",
+      "status": "Indexed CRS candidate returned404; no source/class bank inferred from search snippet"
+    },
+    {
+      "url": "https://nerdc.gov.ng/eCurriculum/CurriculumView.aspx",
+      "status": "404 candidate; not used as revised index"
+    }
+  ],
+  "officialRevisedIndex": "https://nerdc.gov.ng/content_manager/new_curriculum_home.html",
+  "objectiveIds": [
+    "nerdc-english-primary4-322-1-v1",
+    "nerdc-english-primary4-322-2-v1",
+    "nerdc-english-primary4-322-3-v1",
+    "nerdc-english-primary4-322-4-v1",
+    "nerdc-english-primary4-322-5-v1",
+    "nerdc-english-primary4-322-6-v1",
+    "nerdc-english-primary4-322-7-v1",
+    "nerdc-english-primary4-322-8-v1",
+    "nerdc-english-primary4-322-9-v1",
+    "nerdc-english-primary4-322-10-v1",
+    "nerdc-english-primary4-322-11-v1",
+    "nerdc-bdl-primary4-322-1-v1"
+  ],
+  "phishingMappingLimit": "NERDC requests three types without names. Grouping by email/text/voice follows NCSC and is author-proposed pending review. Other classifications can overlap; UK reporting procedures are not adopted.",
+  "originalStimuli": 8,
+  "englishScope": "11 author-proposed objectives from selected reading/writing tables. Written interpretation samples comprehension; it does not demonstrate group presentation, actual oral reading, listening discrimination, dictionary use, internet retrieval or word-processing.",
+  "manualInspection": "All passages, prompts, model answers, evidence links and positive marking totals read and checked for consistency. Figures: gutter humming=personification, puddle mirror=metaphor, shoot like spear=simile. Story/scene inference answers tied to supplied text; acceptable alternatives explicit. Production models are illustrative, not unique required answers. No fixed word limit, official mark scheme, MCQ or arithmetic claim. No source textbook, poem, play, question or examination item copied.",
+  "remaining": [
+    "Full Primary 4 English source objective/competency inventory and all unrepresented tables.",
+    "Observed speaking/listening, presentations, dictionary and digital writing delivery.",
+    "Source-first labels, historical chronology, actual password enrolment, authentic AI guides, models/equipment, common mobile games and physical/autonomous robotics.",
+    "School adoption, official term placement, app text/line-break rendering and independent academic review."
+  ]
+}
