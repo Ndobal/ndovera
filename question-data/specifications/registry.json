@@ -3844,7 +3844,7 @@
         "Contents, PDF p.13",
         "Numbered objectives and content/skills in all15 tables, printed pp.1–15 / PDF14–28; selected full-table visual checks recorded in reconciliation326"
       ],
-      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches."
+      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches. Batch330 checksum matched; PDF14,15,24 read/visually checked. Ten new partial mappings support16 written/spoken/practical drafts. Regional dress, fruit naming and broad botanical season are qualified; actual practical delivery and native review pending."
     },
     {
       "id": "elias-igbo-introduction-327",
@@ -3907,6 +3907,75 @@
         "PDF p.49 / printed p.56, 3.1: verb meaning, including action/state."
       ],
       "note": "Official NOUN PDF opened/read through web extraction. Supports selected technical language explanation, not adoption of a university syllabus in Primary4. No examples/exercises copied; no full PDF byte retrieval or checksum claimed."
+    },
+    {
+      "id": "noun-igbo-culture-reference-330",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "university_supplementary_culture_reference",
+      "source": "https://nou.edu.ng/coursewarecontent/IGB%20111%20PDF.pdf",
+      "documentDate": "2023",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 2125438,
+      "pageCount": 100,
+      "sha256": "2eac4885e2d0b88a10ec7994cb1f2cc4003a07ec25501c59adbf7de554778903",
+      "sourceSections": [
+        "PDF11–12 / printed2–3: contextual uses of Igbo.",
+        "PDF23 / printed14: general culture meaning.",
+        "PDF27 / printed18: changing dress practices.",
+        "PDF69: selected dress-item references."
+      ],
+      "note": "Fresh official NOUN PDF retrieved and selected passages read. Only basic language/culture and variation support used. Population counts, origin theories, gender/racial stereotypes, inheritance/health claims and broad historical generalisations are not adopted. Not a current Primary4 curriculum or school-adoption record; no university exercise copied."
+    },
+    {
+      "id": "noun-igbo-word-reference-330",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "university_supplementary_language_reference",
+      "source": "https://nou.edu.ng/coursewarecontent/IGB%20224%20Syntax.pdf",
+      "documentDate": "2023",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 505539,
+      "pageCount": 83,
+      "sha256": "50c0aa675f1120cf7a56854f31ac51458ccdd1db2180d3298040345b653635f0",
+      "sourceSections": [
+        "Printed/PDF26: words and their roles/meanings in sentence structure."
+      ],
+      "note": "Fresh PDF checksum matches reference329. Selected paragraph supports meaningful words and contextual functions only; no Primary4 adoption or formal word/morpheme/syllable taxonomy inferred."
+    },
+    {
+      "id": "icraf-ube-reference-330",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "supplementary_botanical_reference",
+      "source": "https://apps.worldagroforestry.org/treedb2/AFTPDFS/Dacryodes_edulis.PDF",
+      "documentDate": "2009",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 449993,
+      "pageCount": 6,
+      "sha256": "947df12a3546ebff3a368880839274ce7e58499aa8539f55c9445eac2e837b0c",
+      "sourceSections": [
+        "PDF1: Biology, broad flowering/fruiting reference and variation.",
+        "PDF2: ecology/distribution qualification."
+      ],
+      "note": "Initial query-URL web opening failed and shell read was truncated; plain official PDF URL then retrieved completely. Read selected sections. Old botanical reference is supplementary, not adopted current NERDC curriculum or a current local harvest calendar. One broad major-season example only; no universal fruiting/date, cultivation or medicinal guidance."
+    },
+    {
+      "id": "era-ube-reference-330",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "supplementary_primary_research_abstract",
+      "source": "https://ethnobotanyjournal.org/index.php/era/article/view/922",
+      "documentDate": "2014-03-06",
+      "retrievedOn": "2026-11-19",
+      "sourceSections": [
+        "Publisher abstract and metadata."
+      ],
+      "note": "Opened/read primary-research publisher abstract; associates ube with Dacryodes edulis and reports livelihood uses. Only lexical association and food/sale context used. Origin beliefs, medicinal, sacred/cultural universal claims and preparation practices are not adopted. No full-article byte retrieval claimed; not a school-adoption source."
     }
   ],
   "banks": [
@@ -42631,6 +42700,186 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-1-v1",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "People and language",
+      "learningObjective": "Explain Igbo identity and distinguish references to people and language without reducing identity to dress.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, Mbunuche objective 1; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-2-v1",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Meaning of culture",
+      "learningObjective": "Explain culture through learned ways of life and appropriate examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, Mbunuche objective 2; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-3-v1",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Forms of dress and grooming",
+      "learningObjective": "Describe selected dress and grooming examples while recognising variation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, Mbunuche objective 3; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-4-v1",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Uses of dress",
+      "learningObjective": "Explain practical and cultural uses of dress in a stated context.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, Mbunuche objective 4; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-5-v1",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Observed use of a dress item",
+      "learningObjective": "Demonstrate an appropriate teacher-checked use of a scarf and identify the item in Igbo.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, Mbunuche objective 5; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-6-v1",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Fruit names",
+      "learningObjective": "Name selected familiar fruits in Igbo in written and observed-object tasks.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, Mbunuche objective 1; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-7-v1",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Qualified season reference",
+      "learningObjective": "State a source-qualified fruiting season for ube while recognising limits of a general reference.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, Mbunuche objective 2; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-8-v1",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Uses of fruits",
+      "learningObjective": "Explain food and livelihood uses of fruits in a stated everyday context.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, Mbunuche objective 3; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-9-v1",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Drawing and modelling",
+      "learningObjective": "Draw and model a teacher-verified familiar fruit using observed features.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, Mbunuche objective 4; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-330-10-v1",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Meaning of a word",
+      "learningObjective": "Explain a word as a meaningful language unit using familiar contextual examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Mbunuche objective 1; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -42733,6 +42982,7 @@
     "Run326 inventories all55 numbered Primary4 Igbo objectives in15 tables, with zero draft mappings. Source terminology, mixed pronunciation notation and the fifty-versus-500 range discrepancy remain unresolved. Inventory is not question coverage or academic review. Native-language prompts/keys, actual oral/practical evidence, school language choice/adoption and official term placement remain open.",
     "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.",
     "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open.",
-    "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open."
+    "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open.",
+    "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open."
   ]
 }

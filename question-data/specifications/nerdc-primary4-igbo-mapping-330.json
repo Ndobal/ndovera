@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    14,
+    15,
+    24
+  ],
+  "authorMappings": [
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-1-v1",
+      "inventoryId": "p4-igbo-table1-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-2-v1",
+      "inventoryId": "p4-igbo-table1-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-3-v1",
+      "inventoryId": "p4-igbo-table1-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-4-v1",
+      "inventoryId": "p4-igbo-table1-po4"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-5-v1",
+      "inventoryId": "p4-igbo-table1-po5"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-6-v1",
+      "inventoryId": "p4-igbo-table2-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-7-v1",
+      "inventoryId": "p4-igbo-table2-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-8-v1",
+      "inventoryId": "p4-igbo-table2-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-9-v1",
+      "inventoryId": "p4-igbo-table2-po4"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-330-10-v1",
+      "inventoryId": "p4-igbo-table11-po1"
+    }
+  ],
+  "supplementarySources": [
+    "noun-igbo-culture-reference-330",
+    "noun-igbo-word-reference-330",
+    "icraf-ube-reference-330",
+    "era-ube-reference-330"
+  ],
+  "decisions": [
+    "Official exact-class curriculum establishes scope; supplementary university/botanical/research sources do not establish adoption or full objective coverage.",
+    "Culture examples preserve variation/change; no ethnicity, rank or authenticity is inferred from one garment. No whole-source endorsement of NOUN social/historical claims.",
+    "Scarf/hair-braiding distinction follows the curriculum examples. Actual scarf use is observed, not a written substitute. Local style and material suitability remain pending.",
+    "Fruit names are source examples with locally checked equivalents. Oral naming requires two actual preidentified specimens; no invented picture or universal colour/size.",
+    "Draw/model objective requires both actual artefacts and observed features. No specimen collection, tasting or cutting. Materials and individual performance remain unverified.",
+    "ICRAF query URL initially failed/truncated; plain PDF fully retrieved. The2009 broad season example is qualified, single-species and not a current local calendar. ERA abstract supports ube lexical association and livelihood context only.",
+    "Word meaning uses contextual examples; unresolved mkpụrụedide/syllable/morpheme distinctions are not silently settled.",
+    "All practice rubrics are original, with independent native review, local orthography/marking, sound/reference model, numerical-range conflict, adoption and delivery gaps preserved."
+  ],
+  "newQuestions": 16,
+  "written": 13,
+  "spoken": 1,
+  "practical": 2,
+  "academicReviewStatus": "pending"
+}

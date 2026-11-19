@@ -1,0 +1,804 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo culture, fruits and word meaning",
+  "questionCount": 16,
+  "note": "Sixteen original structured drafts:13 written, one observed-object spoken task and two observed practical tasks. Ten new limited mappings. Historical botanical support is qualified; no real performance, universal cultural marker, current local harvest calendar or independent native approval claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "People and language",
+      "learningObjective": "Explain Igbo identity and distinguish references to people and language without reducing identity to dress.",
+      "id": "ndv-330-001",
+      "objectiveId": "nerdc-igbo-primary4-330-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ndị bụ ndị Igbo nkenke. Kpọọ aha asụsụ ha. Eji uwe mmadụ yi naanị amata onye ọ bụ? Kọwaa azịza gị.",
+      "answer": "Ndị Igbo bụ agbụrụ nwere asụsụ na omenala nke ha. Asụsụ ha bụ asụsụ Igbo. Uwe mmadụ yi naanị ezughị iji mata agbụrụ ya.",
+      "explanation": "The explanation identifies the people and their language without requiring all individuals to dress alike or assuming a garment proves ethnicity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Igbo people as a cultural/ethnolinguistic people in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Names the Igbo language."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that dress alone is insufficient evidence of an individual’s ethnicity."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "supplementarySourceIds": [
+        "noun-igbo-culture-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "People and language",
+      "learningObjective": "Explain Igbo identity and distinguish references to people and language without reducing identity to dress.",
+      "id": "ndv-330-002",
+      "objectiveId": "nerdc-igbo-primary4-330-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ahịrịokwu A na B, olee nke na-ekwu maka ndị mmadụ, olee nke na-ekwu maka asụsụ? Kọwaa ihe nyeere gị aka ịmata ha.",
+      "answer": "A na-ekwu maka ndị mmadụ n’ihi okwu Ndị. B na-ekwu maka asụsụ n’ihi na ọ na-ekwu maka ịmụ asụsụ Igbo.",
+      "explanation": "The source distinguishes uses of Igbo for people and language; the surrounding words determine the intended reference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies A as referring to people."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies B as referring to language."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the contextual cues Ndị and asụsụ/ịmụ in the explanation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "passage": "A. Ndị Igbo nwere omenala dị iche iche.\nB. Amaka na-amụ asụsụ Igbo.",
+      "stimulusProvenance": "original",
+      "supplementarySourceIds": [
+        "noun-igbo-culture-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Meaning of culture",
+      "learningObjective": "Explain culture through learned ways of life and appropriate examples.",
+      "id": "ndv-330-003",
+      "objectiveId": "nerdc-igbo-primary4-330-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị bụ omenala? Nye ọmụmaatụ abụọ nke omenala ndị mmadụ nwere ike ịmụta n’aka ndị ọzọ.",
+      "answer": "Omenala bụ ụzọ ndị mmadụ si ebi ndụ ha. Ọmụmaatụ bụ ụzọ e si ekele mmadụ na ụzọ e si eji ejiji n’ememme.",
+      "explanation": "Culture includes learned ways of life and practices; the examples are illustrative and need not be identical across communities.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains culture as learned/shared ways of life in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate learned-practice example."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct appropriate example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "supplementarySourceIds": [
+        "noun-igbo-culture-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Meaning of culture",
+      "learningObjective": "Explain culture through learned ways of life and appropriate examples.",
+      "id": "ndv-330-004",
+      "objectiveId": "nerdc-igbo-primary4-330-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ ndetu a. Ọ̀ ga-abụrịrị na Ada na nne nne ya ga-eji otu ejiji n’ememme ka ha wee bụrụ ndị otu omenala? Kọwaa azịza gị.",
+      "answer": "Mba. Ha nwere ike iji ejiji dị iche iche ma ka soro n’otu omenala. Ejiji nwere ike ịgbanwe site n’oge ruo n’oge.",
+      "explanation": "The fictional comparison illustrates change and variation rather than ranking one generation’s appearance as the only authentic one.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the requirement that both must dress identically."
+        },
+        {
+          "marks": 1,
+          "description": "Explains cultural variation/change without denying either person’s identity."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "passage": "Ndetu e chepụtara: Nne nne Ada na-eji ụdị ịchafụ ọ masịrị ya. Ada na-eji ụdị ọzọ. Ha abụọ na-esonye n’ememme ezinụlọ.",
+      "stimulusProvenance": "original",
+      "supplementarySourceIds": [
+        "noun-igbo-culture-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Forms of dress and grooming",
+      "learningObjective": "Describe selected dress and grooming examples while recognising variation.",
+      "id": "ndv-330-005",
+      "objectiveId": "nerdc-igbo-primary4-330-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kpọọ aha ihe abụọ a na-eji n’isi n’ejiji, ma kọwaa otu e si eji nke ọ bụla. Echela na mmadụ niile ga-eji otu ụdị ha.",
+      "answer": "Ịchafụ na okpu. A pụrụ ike ịchafụ n’isi, a na-ekpukwa okpu n’isi. Ụdị ha nwere ike ịdị iche.",
+      "explanation": "Selected headwear examples are supported by the curriculum and supplementary dress material; they are not exclusive ethnic markers or a single required style.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a suitable item such as ịchafụ."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second suitable item such as okpu."
+        },
+        {
+          "marks": 1,
+          "description": "Describes an appropriate use of the first item."
+        },
+        {
+          "marks": 1,
+          "description": "Describes an appropriate use of the second item."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "supplementarySourceIds": [
+        "noun-igbo-culture-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Forms of dress and grooming",
+      "learningObjective": "Describe selected dress and grooming examples while recognising variation.",
+      "id": "ndv-330-006",
+      "objectiveId": "nerdc-igbo-primary4-330-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ihe dị iche n’etiti ịchafụ na ịkpa isi. Kedu nke bụ ihe a na-eji ejiji, kedu nke bụ ụzọ e si edozi ntutu isi?",
+      "answer": "Ịchafụ bụ akwa a pụrụ iji n’isi. Ịkpa isi bụ ụzọ e si edozi ntutu isi. Otu bụ ihe a na-eji ejiji; nke ọzọ bụ omume edozi isi.",
+      "explanation": "The source includes scarf use and hair braiding under dress/grooming skills. The task does not misclassify a hairstyle as a separate piece of cloth.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains ịchafụ as a cloth/scarf used in dressing."
+        },
+        {
+          "marks": 1,
+          "description": "Explains ịkpa isi as arranging/braiding hair."
+        },
+        {
+          "marks": 1,
+          "description": "Clearly distinguishes the item from the grooming activity."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Uses of dress",
+      "learningObjective": "Explain practical and cultural uses of dress in a stated context.",
+      "id": "ndv-330-007",
+      "objectiveId": "nerdc-igbo-primary4-330-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ụbọchị ngosi omenala e chepụtara, Kamsi chọrọ ịkọwa ihe mere o ji họrọ ejiji ya. Nye uru abụọ ejiji nwere ike ịbara ya ma kọwaa nke ọ bụla.",
+      "answer": "Ejiji nwere ike ikpuchi ahụ ya. Ọ nwekwara ike inyere ya aka igosi otu ihe ọ mụtara banyere omenala na ngosi ahụ.",
+      "explanation": "The response can combine a practical use and a contextual cultural/communicative use. No item is treated as proof of rank, ethnicity or identical practice by everyone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a plausible practical benefit such as covering the body."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that practical benefit in context."
+        },
+        {
+          "marks": 1,
+          "description": "States a plausible cultural/communicative benefit for the stated display."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that benefit without a universal or exclusive identity claim."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Uses of dress",
+      "learningObjective": "Explain practical and cultural uses of dress in a stated context.",
+      "id": "ndv-330-008",
+      "objectiveId": "nerdc-igbo-primary4-330-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Otu kaadị ngosi kwuru na okpu niile ndị mmadụ yi na-egosi na ha bụ ndị isi obodo. Kọwaa ihe mere nkwupụta a ji buru ibu karịa ihe kaadị ahụ gosiri. Gịnị ka onye na-akọwa ejiji kwesịrị ịjụ?",
+      "answer": "Okpu niile abụghị ihe àmà na mmadụ bụ onye isi obodo. Onye na-akọwa ya kwesịrị ịjụ ụdị okpu ahụ, ebe e ji ya na ihe ọ pụtara n’ebe ahụ.",
+      "explanation": "The answer distinguishes a possible local meaning from an unsupported claim about every cap. It does not assign a title to a learner or invent a universal dress code.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the universal cap-as-leadership claim."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that significance depends on the particular item/context."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a relevant question about local use or meaning."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Ejiji ha",
+      "subtopic": "Observed use of a dress item",
+      "learningObjective": "Demonstrate an appropriate teacher-checked use of a scarf and identify the item in Igbo.",
+      "id": "ndv-330-009",
+      "objectiveId": "nerdc-igbo-primary4-330-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ihu onye nkụzi, gosi otu e si eji ịchafụ dị mfe n’isi gị ma ọ bụ n’isi ihe nlereanya. Kpọọ aha ihe ị na-eji n’asụsụ Igbo ma kọwaa otu ihe ị mere.",
+      "answer": "The learner identifies the item as ịchafụ, follows a teacher-checked local method to position and arrange it on their own head or a headform, and explains one observed step in Igbo. No single knot, gender or status is required.",
+      "explanation": "The source objective is actual use, so a written account cannot replace the observed demonstration. Equivalent locally verified styles are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly names the actual scarf in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Positions it on the chosen head/headform according to the checked model."
+        },
+        {
+          "marks": 1,
+          "description": "Arranges it to demonstrate its intended use, with self-correction allowed."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one actual step intelligibly in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "practical",
+      "teacherSupport": "Teacher supplies a clean scarf and checks a locally suitable simple method in advance. The learner may use a headform. No cutting, heating, fasteners, work on another person’s hair or learner photograph is required. Record actual evidence; model/setup remains pending.",
+      "requiresObservedPracticalEvidence": true,
+      "deliveryNote": "Score actual demonstration or submitted drawing/model against the teacher-checked reference, supported by an examiner checklist or suitable evidence. A written plan alone does not establish the practical skill. Materials, local model, individual performance and classroom delivery remain unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Fruit names",
+      "learningObjective": "Name selected familiar fruits in Igbo in written and observed-object tasks.",
+      "id": "ndv-330-010",
+      "objectiveId": "nerdc-igbo-primary4-330-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ị na-akwadebe kaadị aha mkpụrụosisi maka klaasị. Depụta aha atọ dị iche iche n’asụsụ Igbo. Jiri otu n’ime ha mee ahịrịokwu gbasara ihe e nwere ike ịhụ n’ahịa.",
+      "answer": "Oroma, ube, ụdara. A na-ere oroma n’ahịa.",
+      "explanation": "The selected names are in the exact-class source list. These fruits are not claimed to be grown or eaten exclusively by Igbo people.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives three distinct appropriate Igbo fruit names from the source or locally verified equivalents."
+        },
+        {
+          "marks": 1,
+          "description": "Uses one supplied fruit name in an intelligible relevant market sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Fruit names",
+      "learningObjective": "Name selected familiar fruits in Igbo in written and observed-object tasks.",
+      "id": "ndv-330-011",
+      "objectiveId": "nerdc-igbo-primary4-330-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Onye nkụzi ga-egosi gị mkpụrụosisi abụọ ọ nyochara aha ha. Kpọọ aha nke ọ bụla n’asụsụ Igbo ma kọwaa otu ihe ị hụrụ n’otu n’ime ha.",
+      "answer": "A successful response names the two actual verified specimens, for example oroma and ube, and describes a visible feature of one specimen in intelligible Igbo. The exact names/features depend on what the examiner supplies.",
+      "explanation": "Actual object naming is separate from recalling a written list. A fruit need not match an invented universal colour or size.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly names the first examiner-verified specimen in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly names the second verified specimen."
+        },
+        {
+          "marks": 1,
+          "description": "Describes an accurate visible feature of one actual specimen in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "spoken",
+      "teacherSupport": "Examiner chooses two known specimens from the curriculum list, confirms local names and records the reference names/features before testing. No tasting or handling of an unidentified fruit is required. Score actual speech, not the illustrative example.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live examiner or an individual recording accompanied by the examiner’s verified specimen list. The examiner must prepare and identify actual objects; an audio-only script cannot establish their identity. Actual specimens, local names, individual performance and examiner calibration remain unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Qualified season reference",
+      "learningObjective": "State a source-qualified fruiting season for ube while recognising limits of a general reference.",
+      "id": "ndv-330-012",
+      "objectiveId": "nerdc-igbo-primary4-330-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Dị ka ndetu a si kwuo, olee isi oge mkpụrụ ube ji apụta? Ndetu a ò pụtara na ube niile ga-amị n’otu oge n’ebe niile? Kọwaa azịza gị.",
+      "answer": "Dị ka ndetu ahụ si kwuo, isi oge bụ Mee ruo Ọktoba. Ọ pụtaghị na ube niile ga-amị n’otu oge, n’ihi na ebe na ụdị osisi dị iche.",
+      "explanation": "The historical species reference gives a broad major season, not a current local harvest calendar or a rule for every tree. The source objective is linked only partially for this single qualified example.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States May–October as the major fruiting interval in the supplied reference, using intelligible calendar terms."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects a universal every-tree/every-place interpretation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the reference’s locality/plant-variation limit."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "passage": "Ndetu sayensị a haziri maka mmega: Agroforestry Database 4.0 (2009) kwuru na isi oge mkpụrụ Dacryodes edulis (ube) ji apụta n’ebe o si eto n’onwe ya bụ Mee ruo Ọktoba. Ebe na ụdị osisi na-emetụta oge okooko ya. Nke a abụghị kalenda owuwe ihe ubi nke obodo gị maka afọ a.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Author-written summary, not a quoted source passage. Accept May/October equivalents or English calendar names embedded in an Igbo explanation. The other named fruits, minor season and current local calendar remain unassessed/unverified.",
+      "supplementarySourceIds": [
+        "icraf-ube-reference-330",
+        "era-ube-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Uses of fruits",
+      "learningObjective": "Explain food and livelihood uses of fruits in a stated everyday context.",
+      "id": "ndv-330-013",
+      "objectiveId": "nerdc-igbo-primary4-330-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’akụkọ a, kọwaa uru mkpụrụosisi baara onye zụrụ ya na onye rere ya. Edepụtala ọnụahịa ma ọ bụ uru ego e kwuru na ha nwetara, n’ihi na e nyeghị ya.",
+      "answer": "Onye zụrụ mkpụrụosisi ahụ nwere ike iji ya bụrụ nri. Onye rere ya nwetara ego n’ire ya. Akụkọ ahụ enyeghị ọnụahịa ma ọ bụ ego uru ọ nwetara.",
+      "explanation": "Food use and money from a sale are supported without inventing prices or equating sales revenue with profit. No medicinal or disease-treatment claim is made.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the buyer’s food use in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains money received through the sale as the seller’s livelihood benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids inventing a price/profit amount and recognises it was not supplied."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "passage": "Akụkọ e chepụtara: Nneoma rere ube n’ahịa. Onye zụrụ ya kwuru na ọ ga-eji ya rie nri n’ụlọ. Nneoma tinyere ego e nyere ya n’akpa ya.",
+      "stimulusProvenance": "original",
+      "supplementarySourceIds": [
+        "era-ube-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Njirimara ndị Igbo: Mkpụrụosisi ha",
+      "subtopic": "Drawing and modelling",
+      "learningObjective": "Draw and model a teacher-verified familiar fruit using observed features.",
+      "id": "ndv-330-014",
+      "objectiveId": "nerdc-igbo-primary4-330-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Lee mkpụrụosisi onye nkụzi nyere gị. See ya ma kpụọ ihe nlereanya ya n’ụrọ kwesịrị ekwesị. Dee aha ya n’asụsụ Igbo. Gosi ihe abụọ n’ihe nlereanya gị ndị dabara n’ihe ị hụrụ.",
+      "answer": "A successful submission contains the learner’s own drawing and clay model of the actual teacher-verified fruit, an appropriate Igbo label, and two identifiable observed features reproduced in the model. Shapes and colours are judged against that specimen, not a universal template.",
+      "explanation": "The source requires drawing and modelling. Both actual artefacts are needed; a written plan or a claimed unseen picture is insufficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Submits an original drawing recognisably related to the supplied specimen."
+        },
+        {
+          "marks": 1,
+          "description": "Submits an actual model representing its overall form."
+        },
+        {
+          "marks": 1,
+          "description": "Represents one accurate observed feature in the model."
+        },
+        {
+          "marks": 1,
+          "description": "Represents a second accurate observed feature in the model."
+        },
+        {
+          "marks": 1,
+          "description": "Labels it with the checked Igbo fruit name and identifies the two represented features."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "practical",
+      "teacherSupport": "Teacher supplies a familiar identified fruit and suitable non-toxic modelling clay, checking material/cohort suitability and name before use. No tasting, cutting or fruit collection is required. Retain actual drawing/model evidence and examiner checklist; resources and delivery are pending.",
+      "requiresObservedPracticalEvidence": true,
+      "deliveryNote": "Score actual demonstration or submitted drawing/model against the teacher-checked reference, supported by an examiner checklist or suitable evidence. A written plan alone does not establish the practical skill. Materials, local model, individual performance and classroom delivery remain unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Meaning of a word",
+      "learningObjective": "Explain a word as a meaningful language unit using familiar contextual examples.",
+      "id": "ndv-330-015",
+      "objectiveId": "nerdc-igbo-primary4-330-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ihe mkpụrụokwu pụtara nkenke. Nye otu ọmụmaatụ nke na-akpọ aha ihe na otu nke e ji ekele mmadụ, ma kọwaa nghọta ha.",
+      "answer": "Mkpụrụokwu bụ otu ihe nwere nghọta ma ọ bụ ọrụ n’asụsụ. Okpu na-akpọ aha ihe a na-ekpu n’isi. Daalụ bụ okwu e ji ekele mmadụ.",
+      "explanation": "The basic explanation uses a meaningful language unit and two different functions. It does not equate a word with a syllable or impose an unresolved word-boundary rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a word as a meaningful usable language unit in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Gives and explains an appropriate object-name example."
+        },
+        {
+          "marks": 1,
+          "description": "Gives and explains an appropriate courtesy/greeting example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "supplementarySourceIds": [
+        "noun-igbo-word-reference-330"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Meaning of a word",
+      "learningObjective": "Explain a word as a meaningful language unit using familiar contextual examples.",
+      "id": "ndv-330-016",
+      "objectiveId": "nerdc-igbo-primary4-330-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ahịrịokwu a, kọwaa nghọta biko na oroma. Olee okwu na-akpọ aha ihe, olee nke na-eme ka arịrịọ ahụ dị mma?",
+      "answer": "Oroma na-akpọ aha mkpụrụosisi a na-arịọ. Biko na-egosi arịrịọ dị mma. Ha na-arụ ọrụ dị iche n’ahịrịokwu ahụ.",
+      "explanation": "The original context shows a referential object word and a courtesy word. A full word-class taxonomy or copied dictionary definition is not required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains oroma as the requested fruit/object name."
+        },
+        {
+          "marks": 1,
+          "description": "Explains biko as marking a courteous request."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes their contextual functions in an intelligible Igbo response."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots. Accept equivalent intelligible forms and locally verified vocabulary after examiner checking. No complete tone convention, universal dress practice, national grading scheme or school adoption is established.",
+      "responseMode": "written",
+      "passage": "Biko, nye m oroma.",
+      "stimulusProvenance": "original",
+      "supplementarySourceIds": [
+        "noun-igbo-word-reference-330"
+      ]
+    }
+  ]
+}
