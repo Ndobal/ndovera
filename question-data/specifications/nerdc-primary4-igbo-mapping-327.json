@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    16,
+    21,
+    24
+  ],
+  "authorMappings": [
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-1-v1",
+      "inventoryId": "p4-igbo-table3-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-2-v1",
+      "inventoryId": "p4-igbo-table3-po4"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-3-v1",
+      "inventoryId": "p4-igbo-table3-po5"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-4-v1",
+      "inventoryId": "p4-igbo-table8-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-5-v1",
+      "inventoryId": "p4-igbo-table8-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-6-v1",
+      "inventoryId": "p4-igbo-table8-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-7-v1",
+      "inventoryId": "p4-igbo-table8-po4"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-327-8-v1",
+      "inventoryId": "p4-igbo-table11-po4"
+    }
+  ],
+  "supplementarySources": [
+    "elias-igbo-introduction-327",
+    "elias-igbo-greetings-327"
+  ],
+  "decisions": [
+    "Basic written identity/residence and reciprocal greeting forms cross-checked, with original contexts and wording. Supplementary material does not supply the Primary4 specification.",
+    "Retain meaningful underdots. Do not invent a complete tone-key, universal pronunciation model or a national mandatory letter length/layout. Native academic review and examiner calibration remain pending.",
+    "The source copying objective has an actual original model to display; a submitted copy is required. Availability of model text is not observed performance.",
+    "Written composition rubrics are original practice rubrics. Accept equivalent meaningful forms after examiner checking; no fixed national mark allocation inferred.",
+    "Two spoken tasks require actual live or recorded exchanges. No audio retrieval, classroom execution or measured tone/performance claimed.",
+    "All fictional letter dates, school names, addresses, book loans and visits are practice only. No historical examination content or copied university exercise.",
+    "Other Igbo tables, source terminology, mixed phonetic notation, counting-range conflict and school language choice/adoption remain unresolved."
+  ],
+  "newQuestions": 12,
+  "written": 10,
+  "spoken": 2,
+  "academicReviewStatus": "pending"
+}

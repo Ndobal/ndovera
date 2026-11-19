@@ -1,0 +1,621 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo self-description, personal letters and greetings",
+  "questionCount": 12,
+  "note": "Twelve original structured drafts: ten written tasks and two live/recorded spoken interactions, eight limited author mappings. Original letter stimuli and fictional identities. No tone-discrimination model, real addresses, meetings, native academic approval or actual classroom performance claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Verbs in self-description",
+      "learningObjective": "Identify verbs that express identity and residence in simple self-description sentences.",
+      "id": "ndv-327-001",
+      "objectiveId": "nerdc-igbo-primary4-327-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ ahịrịokwu ndị a. Depụta ngwaa dị n’ahịrịokwu nke ọ bụla. Kọwaa ihe ngwaa nke ọ bụla na-egosi ebe a.",
+      "answer": "bụ; bi. “bụ” na-egosi aha onye ahụ. “bi” na-egosi ebe onye ahụ bi.",
+      "explanation": "Identity and residence are expressed by different verbs; a verb need not describe a visible physical action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies bụ in the first sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies bi in the second sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the identity function of bụ in this context in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that bi expresses living/residence in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "Aha m bụ Nkem. M bi na Nsukka.",
+      "stimulusProvenance": "original",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Written self-description",
+      "learningObjective": "Write coherent simple sentences describing oneself in a stated situation.",
+      "id": "ndv-327-002",
+      "objectiveId": "nerdc-igbo-primary4-327-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ị batara n’otu ọhụrụ n’ụlọ akwụkwọ. Dee ahịrịokwu atọ n’asụsụ Igbo iji kọwaa onwe gị: aha gị, ebe i bi na ihe ị na-agụ. Ị nwere ike iji aha na ebe i chepụtara.",
+      "answer": "Aha m bụ Kamsi. M bi na Aba. Ana m agụ akwụkwọ gbasara osisi.",
+      "explanation": "The three sentences introduce one speaker and supply three different requested details. This is an illustrative fictional response, not a required identity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a name in a complete intelligible Igbo sentence."
+        },
+        {
+          "marks": 1,
+          "description": "States a place of residence using a fictional place if preferred."
+        },
+        {
+          "marks": 1,
+          "description": "States something being read, with an appropriate verb form."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains one speaker and uses meaningful sentence boundaries."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "teacherSupport": "Use a fictional name and town; no home address or other personal disclosure is required. “Ihe ị na-agụ” asks what you are reading; accept an appropriate book/topic or course of study.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Written self-description",
+      "learningObjective": "Write coherent simple sentences describing oneself in a stated situation.",
+      "id": "ndv-327-003",
+      "objectiveId": "nerdc-igbo-primary4-327-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Chika na-ede maka onwe ya. Degharịa ederede a ka onye na-ekwu okwu ghara ịgbanwe. Debe aha, ebe obibi na ihe ọ na-eme.",
+      "answer": "Aha m bụ Chika. M bi na Aba. M na-agụ akwụkwọ.",
+      "explanation": "The middle sentence changes to a third-person subject. Revising it into first person restores a consistent self-description while retaining the other information.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes the residence sentence to first person, such as M bi na Aba."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves the name, town and reading activity without introducing another speaker."
+        },
+        {
+          "marks": 1,
+          "description": "Writes a coherent Igbo version with clear sentence boundaries."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "Aha m bụ Chika. Ọ bi na Aba. M na-agụ akwụkwọ.",
+      "stimulusProvenance": "original",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Nkọwa onwe",
+      "subtopic": "Conversational self-description",
+      "learningObjective": "Describe oneself and answer relevant questions in a short Igbo conversation.",
+      "id": "ndv-327-004",
+      "objectiveId": "nerdc-igbo-primary4-327-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gị na onye nkụzi ga-akparịta ụka n’asụsụ Igbo. Kọwaa onwe gị nkenke. Zaa ajụjụ abụọ onye nkụzi ga-ajụ gị. Jiri aha na ebe i chepụtara ma ọ bụrụ na ịchọrọ.",
+      "answer": "Aha m bụ Zikora. M bi na Enugu. Ana m agụ akwụkwọ. Onye nkụzi: Kedụ aha gị? Zikora: Aha m bụ Zikora. Onye nkụzi: Kedụ ebe i bi? Zikora: M bi na Enugu.",
+      "explanation": "The learner must actually produce a short introduction and respond to a partner. The sample is one possible interaction; repeating a prepared text without responding does not meet all criteria.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an intelligible short Igbo introduction with at least two relevant details."
+        },
+        {
+          "marks": 1,
+          "description": "Responds appropriately to the examiner’s name question."
+        },
+        {
+          "marks": 1,
+          "description": "Responds appropriately to the examiner’s residence question."
+        },
+        {
+          "marks": 1,
+          "description": "Maintains intelligible turn-taking; allow self-correction and equivalent forms."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "teacherSupport": "Examiner asks “Kedụ aha gị?” and “Kedụ ebe i bi?” after the introduction. Use a fictional identity and town. Permit an equivalent question form; do not require personal addresses.",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require a live examiner or individual recording. Examiner prepares and checks the Igbo wording, allows a fictional identity and scores the stated communicative features. Written preparation alone is insufficient. No actual performance, reference audio, tone testing, universal accent standard or examiner calibration is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Meaning and purpose",
+      "learningObjective": "Explain personal-letter communication using a suitable familiar recipient and purpose.",
+      "id": "ndv-327-005",
+      "objectiveId": "nerdc-igbo-primary4-327-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị bụ leta nkeonye? Nye otu ihe mere ị ga-eji degara enyi gị ụdị leta a.",
+      "answer": "Leta nkeonye bụ leta mmadụ na-edegara onye ọ maara, dịka enyi ya. Enwere m ike ide ya iji kelee enyi m maka enyemaka ya.",
+      "explanation": "A familiar recipient and a personal communicative purpose distinguish this use of a letter from a general public announcement. The examples do not exhaust possible recipients or purposes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains in intelligible Igbo that the letter is addressed personally to a familiar person, such as a friend or relative."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable personal purpose, such as thanks, sharing news, a request or invitation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Features and organisation",
+      "learningObjective": "Identify and organise the greeting, body and closing of a personal letter.",
+      "id": "ndv-327-006",
+      "objectiveId": "nerdc-igbo-primary4-327-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ime leta a, họpụta ekele, otu ahịrịokwu dị n’etiti leta na mmechi. Kọwaa otu ọrụ mmechi na-arụ.",
+      "answer": "Ekele: Ezigbo enyi m Oziọma. Otu ahịrịokwu n’etiti: Daalụ maka akwụkwọ ị nyere m. Mmechi: Enyi gị, Ikenna. Mmechi na-egosi na leta agwụla ma na-akọ onye dere ya.",
+      "explanation": "The greeting addresses the recipient, the body carries the message and the ending closes and identifies the sender. Accept another body sentence from this original letter.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the salutation addressing Oziọma."
+        },
+        {
+          "marks": 1,
+          "description": "Selects a complete body sentence from the supplied letter."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the closing and sender, Enyi gị / Ikenna."
+        },
+        {
+          "marks": 1,
+          "description": "Explains an appropriate closing function in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "Ụlọ Akwụkwọ Mmụta,\nAba.\n19 Novemba 2026.\n\nEzigbo enyi m Oziọma,\nKedụ ka ị mere? Daalụ maka akwụkwọ ị nyere m. Ana m agụ ya. Ọ na-akọ maka osisi. M ga-eweghachi ya.\n\nEnyi gị,\nIkenna.",
+      "stimulusProvenance": "original",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Features and organisation",
+      "learningObjective": "Identify and organise the greeting, body and closing of a personal letter.",
+      "id": "ndv-327-007",
+      "objectiveId": "nerdc-igbo-primary4-327-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A gwakọtara akụkụ leta Ugo. Dee mkpụrụedemede A, B na C n’usoro kwesịrị ekwesị, malite n’ekele ruo na mmechi. Kọwaa ihe mere i ji tinye akụkụ dị n’etiti ebe ahụ.",
+      "answer": "B, C, A. C dị n’etiti n’ihi na ọ bụ ozi leta ahụ; ọ na-esochi ekele ma na-abịa tupu mmechi.",
+      "explanation": "Only the three supplied message sections are being ordered. This is not a claim that these three sections alone form a complete national letter-writing layout.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places B first as the salutation."
+        },
+        {
+          "marks": 1,
+          "description": "Places C next as the message and A last as the closing."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the message follows the greeting and precedes the closing."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "A. Enyi gị, Ugo.\nB. Ezigbo enyi m Nnenna,\nC. Biko, nyere m aka ịgụ akwụkwọ a. E nwere okwu ụfọdụ m na-aghọtaghị.",
+      "stimulusProvenance": "original",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Copying a model",
+      "learningObjective": "Copy a provided teacher model of a personal letter while preserving its wording and layout.",
+      "id": "ndv-327-008",
+      "objectiveId": "nerdc-igbo-primary4-327-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọpịa leta onye nkụzi nyere gị. Debe okwu niile, akara edemede na nhazi akụkụ ya.",
+      "answer": "Ụlọ Akwụkwọ Ọganihu,\nEnugu.\n19 Novemba 2026.\n\nEzigbo enyi m Adaeze,\nKedụ ka ị mere? Anyị nwere akwụkwọ ọhụrụ n’ụlọ akwụkwọ. Akwụkwọ ndị a na-akọ maka anụmanụ. Ọ na-atọ m ụtọ ịgụ ha.\n\nEnyi gị,\nObinna.",
+      "explanation": "Copying assesses accurate reproduction and layout, separately from independent composition. The source asks for a teacher model; here the original model must be shown by the teacher.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Copies the address/date and recipient accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Copies the complete body without meaning-changing omissions or substitutions."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves relevant underdots and punctuation legibly; allow self-correction."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves separation of address, greeting, body and closing with sender."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "Ụlọ Akwụkwọ Ọganihu,\nEnugu.\n19 Novemba 2026.\n\nEzigbo enyi m Adaeze,\nKedụ ka ị mere? Anyị nwere akwụkwọ ọhụrụ n’ụlọ akwụkwọ. Akwụkwọ ndị a na-akọ maka anụmanụ. Ọ na-atọ m ụtọ ịgụ ha.\n\nEnyi gị,\nObinna.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Teacher displays this original model on a board or other legible surface. Learner submits their actual copy. Text availability is not evidence that display/handwriting performance occurred; local display and examiner checks remain pending.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Independent composition",
+      "learningObjective": "Write an original personal letter with an appropriate familiar audience, purpose and organisation.",
+      "id": "ndv-327-009",
+      "objectiveId": "nerdc-igbo-primary4-327-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Enyi gị nyeere gị aka ịghọta otu ihe n’akwụkwọ. Dee leta nkeonye n’asụsụ Igbo iji kelee ya. Kọwaa ihe o mere na otu o si nyere gị aka. Jiri aha na adreesị i chepụtara.",
+      "answer": "Ụlọ Akwụkwọ Mmụta,\nNsukka.\n19 Novemba 2026.\n\nEzigbo enyi m Oluchi,\nKedụ ka ị mere? Daalụ maka enyemaka gị. Ị kọwaara m okwu ndị dị n’akwụkwọ anyị. Ugbu a, aghọtara m ha. M ga-agụ akwụkwọ ahụ ọzọ.\n\nEnyi gị,\nChinaza.",
+      "explanation": "This letter thanks a friend and connects the help to a learning benefit. Other suitable original Igbo content and familiar closings are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Provides a fictional address/date and suitable salutation to a friend."
+        },
+        {
+          "marks": 1,
+          "description": "Expresses thanks in clear Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a specific piece of help."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the help benefited the writer."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a coherent Igbo message with an appropriate closing and sender."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Independent composition",
+      "learningObjective": "Write an original personal letter with an appropriate familiar audience, purpose and organisation.",
+      "id": "ndv-327-010",
+      "objectiveId": "nerdc-igbo-primary4-327-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ị chọrọ ịgụ akwụkwọ enyi gị nwere. Dee leta nkeonye rịọ ya ka o binye gị akwụkwọ ahụ. Kọwaa ihe mere i ji chọọ ya na otu ị ga-esi lekọta ya. Echepụtala na o kweelarị.",
+      "answer": "Ụlọ Akwụkwọ Ọganihu,\nAba.\n19 Novemba 2026.\n\nEzigbo enyi m Uche,\nBiko, ị nwere ike ibinye m akwụkwọ gị gbasara osisi? Achọrọ m ịmụtakwu maka osisi. M ga-edebe akwụkwọ ahụ ọcha. Agaghị m ede ihe n’ime ya. M ga-eweghachi ya mgbe m gụchara ya. Daalụ.\n\nEnyi gị,\nNneoma.",
+      "explanation": "A request asks for permission rather than presuming agreement; the writer gives a reason and proposes care of the borrowed item.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses an appropriate personal-letter opening and closing with fictional details."
+        },
+        {
+          "marks": 1,
+          "description": "Makes a clear, courteous request to borrow the book."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a relevant reason for wanting it."
+        },
+        {
+          "marks": 1,
+          "description": "States at least one concrete care action."
+        },
+        {
+          "marks": 1,
+          "description": "Uses coherent intelligible Igbo without presenting permission as already given."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "teacherSupport": "All people and addresses may be fictional. No borrowing, contact or exchange is actually arranged.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Edemede: Leta nkeonye",
+      "subtopic": "Independent composition",
+      "learningObjective": "Write an original personal letter with an appropriate familiar audience, purpose and organisation.",
+      "id": "ndv-327-011",
+      "objectiveId": "nerdc-igbo-primary4-327-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ ozi enyi gị. Dee leta nzaghachi n’asụsụ Igbo. Gwa ya na ị gaghị abịa, kọwaa ihe kpatara ya, ma tụọ oge ọzọ unu ga-agụkọ akwụkwọ. Ị nwere ike ichepụta ihe kpatara ya.",
+      "answer": "Ụlọ Akwụkwọ Mmụta,\nEnugu.\n19 Novemba 2026.\n\nEzigbo enyi m Chika,\nDaalụ maka ịkpọ m òkù. Agaghị m abịa n’ehihie echi n’ihi na m ga-enyere nne m aka. Anyị nwere ike ịgụkọ akwụkwọ n’ụbọchị ọzọ. Ka anyị gụọ ya n’ụtụtụ Satọdee.\n\nEnyi gị,\nKene.",
+      "explanation": "The reply responds to an invitation, declines clearly, gives a fictional reason and proposes a different reading time. This is language practice, not an actual meeting arrangement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Addresses Chika in a suitable personal-letter opening and includes a closing/sender."
+        },
+        {
+          "marks": 1,
+          "description": "Acknowledges the invitation and clearly declines the proposed visit."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant reason in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a different intelligible day/time for reading together."
+        },
+        {
+          "marks": 1,
+          "description": "Organises a coherent Igbo reply that fits the invitation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "passage": "Kene, bịa ka anyị gụọ akwụkwọ ọnụ n’ehihie echi. Enyi gị, Chika.",
+      "stimulusProvenance": "original",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Greetings in conversation",
+      "learningObjective": "Use appropriate greetings and responses to maintain a short interpersonal conversation in Igbo.",
+      "id": "ndv-327-012",
+      "objectiveId": "nerdc-igbo-primary4-327-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gị na onye nkụzi ga-eme nkenke ejije. Ị hụrụ enyi gị n’ụtụtụ. Kelee ya, zaa ajụjụ ọ ga-ajụ banyere otú ị mere, jụọkwa otú o mere. Jiri asụsụ Igbo.",
+      "answer": "Ụtụtụ ọma. Onye nkụzi: Kedụ ka ị mere? Azịza: Ọ dị mma. Kedụ maka gị?",
+      "explanation": "A greeting exchange requires a context-appropriate greeting, a response and a reciprocal enquiry. Equivalent courteous Igbo forms are acceptable; no prescribed gesture or gender role is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses an intelligible greeting appropriate to meeting a friend in the morning."
+        },
+        {
+          "marks": 1,
+          "description": "Responds appropriately when the examiner asks how the learner is."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a reciprocal enquiry and allows the partner to respond."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Underdots are meaningful; these contextual writing tasks do not prescribe a complete tone-marking system. Accept equivalent intelligible Igbo forms and regional variants after examiner checking. Local school orthographic conventions and marking calibration remain unverified.",
+      "teacherSupport": "Examiner plays the friend, responds to the greeting and asks “Kedụ ka ị mere?” before answering the learner’s reciprocal question. No handshake, bowing, kneeling or physical contact is scored. A fictional response is permitted.",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require a live examiner or individual recording. Examiner prepares and checks the Igbo wording, allows a fictional identity and scores the stated communicative features. Written preparation alone is insufficient. No actual performance, reference audio, tone testing, universal accent standard or examiner calibration is claimed."
+    }
+  ]
+}

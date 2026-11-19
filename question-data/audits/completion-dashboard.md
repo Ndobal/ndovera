@@ -124,7 +124,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | English Studies / Primary 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / Primary 4 | 1000 | 111 | 110 | 0 | 890 | partial_objective_register |
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Igbo Language / Primary 4 | 1000 | 0 | 0 | 0 | 1000 | specification_unresolved |
+| NERDC | Igbo Language / Primary 4 | 1000 | 12 | 12 | 0 | 988 | partial_objective_register |
 | NERDC | Intermediate Science / JSS 1 | 1000 | 124 | 124 | 0 | 876 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
@@ -222,12 +222,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1360 | 1295 | 0 | 37000 | 35705 |
+| NERDC | 1372 | 1307 | 0 | 37000 | 35693 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5820, "validDrafts": 4141, "reviewed": 0, "registeredBanks": 203, "target": 185000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5832, "validDrafts": 4153, "reviewed": 0, "registeredBanks": 203, "target": 185000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -330,3 +330,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist.
 - Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed.
 - Run326 inventories all55 numbered Primary4 Igbo objectives in15 tables, with zero draft mappings. Source terminology, mixed pronunciation notation and the fifty-versus-500 range discrepancy remain unresolved. Inventory is not question coverage or academic review. Native-language prompts/keys, actual oral/practical evidence, school language choice/adoption and official term placement remain open.
+- Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.
