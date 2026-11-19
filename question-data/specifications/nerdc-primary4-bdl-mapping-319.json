@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-319-1-v1",
+    "nerdc-bdl-primary4-319-2-v1",
+    "nerdc-bdl-primary4-319-3-v1",
+    "nerdc-bdl-primary4-319-4-v1",
+    "nerdc-bdl-primary4-319-5-v1",
+    "nerdc-bdl-primary4-319-6-v1",
+    "nerdc-bdl-primary4-319-7-v1"
+  ],
+  "tables": [
+    {
+      "topic": "Game Development with Pictoblox",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "topic": "Artificial Intelligence (AI)",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "evidenceStatus": "Fresh PDF hash matched; both tables read and visually inspected. Seven author-proposed mappings. Actual tool operation, model accuracy and classroom delivery not verified.",
+  "guideRetrieval": {
+    "pdfExternalLinks": 0,
+    "officialSearchResult": "No matching activity-guide copies located in targeted searches of NERDC official domains. Absence from search is not proof that they do not exist.",
+    "unresolved": [
+      "Game activity reference ends at described in",
+      "AI activity guides 17,18,24,25 not retrieved",
+      "Guide 17 and 25 both labelled Face Filter; guide 18 has no title in this table"
+    ],
+    "pdfEmbeddedFiles": 0,
+    "viewerURL": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/viewer.html?file=14.pdf",
+    "viewerStatus": 200,
+    "viewerBytes": 53490,
+    "viewerFinding": "No activity/guide hrefs found in retrieved viewer HTML. This is not an exhaustive portal inventory."
+  },
+  "manufacturerCandidates": [
+    {
+      "source": "https://ai.thestempedia.com/wp-content/uploads/2022/03/CL3_CH17_P2_Fruit-Catching-Game-.pdf",
+      "pages": 2,
+      "status": "Retrieved. Manufacturer Class 3 Session 17, Quarky switches. Not authenticated as a NERDC guide."
+    },
+    {
+      "source": "https://ai.thestempedia.com/wp-content/uploads/2022/03/CL7-CH16_Face-Expression-Detector.pdf",
+      "pages": 2,
+      "status": "Retrieved. Manufacturer Class 7 Session 16. Title-related candidate only; numbering/class mismatch and text errors prevent equivalence claims."
+    }
+  ],
+  "softwareAccuracySources": [
+    "pictoblox-variable-commands-319",
+    "pictoblox-face-detection-319"
+  ],
+  "contextSources": [
+    "education-scotland-ai-reference-319",
+    "unicef-ai-children-reference-319"
+  ],
+  "connectivityConflict": {
+    "currentOverview": "WiFi Required: No, with model download described",
+    "olderTutorial": "Internet connection required to process images",
+    "olderTutorialURL": "https://ai.thestempedia.com/docs/pictoblox/pictoblox-tutorials/making-an-expression-recognizer-using-face-detection-in-pictoblox/",
+    "resolution": "No universal offline/runtime data-handling claim. Teacher must verify the actual installed version and initial model download before the device task."
+  },
+  "activityEvaluationAlignment": "The source game objective and evaluation support an original variable-based fruit-catching project, with keyboard controls as an explicitly original computer-only route rather than the manufacturer hardware activity. The AI evaluation Hello condition is assessed using teacher-prechecked Stage images, fresh analysis and positive/zero count cases. Live learner images, face identification and demographic/emotion inference are not part of the tasks.",
+  "remaining": [
+    "Authentic NERDC activity-guide files and any official corrections",
+    "Supported installed PictoBlox version, model readiness, networking/data flow, image authorisation and actual observed delivery",
+    "Full-class objective/competency inventory including earlier unmapped topics and partial practical skills",
+    "School adoption and official term placement",
+    "Prior hardware, safety, diagram delivery and other source gaps remain open"
+  ],
+  "manualInspection": "Inspected all prompts, model answers, marking totals and source compatibility. Compared existing JSS 1 batches 242,245,247 and Primary 4 batches 316–318 to avoid repeating variable arithmetic, repeated-token scoring diagnoses, game-state resets, generic classifiers and training-set tasks. The two practical tasks are original routes with explicit preparation and delivery gaps. The original scene SVG was rendered and visually inspected; its XML and asset path were checked.",
+  "independentRuleChecks": {
+    "score": {
+      "outcomes": [
+        "caught",
+        "missed",
+        "caught"
+      ],
+      "values": [
+        1,
+        1,
+        2
+      ]
+    },
+    "faceCountGreeting": [
+      {
+        "count": 0,
+        "showHello": false
+      },
+      {
+        "count": 1,
+        "showHello": true
+      },
+      {
+        "count": 2,
+        "showHello": true
+      }
+    ],
+    "scope": "Rule-model calculations only. No PictoBlox program, detector model, camera or actual image performance was executed or verified."
+  },
+  "asset": {
+    "path": "stimuli/batch-319/fruit-game-plan.svg",
+    "sha256": "ec230c9f1bfdaa35c6a70b99e597519627690f828d0214e8cac53e6c822005e9",
+    "provenance": "original_scene_plan",
+    "limitation": "An illustrative plan, not a supplied working game or a detector-test image."
+  }
+}

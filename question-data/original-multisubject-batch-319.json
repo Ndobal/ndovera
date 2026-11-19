@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 PictoBlox games and introductory AI",
+  "questionCount": 14,
+  "note": "Fourteen original structured drafts from seven author-proposed objectives. Twelve written precursors and two device-performance tasks. Missing NERDC activity guides, exact installed-version behaviour and classroom delivery remain open. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Development and testing",
+      "learningObjective": "Explain game development.",
+      "id": "ndv-319-001",
+      "objectiveId": "nerdc-bdl-primary4-319-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A group tests its new game and notices that players cannot read the instructions easily. It enlarges the instructions and tests again. Explain how this work forms part of game development.",
+      "answer": "Game development includes designing, programming, testing and improving a game. The group is improving how people can use the game, then checking the change.",
+      "explanation": "Development includes making the whole experience work for players, not only producing code.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes development as making and improving a game."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the group's change and second test to that process."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Variable commands",
+      "learningObjective": "Identify functions of programming interface commands in PictoBlox.",
+      "id": "ndv-319-002",
+      "objectiveId": "nerdc-bdl-primary4-319-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In PictoBlox, a pupil uses hide variable Points during a scene and later uses show variable Points. Explain what these commands change and whether hiding the monitor deletes the variable's stored value.",
+      "answer": "They hide and show the Points monitor on the Stage. Hiding the monitor does not by itself delete the variable or its value.",
+      "explanation": "Display visibility and stored game state are separate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies changing the monitor's visibility."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the stored value is not deleted by hiding its monitor."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-variable-commands-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Variable commands",
+      "learningObjective": "Identify functions of programming interface commands in PictoBlox.",
+      "id": "ndv-319-003",
+      "objectiveId": "nerdc-bdl-primary4-319-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A game has two variables, Points and Round. A pupil wants a catch to increase Points but the change () by () block currently has Round selected. What must the pupil change in the block, and why?",
+      "answer": "Select Points in the variable choice. The command changes whichever variable is selected; it does not infer the intended score from the event.",
+      "explanation": "This task assesses the target selector in a command rather than calculating a new score.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects Points as the target variable."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the chosen variable determines which stored value changes."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-variable-commands-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Creating a game with variables",
+      "learningObjective": "Create a game with variables.",
+      "id": "ndv-319-004",
+      "objectiveId": "nerdc-bdl-primary4-319-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in PictoBlox Block Coding, Stage Mode. Create an original fruit-catching game using the scene plan. A basket near the bottom moves left and right with keyboard controls. One fruit at a time falls from above. A Points variable starts at zero and increases once when a fruit is caught. A missed fruit adds no point. After either outcome, the next fruit starts above the basket area. Show the score monitor, test a catch and a miss, and save the project locally. Paint simple assets or use teacher-approved ones; do not copy a tutorial game.",
+      "answer": "The basket has keyboard-controlled horizontal movement. On starting, Points is set to zero and its monitor is shown. Each fruit cycle places one fruit above the play area, shows it and moves it down until it touches the basket or passes the lower boundary. It adds one to Points only for the caught case, hides the resolved fruit and begins a new cycle. The saved project demonstrates a catch and a miss.",
+      "explanation": "Accept a single reusable sprite or another correct implementation. Resolve each fruit once before beginning the next cycle. This is original computer-only practice; it is not asserted to be the missing NERDC activity guide or the manufacturer's Quarky project.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 5,
+      "maxMarks": 5,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a playable scene with keyboard-controlled basket and a falling fruit."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an initialised Points variable and a visible monitor."
+        },
+        {
+          "marks": 1,
+          "description": "Resolves each fruit once and adds a point only for a catch."
+        },
+        {
+          "marks": 1,
+          "description": "Starts another fruit after both a catch and a miss."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates both cases and saves the project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares a supported PictoBlox Block Coding installation in Stage Mode and verifies the named features before assessment. Observe the pupil, blocks, running outputs and local saved project. Tool provision, installed-version behaviour and actual classroom delivery are unverified. No external robot board, live account or public sharing is required.",
+      "contentSourceId": "pictoblox-variable-commands-319",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original fruit-catching game scene plan",
+        "assetPath": "stimuli/batch-319/fruit-game-plan.svg",
+        "textAlternative": "One fruit falls towards a basket near the bottom. Left/right arrows indicate basket movement. A Points monitor is at the top left. This is a scene plan, not a running game."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Development and testing",
+      "learningObjective": "Explain game development.",
+      "id": "ndv-319-005",
+      "objectiveId": "nerdc-bdl-primary4-319-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil manually changes the score monitor to show a larger number and says this proves the game awards points correctly. Explain why that is not a sufficient game test, and describe a better observation.",
+      "answer": "Manually editing the value does not test the catch-handling code. Play through an actual catch and observe whether the program changes the score by the intended amount; also check a miss.",
+      "explanation": "Testing should exercise the behaviour that is meant to produce the result.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that manual value editing bypasses the game behaviour."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes observing the score after an actual catch, with a miss as a contrasting test."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Meaning of AI",
+      "learningObjective": "Explain the meaning of artificial intelligence.",
+      "id": "ndv-319-006",
+      "objectiveId": "nerdc-bdl-primary4-319-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain artificial intelligence in a simple sentence and name one kind of task an AI system might help perform.",
+      "answer": "AI involves computer systems designed for tasks associated with intelligence, such as finding patterns or interpreting language. For example, a system may help locate faces in pictures.",
+      "explanation": "Accept another suitable example without claiming that AI thinks or understands exactly as a person does.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable explanation involving intelligence-related computer tasks."
+        },
+        {
+          "marks": 1,
+          "description": "Names a relevant task example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "education-scotland-ai-reference-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Meaning of AI",
+      "learningObjective": "Explain the meaning of artificial intelligence.",
+      "id": "ndv-319-007",
+      "objectiveId": "nerdc-bdl-primary4-319-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A clock changes its display automatically every minute. Is that fact alone enough to show that the clock uses AI? Explain.",
+      "answer": "No. An automatic action alone does not establish that a system uses AI; an ordinary program can update a clock display. More information about what the system does is needed.",
+      "explanation": "Automatic behaviour and AI are not interchangeable labels.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects automatic updating alone as proof of AI."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that ordinary programmed behaviour can produce that action."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "education-scotland-ai-reference-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Advantages of AI",
+      "learningObjective": "Explain advantages of AI.",
+      "id": "ndv-319-008",
+      "objectiveId": "nerdc-bdl-primary4-319-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional AI captioning tool produces draft written captions for a lesson video. Explain one way this could help a pupil who cannot hear the speech and one reason the teacher should check the captions.",
+      "answer": "Captions can provide a written route to the spoken information. The teacher should check them because automatic captions can mishear words or omit important details.",
+      "explanation": "The potential accessibility benefit depends on captions preserving the intended information accurately.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains access to spoken information through text."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant accuracy check or limitation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "unicef-ai-children-reference-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Advantages of AI",
+      "learningObjective": "Explain advantages of AI.",
+      "id": "ndv-319-009",
+      "objectiveId": "nerdc-bdl-primary4-319-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An archive has many authorised adult portraits. A face-detection tool marks likely face regions so staff can review them when arranging a display. Explain one time-saving benefit and why review still matters.",
+      "answer": "The tool can quickly suggest regions for staff to inspect across many pictures. Review matters because it can miss faces or mark something incorrectly.",
+      "explanation": "This is a fictional detection use, not identification of the people or a claim of perfect performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains faster initial selection or inspection."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises a reason to review the suggested regions."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Face detection as an application",
+      "learningObjective": "Explain face detection as an application of AI.",
+      "id": "ndv-319-010",
+      "objectiveId": "nerdc-bdl-primary4-319-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An image tool draws a box around a face but does not give the person's name. Explain the difference between detecting a face and identifying who the person is.",
+      "answer": "Detection locates a likely face in the image. Identification attempts to determine the person's identity. A detection box by itself does not supply a name.",
+      "explanation": "Keep the distinction between locating a face and recognising an identity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains detection as finding or locating a face."
+        },
+        {
+          "marks": 1,
+          "description": "Explains identity recognition as a different task not established by the box."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Face detection as an application",
+      "learningObjective": "Explain face detection as an application of AI.",
+      "id": "ndv-319-011",
+      "objectiveId": "nerdc-bdl-primary4-319-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A face detector reports zero faces for a very blurred picture. A pupil concludes that no person could be in the picture. Explain why this conclusion is too strong.",
+      "answer": "Zero is the detector's result, not proof that no person is present. Blur can make a face difficult for the tool to detect, so a person should check the picture or try a clearer suitable test image.",
+      "explanation": "The task distinguishes a detection result from certainty about the original scene.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that the detector can miss a face."
+        },
+        {
+          "marks": 1,
+          "description": "Connects blur or image quality with the need for checking."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Programming with face detection",
+      "learningObjective": "Create a program with face detection functionality.",
+      "id": "ndv-319-012",
+      "objectiveId": "nerdc-bdl-primary4-319-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A planned greeting program says Hello only when get # faces equals 1. The requirement is to greet whenever at least one face is detected. What comparison should replace equals 1, and what result should it give for face counts 0 and 2?",
+      "answer": "Use get # faces greater than 0. A count of 0 should not show Hello, while a count of 2 should show Hello.",
+      "explanation": "The test must cover more than one detected face as well as the zero case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a comparison equivalent to count greater than zero."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly handles both 0 and 2."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Programming with face detection",
+      "learningObjective": "Create a program with face detection functionality.",
+      "id": "ndv-319-013",
+      "objectiveId": "nerdc-bdl-primary4-319-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a PictoBlox Stage-image project, a pupil analyses the first picture, switches to another picture and immediately reads get # faces again. The value still describes the first picture. What processing step is missing?",
+      "answer": "Run analyse image from Stage for the new picture before reading get # faces.",
+      "explanation": "The reporter reads the latest analysis result; changing the input picture does not replace the need to analyse it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies analysing the newly selected Stage image."
+        },
+        {
+          "marks": 1,
+          "description": "Places that analysis before reading the result."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This does not demonstrate practical use of PictoBlox or actual model performance.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Programming with face detection",
+      "learningObjective": "Create a program with face detection functionality.",
+      "id": "ndv-319-014",
+      "objectiveId": "nerdc-bdl-primary4-319-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in PictoBlox Block Coding, Stage Mode. Your teacher supplies two authorised adult/model-test images already checked with the installed Face Detection extension: one that gives a positive face count and one that gives zero. Keep the camera off. Build a program that analyses the currently selected Stage image when Space is pressed, then displays Hello if get # faces is greater than zero and clears the speech bubble otherwise. Test both pictures by pressing Space after each change, and save the project locally. Do not use learner photographs or identity-recognition blocks.",
+      "answer": "A Space-key event runs analyse image from Stage. After analysis, an if/else tests get # faces greater than zero, says Hello for a positive count and says an empty string for zero. The pupil demonstrates the positive and zero cases with a fresh analysis of each image and saves the project.",
+      "explanation": "Teacher must verify model loading, exact installed-version behaviour, authorised test-image use and the two prechecked outputs before assessment. If these prerequisites fail, defer delivery rather than treating it as a pupil error. This task neither verifies a specific person's identity nor requires a live camera.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Runs a fresh Stage analysis from the Space-key event."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the face-count reporter and the correct positive-count comparison."
+        },
+        {
+          "marks": 1,
+          "description": "Displays Hello for a positive count and clears it for zero."
+        },
+        {
+          "marks": 1,
+          "description": "Demonstrates both teacher-prechecked cases and saves the project locally."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares a supported PictoBlox Block Coding installation in Stage Mode and verifies the named features before assessment. Observe the pupil, blocks, running outputs and local saved project. Tool provision, installed-version behaviour and actual classroom delivery are unverified. No external robot board, live account or public sharing is required. Teacher supplies and prechecks authorised non-learner test images. Initial model download, runtime connectivity, data handling, extension readiness and local installation behaviour must be verified for that installation; none has been tested here.",
+      "contentSourceId": "pictoblox-face-detection-319"
+    }
+  ]
+}

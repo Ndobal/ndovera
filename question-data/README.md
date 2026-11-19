@@ -1698,3 +1698,14 @@ conflicts. Arduino kit age guidance does not establish Primary 4 suitability;
 physical identification, powered projects and autonomous programming remain
 deferred pending exact suitable equipment and instructions. No practical
 competence or school adoption is asserted.
+
+Batch 319 adds fourteen Primary 4 Basic Digital Literacy drafts from
+printed pp. 22–23 (PDF pp. 35–36), covering PictoBlox games and introductory
+AI. Seven author-proposed mappings support twelve written precursors and
+two conditional device tasks. An original game-scene SVG is supplied.
+The exact NERDC activity guides remain unretrieved; related manufacturer
+sheets are recorded as technical candidates, not official replacements.
+The source inventory preserves numbering, incomplete-reference and
+connectivity questions. Practical delivery requires verified tool/model
+readiness and authorised non-learner test images; no live camera or identity
+recognition is requested. School adoption and full coverage remain open.

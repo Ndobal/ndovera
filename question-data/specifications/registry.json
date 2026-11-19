@@ -3433,13 +3433,15 @@
         "Sketch with Block Coding (Using Scratch), printed p. 18 (PDF p. 31)",
         "Sequence in programming, printed p. 19 (PDF p. 32)",
         "Basics of Robotics, printed p. 20 (PDF p. 33)",
-        "Robotics, printed p. 21 (PDF p. 34)"
+        "Robotics, printed p. 21 (PDF p. 34)",
+        "Game Development with Pictoblox, printed p. 22 (PDF p. 35)",
+        "Artificial Intelligence (AI), printed p. 23 (PDF p. 36)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open. Batch 318 re-download matched the registered checksum. Robotics tables at PDF pp. 33–34 read and visually inspected. Seven limited written mappings use robotics performance objectives/content and p. 34 evaluation; p. 33 audio/image/video evaluation and related competency text are inconsistent and remain unresolved. Uses/benefits are grouped across tables. Accessory functions use p. 34 knowledge/evaluation, not a claim of physical identification. No powered build or autonomous-control task is authored because equipment, cohort suitability, exact kit instructions and hardware/interface alignment remain unverified.",
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open. Batch 318 re-download matched the registered checksum. Robotics tables at PDF pp. 33–34 read and visually inspected. Seven limited written mappings use robotics performance objectives/content and p. 34 evaluation; p. 33 audio/image/video evaluation and related competency text are inconsistent and remain unresolved. Uses/benefits are grouped across tables. Accessory functions use p. 34 knowledge/evaluation, not a claim of physical identification. No powered build or autonomous-control task is authored because equipment, cohort suitability, exact kit instructions and hardware/interface alignment remain unverified. Batch 319 re-download matched registered checksum. Final game-development and AI tables at PDF pp. 35–36 read and visually inspected. Seven author-proposed mappings support twelve written precursors and two conditional device tasks. The game activity reference ends after described in, and the AI table names guides 17,18,24,25 without links or embedded copies. Exact NERDC guide files were not located. Manufacturer activity sheets with related titles have different class/numbering and are not accepted as those guides. The original computer-only game and Stage-image detection task do not assert equivalence with missing guides, tested tool delivery or school adoption.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3581,6 +3583,58 @@
       "kind": "official_product_safety_guidance",
       "source": "https://microbit.org/get-started/user-guide/electrical-product-guidance/",
       "note": "Manufacturer guidance retrieved. Product-specific handling, supervision, power and under-eight restrictions are recorded for equipment review, not treated as a universal approval for Primary 4 hardware or an Arduino kit.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "pictoblox-variable-commands-319",
+      "kind": "official_software_block_reference",
+      "source": "https://ai.thestempedia.com/extension/variables/",
+      "supportingSources": [
+        "https://ai.thestempedia.com/pictoblox-block/show-variable/",
+        "https://ai.thestempedia.com/pictoblox-block/hide-variable/",
+        "https://ai.thestempedia.com/pictoblox-block/change-by/"
+      ],
+      "note": "Manufacturer Variables and specific command references retrieved. A manufacturer Fruit Catching Part 2 sheet was also inspected as technical context, not copied or equated with a NERDC guide. Its Quarky control route and manufacturer Class 3 label do not establish Nigerian class alignment.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "pictoblox-face-detection-319",
+      "kind": "official_software_extension_reference",
+      "source": "https://ai.thestempedia.com/extension/face-detection/",
+      "supportingSources": [
+        "https://ai.thestempedia.com/pictoblox-block/analyse-image-from/",
+        "https://ai.thestempedia.com/pictoblox-block/get-faces/"
+      ],
+      "note": "Stage Mode, image sources, fresh-analysis requirement and face-count reporter retrieved. Extension overview says WiFi Required: No but also describes initial model downloads. An older expression tutorial says internet is required to process images. Installed-version connectivity and data handling remain unverified. No age, gender, emotion or identity inferences are used in the authored tasks.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "education-scotland-ai-reference-319",
+      "kind": "official_education_ai_reference",
+      "source": "https://education.gov.scot/parentzone/my-child/digital-learning-digital-life-and-digital-work/ai-what-parents-need-to-know/",
+      "documentDate": "2026-03-03",
+      "lastUpdated": "2026-08-07",
+      "note": "Retrieved general definition and limitations for technical accuracy. This is Scottish education guidance, not Nigerian curriculum scope or class adoption evidence.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "unicef-ai-children-reference-319",
+      "kind": "authoritative_child_ai_guidance",
+      "source": "https://www.unicef.org/innocenti/reports/policy-guidance-ai-children",
+      "version": "3.0",
+      "note": "Retrieved current child-centred AI guidance page. Supports inclusion, checking and preparation without authorising data collection or substituting for local curriculum adoption.",
       "exam": "NERDC",
       "subject": "Basic Digital Literacy",
       "level": "Primary 4",
@@ -40263,6 +40317,132 @@
       ],
       "sourceSections": [
         "Printed p. 21 (PDF p. 34), Robotics, knowledge 2 and evaluation 2; partial written preparation, not performance objective 2 physical identification"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-1-v1",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Development and testing",
+      "learningObjective": "Explain game development.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 22 (PDF p. 35), Game Development with Pictoblox, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-2-v1",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Variable commands",
+      "learningObjective": "Identify functions of programming interface commands in PictoBlox.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 22 (PDF p. 35), Game Development with Pictoblox, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-3-v1",
+      "topic": "Game Development with Pictoblox",
+      "subtopic": "Creating a game with variables",
+      "learningObjective": "Create a game with variables.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 22 (PDF p. 35), Game Development with Pictoblox, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-4-v1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Meaning of AI",
+      "learningObjective": "Explain the meaning of artificial intelligence.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 23 (PDF p. 36), Artificial Intelligence (AI), performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-5-v1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Advantages of AI",
+      "learningObjective": "Explain advantages of AI.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 23 (PDF p. 36), Artificial Intelligence (AI), performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-6-v1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Face detection as an application",
+      "learningObjective": "Explain face detection as an application of AI.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 23 (PDF p. 36), Artificial Intelligence (AI), performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-319-7-v1",
+      "topic": "Artificial Intelligence (AI)",
+      "subtopic": "Programming with face detection",
+      "learningObjective": "Create a program with face detection functionality.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 23 (PDF p. 36), Artificial Intelligence (AI), performance objective 4; content, learning activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
