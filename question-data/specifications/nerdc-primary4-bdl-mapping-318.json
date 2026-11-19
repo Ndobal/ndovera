@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-318-1-v1",
+    "nerdc-bdl-primary4-318-2-v1",
+    "nerdc-bdl-primary4-318-3-v1",
+    "nerdc-bdl-primary4-318-4-v1",
+    "nerdc-bdl-primary4-318-5-v1",
+    "nerdc-bdl-primary4-318-6-v1",
+    "nerdc-bdl-primary4-318-7-v1"
+  ],
+  "tables": [
+    {
+      "topic": "Basics of Robotics",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "topic": "Robotics",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "limitedMappings": [
+        "Benefits/uses: performance objective 1",
+        "Component recognition: performance objective 3, written only",
+        "Component functions: performance objective 4",
+        "Accessory functions: content 2 and evaluation 2"
+      ]
+    }
+  ],
+  "evidenceStatus": "Fresh source matched checksum; both robotics tables read and visually inspected. Seven author-proposed written mappings, not complete competency coverage.",
+  "conflicts": [
+    {
+      "pdfPage": 33,
+      "issue": "Evaluation and one ICT competency refer to audio/image/video rather than robotics. The robotics objectives, content, focal competence and discussion activities support only the explicitly limited mappings; no official correction or equivalence asserted."
+    },
+    {
+      "pdfPage": 34,
+      "issue": "Learning outcome/focal competence refer to digital content/sketching. Robotics objectives/content and named activities are used cautiously; hardware/software specifications are absent."
+    }
+  ],
+  "physicalWorkDeferred": [
+    "Robotics performance objective 2: physically identify accessories in a robot",
+    "Powered circuit projects: traffic light, beating-heart LED display and switch-controlled sprite",
+    "Robotics performance objective 5 and evaluation 4: autonomous robot/robot-car programming; directional control alone does not establish autonomy"
+  ],
+  "equipmentEvidence": [
+    {
+      "sourceId": "arduino-education-age-guidance-318",
+      "finding": "Ages 11–14, middle school. Not accepted as evidence for Primary 4 suitability."
+    },
+    {
+      "sourceId": "microbit-product-safety-318",
+      "finding": "Product-specific safety and age restrictions do not approve unspecified hardware."
+    }
+  ],
+  "accuracySources": [
+    "nasa-robotics-reference-318",
+    "microbit-components-reference-318",
+    "adafruit-accessories-reference-318"
+  ],
+  "retrievalLimits": [
+    {
+      "url": "https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard/all",
+      "result": "403 through web and direct retrieval"
+    },
+    {
+      "url": "https://docs.arduino.cc/learn/electronics/breadboard/",
+      "result": "404"
+    },
+    {
+      "url": "https://docs.arduino.cc/built-in-examples/basics/Blink/",
+      "result": "Retrieved web shell without substantive example text; not relied on"
+    }
+  ],
+  "asset": {
+    "path": "stimuli/batch-318/components.svg",
+    "provenance": "original_concept_sketches",
+    "limitation": "Generic, not-to-scale illustrations. They do not establish real component identity by package shape or physical handling competence.",
+    "sha256": "851a0e7767f2eaed72d28116a0e7cff6aea230b467554a293cc299e3eb7f336a"
+  },
+  "remaining": [
+    "Exact age-appropriate kit, manuals, component datasheets, supervised equipment provision and physical assessment",
+    "Specific programming board, motor driver, power arrangement, PictoBlox hardware support and test/stop procedures",
+    "Full competency inventory, official term placement and school adoption",
+    "PictoBlox game development/AI tables pp. 35–36 and referenced separate activity guides",
+    "Earlier source and delivery gaps remain open"
+  ],
+  "manualInspection": "Read all twenty prompts, answers, rubrics and source mappings. Compared against existing JSS 1 batches 224 and 246 to avoid reproducing the bottle-placement, camera-inspection, three-job component matching and failed-actuator diagnostic tasks. Component package identity is not inferred from an anonymous chip shape: its program-running role is stated. All tasks remain written preparation. Original SVG rendered and visually inspected; XML/path validity and sixteen displayed light points checked against its text alternative. No numerical-answer, wiring-value or MCQ option claims occur."
+}

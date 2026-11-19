@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+<title id="title">Four simplified electronic component sketches</title>
+<desc id="desc">A: a rectangular dark chip with pins on two sides. B: one domed light with two leads. C: a panel of sixteen small light points. D: a square part with a round pressable top and four leads. These are concept sketches, not product or wiring diagrams.</desc>
+<rect width="720" height="400" fill="white"/>
+<g stroke="#17324d" stroke-width="6" stroke-linecap="round" fill="none">
+<path d="M70 110H105M70 135H105M70 160H105M70 185H105M210 110H245M210 135H245M210 160H245M210 185H245"/>
+<rect x="105" y="85" width="105" height="125" rx="8" fill="#263c52"/>
+<path d="M302 165V230M332 165V230"/>
+<path d="M285 165V135C285 90 350 90 350 135V165Z" fill="#c84b36"/>
+<rect x="410" y="85" width="140" height="140" rx="8" fill="#263c52"/>
+<path d="M600 110H620M600 195H620M680 110H700M680 195H700"/>
+<rect x="620" y="95" width="60" height="115" rx="8" fill="#d7e1e7"/>
+<circle cx="650" cy="152" r="23" fill="#263c52"/>
+</g>
+<g fill="#ffcb68">
+<circle cx="435" cy="110" r="9"/><circle cx="465" cy="110" r="9"/><circle cx="495" cy="110" r="9"/><circle cx="525" cy="110" r="9"/>
+<circle cx="435" cy="140" r="9"/><circle cx="465" cy="140" r="9"/><circle cx="495" cy="140" r="9"/><circle cx="525" cy="140" r="9"/>
+<circle cx="435" cy="170" r="9"/><circle cx="465" cy="170" r="9"/><circle cx="495" cy="170" r="9"/><circle cx="525" cy="170" r="9"/>
+<circle cx="435" cy="200" r="9"/><circle cx="465" cy="200" r="9"/><circle cx="495" cy="200" r="9"/><circle cx="525" cy="200" r="9"/>
+</g>
+<g fill="#17324d" font-family="sans-serif" text-anchor="middle">
+<text x="157" y="275" font-size="30">A</text><text x="317" y="275" font-size="30">B</text><text x="480" y="275" font-size="30">C</text><text x="650" y="275" font-size="30">D</text>
+<text x="360" y="345" font-size="20">Concept sketches only — not to scale</text>
+</g>
+</svg>

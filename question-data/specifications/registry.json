@@ -3431,13 +3431,15 @@
         "Programming a Game environment, printed p. 16 (PDF p. 29)",
         "Coding with Scratch, printed p. 17 (PDF p. 30)",
         "Sketch with Block Coding (Using Scratch), printed p. 18 (PDF p. 31)",
-        "Sequence in programming, printed p. 19 (PDF p. 32)"
+        "Sequence in programming, printed p. 19 (PDF p. 32)",
+        "Basics of Robotics, printed p. 20 (PDF p. 33)",
+        "Robotics, printed p. 21 (PDF p. 34)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open.",
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open. Batch 318 re-download matched the registered checksum. Robotics tables at PDF pp. 33–34 read and visually inspected. Seven limited written mappings use robotics performance objectives/content and p. 34 evaluation; p. 33 audio/image/video evaluation and related competency text are inconsistent and remain unresolved. Uses/benefits are grouped across tables. Accessory functions use p. 34 knowledge/evaluation, not a claim of physical identification. No powered build or autonomous-control task is authored because equipment, cohort suitability, exact kit instructions and hardware/interface alignment remain unverified.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3524,6 +3526,65 @@
       ],
       "retrievedOn": "2026-11-19",
       "note": "Publisher Scratch 3 text retrieved directly for setup, movement, appearance and saving. Web retrieval of GitHub pages failed, so direct text was used. Software operation crosschecks do not establish school tool provision, exact classroom interface or adoption. Account setup is not required or requested."
+    },
+    {
+      "id": "nasa-robotics-reference-318",
+      "kind": "official_robotics_reference",
+      "source": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-robotics-grades-k-4/",
+      "documentDate": "2009-11-09",
+      "note": "Retrieved general definitions and examples of robot shapes, control and uses. Historical mission descriptions are not used as current mission status. Supports technical accuracy, not Nigerian curriculum adoption.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "microbit-components-reference-318",
+      "kind": "official_product_education_reference",
+      "source": "https://microbit.org/get-started/features/inputs-outputs-and-processors/",
+      "supportingSources": [
+        "https://microbit.org/get-started/features/leds-and-buttons/",
+        "https://microbit.org/get-started/features/overview/"
+      ],
+      "note": "Input, processor, output, LED, button and sensor functions retrieved. Hardware-specific details are not generalised to all robot boards. No micro:bit kit, pinout or device availability is prescribed.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "adafruit-accessories-reference-318",
+      "kind": "manufacturer_electronics_teaching_reference",
+      "source": "https://learn.adafruit.com/lesson-0-getting-started/breadboard",
+      "supportingSources": [
+        "https://learn.adafruit.com/adafruit-arduino-lesson-2-leds/resistors"
+      ],
+      "note": "Retrieved breadboard/jumper and resistor-function explanations. Older teaching references inform stable component concepts only, not current school adoption, hardware age suitability or an authorised build. No wiring diagram or component value copied.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "arduino-education-age-guidance-318",
+      "kind": "official_product_age_guidance",
+      "source": "https://content.arduino.cc/assets/Arduino%20Education%20Starter%20Kit%20FAQ_v2.pdf",
+      "pageCount": 9,
+      "note": "FAQ p. 1 states intended ages 11–14 and middle-school classes. This does not establish suitability for a Primary 4 cohort. Physical/powered tasks remain deferred pending an age-appropriate equipment/manual review.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
+    },
+    {
+      "id": "microbit-product-safety-318",
+      "kind": "official_product_safety_guidance",
+      "source": "https://microbit.org/get-started/user-guide/electrical-product-guidance/",
+      "note": "Manufacturer guidance retrieved. Product-specific handling, supervision, power and under-eight restrictions are recorded for equipment review, not treated as a universal approval for Primary 4 hardware or an Arduino kit.",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-19"
     }
   ],
   "banks": [
@@ -40076,6 +40137,132 @@
       ],
       "sourceSections": [
         "Printed p. 19 (PDF p. 32), Sequence in programming, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-1-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Meaning of robotics",
+      "learningObjective": "Explain the meaning of robotics.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 1 and knowledge 1; discussion activity"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-2-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Types of robots",
+      "learningObjective": "List basic types of robots.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 2 and knowledge 2; activity on robot types"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-3-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Sensors and actuators",
+      "learningObjective": "Explain basic features of robots.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 3 and knowledge 3; activity on robot features"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-4-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Benefits and uses",
+      "learningObjective": "Explain benefits and uses of robots.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 4 and knowledge 4; PDF p. 34, printed p. 21, Robotics, performance objective 1, knowledge 1 and evaluation 1"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-5-v1",
+      "topic": "Robotics",
+      "subtopic": "Recognising electronic components",
+      "learningObjective": "Identify basic electronic components in a robot.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, performance objective 3, knowledge 3 and evaluation 3; written recognition only"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-6-v1",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, performance objective 4 and knowledge 3; component-function preparation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-7-v1",
+      "topic": "Robotics",
+      "subtopic": "Functions of circuit accessories",
+      "learningObjective": "Explain the functions of breadboard, resistor and jumper wire.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, knowledge 2 and evaluation 2; partial written preparation, not performance objective 2 physical identification"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 robotics concepts and component functions",
+  "questionCount": 20,
+  "note": "Twenty original written drafts from seven author-proposed mappings. Physical identification, wiring, powered builds and autonomous robot programming remain unassessed. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Meaning of robotics",
+      "learningObjective": "Explain the meaning of robotics.",
+      "id": "ndv-318-001",
+      "objectiveId": "nerdc-bdl-primary4-318-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the difference between a robot and robotics. Use the words machine and study in your answer.",
+      "answer": "A robot is a machine used to carry out tasks under instructions or control. Robotics is the study of robots, including how they are designed, built and used.",
+      "explanation": "The terms refer to an object and a field of study rather than two different machines.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a robot as a task-performing machine."
+        },
+        {
+          "marks": 1,
+          "description": "Describes robotics as the study of robots."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "nasa-robotics-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Meaning of robotics",
+      "learningObjective": "Explain the meaning of robotics.",
+      "id": "ndv-318-002",
+      "objectiveId": "nerdc-bdl-primary4-318-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says a machine can only be a robot if it has a human-shaped head and hands. Give a different possible shape of a robot and explain why human appearance is not the deciding feature.",
+      "answer": "A robot might be a wheeled machine or a mechanical arm. What matters is its ability to carry out a task under instructions or control, not whether it looks human.",
+      "explanation": "Accept other suitable non-humanoid examples. Do not imply every machine is a robot simply because it has wheels.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable non-human-shaped robot example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that task performance under instructions or control matters more than human appearance."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "nasa-robotics-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Types of robots",
+      "learningObjective": "List basic types of robots.",
+      "id": "ndv-318-003",
+      "objectiveId": "nerdc-bdl-primary4-318-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name the three basic types of robots listed in this curriculum topic.",
+      "answer": "Industrial robots, service robots and toy robots.",
+      "explanation": "These are the categories named by the source. They are useful introductory groupings rather than an exhaustive, mutually exclusive taxonomy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names industrial robots."
+        },
+        {
+          "marks": 1,
+          "description": "Names service robots."
+        },
+        {
+          "marks": 1,
+          "description": "Names toy robots."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Types of robots",
+      "learningObjective": "List basic types of robots.",
+      "id": "ndv-318-004",
+      "objectiveId": "nerdc-bdl-primary4-318-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Three fictional robots have different purposes: one handles parts in a factory, one cleans a public building and one is made mainly for play. Match them to industrial, service and toy categories.",
+      "answer": "Factory parts handling: industrial. Cleaning the building: service. Play: toy.",
+      "explanation": "Classify using each stated purpose. Real products may have overlapping uses.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly classifies the factory robot."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classifies the cleaning robot."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classifies the play robot."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Types of robots",
+      "learningObjective": "List basic types of robots.",
+      "id": "ndv-318-005",
+      "objectiveId": "nerdc-bdl-primary4-318-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two robots both have wheels. One carries materials around a factory; the other is a play robot used for simple games. Why should their purpose be considered when deciding their type?",
+      "answer": "A robot's type can depend on the work it is designed to do. Wheels describe how it moves, while factory work and play describe different purposes.",
+      "explanation": "A shared physical feature does not mean the robots have the same application category.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links classification to purpose or work."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes wheel-based movement from factory/play purpose."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Sensors and actuators",
+      "learningObjective": "Explain basic features of robots.",
+      "id": "ndv-318-006",
+      "objectiveId": "nerdc-bdl-primary4-318-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the difference between a sensor and an actuator in a robot. Give one example of information a sensor could obtain and one physical action an actuator could produce.",
+      "answer": "A sensor obtains information, such as light level or whether a switch is pressed. An actuator produces a physical action, such as turning a wheel or opening a gripper.",
+      "explanation": "Accept other suitable sensing and action examples without requiring the same robot model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains sensing and gives a suitable information example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains actuation and gives a suitable action example."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Sensors and actuators",
+      "learningObjective": "Explain basic features of robots.",
+      "id": "ndv-318-007",
+      "objectiveId": "nerdc-bdl-primary4-318-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil thinks every robot sensor must take photographs. Explain why a touch sensor or a temperature sensor shows that this is wrong.",
+      "answer": "A touch sensor can detect contact, and a temperature sensor can measure how warm or cold something is. Neither needs to take a photograph to provide information.",
+      "explanation": "Sensors can collect different kinds of information. A camera is one possible sensor, not the definition of all sensors.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a correct non-photographic sensing function."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that obtaining information does not always require a camera."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Sensors and actuators",
+      "learningObjective": "Explain basic features of robots.",
+      "id": "ndv-318-008",
+      "objectiveId": "nerdc-bdl-primary4-318-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A robot arm stays fixed to a table while its gripper opens and closes. Does remaining in one place mean it has no actuator? Explain.",
+      "answer": "No. An actuator can open and close the gripper even when the whole robot does not travel across the floor.",
+      "explanation": "Physical action can occur in one part of a robot; locomotion of the whole robot is not required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that the robot can still have an actuator."
+        },
+        {
+          "marks": 1,
+          "description": "Links the actuator to gripper movement."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "nasa-robotics-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Benefits and uses",
+      "learningObjective": "Explain benefits and uses of robots.",
+      "id": "ndv-318-009",
+      "objectiveId": "nerdc-bdl-primary4-318-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A remotely operated robot can take measurements near a damaged structure while its operator stays farther away. Explain one safety benefit of this use, without claiming that the robot makes the entire situation risk-free.",
+      "answer": "It can reduce the need for a person to enter the hazardous area directly. The site still requires proper controls and checking; the robot does not remove every danger.",
+      "explanation": "The example concerns a general safety benefit, not instructions to approach a damaged structure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains reduced human exposure to the hazardous area."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises that other risks or controls remain."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "nasa-robotics-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Benefits and uses",
+      "learningObjective": "Explain benefits and uses of robots.",
+      "id": "ndv-318-010",
+      "objectiveId": "nerdc-bdl-primary4-318-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A family enjoys a toy robot that responds to simple programmed movements during a game. Explain how this illustrates recreation as a benefit of robotics.",
+      "answer": "The robot provides enjoyment through play and interaction. A robot does not need to perform factory work to have a useful recreational purpose.",
+      "explanation": "The example is fictional and does not recommend a particular product or suggest unsupervised equipment use.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects recreation with enjoyable play."
+        },
+        {
+          "marks": 1,
+          "description": "Relates that benefit to the robot's role in the game."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Basics of Robotics",
+      "subtopic": "Benefits and uses",
+      "learningObjective": "Explain benefits and uses of robots.",
+      "id": "ndv-318-011",
+      "objectiveId": "nerdc-bdl-primary4-318-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A hospital uses a delivery robot to take meal trays along an approved route. Explain the service it provides and one way this could help staff use their time.",
+      "answer": "It transports meal trays. This can leave staff more time for other duties while people continue to organise and check the service.",
+      "explanation": "This is an original service-use scenario, not a claim about any named hospital or guaranteed staffing outcome.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies transporting meals as the service."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a reasonable time-use benefit for staff."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Recognising electronic components",
+      "learningObjective": "Identify basic electronic components in a robot.",
+      "id": "ndv-318-012",
+      "objectiveId": "nerdc-bdl-primary4-318-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the component sketches, B is one light-emitting component and C is a group of lights arranged as a display. Name B and C using the terms LED and LED display.",
+      "answer": "B is an LED. C is an LED display.",
+      "explanation": "The sketches distinguish a single indicator from a multi-light display. They do not identify a particular manufacturer's component.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies B as an LED."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies C as an LED display."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Simplified electronic component sketches",
+        "assetPath": "stimuli/batch-318/components.svg",
+        "textAlternative": "A is a rectangular dark chip with pins on two sides. B is one domed light with two leads. C is a panel of sixteen small light points. D is a square part with a round pressable top and four leads. Concept sketches, not product or wiring diagrams."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Recognising electronic components",
+      "learningObjective": "Identify basic electronic components in a robot.",
+      "id": "ndv-318-013",
+      "objectiveId": "nerdc-bdl-primary4-318-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For this classroom model, sketch A represents the chip that runs the stored program, and sketch D represents the small push-button input. Name the two components from this topic.",
+      "answer": "A represents a microcontroller. D represents a tactile switch.",
+      "explanation": "The roles are supplied because a generic chip outline alone cannot establish its identity. This is written recognition, not physical identification on a real robot.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the program-running component as a microcontroller."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the push-button component as a tactile switch."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Simplified electronic component sketches",
+        "assetPath": "stimuli/batch-318/components.svg",
+        "textAlternative": "A is a rectangular dark chip with pins on two sides. B is one domed light with two leads. C is a panel of sixteen small light points. D is a square part with a round pressable top and four leads. Concept sketches, not product or wiring diagrams."
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "id": "ndv-318-014",
+      "objectiveId": "nerdc-bdl-primary4-318-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says a microcontroller can carry out any new task without being given instructions. Explain what role its program has in controlling a robot.",
+      "answer": "The program supplies the instructions and rules that the microcontroller executes. The robot's behaviour depends on that program and the information it receives.",
+      "explanation": "Calling a controller a brain is an analogy; it does not mean the component automatically knows every desired task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the program as executable instructions or rules."
+        },
+        {
+          "marks": 1,
+          "description": "Connects those instructions with the robot's behaviour."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "id": "ndv-318-015",
+      "objectiveId": "nerdc-bdl-primary4-318-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A model robot has a small LED used to show that it is ready. Explain why the LED cannot take the place of the motor that turns a wheel.",
+      "answer": "The LED produces light as an indicator. A motor produces movement, so the two parts perform different output functions.",
+      "explanation": "An indicator and a motion-producing component are not interchangeable just because both are controlled outputs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the LED's light output."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the motor's motion-producing function."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "id": "ndv-318-016",
+      "objectiveId": "nerdc-bdl-primary4-318-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A robot model has a tactile switch labelled Start. Explain what pressing the switch supplies to the control system and why the label alone does not make the robot start.",
+      "answer": "Pressing it supplies an input, such as a change in the switch state. The program must interpret that input and command the required start behaviour.",
+      "explanation": "A physical input is not the complete programmed response.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies switch press as an input."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need for programmed interpretation or response."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "id": "ndv-318-017",
+      "objectiveId": "nerdc-bdl-primary4-318-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why can a group of LEDs arranged as a display show a simple arrow more clearly than one small indicator LED?",
+      "answer": "Different LEDs in the group can be lit in a pattern that outlines an arrow. One indicator mainly signals through its light state and cannot by itself form that multi-point shape.",
+      "explanation": "The answer concerns the display's arranged light points. No particular display size or wiring arrangement is assumed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links multiple controllable light points with a pattern."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the limitation of one indicator for making the arrow shape."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "microbit-components-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of circuit accessories",
+      "learningObjective": "Explain the functions of breadboard, resistor and jumper wire.",
+      "id": "ndv-318-018",
+      "objectiveId": "nerdc-bdl-primary4-318-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher plans to try several different arrangements of components before choosing a final circuit design. Explain one reason a solderless breadboard is useful for this purpose.",
+      "answer": "Components can be inserted into its contacts and rearranged without soldering, making temporary circuit arrangements easier to change.",
+      "explanation": "This is written preparation only. It does not ask the pupil to build, connect or energise a circuit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies temporary connections without soldering."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that components can be rearranged during prototyping."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "adafruit-accessories-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of circuit accessories",
+      "learningObjective": "Explain the functions of breadboard, resistor and jumper wire.",
+      "id": "ndv-318-019",
+      "objectiveId": "nerdc-bdl-primary4-318-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the function of a jumper wire in a classroom circuit model. Does a wire itself store the robot's program?",
+      "answer": "A jumper wire makes an electrical connection between circuit points or components. It does not store the robot's program; program storage and execution belong to the control electronics.",
+      "explanation": "The explanation distinguishes an electrical connection from computation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes making an electrical connection."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the wire as the program-storage component."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "adafruit-accessories-reference-318"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Robotics",
+      "subtopic": "Functions of circuit accessories",
+      "learningObjective": "Explain the functions of breadboard, resistor and jumper wire.",
+      "id": "ndv-318-020",
+      "objectiveId": "nerdc-bdl-primary4-318-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher's simple LED-circuit diagram includes a resistor chosen for that circuit. Explain its current-limiting purpose and why it should not simply be replaced by a plain connecting wire.",
+      "answer": "The resistor opposes current flow and helps limit the current through the LED. Replacing it with a plain connection removes that intended current-limiting function.",
+      "explanation": "No resistor value, circuit assembly or power test is requested. Component selection requires the actual circuit specifications.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains resistance or current limitation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains loss of the intended limiting function with a plain connection."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written concept or recognition preparation only. This task does not establish physical component identification, assembly, wiring or robot programming. No equipment is to be powered or handled for this question.",
+      "contentSourceId": "adafruit-accessories-reference-318"
+    }
+  ]
+}

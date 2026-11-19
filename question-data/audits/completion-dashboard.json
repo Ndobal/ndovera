@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5633,
-    "validDrafts": 3954,
+    "raw": 5653,
+    "validDrafts": 3974,
     "reviewed": 0,
     "registeredBanks": 202,
     "target": 184000,
@@ -2036,6 +2036,12 @@
       "sha256": "01a011af63a8debc53660d195be5d5098eeb936a02199d48ee6c298108aec71e",
       "declared": 23,
       "actual": 23
+    },
+    {
+      "path": "original-multisubject-batch-318.json",
+      "sha256": "5fc95f28a2b07f427ae4954d5af606f507cbeb5c2cfc938bd1db2c942e685c30",
+      "declared": 20,
+      "actual": 20
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5767,18 +5773,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-bdl-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 91,
-      "validDrafts": 91,
+      "raw": 111,
+      "validDrafts": 111,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 91
+        "structured": 111
       },
       "difficulty": {
-        "standard": 91
+        "standard": 111
       },
-      "remaining": 909,
-      "mappedObjectives": 43,
-      "representedObjectives": 43,
+      "remaining": 889,
+      "mappedObjectives": 50,
+      "representedObjectives": 50,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7963,10 +7969,10 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -46278,6 +46284,126 @@
       "id": "ndv-317-024",
       "file": "original-multisubject-batch-317.json",
       "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-001",
+      "file": "original-multisubject-batch-318.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-002",
+      "file": "original-multisubject-batch-318.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-003",
+      "file": "original-multisubject-batch-318.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-004",
+      "file": "original-multisubject-batch-318.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-005",
+      "file": "original-multisubject-batch-318.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-006",
+      "file": "original-multisubject-batch-318.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-007",
+      "file": "original-multisubject-batch-318.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-008",
+      "file": "original-multisubject-batch-318.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-009",
+      "file": "original-multisubject-batch-318.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-010",
+      "file": "original-multisubject-batch-318.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-011",
+      "file": "original-multisubject-batch-318.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-012",
+      "file": "original-multisubject-batch-318.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-013",
+      "file": "original-multisubject-batch-318.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-014",
+      "file": "original-multisubject-batch-318.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-015",
+      "file": "original-multisubject-batch-318.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-016",
+      "file": "original-multisubject-batch-318.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-017",
+      "file": "original-multisubject-batch-318.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-018",
+      "file": "original-multisubject-batch-318.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-019",
+      "file": "original-multisubject-batch-318.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-318-020",
+      "file": "original-multisubject-batch-318.json",
+      "index": 19,
       "errors": []
     },
     {
@@ -113584,6 +113710,216 @@
       },
       "tiers": {
         "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-1-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Meaning of robotics",
+      "learningObjective": "Explain the meaning of robotics.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 1 and knowledge 1; discussion activity"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-2-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Types of robots",
+      "learningObjective": "List basic types of robots.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 2 and knowledge 2; activity on robot types"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-3-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Sensors and actuators",
+      "learningObjective": "Explain basic features of robots.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 3 and knowledge 3; activity on robot features"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-4-v1",
+      "topic": "Basics of Robotics",
+      "subtopic": "Benefits and uses",
+      "learningObjective": "Explain benefits and uses of robots.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 20 (PDF p. 33), Basics of Robotics, performance objective 4 and knowledge 4; PDF p. 34, printed p. 21, Robotics, performance objective 1, knowledge 1 and evaluation 1"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-5-v1",
+      "topic": "Robotics",
+      "subtopic": "Recognising electronic components",
+      "learningObjective": "Identify basic electronic components in a robot.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, performance objective 3, knowledge 3 and evaluation 3; written recognition only"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-6-v1",
+      "topic": "Robotics",
+      "subtopic": "Functions of robot components",
+      "learningObjective": "State functions of basic components in a robot.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, performance objective 4 and knowledge 3; component-function preparation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-318-7-v1",
+      "topic": "Robotics",
+      "subtopic": "Functions of circuit accessories",
+      "learningObjective": "Explain the functions of breadboard, resistor and jumper wire.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 21 (PDF p. 34), Robotics, knowledge 2 and evaluation 2; partial written preparation, not performance objective 2 physical identification"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",

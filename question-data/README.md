@@ -1688,3 +1688,13 @@ inventory preserves the historical-device/Stage wording conflicts, limited
 save-sprite interpretation, omitted commercial-game examples and model
 geometry checks. Classroom performance, school adoption and full coverage
 remain open.
+
+Batch 318 adds twenty Primary 4 Basic Digital Literacy written robotics
+drafts from printed pp. 20–21 (PDF pp. 33–34). Seven author-proposed mappings
+cover robot concepts, categories, features, benefits and component/accessory
+functions. An original component SVG supports limited written recognition.
+The source inventory preserves the unrelated evaluation text and outcome
+conflicts. Arduino kit age guidance does not establish Primary 4 suitability;
+physical identification, powered projects and autonomous programming remain
+deferred pending exact suitable equipment and instructions. No practical
+competence or school adoption is asserted.
