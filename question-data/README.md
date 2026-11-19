@@ -1654,3 +1654,10 @@ File Management drafts map four initial performance objectives on printed p. 8
 Class landing pages still returned 403 and an indexed Primary 1 CCA PDF returned
 404. The access inventory records these results, the successful PDF checksum
 and remaining coverage, adoption and delivery gaps.
+
+Batch 314 adds twelve Primary 4 Basic Digital Literacy drafts for Interface
+Customisation and Digital Content Creation. Six additional performance-objective
+mappings use printed pp. 7 and 9 (PDF pp. 20 and 22). The mapping inventory
+reconciles activity and evaluation columns and records source wording and page
+number conflicts. Seven tasks require device observation. Full coverage,
+application provision and school adoption remain open.

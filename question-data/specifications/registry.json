@@ -3420,13 +3420,16 @@
       "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
       "sourceSections": [
         "Cover, PDF p. 1",
-        "File Management, printed p. 8 (PDF p. 21)"
+        "File Management, printed p. 8 (PDF p. 21)",
+        "Interface Customisation, printed p. 7 (PDF p. 20)",
+        "Digital Content Creation, printed p. 9 (PDF p. 22)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject."
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency.",
+      "lastSourceRecheck": "2026-11-19"
     }
   ],
   "banks": [
@@ -39276,6 +39279,114 @@
       ],
       "sourceSections": [
         "Printed p. 8 (PDF p. 21), File Management performance objective 4"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-1-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Meaning of customisation",
+      "learningObjective": "Explain the meaning of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 1; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-2-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Examples of customisation",
+      "learningObjective": "Identify examples of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 2; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-3-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Changing display appearance",
+      "learningObjective": "Change a device theme and wallpaper.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 3; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-4-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Word",
+      "learningObjective": "Create and edit a simple document using MS Word.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 1; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-5-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS PowerPoint",
+      "learningObjective": "Create and edit a simple presentation using MS PowerPoint.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 2; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-6-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Excel",
+      "learningObjective": "Create and edit a simple spreadsheet using MS Excel.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 3; learning activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

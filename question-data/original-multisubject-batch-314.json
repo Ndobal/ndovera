@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 Basic Digital Literacy interface and content creation",
+  "questionCount": 12,
+  "note": "Original written and device-performance practice from exact-class revised curriculum. Seven practical tasks require preparation and observation. Written precursors do not demonstrate full practical competencies. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Meaning of customisation",
+      "learningObjective": "Explain the meaning of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-001",
+      "objectiveId": "nerdc-bdl-primary4-314-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil chooses a different wallpaper on the classroom tablet. Explain what interface customisation means and how this is an example.",
+      "answer": "Interface customisation changes the appearance or arrangement of the controls and display used to interact with a device. Choosing a wallpaper changes the background appearance.",
+      "explanation": "The example concerns a setting of the device interface.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains customisation as adjusting the interface’s appearance or arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Connects wallpaper choice to the display background."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate device operation or named-application performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Examples of customisation",
+      "learningObjective": "Identify examples of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-002",
+      "objectiveId": "nerdc-bdl-primary4-314-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ada changes her computer’s theme. Musa adds a new sentence to a story in Word. Which action is an example of interface customisation? Explain the difference.",
+      "answer": "Ada’s theme change is interface customisation. Musa changes the contents of a document.",
+      "explanation": "The task distinguishes display settings from information created inside an application.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the theme change as interface customisation."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the story edit as a content change."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate device operation or named-application performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Changing display appearance",
+      "learningObjective": "Change a device theme and wallpaper.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-003",
+      "objectiveId": "nerdc-bdl-primary4-314-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task. On a teacher-approved practice device, choose one of the installed themes and a teacher-approved wallpaper. Apply both choices and show your teacher what changed. Then restore the starting appearance recorded by your teacher.",
+      "answer": "The pupil applies the selected theme and wallpaper, identifies the visible changes and restores the recorded starting appearance.",
+      "explanation": "Assess the changes on the actual device. Menu names and available choices vary.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Applies an available installed theme."
+        },
+        {
+          "marks": 1,
+          "description": "Applies the approved wallpaper and identifies its effect."
+        },
+        {
+          "marks": 1,
+          "description": "Restores the teacher-recorded starting appearance."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Word",
+      "learningObjective": "Create and edit a simple document using MS Word.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-004",
+      "objectiveId": "nerdc-bdl-primary4-314-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS Word. Create a short notice for a class reading afternoon. Include the heading Reading Afternoon, the day Friday, the time 2 p.m. and the place Class Library. Arrange it so readers can find each detail easily, and save it in the teacher’s practice folder.",
+      "answer": "A saved Word document contains the heading and all three event details in a readable arrangement.",
+      "explanation": "The task assesses the pupil’s ability to create and organise simple digital text.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the notice in MS Word."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the heading, day, time and place accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a readable arrangement and saves the document in the assigned folder."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Word",
+      "learningObjective": "Create and edit a simple document using MS Word.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-005",
+      "objectiveId": "nerdc-bdl-primary4-314-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS Word. Your teacher has prepared this sentence in a document: Our class has a red box for paper. Change red to blue and add a second sentence saying where the box is kept. Keep the rest of the original sentence, save the file and show the edited text.",
+      "answer": "The original sentence now says blue, and a second sentence gives a plausible location for the box.",
+      "explanation": "Observe editing of the prepared text and the saved result. Accept different clear location sentences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces red with blue while preserving the rest of the sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Adds a meaningful sentence about location."
+        },
+        {
+          "marks": 1,
+          "description": "Saves and shows the edited document."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Word",
+      "learningObjective": "Create and edit a simple document using MS Word.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-006",
+      "objectiveId": "nerdc-bdl-primary4-314-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil is making a Word notice for a school exhibition. The text looks neat, but it does not say where the exhibition will take place. Recommend one edit and explain why it matters to readers.",
+      "answer": "Add the exhibition’s location. Readers need the place to know where to go.",
+      "explanation": "This written precursor assesses a purposeful editing decision. Practical Word use must be observed separately.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes adding the missing location."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the addition helps the intended readers."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate device operation or named-application performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS PowerPoint",
+      "learningObjective": "Create and edit a simple presentation using MS PowerPoint.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-007",
+      "objectiveId": "nerdc-bdl-primary4-314-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS PowerPoint. Make a two-slide presentation about looking after a class plant. Put the title Our Class Plant on the first slide. Give two simple care actions on the second slide. Save it, then show both slides to your teacher.",
+      "answer": "A saved PowerPoint file has a title slide and a second slide with two sensible plant-care actions.",
+      "explanation": "The focus is creating and displaying simple presentation content. Accept reasonable age-appropriate care actions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the two slides in MS PowerPoint."
+        },
+        {
+          "marks": 1,
+          "description": "Places the title and two actions on the requested slides."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the presentation and shows both slides."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS PowerPoint",
+      "learningObjective": "Create and edit a simple presentation using MS PowerPoint.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-008",
+      "objectiveId": "nerdc-bdl-primary4-314-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS PowerPoint. Your teacher has prepared three slides about making a paper card. Their titles, in order, are Decorate the Card, Fold the Paper and Give the Card. Reorder them so the actions make sense. Add the heading Card-Making Steps to the first slide without removing its existing content, then save the presentation.",
+      "answer": "The slides are ordered Fold the Paper, Decorate the Card and Give the Card. The first slide also carries the added heading.",
+      "explanation": "Observe that the pupil changes slide order and edits text in the presentation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reorders the three slides into a sensible sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the heading while preserving the first slide’s existing content."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the edited presentation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS PowerPoint",
+      "learningObjective": "Create and edit a simple presentation using MS PowerPoint.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-009",
+      "objectiveId": "nerdc-bdl-primary4-314-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil’s PowerPoint slide for younger children has a long paragraph describing a three-step activity. Suggest an edit that would help the children follow the steps, and explain how it helps.",
+      "answer": "Separate the activity into three short, clearly ordered points or slides. This makes each step easier to find and follow.",
+      "explanation": "Accept different edits that make the sequence clear. This written task is a precursor to observing PowerPoint editing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests separating or shortening the three steps in a clear order."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the benefit for the younger audience."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate device operation or named-application performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Excel",
+      "learningObjective": "Create and edit a simple spreadsheet using MS Excel.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-010",
+      "objectiveId": "nerdc-bdl-primary4-314-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS Excel. Create a sheet with the headings Item and Number. Enter Pencils with 12, Rulers with 5 and Erasers with 8 on separate rows. Save the sheet and show that each number is beside the correct item.",
+      "answer": "A saved Excel sheet has two labelled columns and three correctly paired item-and-number rows.",
+      "explanation": "The task assesses basic entry and organisation in a spreadsheet, without requiring formulas.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates the two column headings in MS Excel."
+        },
+        {
+          "marks": 1,
+          "description": "Enters all three item-and-number pairs in separate rows."
+        },
+        {
+          "marks": 1,
+          "description": "Saves the sheet and shows the correct row pairings."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Excel",
+      "learningObjective": "Create and edit a simple spreadsheet using MS Excel.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-011",
+      "objectiveId": "nerdc-bdl-primary4-314-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical task in MS Excel. Your teacher has prepared a table with Book A and 4 on one row, and Book B and 7 on another. The class now has 6 copies of Book A. Update only its number. Add Book C and 3 on a new row, save the sheet and show your teacher what changed.",
+      "answer": "The table shows Book A with 6, Book B with 7, and Book C with 3.",
+      "explanation": "Observe accurate editing of a prepared spreadsheet and preservation of the row that did not need a change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Updates Book A’s number to 6."
+        },
+        {
+          "marks": 1,
+          "description": "Adds Book C with 3 while retaining Book B with 7."
+        },
+        {
+          "marks": 1,
+          "description": "Saves and displays the revised table."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher prepares the named content and an authorised practice device with the named application or supported display settings. Observe the pupil and the saved result. Application/device availability and actual delivery are unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Excel",
+      "learningObjective": "Create and edit a simple spreadsheet using MS Excel.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "ndv-314-012",
+      "objectiveId": "nerdc-bdl-primary4-314-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An Excel sheet has a column of item names and another column of numbers. A pupil enters a new item name on one row but places its number on the row below. Explain the problem and recommend an edit.",
+      "answer": "The number no longer lines up with the item it describes. Put the number on the same row as that item and check the other rows for correct pairings.",
+      "explanation": "This written precursor assesses the organisation of information in a spreadsheet. It does not establish practical Excel performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the row mismatch makes the item-and-number relationship unclear."
+        },
+        {
+          "marks": 1,
+          "description": "Recommends correcting the row alignment."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate device operation or named-application performance."
+    }
+  ]
+}

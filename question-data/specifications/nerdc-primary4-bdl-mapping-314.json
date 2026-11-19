@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "topics": [
+    {
+      "topic": "Interface Customisation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "performanceObjectiveNumbers": [
+        1,
+        2,
+        3
+      ],
+      "activityAlignment": "Discussion and examples lead to an actual theme/wallpaper task.",
+      "evaluationAlignment": "Discussion and changing theme/wallpaper; practical evidence requires device observation.",
+      "unresolved": "The source’s competency column mentions searching examples of digital devices rather than directly demonstrating display changes. This wording is retained as an alignment issue."
+    },
+    {
+      "topic": "Digital Content Creation",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "performanceObjectiveNumbers": [
+        1,
+        2,
+        3
+      ],
+      "activityAlignment": "Create and edit text in Word, simple presentations in PowerPoint and spreadsheets in Excel.",
+      "evaluationAlignment": "Named-application creation/editing is tested through saved artefacts and direct observation.",
+      "unresolved": "Performance objectives name the applications as the object of create/edit. Interpretation follows the activity and evaluation columns. Contents page points to p. 10 while the body footer reads p. 9."
+    }
+  ],
+  "objectiveIds": [
+    "nerdc-bdl-primary4-314-1-v1",
+    "nerdc-bdl-primary4-314-2-v1",
+    "nerdc-bdl-primary4-314-3-v1",
+    "nerdc-bdl-primary4-314-4-v1",
+    "nerdc-bdl-primary4-314-5-v1",
+    "nerdc-bdl-primary4-314-6-v1"
+  ],
+  "evidenceStatus": "Source tables read; pages rendered for visual check. No school adoption or formal assessment equivalence established.",
+  "remaining": [
+    "Other source topics and complete performance-objective inventory",
+    "Full competency reconciliation",
+    "Named applications, device provision and observed delivery",
+    "Official term placement and school adoption"
+  ]
+}

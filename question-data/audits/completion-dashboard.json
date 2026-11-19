@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5554,
-    "validDrafts": 3875,
+    "raw": 5566,
+    "validDrafts": 3887,
     "reviewed": 0,
     "registeredBanks": 202,
     "target": 184000,
@@ -2010,6 +2010,12 @@
     {
       "path": "original-multisubject-batch-313.json",
       "sha256": "3f77d50a3a061f9afcf6359c05b3be69fc575ecb36dd1182ac93bb234af1362a",
+      "declared": 12,
+      "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-314.json",
+      "sha256": "dff493a85fd9a5a3536e4eca33290d53433b872937ba4bcde33eb7992650e08f",
       "declared": 12,
       "actual": 12
     },
@@ -5743,18 +5749,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-bdl-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 12,
-      "validDrafts": 12,
+      "raw": 24,
+      "validDrafts": 24,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 12
+        "structured": 24
       },
       "difficulty": {
-        "standard": 12
+        "standard": 24
       },
-      "remaining": 988,
-      "mappedObjectives": 4,
-      "representedObjectives": 4,
+      "remaining": 976,
+      "mappedObjectives": 10,
+      "representedObjectives": 10,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7939,17 +7945,17 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
+    "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -45779,6 +45785,78 @@
     {
       "id": "ndv-313-012",
       "file": "original-multisubject-batch-313.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-001",
+      "file": "original-multisubject-batch-314.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-002",
+      "file": "original-multisubject-batch-314.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-003",
+      "file": "original-multisubject-batch-314.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-004",
+      "file": "original-multisubject-batch-314.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-005",
+      "file": "original-multisubject-batch-314.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-006",
+      "file": "original-multisubject-batch-314.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-007",
+      "file": "original-multisubject-batch-314.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-008",
+      "file": "original-multisubject-batch-314.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-009",
+      "file": "original-multisubject-batch-314.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-010",
+      "file": "original-multisubject-batch-314.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-011",
+      "file": "original-multisubject-batch-314.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-314-012",
+      "file": "original-multisubject-batch-314.json",
       "index": 11,
       "errors": []
     },
@@ -111915,6 +111993,186 @@
       },
       "tiers": {
         "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-1-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Meaning of customisation",
+      "learningObjective": "Explain the meaning of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 1; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-2-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Examples of customisation",
+      "learningObjective": "Identify examples of interface customisation.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 2; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-3-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Interface Customisation",
+      "subtopic": "Changing display appearance",
+      "learningObjective": "Change a device theme and wallpaper.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Interface Customisation, performance objective 3; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-4-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Word",
+      "learningObjective": "Create and edit a simple document using MS Word.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 1; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-5-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS PowerPoint",
+      "learningObjective": "Create and edit a simple presentation using MS PowerPoint.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 2; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "id": "nerdc-bdl-primary4-314-6-v1",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "topic": "Digital Content Creation",
+      "subtopic": "Creating and editing with MS Excel",
+      "learningObjective": "Create and edit a simple spreadsheet using MS Excel.",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 3; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
