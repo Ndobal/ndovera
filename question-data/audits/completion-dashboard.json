@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5832,
-    "validDrafts": 4153,
+    "raw": 5850,
+    "validDrafts": 4171,
     "reviewed": 0,
     "registeredBanks": 203,
     "target": 185000,
@@ -2090,6 +2090,12 @@
       "sha256": "da06329ededfb89805986e8536cac8624199f0a5b16375a18b1701a229fc44b2",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-328.json",
+      "sha256": "cdc676353bc4151c59f325d4fe8a878d845d27426048a0f89002142e4a384093",
+      "declared": 18,
+      "actual": 18
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6258,18 +6264,18 @@
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified.",
-      "raw": 12,
-      "validDrafts": 12,
+      "raw": 30,
+      "validDrafts": 30,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 12
+        "structured": 30
       },
       "difficulty": {
-        "standard": 12
+        "standard": 30
       },
-      "remaining": 988,
-      "mappedObjectives": 8,
-      "representedObjectives": 8,
+      "remaining": 970,
+      "mappedObjectives": 17,
+      "representedObjectives": 17,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8046,17 +8052,17 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81
   },
   "mathematicalVerification": {
@@ -47555,6 +47561,114 @@
       "id": "ndv-327-012",
       "file": "original-multisubject-batch-327.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-001",
+      "file": "original-multisubject-batch-328.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-002",
+      "file": "original-multisubject-batch-328.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-003",
+      "file": "original-multisubject-batch-328.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-004",
+      "file": "original-multisubject-batch-328.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-005",
+      "file": "original-multisubject-batch-328.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-006",
+      "file": "original-multisubject-batch-328.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-007",
+      "file": "original-multisubject-batch-328.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-008",
+      "file": "original-multisubject-batch-328.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-009",
+      "file": "original-multisubject-batch-328.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-010",
+      "file": "original-multisubject-batch-328.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-011",
+      "file": "original-multisubject-batch-328.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-012",
+      "file": "original-multisubject-batch-328.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-013",
+      "file": "original-multisubject-batch-328.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-014",
+      "file": "original-multisubject-batch-328.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-015",
+      "file": "original-multisubject-batch-328.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-016",
+      "file": "original-multisubject-batch-328.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-017",
+      "file": "original-multisubject-batch-328.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-328-018",
+      "file": "original-multisubject-batch-328.json",
+      "index": 17,
       "errors": []
     },
     {
@@ -117934,6 +118048,276 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-1-v1",
+      "topic": "Ezinụlọ",
+      "subtopic": "Meaning of family",
+      "learningObjective": "Explain family using suitable examples without assuming a single household arrangement.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Mbunuche objective 1; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-2-v1",
+      "topic": "Ezinụlọ",
+      "subtopic": "Family members",
+      "learningObjective": "Identify named family members and their stated relationships in a fictional description.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Mbunuche objective 2; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-3-v1",
+      "topic": "Ezinụlọ",
+      "subtopic": "Household roles",
+      "learningObjective": "Describe the household contributions of parents and children in a stated family context.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Mbunuche objective 3; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-4-v1",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Read-aloud clarity",
+      "learningObjective": "Read an original family-related passage aloud with intelligible phrasing and meaning.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Mbunuche objective 1; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-5-v1",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Words needing clarification",
+      "learningObjective": "Identify and explain contextual vocabulary in an original family-related passage.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Mbunuche objective 2; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-6-v1",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "questionTypes": {
+        "structured": 6
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Mbunuche objective 3; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 6,
+      "validDrafts": 6,
+      "difficulty": {
+        "standard": 6
+      },
+      "tiers": {
+        "not_specified": 6
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-7-v1",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Discussing a passage",
+      "learningObjective": "Express and support a view about a family-related passage through a short discussion.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Mbunuche objective 4; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-8-v1",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Meaning of relationships",
+      "learningObjective": "Explain interpersonal relationships using an appropriate everyday example.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Mbunuche objective 2; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-328-9-v1",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Relationship vocabulary",
+      "learningObjective": "Supply suitable relationship-related words and use them meaningfully in context.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Mbunuche objective 3; related content, skills and activities"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -118034,6 +118418,7 @@
     "Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist.",
     "Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed.",
     "Run326 inventories all55 numbered Primary4 Igbo objectives in15 tables, with zero draft mappings. Source terminology, mixed pronunciation notation and the fifty-versus-500 range discrepancy remain unresolved. Inventory is not question coverage or academic review. Native-language prompts/keys, actual oral/practical evidence, school language choice/adoption and official term placement remain open.",
-    "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open."
+    "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.",
+    "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open."
   ]
 }

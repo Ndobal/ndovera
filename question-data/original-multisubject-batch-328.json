@@ -1,0 +1,868 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo family comprehension, roles and interpersonal vocabulary",
+  "questionCount": 18,
+  "note": "Eighteen original structured drafts:14 written and4 spoken reading/discussion tasks, three original fictional passages, nine additional author mappings. No fixed gender duties, universal household structure, real family disclosure, actual recording/classroom performance or independent native review claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ezinụlọ",
+      "subtopic": "Meaning of family",
+      "learningObjective": "Explain family using suitable examples without assuming a single household arrangement.",
+      "id": "ndv-328-001",
+      "objectiveId": "nerdc-igbo-primary4-328-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ihe ezinụlọ pụtara n’otu ahịrịokwu. Nye ọmụmaatụ mmadụ abụọ nwere ike ịbụ ndị otu ezinụlọ. Ị nwere ike iji ezinụlọ i chepụtara.",
+      "answer": "Ezinụlọ bụ otu ndị mmadụ nwere njikọ dịka nne, nna, ụmụaka na ndị ikwu. Ọmụmaatụ: nne na nwa ya.",
+      "explanation": "The answer gives a general family relationship and an illustrative pair. It does not require every family to have the same members or live in one house.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains family as a group connected through family relationships in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Gives two plausible related members, without requiring disclosure of the learner’s own family."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ezinụlọ",
+      "subtopic": "Family members",
+      "learningObjective": "Identify named family members and their stated relationships in a fictional description.",
+      "id": "ndv-328-002",
+      "objectiveId": "nerdc-igbo-primary4-328-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Site n’ederede a, depụta aha nne Ada, nna Ada na nne nne Ada. Kọwaa otu i si mata onye bụ nne nne ya.",
+      "answer": "Nne Ada bụ Uju. Nna Ada bụ Obi. Nne nne Ada bụ Akụnne, n’ihi na Akụnne bụ nne Uju, Uju bụkwa nne Ada.",
+      "explanation": "The maternal-grandmother relationship follows from two explicitly stated mother relationships; no unstated relationship is needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Uju as Ada’s mother."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Obi as Ada’s father."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Akụnne as Ada’s maternal grandmother."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the stated mother-of-mother link in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Nne Ada bụ Uju. Nna Ada bụ Obi. Nne Uju bụ Akụnne.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ezinụlọ",
+      "subtopic": "Household roles",
+      "learningObjective": "Describe the household contributions of parents and children in a stated family context.",
+      "id": "ndv-328-003",
+      "objectiveId": "nerdc-igbo-primary4-328-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’akụkọ Ọrụ ọnụ, kọwaa ọrụ nna Uche, nne Uche na Uche na-arụ. Gịnị ka nke a na-egosi banyere otu ha si arụ ọrụ?",
+      "answer": "Nna Uche na-asa efere. Nne Uche na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Ha na-ekekọrịta ọrụ.",
+      "explanation": "These are the roles of the fictional characters in this passage, not universal gender duties.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the father washing dishes."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the mother cleaning the table."
+        },
+        {
+          "marks": 1,
+          "description": "Describes Uche putting books in the bag."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that work is shared in this particular family."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Ọrụ ọnụ\nN’ụtụtụ Satọdee, nne na nna Uche na-edozi ụlọ. Nna ya na-asa efere. Nne ya na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Nwanne ya Nneka na-achịkọta ihe ụmụaka ji egwuri egwu. Ha rụchaa ọrụ, ha niile na-anọdụ ala gụọ akwụkwọ. Ọ dịghị onye na-arụ ọrụ niile naanị ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-004",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Họrọ ahịrịokwu n’akụkọ Ọrụ ọnụ nke na-egosi na ọrụ ahụ abụghị nke otu onye. Kọwaa ihe mere ahịrịokwu ahụ ji kwado azịza gị.",
+      "answer": "Ọ dịghị onye na-arụ ọrụ niile naanị ya. Ahịrịokwu a na-egosi na ndị ezinụlọ na-ekekọrịta ọrụ.",
+      "explanation": "The final sentence directly supports the interpretation; a relevant combination of earlier character actions can also support it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the final sentence or identifies multiple relevant contributions accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the evidence shows shared rather than solitary work."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Ọrụ ọnụ\nN’ụtụtụ Satọdee, nne na nna Uche na-edozi ụlọ. Nna ya na-asa efere. Nne ya na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Nwanne ya Nneka na-achịkọta ihe ụmụaka ji egwuri egwu. Ha rụchaa ọrụ, ha niile na-anọdụ ala gụọ akwụkwọ. Ọ dịghị onye na-arụ ọrụ niile naanị ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Words needing clarification",
+      "learningObjective": "Identify and explain contextual vocabulary in an original family-related passage.",
+      "id": "ndv-328-005",
+      "objectiveId": "nerdc-igbo-primary4-328-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Chọta okwu na-egosi ihe Nneka na-eme n’ihe ụmụaka ji egwuri egwu. Kọwaa ihe okwu ahụ pụtara n’akụkọ a. Họrọkwa otu okwu ọzọ ị chọrọ ka unu tụlee.",
+      "answer": "Okwu ahụ bụ na-achịkọta. Ọ pụtara na Nneka na-etinye ihe ndị ahụ ọnụ. Okwu ọzọ a pụrụ ịtụle bụ na-ehicha.",
+      "explanation": "Context shows gathering the playthings together. The learner may choose a different additional word for discussion; genuine unfamiliarity is not assumed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies na-achịkọta in the passage."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its gathering/collecting meaning in this context in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Selects another actual passage word for clarification or discussion."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Ọrụ ọnụ\nN’ụtụtụ Satọdee, nne na nna Uche na-edozi ụlọ. Nna ya na-asa efere. Nne ya na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Nwanne ya Nneka na-achịkọta ihe ụmụaka ji egwuri egwu. Ha rụchaa ọrụ, ha niile na-anọdụ ala gụọ akwụkwọ. Ọ dịghị onye na-arụ ọrụ niile naanị ya.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Record which word the learner wishes to discuss; do not claim that a preselected word is new to every pupil. Accept an already-known word worth discussing if none is unfamiliar."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Read-aloud clarity",
+      "learningObjective": "Read an original family-related passage aloud with intelligible phrasing and meaning.",
+      "id": "ndv-328-006",
+      "objectiveId": "nerdc-igbo-primary4-328-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụpụta Ọrụ ọnụ n’olu ka onye nkụzi nụ. Mee ka ọ doo anya onye na-arụ ọrụ nke ọ bụla. Mgbe ị gụchara, gwa ya ihe ha niile mere mgbe ha rụchara ọrụ.",
+      "answer": "A successful performance reads the supplied Igbo passage intelligibly and distinguishes its actors and sentence boundaries. Ha niile nọdụrụ ala gụọ akwụkwọ mgbe ha rụchara ọrụ.",
+      "explanation": "A read-aloud task requires actual spoken evidence. The brief follow-up checks the meaning of the final shared activity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads the passage with sufficient accuracy to preserve meaning; allow self-correction."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible phrasing that distinguishes the listed people and actions."
+        },
+        {
+          "marks": 1,
+          "description": "States in Igbo that they sat together to read after the work."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "spoken",
+      "passage": "Ọrụ ọnụ\nN’ụtụtụ Satọdee, nne na nna Uche na-edozi ụlọ. Nna ya na-asa efere. Nne ya na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Nwanne ya Nneka na-achịkọta ihe ụmụaka ji egwuri egwu. Ha rụchaa ọrụ, ha niile na-anọdụ ala gụọ akwụkwọ. Ọ dịghị onye na-arụ ọrụ niile naanị ya.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Examiner listens to the complete individual reading and then asks about the activity after the work. No invented national fluency rate is applied.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. Examiner checks the Igbo wording and task suitability, supplies the stated follow-up, and scores the actual response. Written preparation alone does not establish performance. No actual recording, classroom execution, fixed reading speed, universal accent/tone standard or examiner calibration is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Discussing a passage",
+      "learningObjective": "Express and support a view about a family-related passage through a short discussion.",
+      "id": "ndv-328-007",
+      "objectiveId": "nerdc-igbo-primary4-328-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gị na onye nkụzi kwurịta Ọrụ ọnụ. Ị chere na ikekọrịta ọrụ nyeere ezinụlọ a aka? Kwupụta uche gị, nye ihe akaebe n’akụkọ, ma zaa ajụjụ onye nkụzi ga-ajụ.",
+      "answer": "Ee, echere m na ọ nyeere ha aka. Onye ọ bụla nwere ihe ọ na-eme. Mgbe ha rụchara ọrụ, ha niile gụrụ akwụkwọ. Ha nwere ike ikwurịta ọrụ ahụ tupu ha amalite.",
+      "explanation": "A justified alternative view is acceptable. The learner must connect an opinion to the passage and respond to a further question, not merely recite a slogan.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a clear relevant view in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Supports the view using an accurate detail from the passage."
+        },
+        {
+          "marks": 1,
+          "description": "Responds meaningfully to the examiner’s follow-up about how the family could organise the tasks."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "spoken",
+      "passage": "Ọrụ ọnụ\nN’ụtụtụ Satọdee, nne na nna Uche na-edozi ụlọ. Nna ya na-asa efere. Nne ya na-ehicha tebụl. Uche na-edobe akwụkwọ ya n’akpa. Nwanne ya Nneka na-achịkọta ihe ụmụaka ji egwuri egwu. Ha rụchaa ọrụ, ha niile na-anọdụ ala gụọ akwụkwọ. Ọ dịghị onye na-arụ ọrụ niile naanị ya.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "After the initial view, examiner asks “Olee otú ha ga-esi hazie ọrụ ahụ?” Accept different reasonable arrangements; do not require a personal family account.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. Examiner checks the Igbo wording and task suitability, supplies the stated follow-up, and scores the actual response. Written preparation alone does not establish performance. No actual recording, classroom execution, fixed reading speed, universal accent/tone standard or examiner calibration is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-008",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’Akụkọ nne nne, gịnị mere tupu Obinna abịa? Gịnị ka Ada mere mgbe Obinna jụrụ otú akụkọ ahụ si malite?",
+      "answer": "Tupu Obinna abịa, nne nne Ada amalitela ịkọ akụkọ, Ada dekwara ihe ndị dị mkpa n’akwụkwọ. Mgbe Obinna jụrụ ajụjụ ahụ, Ada gụpụtara ihe o dere.",
+      "explanation": "The response distinguishes the earlier storytelling/note-making from Ada’s later use of her notes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that the story had begun before Obinna arrived."
+        },
+        {
+          "marks": 1,
+          "description": "States that Ada had written important details."
+        },
+        {
+          "marks": 1,
+          "description": "States that Ada read out what she had written when Obinna asked."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akụkọ nne nne\nAda gara ileta nne nne ya. Nne nne ya kọọrọ ya akụkọ banyere nnụnụ na osisi. Ada dere ihe ndị dị mkpa n’akwụkwọ. Mgbe nwanne ya nwoke Obinna bịara, akụkọ ahụ amalitelarị. Obinna jụrụ otú akụkọ ahụ si malite. Ada gụpụtara ihe o dere. Nne nne ya kwughachiri akụkụ mbụ ka ha abụọ ghọta ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-009",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị mere nne nne Ada ji kwughachi akụkụ mbụ? Were otu ihe dị n’ederede kwado azịza gị.",
+      "answer": "Ọ kwughachiri akụkụ mbụ ka Ada na Obinna ghọta ya. Obinna bịara mgbe akụkọ ahụ amalitelarị, jụọkwa otú o si malite.",
+      "explanation": "Obinna’s late arrival and question explain why repeating the beginning helps. Do not invent a memory or hearing problem for him.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that repeating the beginning helped them understand, particularly the late-arriving Obinna."
+        },
+        {
+          "marks": 1,
+          "description": "Supports this using his late arrival or question about the beginning."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akụkọ nne nne\nAda gara ileta nne nne ya. Nne nne ya kọọrọ ya akụkọ banyere nnụnụ na osisi. Ada dere ihe ndị dị mkpa n’akwụkwọ. Mgbe nwanne ya nwoke Obinna bịara, akụkọ ahụ amalitelarị. Obinna jụrụ otú akụkọ ahụ si malite. Ada gụpụtara ihe o dere. Nne nne ya kwughachiri akụkụ mbụ ka ha abụọ ghọta ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Words needing clarification",
+      "learningObjective": "Identify and explain contextual vocabulary in an original family-related passage.",
+      "id": "ndv-328-010",
+      "objectiveId": "nerdc-igbo-primary4-328-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Depụta okwu n’Akụkọ nne nne nke pụtara na nne nne kwuru akụkụ mbụ ọzọ. Kọwaa ọdịiche dị n’etiti ihe o mere na ihe Ada mere mgbe ọ gụrụ ihe o dere.",
+      "answer": "Okwu ahụ bụ kwughachiri. Nne nne kwuru akụkụ mbụ ọzọ. Ada gụpụtara ihe o dere n’akwụkwọ.",
+      "explanation": "The task distinguishes repeating part of a spoken story from reading written notes aloud using the context.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies kwughachiri."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the meaning of saying/telling again in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes Ada’s reading of her notes from the grandmother’s repetition."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akụkọ nne nne\nAda gara ileta nne nne ya. Nne nne ya kọọrọ ya akụkọ banyere nnụnụ na osisi. Ada dere ihe ndị dị mkpa n’akwụkwọ. Mgbe nwanne ya nwoke Obinna bịara, akụkọ ahụ amalitelarị. Obinna jụrụ otú akụkọ ahụ si malite. Ada gụpụtara ihe o dere. Nne nne ya kwughachiri akụkụ mbụ ka ha abụọ ghọta ya.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Read-aloud clarity",
+      "learningObjective": "Read an original family-related passage aloud with intelligible phrasing and meaning.",
+      "id": "ndv-328-011",
+      "objectiveId": "nerdc-igbo-primary4-328-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụpụta Akụkọ nne nne n’olu. Jiri nkwụsị kwesịrị ekwesị mee ka usoro ihe ndị mere doo anya. Kọwaa nkenke otú ihe Ada dere si baara Obinna uru.",
+      "answer": "An intelligible reading preserves the event order and uses useful pauses. Ihe Ada dere nyeere Obinna aka ịmata otú akụkọ ahụ si malite.",
+      "explanation": "This reading emphasises event order and subsequent explanation. A written answer alone cannot earn the reading-performance marks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads accurately enough to preserve the events and characters."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible pauses and phrasing to make the sequence clear."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in Igbo that Ada’s notes helped Obinna learn the beginning."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "spoken",
+      "passage": "Akụkọ nne nne\nAda gara ileta nne nne ya. Nne nne ya kọọrọ ya akụkọ banyere nnụnụ na osisi. Ada dere ihe ndị dị mkpa n’akwụkwọ. Mgbe nwanne ya nwoke Obinna bịara, akụkọ ahụ amalitelarị. Obinna jụrụ otú akụkọ ahụ si malite. Ada gụpụtara ihe o dere. Nne nne ya kwughachiri akụkụ mbụ ka ha abụọ ghọta ya.",
+      "stimulusProvenance": "original",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. Examiner checks the Igbo wording and task suitability, supplies the stated follow-up, and scores the actual response. Written preparation alone does not establish performance. No actual recording, classroom execution, fixed reading speed, universal accent/tone standard or examiner calibration is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-012",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Otu nwa kwuru na Chidi gụrụ akwụkwọ ahụ n’ụtụtụ. Ihe o kwuru ò dabara n’atụmatụ ikpeazụ? Kọwaa azịza gị site n’ederede.",
+      "answer": "Mba. N’atụmatụ ikpeazụ, Amara ga-agụ akwụkwọ ahụ n’ụtụtụ, Chidi ga-agụkwa ya n’ehihie. Ederede ekwughị na ha agụchaala ya.",
+      "explanation": "The passage reports an agreed plan, not completed reading. The answer must distinguish the first proposal from the final plan and avoid turning future actions into witnessed events.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the claim as inconsistent with the final plan."
+        },
+        {
+          "marks": 1,
+          "description": "States the final morning/afternoon allocation correctly in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises that the text gives a plan rather than proof of completed reading."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akwụkwọ ezinụlọ\nChidi na nwanne ya nwanyị Amara nwere otu akwụkwọ gbasara anụmanụ. Ha abụọ chọrọ ịgụ ya. Amara tụrụ aro ka Chidi gụọ ya n’ụtụtụ, ya agụọ ya n’ehihie. Chidi kwuru na ọ ga-anọ n’ụlọ akwụkwọ n’ụtụtụ. Ha gbanwere atụmatụ ahụ. Amara ga-agụ akwụkwọ ahụ n’ụtụtụ. Chidi ga-agụ ya n’ehihie. Ha kwetara idobe ya n’otu ebe mgbe ha gụchara.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-013",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "N’ahịrịokwu Ha abụọ chọrọ ịgụ ya, ndị Ha abụọ na-ezo aka bụ ndị ole na ndị bụ ha? Gịnị ka ya na-ezo aka n’ebe a?",
+      "answer": "Ha abụọ bụ Chidi na Amara. Ya na-ezo aka n’akwụkwọ gbasara anụmanụ ahụ.",
+      "explanation": "The subject refers to the two siblings; the object refers to their shared book. This is contextual reference comprehension, not a full grammar taxonomy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Chidi and Amara as the two people."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the animal book as the referent of ya."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akwụkwọ ezinụlọ\nChidi na nwanne ya nwanyị Amara nwere otu akwụkwọ gbasara anụmanụ. Ha abụọ chọrọ ịgụ ya. Amara tụrụ aro ka Chidi gụọ ya n’ụtụtụ, ya agụọ ya n’ehihie. Chidi kwuru na ọ ga-anọ n’ụlọ akwụkwọ n’ụtụtụ. Ha gbanwere atụmatụ ahụ. Amara ga-agụ akwụkwọ ahụ n’ụtụtụ. Chidi ga-agụ ya n’ehihie. Ha kwetara idobe ya n’otu ebe mgbe ha gụchara.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Text-grounded interpretation",
+      "learningObjective": "Answer literal and inferential questions using an original family-related passage.",
+      "id": "ndv-328-014",
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gịnị mere ha ji gbanwee aro mbụ Amara tụrụ? Kọwaa otu atụmatụ ikpeazụ si kwekọọ n’ihe Chidi kwuru.",
+      "answer": "Chidi ga-anọ n’ụlọ akwụkwọ n’ụtụtụ. Ya mere, Amara ga-agụ akwụkwọ ahụ n’ụtụtụ, Chidi agụọ ya n’ehihie.",
+      "explanation": "The plan changes in response to Chidi’s stated morning commitment; no actual school timetable or national school hours are inferred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Chidi’s stated morning school attendance as the reason."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that moving his reading to the afternoon addresses that stated conflict."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written",
+      "passage": "Akwụkwọ ezinụlọ\nChidi na nwanne ya nwanyị Amara nwere otu akwụkwọ gbasara anụmanụ. Ha abụọ chọrọ ịgụ ya. Amara tụrụ aro ka Chidi gụọ ya n’ụtụtụ, ya agụọ ya n’ehihie. Chidi kwuru na ọ ga-anọ n’ụlọ akwụkwọ n’ụtụtụ. Ha gbanwere atụmatụ ahụ. Amara ga-agụ akwụkwọ ahụ n’ụtụtụ. Chidi ga-agụ ya n’ehihie. Ha kwetara idobe ya n’otu ebe mgbe ha gụchara.",
+      "stimulusProvenance": "original"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Aghọtaazaa: Ikwunibe ndị metụtara ezinụlọ",
+      "subtopic": "Discussing a passage",
+      "learningObjective": "Express and support a view about a family-related passage through a short discussion.",
+      "id": "ndv-328-015",
+      "objectiveId": "nerdc-igbo-primary4-328-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kwurịta Akwụkwọ ezinụlọ gị na onye nkụzi. Kedu ihe masịrị gị n’otú Chidi na Amara si kpebie ihe ha ga-eme? Nye ihe mere i ji chee otú ahụ ma zaa ajụjụ onye nkụzi.",
+      "answer": "Ihe masịrị m bụ na ha gere ibe ha ntị. Mgbe Chidi kwuru na ọ ga-anọ n’ụlọ akwụkwọ, ha gbanwere atụmatụ ahụ. Ọ bụrụ na ha abụọ chọrọ akwụkwọ ahụ n’otu oge, ha nwere ike ịgụkọ ya.",
+      "explanation": "This task assesses a supported personal response and a follow-up contribution. Other defensible views and workable alternatives are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Expresses a relevant personal view in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Supports the view with a correct passage detail."
+        },
+        {
+          "marks": 1,
+          "description": "Answers the follow-up with a reasonable way of managing simultaneous demand for the book."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "spoken",
+      "passage": "Akwụkwọ ezinụlọ\nChidi na nwanne ya nwanyị Amara nwere otu akwụkwọ gbasara anụmanụ. Ha abụọ chọrọ ịgụ ya. Amara tụrụ aro ka Chidi gụọ ya n’ụtụtụ, ya agụọ ya n’ehihie. Chidi kwuru na ọ ga-anọ n’ụlọ akwụkwọ n’ụtụtụ. Ha gbanwere atụmatụ ahụ. Amara ga-agụ akwụkwọ ahụ n’ụtụtụ. Chidi ga-agụ ya n’ehihie. Ha kwetara idobe ya n’otu ebe mgbe ha gụchara.",
+      "stimulusProvenance": "original",
+      "teacherSupport": "Examiner asks “Ọ bụrụ na ha abụọ chọrọ akwụkwọ ahụ n’otu oge, gịnị ka ha nwere ike ime?” Score the reasoned response, not agreement with the sample.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. Examiner checks the Igbo wording and task suitability, supplies the stated follow-up, and scores the actual response. Written preparation alone does not establish performance. No actual recording, classroom execution, fixed reading speed, universal accent/tone standard or examiner calibration is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Meaning of relationships",
+      "learningObjective": "Explain interpersonal relationships using an appropriate everyday example.",
+      "id": "ndv-328-016",
+      "objectiveId": "nerdc-igbo-primary4-328-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kọwaa ihe mmekọrịta ndị mmadụ na ibe ha pụtara. Jiri otu ọmụmaatụ sitere n’ụlọ akwụkwọ gosi otú mmadụ abụọ si enwe ezi mmekọrịta.",
+      "answer": "Mmekọrịta bụ otu ndị mmadụ si akpakọrịta. Dịka ọmụmaatụ, ụmụakwụkwọ abụọ nwere ike ige ibe ha ntị ma nyere ibe ha aka ịghọta akwụkwọ.",
+      "explanation": "A relationship concerns how people interact; a suitable school example makes the explanation concrete without assuming that everyone is related by kinship.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains interpersonal interaction/connection in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a relevant school example involving two people."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a constructive feature such as listening, cooperation or mutual help."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Relationship vocabulary",
+      "learningObjective": "Supply suitable relationship-related words and use them meaningfully in context.",
+      "id": "ndv-328-017",
+      "objectiveId": "nerdc-igbo-primary4-328-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "I chọrọ ka enyi gị nye gị pensụl. Depụta otu okwu ị ga-eji rịọ ya nke ọma na otu okwu ị ga-eji kelee ya mgbe o nyere gị ya. Jiri okwu abụọ ahụ mee ahịrịokwu.",
+      "answer": "Biko; daalụ. Biko, nye m pensụl. Daalụ maka pensụl ahụ.",
+      "explanation": "The words perform different interpersonal functions: courteous request and gratitude. Equivalent appropriate forms are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies a suitable courteous-request expression, such as biko."
+        },
+        {
+          "marks": 1,
+          "description": "Supplies a suitable gratitude expression, such as daalụ."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the request expression appropriately in an intelligible Igbo sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the gratitude expression appropriately in an intelligible Igbo sentence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụokwu ndị metụtara mmekọrịta ndị mmadụ na ibe ha",
+      "subtopic": "Relationship vocabulary",
+      "learningObjective": "Supply suitable relationship-related words and use them meaningfully in context.",
+      "id": "ndv-328-018",
+      "objectiveId": "nerdc-igbo-primary4-328-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "I mere ka akwụkwọ enyi gị daa n’ala n’amaghị ama. Depụta okwu ị ga-eji gosi na ị na-arịọ mgbaghara. Dee ahịrịokwu ọzọ na-egosi ihe ị ga-eme iji nyere ya aka.",
+      "answer": "Ndo. Aga m eburu akwụkwọ ahụ nye gị.",
+      "explanation": "An apology and a helpful response fit the stated accidental situation. The task does not require a real incident or a prescribed physical action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Supplies an appropriate apology expression, such as ndo or an equivalent request for forgiveness."
+        },
+        {
+          "marks": 1,
+          "description": "Writes a relevant offer to help in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the response appropriate to the accidental dropped-book context."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent Igbo linguistic/academic review is pending. Preserve meaningful underdots. Contextual model answers are illustrative; accept equivalent intelligible Igbo and checked regional variants. No complete tone-marking system, national grading standard or local examiner calibration is established.",
+      "responseMode": "written"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    18,
+    19,
+    24
+  ],
+  "authorMappings": [
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-1-v1",
+      "inventoryId": "p4-igbo-table5-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-2-v1",
+      "inventoryId": "p4-igbo-table5-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-3-v1",
+      "inventoryId": "p4-igbo-table5-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-4-v1",
+      "inventoryId": "p4-igbo-table6-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-5-v1",
+      "inventoryId": "p4-igbo-table6-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-6-v1",
+      "inventoryId": "p4-igbo-table6-po3"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-7-v1",
+      "inventoryId": "p4-igbo-table6-po4"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-8-v1",
+      "inventoryId": "p4-igbo-table11-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-328-9-v1",
+      "inventoryId": "p4-igbo-table11-po3"
+    }
+  ],
+  "supplementarySources": [
+    "elias-igbo-family-vocabulary-328"
+  ],
+  "decisions": [
+    "Original fictional passages assess family cooperation, support for a late-arriving sibling and negotiation of a shared book. No copied exam question or university exercise.",
+    "Selected kinship vocabulary checked against university teaching material; its wider social/inheritance generalisations are not adopted. The school curriculum supplies the exact-class objective scope.",
+    "Source heading Ikwunibe retained. English short labels are author paraphrases, not official codes or complete kinship translations.",
+    "Reading accuracy, vocabulary clarification, text evidence, inference and actual discussion are separated. One plan remains future, not a witnessed completed action.",
+    "Word-newness varies by learner; record requested clarification rather than claiming every selected word is unfamiliar.",
+    "Underdots retained and equivalent meaningful forms accepted after examiner checking. Native linguistic review, tone/reference pronunciation and marking calibration remain pending.",
+    "Four spoken tasks require actual live or recorded evidence; no recording or classroom performance has occurred.",
+    "Family-role examples are context-specific, not universal gender duties or a required household structure. No real personal family information is required."
+  ],
+  "newQuestions": 18,
+  "written": 14,
+  "spoken": 4,
+  "academicReviewStatus": "pending"
+}
