@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "tables": [
+    {
+      "pdfPage": 15,
+      "printedPage": 2,
+      "performanceObjectives": [
+        1,
+        2
+      ]
+    },
+    {
+      "pdfPage": 23,
+      "printedPage": 10,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "objectiveIds": [
+    "nerdc-bdl-primary4-321-1-v1",
+    "nerdc-bdl-primary4-321-2-v1",
+    "nerdc-bdl-primary4-321-3-v1",
+    "nerdc-bdl-primary4-321-4-v1",
+    "nerdc-bdl-primary4-321-5-v1"
+  ],
+  "historicalEvidenceSourceIds": [
+    "chm-abacus-321",
+    "penn-eniac-321",
+    "ibm-pc-history-321",
+    "motorola-timeline-321",
+    "chm-gridpad-321",
+    "apple-ipad-announcement-321"
+  ],
+  "technicalSourceIds": [
+    "nist-password-guidance-315"
+  ],
+  "freshChecks": [
+    "Both source tables read and visually inspected; registered PDF checksum matched.",
+    "CHM abacus and GRiDPad records, IBM PC history, Motorola timeline, Apple dated announcement and University of Pennsylvania ENIAC histories opened and read. Smithsonian si.edu URL returned 404; its American History record text was indexed in search but direct open returned Request Rejected. Neither blocked page is claimed as a full successful retrieval; Penn evidence supports the authored ENIAC task. Cambridge Whipple page returned 403 and is not used as retrieved evidence.",
+    "Current final NIST SP 800-63B-4 section 3.1.1 rechecked, including scope, single-factor 15-character minimum, shorter MFA allowance, composition and blocklist guidance."
+  ],
+  "reconciliation": {
+    "abacus": "A manually operated, non-electronic calculating precursor. No silent conversion of source grouping into an electronic-computer claim.",
+    "firsts": "No universal first-computer/phone/tablet claims. Chronology labels refer to specific completion, introduction, demonstration, approval or availability events.",
+    "phone": "Motorola timeline separates 1973 demonstration, 1983 approval and 1984 availability; early portable cellular is not assumed to mean digital smartphone.",
+    "passwordTypes": "Source actually lists weak and strong, not an official taxonomy of PIN/pattern types. Tasks assess predictability and qualified choices.",
+    "passwordRules": "Source lists minimum eight and mixed types. These do not guarantee strength. Fifteen characters is a fictional exercise target; mixed types sample source content only. NIST is for centrally verified remote factors, with separate local activation-secret provisions.",
+    "header": "Password table’s output-operations learning outcome appears inconsistent; numbered objectives, focal competence, content and evaluation guide the limited mappings."
+  },
+  "remaining": [
+    "Full chronology and wearable examples; official clarification of first labels.",
+    "Actual password enrolment and local-device policy, real strength/blocklist checking, supported dummy form and observed classroom delivery.",
+    "Existing equipment, authentic NERDC guides, model/version, adoption, term placement and app-delivery gaps.",
+    "Independent academic review for every question."
+  ],
+  "manualInspection": "All prompts, model answers, positive marking totals and objective/source compatibility inspected. Compared earlier password exposure/uniqueness scenario in batch249 and device descriptions in batch320; new tasks focus on historical evidence and distinct password creation/checking errors. No MCQs or numerical-answer claims. Event ordering independently verified from cited years. No real credentials requested or altered.",
+  "independentRuleChecks": {
+    "eventOrder": [
+      {
+        "year": 1946,
+        "event": "ENIAC launch"
+      },
+      {
+        "year": 1981,
+        "event": "IBM PC introduction"
+      },
+      {
+        "year": 1989,
+        "event": "GRiDPad introduction"
+      }
+    ],
+    "checks": "Ascending order checked; event types retained. No calculation of general invention dates or actual device performance."
+  }
+}

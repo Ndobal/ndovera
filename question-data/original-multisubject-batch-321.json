@@ -1,0 +1,782 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 device history and qualified password practice",
+  "questionCount": 18,
+  "note": "Nine historical evidence tasks and nine password tasks, including one conditional dummy-form performance. Five author-proposed mappings. All original drafts await independent academic review. Source terminology and full practical/adoption gaps remain explicit.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-001",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class history display begins with a bead abacus and later shows electronic computers. Why can the abacus belong in a history of calculating tools even though it is not an electronic computer?",
+      "answer": "People use its movable beads to represent numbers and do calculations. It shows an earlier way of helping people calculate; electronic computers later used electronic components to process information.",
+      "explanation": "A historical precursor need not have the same technology as a later device. The source’s broad early-device grouping does not turn a traditional abacus into an electronic machine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains number representation/calculation with movable beads."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the manually operated tool from electronic computation."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "chm-abacus-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-002",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A university history card describes ENIAC in 1946 as a room-sized computer using electronic vacuum tubes. Compare it with a modern handheld digital device: state a difference in size and one way both use electronics.",
+      "answer": "ENIAC occupied a room, while the handheld device can be held in a hand. Both use electronic components to process information.",
+      "explanation": "This compares a documented early computing installation with a later portable form without making an unqualified first-computer claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Contrasts a room-sized installation with a handheld form."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies electronic processing as a shared feature."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "penn-eniac-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Historical categories",
+      "learningObjective": "Categorise digital devices according to their historical development.",
+      "id": "ndv-321-003",
+      "objectiveId": "nerdc-bdl-primary4-321-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Place these three dated event cards in order from earliest to latest: GRiDPad tablet introduced, 1989; ENIAC launched in 1946; IBM 5150 PC introduced, 1981. Write the event names in order.",
+      "answer": "ENIAC launched in 1946; IBM 5150 PC introduced in 1981; GRiDPad tablet introduced in 1989.",
+      "explanation": "The dates order these selected examples; they do not date the invention of every category or imply a complete timeline.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places ENIAC first."
+        },
+        {
+          "marks": 1,
+          "description": "Places the IBM PC second and GRiDPad third."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Original event cards paraphrase the University of Pennsylvania ENIAC history, IBM PC history and CHM GRiDPad record. Dates refer to the specific named events, not universal firsts.",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "contentSourceIds": [
+        "penn-eniac-321",
+        "ibm-pc-history-321",
+        "chm-gridpad-321"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Historical categories",
+      "learningObjective": "Categorise digital devices according to their historical development.",
+      "id": "ndv-321-004",
+      "objectiveId": "nerdc-bdl-primary4-321-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A history chart has three headings: early room-sized electronic computer, desktop personal computer, and portable tablet. Match ENIAC, IBM 5150 PC and GRiDPad to these headings.",
+      "answer": "ENIAC: early room-sized electronic computer; IBM 5150 PC: desktop personal computer; GRiDPad: portable tablet.",
+      "explanation": "These headings describe selected historical forms. They are teaching categories rather than a claim that modern categories never overlap.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches ENIAC."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the IBM 5150 PC."
+        },
+        {
+          "marks": 1,
+          "description": "Matches GRiDPad."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "contentSourceIds": [
+        "penn-eniac-321",
+        "ibm-pc-history-321",
+        "chm-gridpad-321"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-005",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Motorola’s timeline records a portable cellular demonstration in 1973, approval for the DynaTAC handset in 1983 and consumer availability in 1984. Why should a history chart keep these three labels instead of calling them all the year the phone went on sale?",
+      "answer": "A demonstration shows a working prototype; approval is permission from the regulator; consumer availability is when buyers could obtain it. They describe different stages of development.",
+      "explanation": "The milestone type matters as well as its date. An early portable cellular handset is not automatically a modern digital smartphone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes demonstration from approval."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies consumer availability as a different event from both."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "motorola-timeline-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-006",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The museum dates the GRiDPad tablet to 1989. Apple announced iPad in January 2010. A pupil writes, Tablets did not exist before iPad. Use the evidence to correct this sentence.",
+      "answer": "Tablets existed before iPad: GRiDPad was introduced in 1989. The iPad announcement in 2010 is a later tablet milestone, not the beginning of all tablets.",
+      "explanation": "An earlier documented example disproves an absolute claim. The task does not replace that claim with GRiDPad was the first tablet.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses GRiDPad in 1989 as earlier tablet evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Recasts iPad as a later milestone rather than the first-ever tablet."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "chm-gridpad-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "contentSourceIds": [
+        "chm-gridpad-321",
+        "apple-ipad-announcement-321"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Historical categories",
+      "learningObjective": "Categorise digital devices according to their historical development.",
+      "id": "ndv-321-007",
+      "objectiveId": "nerdc-bdl-primary4-321-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A card about the 1981 IBM PC lists a keyboard, a microprocessor and an operating system. Which item belongs under historical software rather than physical hardware? Explain the distinction.",
+      "answer": "The operating system is software: instructions that help manage the computer and run other programs. The keyboard and microprocessor are physical hardware.",
+      "explanation": "Operating systems are part of personal-computer history, alongside physical parts. The prompt does not ask pupils to call an operating system a digital device.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the operating system as software."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes instructions/programs from physical components."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "ibm-pc-history-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-008",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "IBM’s history says personal computers could be bought before 1981, while the IBM PC helped computing reach more homes and small businesses. Which statement fits this evidence: IBM invented every personal computer in 1981, or IBM helped an existing kind of computer reach more users? Explain.",
+      "answer": "IBM helped an existing kind of computer reach more users. The evidence explicitly says personal computers were available before its 1981 model.",
+      "explanation": "A major contribution to wider use is different from inventing an entire category.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects wider use of an existing category."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the pre-1981 availability as evidence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "ibm-pc-history-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "id": "ndv-321-009",
+      "objectiveId": "nerdc-bdl-primary4-321-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil thinks every old calculating tool disappeared as soon as electronic computers arrived. The museum describes abacuses continuing to be used after electronic calculators existed. What does this tell the pupil about a history timeline?",
+      "answer": "The arrival of a newer device does not mean every older tool immediately disappears. Different tools can continue to be used at the same time.",
+      "explanation": "Timelines record developments, not compulsory replacement dates for every person or community.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects immediate disappearance of every earlier tool."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that old and new tools can coexist."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "chm-abacus-321",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Meaning of password protection",
+      "learningObjective": "Explain the meaning of passwording digital devices.",
+      "id": "ndv-321-010",
+      "objectiveId": "nerdc-bdl-primary4-321-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional school device asks for a pupil’s account name and then a password. The account name is printed on a class label. Explain why the password has a different job from the account name.",
+      "answer": "The account name tells the device which account is requested. The password is a secret used to help check that access is authorised.",
+      "explanation": "An identifier is not the same as a secret. This written task does not ask for any real credentials.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes identifying the account."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the secret’s role in checking authorised access."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Meaning of password protection",
+      "learningObjective": "Explain the meaning of passwording digital devices.",
+      "id": "ndv-321-011",
+      "objectiveId": "nerdc-bdl-primary4-321-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The teacher password-protects a practice account. A pupil says this means the device can never be lost or dropped. What does password protection help control, and why does it not prove the pupil’s claim?",
+      "answer": "It helps control access to the protected account or device functions. It cannot physically stop someone losing or dropping the device.",
+      "explanation": "Access protection and physical care are different. A password is one protection measure, not a guarantee against every problem.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies control of access."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that physical loss or damage is a different problem."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Weak and stronger choices",
+      "learningObjective": "Identify weak and stronger password choices, explaining the limits of simple character checklists.",
+      "id": "ndv-321-012",
+      "objectiveId": "nerdc-bdl-primary4-321-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional example, Qwerty1!, has upper- and lower-case letters, a digit and a symbol. A pupil calls it strong just because it ticks those boxes. Explain the weakness in that reasoning.",
+      "answer": "A familiar keyboard sequence can be easy to guess even with mixed character types. Ticking the boxes does not prove that the choice is hard to guess.",
+      "explanation": "The source’s character checklist is not a strength guarantee. Current NIST centrally verified password guidance rejects imposed character-mixture rules; it also addresses length and known/common choices.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the predictable keyboard pattern."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects character mixture alone as proof of strength."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Weak and stronger choices",
+      "learningObjective": "Identify weak and stronger password choices, explaining the limits of simple character checklists.",
+      "id": "ndv-321-013",
+      "objectiveId": "nerdc-bdl-primary4-321-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classmate suggests using the school’s public name and the current year as a password. Why is information printed on public school notices a poor basis for a secret?",
+      "answer": "Other people can know or guess those details. A secret based directly on public information is predictable.",
+      "explanation": "Context-specific, expected choices can be weak even if they look long enough.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects the choice to publicly known details."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that predictability makes guessing easier."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Weak and stronger choices",
+      "learningObjective": "Identify weak and stronger password choices, explaining the limits of simple character checklists.",
+      "id": "ndv-321-014",
+      "objectiveId": "nerdc-bdl-primary4-321-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional password field shows twelve dots. Can the dots alone tell a pupil that the hidden password is hard to guess? Give a reason.",
+      "answer": "No. Dots hide what was typed; they do not reveal whether it is a common word, repeated pattern or otherwise predictable.",
+      "explanation": "Masking helps hide entry from view; it is not a visible measure of the hidden choice’s strength.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Says the dots alone cannot establish strength."
+        },
+        {
+          "marks": 1,
+          "description": "Explains masking rather than evaluating predictability."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Weak and stronger choices",
+      "learningObjective": "Identify weak and stronger password choices, explaining the limits of simple character checklists.",
+      "id": "ndv-321-015",
+      "objectiveId": "nerdc-bdl-primary4-321-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A worksheet prints a long example password in large letters for the whole class to see. A pupil wants to use that exact example for a real account. Explain why its length does not make that a good choice.",
+      "answer": "Everyone who sees the worksheet knows the exact string. A published example is no longer a secret for that account, however long it is.",
+      "explanation": "All examples in this practice bank are public teaching strings and must not be reused for real credentials.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the exact string is publicly known."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that length does not restore secrecy."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Creating a practice password",
+      "learningObjective": "Create and check a password candidate in a teacher-prepared fictional device exercise.",
+      "id": "ndv-321-016",
+      "objectiveId": "nerdc-bdl-primary4-321-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Plan a new password candidate for a fictional practice device. Do not write a real password. State three things you would check: its length against the teacher’s stated requirement, whether it is easy to predict, and whether you have copied a public example or another account’s secret.",
+      "answer": "Check that the candidate meets the stated length rule, avoids a predictable name/date/sequence, and is new for the fictional exercise rather than copied from a public example or another account.",
+      "explanation": "This is a written creation/checking precursor. Passing a classroom checklist does not establish real-world strength or compliance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Checks the stated length requirement."
+        },
+        {
+          "marks": 1,
+          "description": "Checks for predictable information or patterns."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that it is neither a public example nor a reused account secret."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Creating a practice password",
+      "learningObjective": "Create and check a password candidate in a teacher-prepared fictional device exercise.",
+      "id": "ndv-321-017",
+      "objectiveId": "nerdc-bdl-primary4-321-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Practical dummy-form task. The teacher has prepared an offline form labelled PRACTICE ONLY, with two text fields and no saving or submission. Invent a fictional password candidate of at least 15 characters using unrelated words, avoiding names, dates, common sayings and repeated patterns. For this curriculum exercise only, include upper- and lower-case letters, a digit and a symbol. Enter it twice, check that both entries match, explain your checks, then clear both fields. Never use this candidate for a real account.",
+      "answer": "The pupil creates and enters a new fictional candidate, checks length and the exercise’s requested character types, matches the two entries, explains avoidance of predictable material and clears the fields. Accept varied original candidates; there is no fixed model secret.",
+      "explanation": "The mixed-type instruction samples the curriculum checklist in a fictional exercise; it is not claimed as a universal security requirement. The 15-character exercise target is a design choice informed by current centrally verified password guidance, not a local-device standard. No real password enrolment or strength certification occurs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a new fictional candidate meeting the stated length and classroom character criteria."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids stated predictable material and explains why it was avoided."
+        },
+        {
+          "marks": 1,
+          "description": "Enters matching copies and demonstrates the comparison."
+        },
+        {
+          "marks": 1,
+          "description": "Clears both fields and explains that public/practice candidates must never become real secrets."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Observed practice on a teacher-prepared offline dummy form with no real account, submission, network connection or credential storage. Teacher tests the form, supplies fictional materials and supervises. No real secret is requested or device password changed. This samples candidate creation/entry, not real authenticator enrolment or proven security. Exact equipment and classroom delivery remain unverified.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safety and protection",
+      "subtopic": "Creating a practice password",
+      "learningObjective": "Create and check a password candidate in a teacher-prepared fictional device exercise.",
+      "id": "ndv-321-018",
+      "objectiveId": "nerdc-bdl-primary4-321-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a dummy exercise, the teacher’s checker rejects a proposed password because it is on the exercise’s list of common choices. A pupil proposes keeping the same choice and adding 1 at the end. What better next step should the pupil take, and why? Do not supply a real password.",
+      "answer": "Create a substantially different fictional candidate instead of a tiny predictable change, then check it against the stated exercise rules. A common base with an obvious ending may still be easy to guess.",
+      "explanation": "This is feedback on candidate creation, not an attempt to bypass a real account’s controls. The toy common-choice list does not certify a candidate’s real-world strength.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a substantially different candidate rather than a trivial suffix change."
+        },
+        {
+          "marks": 1,
+          "description": "Explains predictable modification and rechecking the exercise rules."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "contentSourceId": "nist-password-guidance-315",
+      "deliveryNote": "Written explanation or evidence interpretation; not proof of observed practical competence.",
+      "practiceSafetyNote": "All displayed examples are public fictional teaching strings and must never be used for a real account. Do not ask pupils to disclose an actual password. Follow authorised school/guardian account procedures. NIST is a technical accuracy supplement, not an adopted local device policy."
+    }
+  ]
+}

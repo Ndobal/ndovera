@@ -3435,13 +3435,15 @@
         "Basics of Robotics, printed p. 20 (PDF p. 33)",
         "Robotics, printed p. 21 (PDF p. 34)",
         "Game Development with Pictoblox, printed p. 22 (PDF p. 35)",
-        "Artificial Intelligence (AI), printed p. 23 (PDF p. 36)"
+        "Artificial Intelligence (AI), printed p. 23 (PDF p. 36)",
+        "History of digital devices, printed p. 2 (PDF p. 15)",
+        "Safety and protection, printed p. 10 (PDF p. 23)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open. Batch 318 re-download matched the registered checksum. Robotics tables at PDF pp. 33–34 read and visually inspected. Seven limited written mappings use robotics performance objectives/content and p. 34 evaluation; p. 33 audio/image/video evaluation and related competency text are inconsistent and remain unresolved. Uses/benefits are grouped across tables. Accessory functions use p. 34 knowledge/evaluation, not a claim of physical identification. No powered build or autonomous-control task is authored because equipment, cohort suitability, exact kit instructions and hardware/interface alignment remain unverified. Batch 319 re-download matched registered checksum. Final game-development and AI tables at PDF pp. 35–36 read and visually inspected. Seven author-proposed mappings support twelve written precursors and two conditional device tasks. The game activity reference ends after described in, and the AI table names guides 17,18,24,25 without links or embedded copies. Exact NERDC guide files were not located. Manufacturer activity sheets with related titles have different class/numbering and are not accepted as those guides. The original computer-only game and Stage-image detection task do not assert equivalence with missing guides, tested tool delivery or school adoption.",
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified. Batch 316 re-download matched the registered checksum. Tables at PDF pp. 27–28 were read and visually checked. Nine additional mappings cover inclusive content and basic programming. Accessibility use and executable visual-program tasks remain observed device tasks; written responses do not establish those practical competencies. The table lists debugging and testing as steps; author explanations treat testing and correction as iterative rather than a rigid one-pass order. Scratch-specific and robotics tables were read as next-work candidates; their learning-outcome/evaluation wording has mismatches that require reconciliation. Batch 317 re-download matched the registered checksum. Tables at PDF pp. 29–32 read and rendered for visual verification. Fourteen new mappings cover games, environment/interface work, algorithm planning, Pen drawing and sequence. Shared interface functions from pp. 29–30 are grouped to avoid multiplying mappings. The Coding with Scratch historical-device learning outcome and State/Stage evaluation typo are preserved as source conflicts; the coding performance objectives and content guide these limited tasks. Game environment creation is not a completed playable game. Source save-sprite wording is assessed as preservation in a saved project; separate sprite export remains open. Common-mobile-game examples are not newly mapped or endorsed. Classroom delivery, school adoption and full competency coverage remain open. Batch 318 re-download matched the registered checksum. Robotics tables at PDF pp. 33–34 read and visually inspected. Seven limited written mappings use robotics performance objectives/content and p. 34 evaluation; p. 33 audio/image/video evaluation and related competency text are inconsistent and remain unresolved. Uses/benefits are grouped across tables. Accessory functions use p. 34 knowledge/evaluation, not a claim of physical identification. No powered build or autonomous-control task is authored because equipment, cohort suitability, exact kit instructions and hardware/interface alignment remain unverified. Batch 319 re-download matched registered checksum. Final game-development and AI tables at PDF pp. 35–36 read and visually inspected. Seven author-proposed mappings support twelve written precursors and two conditional device tasks. The game activity reference ends after described in, and the AI table names guides 17,18,24,25 without links or embedded copies. Exact NERDC guide files were not located. Manufacturer activity sheets with related titles have different class/numbering and are not accepted as those guides. The original computer-only game and Stage-image detection task do not assert equivalence with missing guides, tested tool delivery or school adoption. Batch 321 re-download matched the registered hash; history/password tables read and visually checked. Five limited author mappings use qualified historical milestones and fictional password creation. An abacus is treated as a non-electronic calculating precursor; first-computer, first-phone and first-tablet absolutes are not adopted. NIST remote-password scope is distinguished from local device unlock; the source eight-character/mixed-type checklist is not a universal strength guarantee. Actual device enrolment, wearable chronology, full historical coverage and adoption remain open.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3472,7 +3474,9 @@
       "kind": "official_authentication_standard",
       "source": "https://pages.nist.gov/800-63-4/sp800-63b/authenticators/",
       "retrievedOn": "2026-11-19",
-      "note": "Normative centrally verified password guidance retrieved: 15-character single-factor minimum and no composition rules. Local device activation secrets are distinguished. Not a universal child-device policy. Curriculum eight-character mixed-type advice is not adopted as a guarantee of strength."
+      "note": "Normative centrally verified password guidance retrieved: 15-character single-factor minimum and no composition rules. Local device activation secrets are distinguished. Not a universal child-device policy. Curriculum eight-character mixed-type advice is not adopted as a guarantee of strength. Batch 321 rechecked the final SP 800-63B-4 whole-page section 3.1.1. Scope is remote/centrally verified authentication, not every local device unlock. Fictional child exercises do not certify compliance or real-world strength.",
+      "lastSourceRecheck": "2026-11-19",
+      "recheckURL": "https://pages.nist.gov/800-63-4/sp800-63b.html"
     },
     {
       "id": "w3c-image-alternatives-316",
@@ -3649,6 +3653,67 @@
       "level": "Primary 4",
       "retrievedOn": "2026-11-19",
       "note": "Current Microsoft Support page retrieved. Windows 11 primary mouse button can be Left or Right; button functions can be swapped. Technical accuracy supplement, not a curriculum or classroom-configuration claim."
+    },
+    {
+      "id": "chm-abacus-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://www.computerhistory.org/revolution/calculators/1/1",
+      "retrievedOn": "2026-11-19",
+      "note": "Museum collection interpretation: movable markers, centuries of use and continued use. Historical evidence, not a claim that an abacus is electronic."
+    },
+    {
+      "id": "penn-eniac-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://almanac.upenn.edu/archive/v42/n19/020696.html",
+      "retrievedOn": "2026-11-19",
+      "note": "University of Pennsylvania historical account retrieved: room-sized ENIAC in 1946 with electronic vacuum tubes. Penn Today 11 February 2026 also confirms 1946 launch. No unqualified first-computer claim adopted.",
+      "additionalSource": "https://penntoday.upenn.edu/news/penns-eniac-worlds-first-electronic-computer-turns-80"
+    },
+    {
+      "id": "ibm-pc-history-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://www.ibm.com/history/personal-computer",
+      "retrievedOn": "2026-11-19",
+      "note": "Manufacturer history: PCs existed before 1981; IBM 5150 introduced August 1981, with hardware, operating-system and software ecosystem. Not the first-ever personal computer."
+    },
+    {
+      "id": "motorola-timeline-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://www.motorolasolutions.com/en_us/about/history/timeline.html",
+      "retrievedOn": "2026-11-19",
+      "note": "Manufacturer timeline distinguishes 1973 portable cellular demonstration, September 1983 FCC approval and consumer availability in 1984. These are different milestone types. Early DynaTAC radio service is not assumed to be digital."
+    },
+    {
+      "id": "chm-gridpad-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://www.computerhistory.org/revolution/mobile-computing/18/319/1727?position=1",
+      "retrievedOn": "2026-11-19",
+      "note": "Museum collection record: GRiDPad introduced 1989; explicitly not the first commercial tablet. No museum photograph reproduced."
+    },
+    {
+      "id": "apple-ipad-announcement-321",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_supplementary_historical_reference",
+      "source": "https://www.apple.com/ca/newsroom/2010/01/27Apple-Launches-iPad/",
+      "retrievedOn": "2026-11-19",
+      "note": "Dated manufacturer announcement of 27 January 2010; announcement is not equated with consumer availability or first-ever tablet."
     }
   ],
   "banks": [
@@ -40763,6 +40828,96 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-321-1-v1",
+      "topic": "History of digital devices",
+      "subtopic": "Explaining development",
+      "learningObjective": "Explain the historical development of digital devices.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 2 (PDF p. 15), History of digital devices, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-321-2-v1",
+      "topic": "History of digital devices",
+      "subtopic": "Historical categories",
+      "learningObjective": "Categorise digital devices according to their historical development.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 2 (PDF p. 15), History of digital devices, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-321-3-v1",
+      "topic": "Safety and protection",
+      "subtopic": "Meaning of password protection",
+      "learningObjective": "Explain the meaning of passwording digital devices.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Safety and protection, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-321-4-v1",
+      "topic": "Safety and protection",
+      "subtopic": "Weak and stronger choices",
+      "learningObjective": "Identify weak and stronger password choices, explaining the limits of simple character checklists.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Safety and protection, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-321-5-v1",
+      "topic": "Safety and protection",
+      "subtopic": "Creating a practice password",
+      "learningObjective": "Create and check a password candidate in a teacher-prepared fictional device exercise.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 10 (PDF p. 23), Safety and protection, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -40858,6 +41013,7 @@
     "Batch 296 adds selected written 0620 Paper 6 tasks using fictional rate-of-reaction records. Core metadata represents practice suitable for either tier. Hands-on Paper 5 performance, full assembly and independent review remain open.",
     "Batch 297 adds five original seven-minute TOEFL iBT Write an Email practice tasks with model responses and original analytic rubrics. Full Writing section assembly, official score calibration and academic review remain open.",
     "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.",
-    "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint."
+    "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.",
+    "Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open."
   ]
 }
