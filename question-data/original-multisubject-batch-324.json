@@ -1,0 +1,1541 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary4 contextual grammar and vocabulary",
+  "questionCount": 38,
+  "note": "Thirty-eight original drafts across19 author-proposed mappings. Thirty-five written tasks and three spoken-production tasks. All drafts await independent academic review. Register examples are contextual, not exclusive word classes; classroom performance and digital/dictionary activities remain unverified.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Idiomatic meaning",
+      "learningObjective": "Explain meanings of common idioms in context.",
+      "id": "ndv-324-001",
+      "objectiveId": "nerdc-english-primary4-324-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "When Ladi’s painting was chosen for the exhibition, she said she was on cloud nine. What does she mean?",
+      "answer": "She is extremely happy.",
+      "explanation": "The idiom expresses great happiness; it does not place her on a real cloud.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "She is extremely happy.",
+        "She is checking the weather.",
+        "She has climbed a tall tree.",
+        "She is counting nine objects."
+      ],
+      "correctOption": "A",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Idiomatic meaning",
+      "learningObjective": "Explain meanings of common idioms in context.",
+      "id": "ndv-324-002",
+      "objectiveId": "nerdc-english-primary4-324-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil starts opening a box before the teacher has explained the activity. The teacher says, Hold your horses! Explain the phrase in this situation and why it is not a request about animals.",
+      "answer": "It means wait or slow down. The teacher wants the pupil to pause before acting, not to hold any actual horses.",
+      "explanation": "An idiom’s intended meaning comes from the whole expression and context.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains waiting/slowing down."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the phrase to pausing the box-opening rather than literal animals."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Using idioms",
+      "learningObjective": "Use common idioms appropriately in sentences.",
+      "id": "ndv-324-003",
+      "objectiveId": "nerdc-english-primary4-324-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write two linked sentences about helping someone tidy a classroom. Use lend a hand in its idiomatic sense and make the context clear.",
+      "answer": "The chairs were scattered after the show. I offered to lend a hand by putting them back in rows. Accept varied sentences showing practical help.",
+      "explanation": "The expression means help; the sentence should not describe physically lending a body part.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses lend a hand to mean help."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a clear linked situation that demonstrates the help."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Using idioms",
+      "learningObjective": "Use common idioms appropriately in sentences.",
+      "id": "ndv-324-004",
+      "objectiveId": "nerdc-english-primary4-324-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give a short spoken explanation to a partner using once in a blue moon about an activity that happens very rarely. Add a sentence that makes the rarity clear. You may invent the situation.",
+      "answer": "Our reading club holds a costume day once in a blue moon. This was its first costume event in several years. Accept another plausible rare activity.",
+      "explanation": "The target is appropriate idiomatic use and an explanation of rare occurrence, not an astronomical claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the idiom to mean very rarely."
+        },
+        {
+          "marks": 1,
+          "description": "Adds a relevant explanation of rarity."
+        },
+        {
+          "marks": 1,
+          "description": "Speaks clearly enough for a partner to understand."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Assess the learner’s live or recorded spoken response; a written script alone does not earn performance marks. Teacher prepares the fictional setting and scores individual evidence for meaning and intelligibility. Actual classroom delivery, recording arrangements and examiner calibration remain unverified; do not require imitation of a particular accent."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sound spelling and meaning",
+      "learningObjective": "Explain meanings of common homophones and homographs.",
+      "id": "ndv-324-005",
+      "objectiveId": "nerdc-english-primary4-324-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "Two words in a lesson sound alike but have different spellings and meanings. Which description matches them?",
+      "answer": "Homophones",
+      "explanation": "The description focuses on shared sound rather than shared spelling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Antonyms",
+        "Hyponyms",
+        "Homophones",
+        "Synonyms"
+      ],
+      "correctOption": "C",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sound spelling and meaning",
+      "learningObjective": "Explain meanings of common homophones and homographs.",
+      "id": "ndv-324-006",
+      "objectiveId": "nerdc-english-primary4-324-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read: The dog’s bark woke me. The tree’s bark felt rough. Explain why bark can illustrate homographs in this lesson.",
+      "answer": "The spelling bark is the same, but it refers to a dog’s sound in one sentence and a tree’s outer covering in the other.",
+      "explanation": "Homographs share spelling and differ in meaning; they may also share pronunciation. A word pair need not fit only one label.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the shared spelling."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the two meanings in context."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-homograph-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Homophones and homograph",
+      "subtopic": "Examples and meanings",
+      "learningObjective": "Give examples of homophones and homographs with their meanings.",
+      "id": "ndv-324-007",
+      "objectiveId": "nerdc-english-primary4-324-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give one pair of differently spelled homophones and one same-spelling example with two different meanings. Explain the meanings. Choose examples other than bark.",
+      "answer": "One possible homophone pair is sail, a boat’s cloth for catching wind, and sale, an occasion of selling. One same-spelling example is match, a contest, and match, a small stick for lighting a flame. Accept other correct examples and meanings.",
+      "explanation": "Assess the examples and their meanings, allowing valid variation in the teaching variety’s pronunciation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a valid homophone pair and distinguishes its meanings."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a valid same-spelling example and distinguishes its meanings."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sentence meanings",
+      "learningObjective": "Write sentences demonstrating different meanings of homophones and homographs.",
+      "id": "ndv-324-008",
+      "objectiveId": "nerdc-english-primary4-324-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write two sentences using right with different meanings: one meaning correct and the other meaning the direction opposite left. Make each meaning clear without defining it in brackets.",
+      "answer": "Your answer to the riddle is right. Turn right after the school gate. Accept other clear contextual sentences.",
+      "explanation": "The context must select the intended meaning; copying the same ambiguous sentence twice is insufficient.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Creates a clear correct-answer sense."
+        },
+        {
+          "marks": 1,
+          "description": "Creates a clear direction sense."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sentence meanings",
+      "learningObjective": "Write sentences demonstrating different meanings of homophones and homographs.",
+      "id": "ndv-324-009",
+      "objectiveId": "nerdc-english-primary4-324-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Edit the two mistaken words in this note, then explain your choices: We need a pear of scissors. Please leave them over their on the shelf.",
+      "answer": "We need a pair of scissors. Please leave them over there on the shelf. Pair names a set of two; there indicates a place.",
+      "explanation": "Sound-alike forms have different written jobs; meaning and grammar select the spelling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes pear to pair and explains the intended set."
+        },
+        {
+          "marks": 1,
+          "description": "Changes their to there and explains location."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Past reference",
+      "learningObjective": "Use past-tense forms correctly in context.",
+      "id": "ndv-324-010",
+      "objectiveId": "nerdc-english-primary4-324-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil writes about a completed visit: Yesterday we go to the craft room and see a woven basket. Rewrite the sentence with suitable past-tense verbs.",
+      "answer": "Yesterday we went to the craft room and saw a woven basket.",
+      "explanation": "The completed past visit requires went and saw, not a present form or an added -ed on these irregular verbs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses went."
+        },
+        {
+          "marks": 1,
+          "description": "Uses saw while preserving the sentence’s meaning."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Past reference",
+      "learningObjective": "Use past-tense forms correctly in context.",
+      "id": "ndv-324-011",
+      "objectiveId": "nerdc-english-primary4-324-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "Which sentence correctly reports that an action did not happen yesterday?",
+      "answer": "The class did not make a poster yesterday.",
+      "explanation": "After did not, the main verb uses the base form make.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "The class did not made a poster yesterday.",
+        "The class did not make a poster yesterday.",
+        "The class does not made a poster yesterday.",
+        "The class not making a poster yesterday."
+      ],
+      "correctOption": "B",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Present reference",
+      "learningObjective": "Use present-tense forms correctly in context.",
+      "id": "ndv-324-012",
+      "objectiveId": "nerdc-english-primary4-324-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A notice describes a regular class routine: Every Monday, the monitor collects the reading cards and the pupils return their books. Explain why collects and return have different endings.",
+      "answer": "The monitor is a singular third-person subject, so collects ends in -s in the simple present. The pupils is plural, so return has no third-person singular -s.",
+      "explanation": "Both verbs describe a habit; their forms agree with different subjects.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the singular monitor with collects."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the plural pupils with return."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Present reference",
+      "learningObjective": "Use present-tense forms correctly in context.",
+      "id": "ndv-324-013",
+      "objectiveId": "nerdc-english-primary4-324-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "Choose the sentence that describes a regular habit using the simple present correctly.",
+      "answer": "Kemi checks the class shelf every morning.",
+      "explanation": "Checks agrees with the singular subject and every morning establishes a repeated routine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Kemi checking the class shelf every morning.",
+        "Kemi check the class shelf every morning.",
+        "Kemi checks the class shelf every morning.",
+        "Kemi checked tomorrow’s shelf every morning."
+      ],
+      "correctOption": "C",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Future reference",
+      "learningObjective": "Use forms referring to future events correctly in context.",
+      "id": "ndv-324-014",
+      "objectiveId": "nerdc-english-primary4-324-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The class agrees today to arrange its display tomorrow. Write a sentence using will to state that plan, and a second sentence saying what the pupils will not do.",
+      "answer": "We will arrange our display tomorrow. We will not block the doorway. Accept another relevant agreed plan and negative statement.",
+      "explanation": "Will is followed by a base verb; will not states the planned exclusion. These are future-reference classroom forms, not a guarantee of what must happen.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses will with a base verb for the plan."
+        },
+        {
+          "marks": 1,
+          "description": "Uses will not with a base verb for a relevant negative statement."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Future reference",
+      "learningObjective": "Use forms referring to future events correctly in context.",
+      "id": "ndv-324-015",
+      "objectiveId": "nerdc-english-primary4-324-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil writes, Tomorrow I will carried the empty tray. Correct the verb form and explain the change.",
+      "answer": "Tomorrow I will carry the empty tray. Carry is the base form used after will.",
+      "explanation": "The future time word does not require the past form carried.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Changes carried to carry."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the base form after will."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Nouns and pronouns",
+      "subtopic": "Identification",
+      "learningObjective": "Identify nouns and pronouns in sentences.",
+      "id": "ndv-324-016",
+      "objectiveId": "nerdc-english-primary4-324-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Amina placed the basket beside the door, and she closed it, identify three nouns and two pronouns.",
+      "answer": "Nouns: Amina, basket, door. Pronouns: she, it.",
+      "explanation": "A proper name is also a noun. Identifying a pronoun’s class does not resolve the potentially unclear reference of it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the three nouns."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies she and it as pronouns."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Nouns and pronouns",
+      "subtopic": "Sentence use",
+      "learningObjective": "Use nouns and pronouns clearly in sentences.",
+      "id": "ndv-324-017",
+      "objectiveId": "nerdc-english-primary4-324-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The sentence Sani told Musa that he had found the map is unclear about who found it. Rewrite it so that Sani definitely found the map. Keep both names.",
+      "answer": "Sani told Musa, “I have found the map.” Or: Sani, who had found the map, told Musa about it. Accept another clear rewrite with both names and Sani as finder.",
+      "explanation": "Replacing or restructuring an ambiguous pronoun reference can clarify the intended actor.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes Sani clearly the finder."
+        },
+        {
+          "marks": 1,
+          "description": "Retains Musa and produces a clear grammatical sentence."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Nouns and pronouns",
+      "subtopic": "Sentence use",
+      "learningObjective": "Use nouns and pronouns clearly in sentences.",
+      "id": "ndv-324-018",
+      "objectiveId": "nerdc-english-primary4-324-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write three connected sentences about a fictional class pet. Name the pet in the first sentence, then use suitable pronouns in the next two without making their reference unclear.",
+      "answer": "Our class rabbit, Snowy, lives in a large pen. It likes to sit beside the wooden shelter. We watch it quietly during break. Accept another coherent example.",
+      "explanation": "Pronouns reduce unnecessary repetition when the reader can identify their referents. No real animal-care action is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Introduces a clear noun/name."
+        },
+        {
+          "marks": 1,
+          "description": "Uses suitable pronouns with clear reference."
+        },
+        {
+          "marks": 1,
+          "description": "Produces three coherent grammatical sentences."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Meanings and functions",
+      "learningObjective": "Explain meanings and functions of adjectives and adverbs.",
+      "id": "ndv-324-019",
+      "objectiveId": "nerdc-english-primary4-324-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare the jobs of quiet in a quiet room and quietly in the pupils spoke quietly. Explain what each word describes.",
+      "answer": "Quiet describes the noun room and functions as an adjective. Quietly describes how the pupils spoke and functions as an adverb.",
+      "explanation": "The function in context matters more than simply spotting a familiar ending.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains quiet as describing room."
+        },
+        {
+          "marks": 1,
+          "description": "Explains quietly as describing how they spoke."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Meanings and functions",
+      "learningObjective": "Explain meanings and functions of adjectives and adverbs.",
+      "id": "ndv-324-020",
+      "objectiveId": "nerdc-english-primary4-324-11-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "In The runners moved fast, which description of fast is correct?",
+      "answer": "It is an adverb telling how they moved.",
+      "explanation": "An adverb need not end in -ly; fast modifies moved here.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "It is a noun naming an object.",
+        "It is an adjective describing runners.",
+        "It is a pronoun replacing runners.",
+        "It is an adverb telling how they moved."
+      ],
+      "correctOption": "D",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Types and functions",
+      "learningObjective": "Identify types or functions of adjectives and adverbs.",
+      "id": "ndv-324-021",
+      "objectiveId": "nerdc-english-primary4-324-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using the source’s school labels, explain the jobs of these and her in these baskets and her basket.",
+      "answer": "These points out particular baskets: demonstrative adjective in the source’s terminology. Her marks possession: possessive adjective in that terminology. Accept demonstrative/possessive determiner with correct functions.",
+      "explanation": "Modern grammar often uses determiner for these functions; the source uses adjective labels. The function must not be marked wrong merely because of a valid terminology difference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains these as pointing out the baskets."
+        },
+        {
+          "marks": 1,
+          "description": "Explains her as marking possession."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Types and functions",
+      "learningObjective": "Identify types or functions of adjectives and adverbs.",
+      "id": "ndv-324-022",
+      "objectiveId": "nerdc-english-primary4-324-12-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In We often practise outdoors after lunch, identify the expression showing frequency, the word showing place and the expression showing time.",
+      "answer": "Often: frequency; outdoors: place; after lunch: time.",
+      "explanation": "After lunch is an adverbial phrase, not a single adverb. The question explicitly allows an expression.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies often as frequency."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies outdoors as place."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies after lunch as time."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Degrees of comparison",
+      "learningObjective": "Use adjectives in appropriate degrees of comparison.",
+      "id": "ndv-324-023",
+      "objectiveId": "nerdc-english-primary4-324-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Three ribbons are described: the red ribbon is longer than the blue one; the green ribbon is longer than the red one. Write a comparative sentence about red and blue, and a superlative sentence about all three.",
+      "answer": "The red ribbon is longer than the blue ribbon. The green ribbon is the longest of the three.",
+      "explanation": "The given order is blue, red, green from shortest to longest. No measurement values are needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses longer than correctly for red and blue."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the longest correctly for green among the three."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-comparison-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Degrees of comparison",
+      "learningObjective": "Use adjectives in appropriate degrees of comparison.",
+      "id": "ndv-324-024",
+      "objectiveId": "nerdc-english-primary4-324-13-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A review says, This story is more better than the first one. Correct the comparison and explain why the original is unsuitable.",
+      "answer": "This story is better than the first one. Better is already the comparative of good, so more is unnecessary.",
+      "explanation": "Do not combine more with the irregular comparative better in this use.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses better than without more."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that better is already comparative."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-comparison-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Sentence production",
+      "learningObjective": "Use adjectives and adverbs in making sentences.",
+      "id": "ndv-324-025",
+      "objectiveId": "nerdc-english-primary4-324-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Combine these details into one natural sentence: there is a box; it is small and wooden; a pupil opens it carefully. Keep both adjectives and the adverb.",
+      "answer": "The pupil carefully opens the small wooden box. Accept another natural order such as The pupil opens the small wooden box carefully.",
+      "explanation": "Adjective placement and the adverb’s position should preserve the described object and manner. More than one adverb position is possible.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses small and wooden to describe box naturally."
+        },
+        {
+          "marks": 1,
+          "description": "Uses carefully to describe opening."
+        },
+        {
+          "marks": 1,
+          "description": "Produces a grammatical sentence preserving the details."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Sentence production",
+      "learningObjective": "Use adjectives and adverbs in making sentences.",
+      "id": "ndv-324-026",
+      "objectiveId": "nerdc-english-primary4-324-14-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write a short description of a fictional classroom display using at least two adjectives and one adverb. Underline or name the words you used and explain one of their jobs.",
+      "answer": "The bright posters hang neatly above the low table. Adjectives: bright, low; adverb: neatly. Bright describes posters. Accept varied correct descriptions and explanations.",
+      "explanation": "Assess the learner’s actual words and functions, not whether they copy the model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses two appropriate adjectives."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an appropriate adverb."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the words and correctly explains one function."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Explaining relations",
+      "learningObjective": "Explain meanings of synonyms, antonyms, homonyms and hyponyms.",
+      "id": "ndv-324-027",
+      "objectiveId": "nerdc-english-primary4-324-15-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the difference among a synonym, an antonym, a homonym and a hyponym. Use simple words. For homonym, use the lesson’s same-spelling-and-same-sound sense.",
+      "answer": "A synonym has a similar meaning in a context; an antonym has an opposite meaning. A homonym in this lesson shares spelling and sound but has a different meaning. A hyponym names a kind within a broader category.",
+      "explanation": "Homonym also has broader uses in language references. The stated lesson sense avoids an unexplained terminology test.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains synonym."
+        },
+        {
+          "marks": 1,
+          "description": "Explains antonym."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the stated homonym sense."
+        },
+        {
+          "marks": 1,
+          "description": "Explains kind-within-category for hyponym."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-hyponym-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Giving examples",
+      "learningObjective": "Give examples of synonyms, antonyms, homonyms and hyponyms.",
+      "id": "ndv-324-028",
+      "objectiveId": "nerdc-english-primary4-324-16-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give two hyponyms of musical instrument, and explain why the relation is not simply the same as synonymy.",
+      "answer": "Drum and flute are kinds of musical instrument. They are not synonyms for each other or for the whole category. Accept other valid instruments.",
+      "explanation": "Category membership does not make the member words interchangeable in every sentence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives two valid specific instrument names."
+        },
+        {
+          "marks": 1,
+          "description": "Explains kind-of relation rather than same meaning."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-hyponym-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Giving examples",
+      "learningObjective": "Give examples of synonyms, antonyms, homonyms and hyponyms.",
+      "id": "ndv-324-029",
+      "objectiveId": "nerdc-english-primary4-324-16-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give a synonym pair, an antonym pair and a homonym with two meanings. Briefly make each relation clear.",
+      "answer": "Synonyms: begin/start, in starting an activity. Antonyms: early/late. Homonym: match, a contest or a small lighting stick. Accept other accurate contextual examples.",
+      "explanation": "The examples must demonstrate the named relation rather than merely place unrelated words side by side.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a valid contextual synonym pair."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a valid antonym pair."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a valid lesson-sense homonym and distinguishes meanings."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Relations in communication",
+      "learningObjective": "Use synonyms, antonyms, homonyms and hyponyms in written and spoken communication.",
+      "id": "ndv-324-030",
+      "objectiveId": "nerdc-english-primary4-324-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "In This empty carton is light enough to lift, which word could replace light without changing the intended meaning?",
+      "answer": "not heavy",
+      "explanation": "Here light concerns weight, not colour, illumination or intelligence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "bright",
+        "not heavy",
+        "pale",
+        "clever"
+      ],
+      "correctOption": "B",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence.",
+      "contentSourceId": "bc-hyponym-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Relations in communication",
+      "learningObjective": "Use synonyms, antonyms, homonyms and hyponyms in written and spoken communication.",
+      "id": "ndv-324-031",
+      "objectiveId": "nerdc-english-primary4-324-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Rewrite The room was tidy using a suitable synonym for tidy. Then write a contrasting sentence using an antonym. Keep the intended meanings clear.",
+      "answer": "The room was neat. Later, the room was messy. Accept another contextually suitable synonym and antonym with clear sentences.",
+      "explanation": "A synonym should fit this particular description of a room, and the antonym should create a meaningful contrast.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a suitable synonym in a sentence."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a suitable antonym in a contrasting sentence."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Relations in communication",
+      "learningObjective": "Use synonyms, antonyms, homonyms and hyponyms in written and spoken communication.",
+      "id": "ndv-324-032",
+      "objectiveId": "nerdc-english-primary4-324-17-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Speak to a partner about a fictional school garden. Use the category word flower and name two particular flowers that belong to it. Then use a suitable synonym for small to describe one bloom.",
+      "answer": "The garden has several kinds of flower, including roses and hibiscuses. One bloom is tiny. Accept other valid flower examples and a contextually suitable synonym for small.",
+      "explanation": "This is spoken vocabulary use with category membership and contextual synonymy; no actual garden or plant-identification visit is claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses two valid flowers as kinds of flower."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an appropriate synonym for small in context."
+        },
+        {
+          "marks": 1,
+          "description": "Produces a clear connected spoken response."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Assess the learner’s live or recorded spoken response; a written script alone does not earn performance marks. Teacher prepares the fictional setting and scores individual evidence for meaning and intelligibility. Actual classroom delivery, recording arrangements and examiner calibration remain unverified; do not require imitation of a particular accent.",
+      "contentSourceId": "bc-hyponym-reference-324"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Recognising register",
+      "learningObjective": "Identify vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-033",
+      "objectiveId": "nerdc-english-primary4-324-18-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "A pupil hears coach, referee, player and goal during a discussion. Which field are these words most strongly associated with together?",
+      "answer": "Sports",
+      "explanation": "The cluster supports a sports context; individual words may have other uses.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Weather",
+        "Family relationships",
+        "Sports",
+        "Library organisation"
+      ],
+      "correctOption": "C",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Recognising register",
+      "learningObjective": "Identify vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-034",
+      "objectiveId": "nerdc-english-primary4-324-18-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional weather board says: drizzle in the morning, a light breeze later. Identify the two weather words and explain their meanings briefly.",
+      "answer": "Drizzle is light rain with small drops. A breeze is a light wind.",
+      "explanation": "This is vocabulary interpretation of a fictional board, not a forecast for a real place or day.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies and explains drizzle."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies and explains breeze."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Recognising register",
+      "learningObjective": "Identify vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-035",
+      "objectiveId": "nerdc-english-primary4-324-18-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "mcq",
+      "prompt": "On a teacher’s paper model of a class website, a pupil adds a reply below an existing post. Which word best names that reply?",
+      "answer": "Comment",
+      "explanation": "A comment is a response to a post in this model. No real account or online action is needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 1,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "options": [
+        "Forecast",
+        "Comment",
+        "Cousin",
+        "Referee"
+      ],
+      "correctOption": "B",
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Contextual sentence use",
+      "learningObjective": "Construct sentences using vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-036",
+      "objectiveId": "nerdc-english-primary4-324-19-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write two connected sentences about borrowing a library book. Use librarian, shelf and return naturally.",
+      "answer": "The librarian helped me choose a book from the shelf. I will return it on the agreed day. Accept other clear sentences using all three words appropriately.",
+      "explanation": "The vocabulary should fit the school/library setting rather than appear as an unrelated list.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses librarian and shelf meaningfully."
+        },
+        {
+          "marks": 1,
+          "description": "Uses return appropriately and links the sentences."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Contextual sentence use",
+      "learningObjective": "Construct sentences using vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-037",
+      "objectiveId": "nerdc-english-primary4-324-19-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play a fictional sports announcement aloud. Tell listeners that a team has a new coach and that a referee will manage the next match. Use the field vocabulary in your own sentences without inventing a real result.",
+      "answer": "Our team has a new coach for practice. A referee will manage the next match and apply the game’s rules. Accept a clear equivalent announcement.",
+      "explanation": "This assesses contextual vocabulary in spoken communication, not actual officiating or a real scheduled event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses team and coach appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Uses referee and match appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an intelligible connected announcement."
+        }
+      ],
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Assess the learner’s live or recorded spoken response; a written script alone does not earn performance marks. Teacher prepares the fictional setting and scores individual evidence for meaning and intelligibility. Actual classroom delivery, recording arrangements and examiner calibration remain unverified; do not require imitation of a particular accent."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Contextual sentence use",
+      "learningObjective": "Construct sentences using vocabulary associated with given fields or contexts.",
+      "id": "ndv-324-038",
+      "objectiveId": "nerdc-english-primary4-324-19-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write two sentences about a fictional family visit using cousin and grandmother. Make the relationships understandable without supplying real family details.",
+      "answer": "My cousin came with our grandmother to visit us. We showed them the drawings on the table. Accept another coherent fictional example.",
+      "explanation": "Assess relationship words in sensible sentences; do not require one particular household structure or real names.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses cousin and grandmother appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Produces clear linked sentences."
+        }
+      ],
+      "deliveryNote": "Written language task; not evidence of observed speaking, listening, dictionary use or digital-tool competence."
+    }
+  ]
+}

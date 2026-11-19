@@ -3740,7 +3740,7 @@
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified. Batch323 fresh PDF hash matched. All numbered objective columns read for a complete source inventory; early oral/aural tables and Songs/Poems rendered and visually inspected. New tasks require live/recorded individual evidence. No audio or actual classroom performance verified. Source vowel notation, non-minimal pairs and overgeneral stress patterns are recorded rather than silently imposed.",
+      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified. Batch323 fresh PDF hash matched. All numbered objective columns read for a complete source inventory; early oral/aural tables and Songs/Poems rendered and visually inspected. New tasks require live/recorded individual evidence. No audio or actual classroom performance verified. Source vowel notation, non-minimal pairs and overgeneral stress patterns are recorded rather than silently imposed. Batch324 fresh checksum matched. Grammar/vocabulary tables PDF20–22,24–25 read and visually inspected. Nineteen partial author mappings; traditional adjective/determiner labels, overlapping homograph/homonym terms and school future-tense labels qualified. Six numbered objectives still have no registered draft link after these mappings; full competency and delivery requirements remain open.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3782,6 +3782,36 @@
       "source": "https://www.teachingenglish.org.uk/teaching-resources/teaching-secondary/activities/beginner-a1/voiced-and-unvoiced-consonants",
       "retrievedOn": "2026-11-19",
       "note": "British Council editorial explanation opened and read; voiced/unvoiced contrast and van/fan support phonetic accuracy. Its secondary activity age tag is not used to establish Primary4 suitability; the exact-class NERDC objectives do that. No source activity or answer sequence copied."
+    },
+    {
+      "id": "bc-homograph-reference-324",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_reference",
+      "source": "https://takeielts.britishcouncil.org/blog/homonyms-vs-homographs-learn-the-difference",
+      "retrievedOn": "2026-11-19",
+      "note": "British Council article updated8 September2025 opened and read. Shared spelling can overlap with shared sound; homonym definitions vary. Used for technical clarification, not IELTS level/class mapping. No examples copied into fixed examination claims."
+    },
+    {
+      "id": "bc-hyponym-reference-324",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_reference",
+      "source": "https://www.teachingenglish.org.uk/professional-development/teachers/teaching-knowledge-database/d-h/hyponyms",
+      "retrievedOn": "2026-11-19",
+      "note": "Official TeachingEnglish entry opened/read: specific member terms under a broader category, contrasted with synonym and antonym relations. Supplementary terminology evidence; original classroom examples."
+    },
+    {
+      "id": "bc-comparison-reference-324",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_supplementary_language_reference",
+      "source": "https://learnenglishkids.britishcouncil.org/grammar-vocabulary/grammar-practice/comparatives-superlatives",
+      "retrievedOn": "2026-11-19",
+      "note": "LearnEnglish Kids grammar explanation opened/read. Comparative/superlative use and irregular better/best support technical accuracy. No source worksheet or game copied; selected examples do not exhaust all comparison rules."
     }
   ],
   "banks": [
@@ -41586,6 +41616,355 @@
       ],
       "sourceSections": [
         "Printed p. 17 (PDF p. 30), Songs and Poems, performance objective(s) 4,5; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-1-v1",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Idiomatic meaning",
+      "learningObjective": "Explain meanings of common idioms in context.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Vocabulary (Common Idioms), performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-2-v1",
+      "topic": "Vocabulary (Common Idioms)",
+      "subtopic": "Using idioms",
+      "learningObjective": "Use common idioms appropriately in sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Vocabulary (Common Idioms), performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-3-v1",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sound spelling and meaning",
+      "learningObjective": "Explain meanings of common homophones and homographs.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Homophones and homograph, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-4-v1",
+      "topic": "Homophones and homograph",
+      "subtopic": "Examples and meanings",
+      "learningObjective": "Give examples of homophones and homographs with their meanings.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Homophones and homograph, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-5-v1",
+      "topic": "Homophones and homograph",
+      "subtopic": "Sentence meanings",
+      "learningObjective": "Write sentences demonstrating different meanings of homophones and homographs.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 7 (PDF p. 20), Homophones and homograph, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-6-v1",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Past reference",
+      "learningObjective": "Use past-tense forms correctly in context.",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), Using past, present and future tenses, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-7-v1",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Present reference",
+      "learningObjective": "Use present-tense forms correctly in context.",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), Using past, present and future tenses, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-8-v1",
+      "topic": "Using past, present and future tenses",
+      "subtopic": "Future reference",
+      "learningObjective": "Use forms referring to future events correctly in context.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), Using past, present and future tenses, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-9-v1",
+      "topic": "Nouns and pronouns",
+      "subtopic": "Identification",
+      "learningObjective": "Identify nouns and pronouns in sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), Nouns and pronouns, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-10-v1",
+      "topic": "Nouns and pronouns",
+      "subtopic": "Sentence use",
+      "learningObjective": "Use nouns and pronouns clearly in sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21), Nouns and pronouns, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-11-v1",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Meanings and functions",
+      "learningObjective": "Explain meanings and functions of adjectives and adverbs.",
+      "questionTypes": [
+        "structured",
+        "mcq"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21–22), Adjectives and Adverbs, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-12-v1",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Types and functions",
+      "learningObjective": "Identify types or functions of adjectives and adverbs.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21–22), Adjectives and Adverbs, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-13-v1",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Degrees of comparison",
+      "learningObjective": "Use adjectives in appropriate degrees of comparison.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21–22), Adjectives and Adverbs, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-14-v1",
+      "topic": "Adjectives and Adverbs",
+      "subtopic": "Sentence production",
+      "learningObjective": "Use adjectives and adverbs in making sentences.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 8 (PDF p. 21–22), Adjectives and Adverbs, performance objective 4; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-15-v1",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Explaining relations",
+      "learningObjective": "Explain meanings of synonyms, antonyms, homonyms and hyponyms.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Sense Relations: synonyms antonyms homonyms and hyponyms, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-16-v1",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Giving examples",
+      "learningObjective": "Give examples of synonyms, antonyms, homonyms and hyponyms.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Sense Relations: synonyms antonyms homonyms and hyponyms, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-17-v1",
+      "topic": "Sense Relations: synonyms antonyms homonyms and hyponyms",
+      "subtopic": "Relations in communication",
+      "learningObjective": "Use synonyms, antonyms, homonyms and hyponyms in written and spoken communication.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Sense Relations: synonyms antonyms homonyms and hyponyms, performance objective 3; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-18-v1",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Recognising register",
+      "learningObjective": "Identify vocabulary associated with given fields or contexts.",
+      "questionTypes": [
+        "mcq",
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Vocabulary associated with fields or contexts, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-324-19-v1",
+      "topic": "Vocabulary associated with fields or contexts",
+      "subtopic": "Contextual sentence use",
+      "learningObjective": "Construct sentences using vocabulary associated with given fields or contexts.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Vocabulary associated with fields or contexts, performance objective 2; content, activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

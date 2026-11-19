@@ -1,0 +1,99 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-english-primary4-revised-2025",
+  "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/1.pdf",
+  "sha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+  "bytes": 1214109,
+  "pages": 31,
+  "tables": [
+    {
+      "pdfPage": 20,
+      "printedPage": 7,
+      "topics": [
+        "Vocabulary (Common Idioms)",
+        "Homophones and homograph"
+      ]
+    },
+    {
+      "pdfPage": 21,
+      "printedPage": 8,
+      "topics": [
+        "Using past, present and future tenses",
+        "Nouns and pronouns",
+        "Adjectives and Adverbs"
+      ]
+    },
+    {
+      "pdfPage": 22,
+      "printedPage": 9,
+      "topics": [
+        "Adjectives and Adverbs (continued)"
+      ]
+    },
+    {
+      "pdfPage": 24,
+      "printedPage": 11,
+      "topics": [
+        "Sense Relations"
+      ]
+    },
+    {
+      "pdfPage": 25,
+      "printedPage": 12,
+      "topics": [
+        "Vocabulary associated with fields or contexts"
+      ]
+    }
+  ],
+  "objectiveIds": [
+    "nerdc-english-primary4-324-1-v1",
+    "nerdc-english-primary4-324-2-v1",
+    "nerdc-english-primary4-324-3-v1",
+    "nerdc-english-primary4-324-4-v1",
+    "nerdc-english-primary4-324-5-v1",
+    "nerdc-english-primary4-324-6-v1",
+    "nerdc-english-primary4-324-7-v1",
+    "nerdc-english-primary4-324-8-v1",
+    "nerdc-english-primary4-324-9-v1",
+    "nerdc-english-primary4-324-10-v1",
+    "nerdc-english-primary4-324-11-v1",
+    "nerdc-english-primary4-324-12-v1",
+    "nerdc-english-primary4-324-13-v1",
+    "nerdc-english-primary4-324-14-v1",
+    "nerdc-english-primary4-324-15-v1",
+    "nerdc-english-primary4-324-16-v1",
+    "nerdc-english-primary4-324-17-v1",
+    "nerdc-english-primary4-324-18-v1",
+    "nerdc-english-primary4-324-19-v1"
+  ],
+  "sourceChecks": "Fresh source checksum matched; all selected tables read and visually inspected. Current register/inventory loaded from remote batch323 before authoring.",
+  "supplementarySourceIds": [
+    "bc-homograph-reference-324",
+    "bc-hyponym-reference-324",
+    "bc-comparison-reference-324"
+  ],
+  "reconciliations": [
+    "Homographs may share pronunciation as well as spelling. Homonym is used in the explicitly stated same-spelling/same-sound lesson sense; broader valid uses are acknowledged.",
+    "Source possessive/demonstrative adjective labels can be expressed as determiners with the same correct function. Adverbials may be phrases; not every adverb ends in -ly.",
+    "Source future-tense teaching label is treated as future reference, not an inflected future-tense claim. Comparatives/superlatives are sampled, not an exhaustive morphology rule.",
+    "Synonymy is context-sensitive; hyponymy is a kind-of relation, not synonymy. Field vocabulary can occur in more than one context.",
+    "Social-media item uses a paper model, with no account or service-age assumptions. Three spoken tasks require actual live/recorded evidence."
+  ],
+  "manualInspection": "Inspected all prompts, model answers, distractors, marking criteria, acceptable alternatives and source links. Original contexts distinguish idiom interpretation/use, spelling relations, tense editing/reporting, clear reference, word function, comparison logic and contextual registers. No copied examination items. Compared prior Primary4 reading/oral batches322–323 and current JSS1 objective topics to avoid repeating their specific tasks. No arithmetic claims or numerical templates. Real weather, medical instructions, actual sporting results and real personal/family information are not asserted.",
+  "independentChecks": {
+    "ribbonOrderShortestToLongest": [
+      "blue",
+      "red",
+      "green"
+    ],
+    "comparison": "red>blue and green>red implies green longest; checked as ordering, not a physical measurement",
+    "spokenTasks": 3,
+    "scope": "Written key/rubric consistency only; no audio, live performance, dictionary search, field trip or app game executed."
+  },
+  "remaining": [
+    "Six unmapped numbered objectives: vowel discrimination, contextual reading1/2, informational reading1, informal letter meaning/features.",
+    "All mappings remain partial; full grammar variants, source activities, pronunciation calibration, listening/recording and individual performance evidence remain open.",
+    "Dictionary use, peer presentation, digital games, online research, visits, school adoption, term placement and app delivery.",
+    "Legacy exception backlog and independent academic review."
+  ]
+}
