@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Civic Education community action and cooperation",
+  "questionCount": 12,
+  "note": "Original scenarios under existing provisional cross-board mappings. Practice marks and rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-001",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A community centre asks a student volunteer group to help older residents learn to use its new timetable. Only two volunteers understand the timetable well. Explain how the group should allocate and prepare its volunteers, and identify one benefit of matching tasks to demonstrated ability.",
+      "answer": "The knowledgeable volunteers can check the timetable with centre staff and prepare the others to give accurate explanations. Assign tasks according to what each volunteer can do reliably, with uncertain questions referred to the centre. Matching tasks to ability improves the usefulness and accuracy of the help.",
+      "explanation": "The plan should connect preparation and allocation with the need for accurate public information.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes checking the information and preparing volunteers."
+        },
+        {
+          "marks": 1,
+          "description": "Allocates tasks or referrals according to ability."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a benefit for the residents receiving the help."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-002",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A volunteer group receives donated tools to maintain a community garden. After the first workday, several tools are left at members’ homes and the next team cannot find them. Propose an arrangement that would make the shared resources available for future work, and explain how to check whether it works.",
+      "answer": "Agree a secure shared storage point with the garden organisers, record who takes each tool and require its return at the agreed time. Before the next workday, check the tools against the record and investigate missing items.",
+      "explanation": "The plan supports continued service by making donated resources accountable and accessible.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes an agreed shared storage and access arrangement."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a clear record or return responsibility."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a practical check of availability for the next team."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-003",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A youth group can repaint a public noticeboard, but nobody has agreed to replace outdated notices afterwards. Explain why completing the painting may not meet the continuing need and propose a way to plan for that need before work starts.",
+      "answer": "A fresh surface will not keep the information accurate. Agree with the community centre who will update notices, how often and using which verified sources. Plan the handover before painting so the improvement continues to serve residents.",
+      "explanation": "Credit a workable arrangement that links the initial activity to responsibility for ongoing use.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes the physical improvement from continuing information needs."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an agreed responsibility for updates."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how advance planning supports the continuing benefit."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-004",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A resident cannot join a voluntary park clean-up but offers to lend wheelbarrows without charge. How can this contribution support the service?",
+      "answer": "It supplies resources that help the volunteers carry out the work.",
+      "explanation": "Community service can be supported through contributions in kind as well as labour.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "It gives the lender automatic ownership of the public park.",
+        "It removes the need for organisers to agree how the tools will be used.",
+        "It supplies resources that help the volunteers carry out the work.",
+        "It means the volunteers must stop participating in the activity."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-005",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "Volunteers want to remove damaged furniture from a shared community room. Which first step best supports a service that meets local needs?",
+      "answer": "Agree with the room’s responsible users which items are damaged and what may be removed.",
+      "explanation": "Consulting the users and responsible organisers helps prevent disposal of items still needed or repairable.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Agree with the room’s responsible users which items are damaged and what may be removed.",
+        "Remove every item that a volunteer dislikes before consulting users.",
+        "Measure success only by the weight of furniture removed.",
+        "Assume anything left in the room has no owner or purpose."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Community service",
+      "subtopic": "Local needs and volunteer action",
+      "learningObjective": "Identify voluntary community service and plan actions that respond to a demonstrated need.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-006",
+      "objectiveId": "neco-civic-community-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "Two groups report on an unpaid community transport-information project. Which report provides the clearest evidence that a demonstrated need was addressed?",
+      "answer": "Residents who previously missed the service can now identify its route and departure time.",
+      "explanation": "The report links the project to a change relevant to the information need.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The volunteers recorded many preparation hours before the launch.",
+        "The organising committee spent its full budget on information leaflets.",
+        "The group held all the planning meetings on its calendar.",
+        "Residents who previously missed the service can now identify its route and departure time."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-007",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A joint market committee announces that a dispute is settled because two community leaders signed an agreement. Traders who use the market say the leaders never asked about their concerns. Explain one risk in treating the signatures as sufficient and propose a step to strengthen the agreement.",
+      "answer": "The agreement may fail to address the concerns of those expected to follow it. Invite affected traders from both communities to examine the terms, raise practical problems and agree how the arrangement will operate and be reviewed.",
+      "explanation": "Leadership agreement can be valuable, while effective participation helps make the terms workable for affected groups.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the gap between leader approval and affected users’ concerns."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes participation by affected users from both communities."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how their input can improve implementation or review."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-008",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "Two communities agree to share maintenance of a water point. Their plan specifies a contribution from each community but says nothing about who should organise repairs or how spending will be reported. Explain two problems this omission could create and recommend one improvement.",
+      "answer": "Repairs may be delayed because responsibility is unclear, and mistrust may arise over how contributions are used. Agree who authorises and organises repairs, keep shared spending records and arrange reports that both communities can inspect.",
+      "explanation": "Credit different practical risks if they follow from the missing responsibilities or reporting.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a problem caused by unclear repair responsibility."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a problem caused by absent financial reporting."
+        },
+        {
+          "marks": 1,
+          "description": "Recommends an arrangement linked to one or both omissions."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-009",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A peace meeting is conducted entirely in a language that several representatives cannot understand well. Its organiser says equal speaking time is enough to make the process fair. Assess the claim and propose a change.",
+      "answer": "Equal time does not give an effective chance to participate if representatives cannot understand the discussion. Use agreed interpretation or another shared communication arrangement, check understanding and allow representatives to respond to the same information.",
+      "explanation": "Fair participation includes an opportunity to understand and contribute, beyond the time formally allocated.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the language barrier to meaningful participation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why equal time alone does not resolve it."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a workable communication change."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-010",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A mediator was previously paid by one party to a shared-land dispute but has not disclosed the relationship. Which step would most directly help the parties assess confidence in the mediation?",
+      "answer": "Disclose the relationship and agree whether a different mediator is needed.",
+      "explanation": "Openness about a relevant relationship lets both parties consider impartiality.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Require the other party to accept every proposed term before discussion.",
+        "Disclose the relationship and agree whether a different mediator is needed.",
+        "Keep the relationship secret until after signatures are obtained.",
+        "Let the mediator choose which party may present evidence."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-011",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A committee wants to know whether cooperation between two communities has improved after a peace agreement. Which evidence is most relevant?",
+      "answer": "Records of joint activities and how complaints under the agreement have been resolved.",
+      "explanation": "The evidence concerns ongoing cooperation and the functioning of the agreed process.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The amount donated to organise the signing ceremony.",
+        "The total attendance at the agreement’s signing ceremony.",
+        "Records of joint activities and how complaints under the agreement have been resolved.",
+        "The number of copies of the agreement printed for officials."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Civic Education",
+      "topic": "Intercommunal relations",
+      "subtopic": "Cooperation and peaceful disagreement",
+      "learningObjective": "Analyse barriers to cooperation and evaluate fair ways to resolve disputes between communities.",
+      "specificationId": "neco-civic-community-reference-2026",
+      "id": "ndv-312-012",
+      "objectiveId": "neco-civic-community-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "During a dispute over access to a shared path, a committee member says everyone in the neighbouring community has the same hostile motive. Which response best supports peaceful examination of the disagreement?",
+      "answer": "Ask for specific concerns and evidence, and hear the different people affected by the path.",
+      "explanation": "Examining concrete interests and evidence avoids treating an entire community as having one motive.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Ask for specific concerns and evidence, and hear the different people affected by the path.",
+        "Treat the claim as proved because it refers to a whole community.",
+        "Refuse to hear anyone whose account differs from the claim.",
+        "Settle responsibility according to the popularity of the accusation."
+      ],
+      "correctOption": "A"
+    }
+  ]
+}

@@ -1055,7 +1055,9 @@
         "https://www.waeconline.org.ng/e-learning/Civic/civic229cq1.html"
       ],
       "retrievedOn": "2026-11-04",
-      "note": "The 2026 SSCE Internal timetable lists Civic Education objective and essay papers. Historical WAEC examiner materials guide provisional topics. No inference is made about later NECO years or Citizenship and Heritage Studies. Official topic objectives and option counts remain open."
+      "lastSourceRecheck": "2026-11-19",
+      "formatRecheck": "https://neco.gov.ng/2027%20SSCE%20INTERNAL%20TIMETABLE.pdf",
+      "note": "The 2026 SSCE Internal timetable lists Civic Education objective and essay papers. The published 2027 timetable also explicitly lists Civic Education, codes 1003 and 1002, with a combined three-hour sitting. Historical WAEC 2019 and 2021 observations were rechecked for provisional community-service and intercommunal-relations content. This format evidence does not establish adoption of Citizenship and Heritage Studies or current topic objectives. Official topic objectives and option counts remain open."
     },
     {
       "id": "neco-mathematics-geometry-probability-reference-2026",
