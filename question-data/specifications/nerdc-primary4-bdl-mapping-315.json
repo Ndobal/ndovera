@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-bdl-primary4-revised-2025",
+  "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/14.pdf",
+  "sha256": "beb64ca447ee992ad20cdbc052536e0201372d38346814543d1d9fd58558f82d",
+  "bytes": 3520514,
+  "pages": 37,
+  "objectiveIds": [
+    "nerdc-bdl-primary4-315-1-v1",
+    "nerdc-bdl-primary4-315-2-v1",
+    "nerdc-bdl-primary4-315-3-v1",
+    "nerdc-bdl-primary4-315-4-v1",
+    "nerdc-bdl-primary4-315-5-v1",
+    "nerdc-bdl-primary4-315-6-v1",
+    "nerdc-bdl-primary4-315-7-v1",
+    "nerdc-bdl-primary4-315-8-v1",
+    "nerdc-bdl-primary4-315-9-v1",
+    "nerdc-bdl-primary4-315-10-v1"
+  ],
+  "tables": [
+    {
+      "topic": "Safe Internet Use",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "performanceObjectives": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "topic": "Phishing",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "performanceObjectives": [
+        1,
+        3,
+        4
+      ]
+    },
+    {
+      "topic": "Cyberbullying",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "performanceObjectives": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "evidenceStatus": "Re-downloaded PDF matched checksum. Table text and rendered pages 24\u201326 checked. Author-proposed mappings; no official objective codes invented.",
+  "activityEvaluationAlignment": "Safe-site identification and discussion use written precursors; reporting is rehearsed with a trusted-adult role-play. Respectful discussion is directly observed in offline role-play. Phishing definition/detection are written; countermeasures include a harmless message-card rehearsal. Cyberbullying examples and help strategies remain limited practice, including mock block/report controls. Actual online conduct and full competency achievement are unverified.",
+  "safetySources": [
+    "unicef-cyberbullying-guidance-315",
+    "ncsc-phishing-guidance-315",
+    "nist-password-guidance-315"
+  ],
+  "accessFailures": [
+    {
+      "url": "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+      "result": "403"
+    },
+    {
+      "url": "https://www.cisa.gov/sites/default/files/2024-09/Secure-Our-World-4-Easy-Ways-Stay-Safe-Online-Tip-Sheet.pdf",
+      "result": "403"
+    }
+  ],
+  "deferred": [
+    {
+      "topic": "Safety and protection",
+      "pdfPage": 23,
+      "reason": "Eight-character mixed-type guidance conflicts with current NIST centrally verified password guidance. Source learning-outcome text also refers to GUI output operations. Device unlock policies and centrally verified passwords need separate reconciliation before authoring."
+    },
+    {
+      "topic": "Phishing",
+      "performanceObjective": 2,
+      "reason": "Types are requested but not specified in the table. No taxonomy inferred."
+    }
+  ],
+  "remaining": [
+    "School adoption and official term placement",
+    "Full objective and competency inventory",
+    "Observed classroom and online delivery",
+    "Other topics including Inclusivity"
+  ]
+}

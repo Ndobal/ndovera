@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 2,
+  "collection": "NERDC Primary 4 Basic Digital Literacy online safety",
+  "questionCount": 20,
+  "note": "Original practice. Four offline role-plays and sixteen written precursors. Classroom delivery and school adoption unverified; independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Choosing sites with adult guidance",
+      "learningObjective": "Identify safe internet sites.",
+      "id": "ndv-315-001",
+      "objectiveId": "nerdc-bdl-primary4-315-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Your teacher gives the class an approved reading-site bookmark. A pop-up on another page invites you to an unknown game site. Which is the better choice for the reading task, and what should you do about the invitation?",
+      "answer": "Use the approved bookmark for the reading task. Do not follow the unknown invitation; ask the teacher to check it.",
+      "explanation": "Teacher approval is for a particular learning task. It does not mean every link or advertisement on a page is safe.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the approved reading bookmark."
+        },
+        {
+          "marks": 1,
+          "description": "Asks the teacher about the invitation without following it."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Choosing sites with adult guidance",
+      "learningObjective": "Identify safe internet sites.",
+      "id": "ndv-315-002",
+      "objectiveId": "nerdc-bdl-primary4-315-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classmate says a website is suitable for Primary 4 because its home page has bright colours. Give one reason this is not enough, and name someone who can help check whether it is suitable.",
+      "answer": "Colours do not tell us whether the content and activities are suitable. A parent or teacher can help check it.",
+      "explanation": "Appearance alone does not establish suitability for children.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that appearance does not establish suitable content or activities."
+        },
+        {
+          "marks": 1,
+          "description": "Names a parent, teacher or other trusted adult."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Recognising upsetting content",
+      "learningObjective": "State examples of upsetting content on the internet.",
+      "id": "ndv-315-003",
+      "objectiveId": "nerdc-bdl-primary4-315-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Without describing anything frightening in detail, name two kinds of internet content that could upset a child.",
+      "answer": "Examples include frightening videos and hateful messages.",
+      "explanation": "Accept other age-appropriate examples of upsetting online material. Do not require the pupil to find or view any.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names one suitable category."
+        },
+        {
+          "marks": 1,
+          "description": "Names a different suitable category."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Recognising upsetting content",
+      "learningObjective": "State examples of upsetting content on the internet.",
+      "id": "ndv-315-004",
+      "objectiveId": "nerdc-bdl-primary4-315-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two cards describe online material: A is a polite explanation of a maths mistake; B mocks a group of people with hateful words. Identify the upsetting example and explain what makes it different from helpful correction.",
+      "answer": "B is upsetting because it attacks people. A offers polite help with a mistake.",
+      "explanation": "Disagreement or correction can be respectful; hateful treatment of people is different.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies B and its hateful treatment."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes polite correction of work from attacking people."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Reporting upsetting content",
+      "learningObjective": "Report upsetting content to a teacher or parent.",
+      "id": "ndv-315-005",
+      "objectiveId": "nerdc-bdl-primary4-315-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play. Imagine a cartoon video unexpectedly becomes frightening. Your teacher plays a trusted adult. Show how you would stop watching and ask for help, saying what happened without repeating the frightening details.",
+      "answer": "The pupil stops watching or puts the device aside, tells the adult that a video was frightening and asks for help.",
+      "explanation": "Observe the reporting action. No frightening material is shown.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Stops the imagined viewing."
+        },
+        {
+          "marks": 1,
+          "description": "Tells the adult what kind of problem occurred."
+        },
+        {
+          "marks": 1,
+          "description": "Asks for help without replaying or sharing the content."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher observes an offline role-play using only fictional, non-graphic material and a prepared mock interface where named. No live accounts, messages or personal information. Actual classroom delivery is unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Reporting upsetting content",
+      "learningObjective": "Report upsetting content to a teacher or parent.",
+      "id": "ndv-315-006",
+      "objectiveId": "nerdc-bdl-primary4-315-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Bola closes an upsetting page but is worried about it. Her parent is busy for a moment. What could she say when she can speak to the parent, and why should she still tell them even though the page is closed?",
+      "answer": "She could say, I saw something online that upset me and I need help. The adult can support her and help prevent another encounter.",
+      "explanation": "Closing a page does not remove the need for support. Accept a teacher or another trusted adult if the parent is unavailable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a clear request for help with the online experience."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the adult can offer support or help with future safety."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Good manners online",
+      "learningObjective": "Display good manners while online.",
+      "id": "ndv-315-007",
+      "objectiveId": "nerdc-bdl-primary4-315-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play a class discussion on a pretend learning platform. A partner prefers a different story ending. Say one respectful reply that gives your view without insulting the partner, then let the partner respond.",
+      "answer": "For example: I prefer the ending where they share because it helps both friends. What do you think? The pupil listens to the response.",
+      "explanation": "Accept different relevant opinions. Assess respect and turn-taking, not agreement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Expresses a relevant view politely."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids personal insults and treats the partner respectfully."
+        },
+        {
+          "marks": 1,
+          "description": "Allows and listens to a response."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher observes an offline role-play using only fictional, non-graphic material and a prepared mock interface where named. No live accounts, messages or personal information. Actual classroom delivery is unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Safe Internet Use",
+      "subtopic": "Good manners online",
+      "learningObjective": "Display good manners while online.",
+      "id": "ndv-315-008",
+      "objectiveId": "nerdc-bdl-primary4-315-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A friend sends you a private photo of their drawing and asks you not to post it. You want to show the class online. Explain what you should do and why.",
+      "answer": "Do not post it against their wishes. Respect their privacy and ask permission before sharing; accept their refusal.",
+      "explanation": "Being able to copy a picture does not give permission to share it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Does not post the picture against the friend's wishes."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need to respect privacy and permission."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Meaning of phishing",
+      "learningObjective": "Define phishing.",
+      "id": "ndv-315-009",
+      "objectiveId": "nerdc-bdl-primary4-315-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain phishing in your own words using the idea of a message pretending to be from someone trusted.",
+      "answer": "Phishing is an attempt to trick someone through a deceptive message or communication, often pretending to be trusted, into revealing private information or taking an unsafe action.",
+      "explanation": "An attempt can be phishing even when the recipient does not fall for it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an attempt to deceive through a message or communication."
+        },
+        {
+          "marks": 1,
+          "description": "Connects deception with obtaining private information or inducing unsafe action."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Meaning of phishing",
+      "learningObjective": "Define phishing.",
+      "id": "ndv-315-010",
+      "objectiveId": "nerdc-bdl-primary4-315-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pretend message claims to be from a learning club and asks for a secret login to claim a prize. Seyi refuses. Has refusing made the message stop being a phishing attempt? Explain.",
+      "answer": "No. It is still an attempt to use a false trusted identity or prize story to obtain secret information, even though Seyi did not provide it.",
+      "explanation": "Success is not required for an attempted deception to count as phishing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Says it can still be a phishing attempt."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the attempted deception to obtain secret information."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Warning signs",
+      "learningObjective": "Explain ways of detecting phishing.",
+      "id": "ndv-315-011",
+      "objectiveId": "nerdc-bdl-primary4-315-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A message says your class account will close in five minutes unless you open an unexpected attachment. Identify two warning signs that mean you should stop and ask an adult.",
+      "answer": "The pressure to act within five minutes and the unexpected attachment are warning signs.",
+      "explanation": "These signs justify caution; the pupil should not open the attachment to investigate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies urgent pressure or threat."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the unexpected attachment."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Warning signs",
+      "learningObjective": "Explain ways of detecting phishing.",
+      "id": "ndv-315-012",
+      "objectiveId": "nerdc-bdl-primary4-315-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An unexpected message uses the school badge and perfect spelling but asks you to send a secret login. Explain why the neat spelling and badge do not make it trustworthy.",
+      "answer": "A deceptive sender can copy a badge and write correctly. The unexpected request for a secret login is a reason to stop and check with the teacher.",
+      "explanation": "Poor spelling can be a warning, but correct spelling is not proof of trust.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that appearance or correct spelling can be copied."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the secret-login request as a reason for caution."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Protective responses",
+      "learningObjective": "Apply countermeasures against phishing.",
+      "id": "ndv-315-013",
+      "objectiveId": "nerdc-bdl-primary4-315-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play with a paper message card: Free drawing kit! Send your private login now. Do not write a login. Show your teacher what you would do with this message and ask for help.",
+      "answer": "The pupil does not reply or follow any instruction, shows the card to the teacher and asks for help checking/reporting it.",
+      "explanation": "Use only the printed fictional card. No message is sent or secret collected.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Does not comply or reply."
+        },
+        {
+          "marks": 1,
+          "description": "Shows the message to the teacher."
+        },
+        {
+          "marks": 1,
+          "description": "Asks for help checking or reporting it."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher observes an offline role-play using only fictional, non-graphic material and a prepared mock interface where named. No live accounts, messages or personal information. Actual classroom delivery is unverified.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Phishing",
+      "subtopic": "Protective responses",
+      "learningObjective": "Apply countermeasures against phishing.",
+      "id": "ndv-315-014",
+      "objectiveId": "nerdc-bdl-primary4-315-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A suspicious message gives a phone number and says, Call this number to prove I am really your teacher. How should a pupil check the claim safely?",
+      "answer": "Ask the teacher in person or ask a trusted adult to use an already known school contact, rather than the number supplied by the suspicious message.",
+      "explanation": "A contact detail controlled by the sender cannot independently confirm the sender's identity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a trusted adult or independently known school contact."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the number in the suspicious message should not be relied on."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "ncsc-phishing-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Meaning of cyberbullying",
+      "learningObjective": "Define cyberbullying.",
+      "id": "ndv-315-015",
+      "objectiveId": "nerdc-bdl-primary4-315-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil is repeatedly sent hurtful messages in an online game to make them feel ashamed. What is this behaviour called? Explain the part played by digital technology.",
+      "answer": "It is cyberbullying. Digital messages in the game are being used repeatedly to hurt or shame the pupil.",
+      "explanation": "The definition connects bullying behaviour with digital communication.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names cyberbullying."
+        },
+        {
+          "marks": 1,
+          "description": "Links the repeated hurtful behaviour with the game's digital messages."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "unicef-cyberbullying-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Meaning of cyberbullying",
+      "learningObjective": "Define cyberbullying.",
+      "id": "ndv-315-016",
+      "objectiveId": "nerdc-bdl-primary4-315-8-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A player says, It cannot be bullying because I only sent the hurtful comments online, not in the classroom. Explain why that claim is wrong.",
+      "answer": "Bullying can happen through digital messages as well as face to face. Repeated online comments intended to hurt or shame someone can be cyberbullying.",
+      "explanation": "Online conduct can affect real people. A child can seek help with an upsetting incident even before repetition is established.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises that online behaviour can be bullying."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the repeated hurtful or shaming behaviour."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "unicef-cyberbullying-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Forms of cyberbullying",
+      "learningObjective": "State forms of cyberbullying.",
+      "id": "ndv-315-017",
+      "objectiveId": "nerdc-bdl-primary4-315-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A person pretends to be another pupil in a class forum and posts mean messages under that pupil's name. Name this form of cyberbullying and explain the clue.",
+      "answer": "Impersonation. The person is using another pupil's identity to make others think that pupil wrote the messages.",
+      "explanation": "The identifying feature is pretending to be someone else.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names impersonation."
+        },
+        {
+          "marks": 1,
+          "description": "Connects it to use of another pupil's identity."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "unicef-cyberbullying-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Forms of cyberbullying",
+      "learningObjective": "State forms of cyberbullying.",
+      "id": "ndv-315-018",
+      "objectiveId": "nerdc-bdl-primary4-315-9-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional cases describe bullying online. In A, pupils repeatedly remove one child from a group to hurt them. In B, someone reveals another child's private information to embarrass them. Name the form shown in each case.",
+      "answer": "A is exclusion. B is outing, meaning harmful sharing of private information without permission.",
+      "explanation": "Accept descriptive names that accurately distinguish exclusion from exposing private information.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies exclusion in A."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies outing or non-consensual disclosure of private information in B."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Getting help and responding",
+      "learningObjective": "Identify ways of dealing with cyberbullying.",
+      "id": "ndv-315-019",
+      "objectiveId": "nerdc-bdl-primary4-315-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Your friend receives repeated mean messages. They ask you to send insults back for them. Give two helpful actions you could take instead, including one way to get help from a trusted adult.",
+      "answer": "Listen and offer to go with the friend to a trusted adult. Do not retaliate or spread the messages; help them get adult support with blocking/reporting if needed.",
+      "explanation": "Accept two distinct supportive actions, including adult-supported preservation of evidence. Do not require confrontation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one supportive action that does not retaliate."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a different supportive action, with trusted-adult help included across the response."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written understanding or planning precursor. This task alone does not demonstrate actual online behaviour. Use fictional examples and no personal information.",
+      "contentSourceId": "unicef-cyberbullying-guidance-315"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "topic": "Cyberbullying",
+      "subtopic": "Getting help and responding",
+      "learningObjective": "Identify ways of dealing with cyberbullying.",
+      "id": "ndv-315-020",
+      "objectiveId": "nerdc-bdl-primary4-315-10-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Role-play. Your teacher provides a harmless mock screen with a fictional sender, a Report button and a Block button. Point out the tools you could ask an adult to help use for repeated hurtful messages. Explain one reason to show the adult the message before removing it.",
+      "answer": "The pupil identifies Report and Block, asks for adult help and explains that the message may provide evidence of what happened.",
+      "explanation": "A mock screen is sufficient for this rehearsal, not evidence of operation on a real platform. Evidence is shown privately to a trusted adult, not reposted to peers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies both Report and Block."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a trusted adult for help."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the message can provide evidence before removal."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Teacher observes an offline role-play using only fictional, non-graphic material and a prepared mock interface where named. No live accounts, messages or personal information. Actual classroom delivery is unverified.",
+      "contentSourceId": "unicef-cyberbullying-guidance-315"
+    }
+  ]
+}

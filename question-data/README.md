@@ -1661,3 +1661,11 @@ mappings use printed pp. 7 and 9 (PDF pp. 20 and 22). The mapping inventory
 reconciles activity and evaluation columns and records source wording and page
 number conflicts. Seven tasks require device observation. Full coverage,
 application provision and school adoption remain open.
+
+Batch 315 adds twenty Primary 4 Basic Digital Literacy online-safety drafts
+from printed pp. 11–13 (PDF pp. 24–26), mapping ten further performance
+objectives. Four offline role-plays and sixteen written precursors cover safe
+internet use, phishing and cyberbullying. The source inventory records
+current safety guidance, failed CISA retrieval, password-policy conflicts
+and an unspecified phishing taxonomy. School adoption, observed online
+behaviour and independent academic review remain open.

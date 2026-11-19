@@ -3422,14 +3422,47 @@
         "Cover, PDF p. 1",
         "File Management, printed p. 8 (PDF p. 21)",
         "Interface Customisation, printed p. 7 (PDF p. 20)",
-        "Digital Content Creation, printed p. 9 (PDF p. 22)"
+        "Digital Content Creation, printed p. 9 (PDF p. 22)",
+        "Safe Internet Use, printed p. 11 (PDF p. 24)",
+        "Phishing, printed p. 12 (PDF p. 25)",
+        "Cyberbullying, printed p. 13 (PDF p. 26)"
       ],
       "adoptionReferences": [
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency.",
+      "note": "Direct PDF retrieval succeeded while class landing pages returned 403. Cover and File Management table were read and PDF p. 21 was rendered for visual verification. Four performance objectives are initially mapped. Other topics, competency/evaluation reconciliation, term placement, formal assessment formats and school-specific adoption remain open. The introduction uses Mathematics/BST wording despite the Basic Digital Literacy cover and body; these apparent template remnants are recorded and not used to identify the subject. Batch 314 re-download matched the registered hash. Interface Customisation and Digital Content Creation were read and visually checked. Six additional mappings distinguish discussion/example objectives, interface performance and three application-specific content-creation objectives. The contents lists Digital Content Creation at p. 10, but its body footer is p. 9; body locators are used. The performance wording create/edit MS Word/PowerPoint/Excel is interpreted through the learning activities and evaluation guide as creating/editing content in those named applications. Application provision remains unverified. Written precursor questions do not demonstrate the full practical competency. Batch 315 re-download matched the registered checksum. Tables at PDF pp. 24–26 were read and visually checked. Ten additional mappings cover online safety. Password rules at PDF p. 23 conflict with current centrally verified password guidance and require context-specific reconciliation. Phishing types remain unmapped because the table gives no taxonomy. Actual online behaviour, classroom delivery and school adoption remain unverified.",
       "lastSourceRecheck": "2026-11-19"
+    },
+    {
+      "id": "unicef-cyberbullying-guidance-315",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "authoritative_child_safety_guidance",
+      "source": "https://www.unicef.org/eca/cyberbullying-what-it-and-how-stop-it",
+      "retrievedOn": "2026-11-19",
+      "note": "Definition and general trusted-adult, support, evidence, block/report guidance retrieved. Teen-facing article informs safety accuracy, not Primary 4 curriculum scope. No platform signup, UK reporting route or promise of anonymity adopted."
+    },
+    {
+      "id": "ncsc-phishing-guidance-315",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_cybersecurity_guidance",
+      "source": "https://www.ncsc.gov.uk/collection/phishing-scams/spot-scams",
+      "retrievedOn": "2026-11-19",
+      "note": "Official page retrieved in full: impersonation, urgency, misleading appearance, and checking through independent contact details. Linked phishing response guidance also retrieved in search. UK reporting addresses are not prescribed to Nigerian pupils. Supplements safety accuracy, not curriculum scope."
+    },
+    {
+      "id": "nist-password-guidance-315",
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "kind": "official_authentication_standard",
+      "source": "https://pages.nist.gov/800-63-4/sp800-63b/authenticators/",
+      "retrievedOn": "2026-11-19",
+      "note": "Normative centrally verified password guidance retrieved: 15-character single-factor minimum and no composition rules. Local device activation secrets are distinguished. Not a universal child-device policy. Curriculum eight-character mixed-type advice is not adopted as a guarantee of strength."
     }
   ],
   "banks": [
@@ -39387,6 +39420,186 @@
       ],
       "sourceSections": [
         "Printed p. 9 (PDF p. 22), Digital Content Creation, performance objective 3; learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-1-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Choosing sites with adult guidance",
+      "learningObjective": "Identify safe internet sites.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-2-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Recognising upsetting content",
+      "learningObjective": "State examples of upsetting content on the internet.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-3-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Reporting upsetting content",
+      "learningObjective": "Report upsetting content to a teacher or parent.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-4-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Good manners online",
+      "learningObjective": "Display good manners while online.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-5-v1",
+      "topic": "Phishing",
+      "subtopic": "Meaning of phishing",
+      "learningObjective": "Define phishing.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-6-v1",
+      "topic": "Phishing",
+      "subtopic": "Warning signs",
+      "learningObjective": "Explain ways of detecting phishing.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-7-v1",
+      "topic": "Phishing",
+      "subtopic": "Protective responses",
+      "learningObjective": "Apply countermeasures against phishing.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-8-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Meaning of cyberbullying",
+      "learningObjective": "Define cyberbullying.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-9-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Forms of cyberbullying",
+      "learningObjective": "State forms of cyberbullying.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-10-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Getting help and responding",
+      "learningObjective": "Identify ways of dealing with cyberbullying.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 3; content, learning activities and evaluation guide"
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5566,
-    "validDrafts": 3887,
+    "raw": 5586,
+    "validDrafts": 3907,
     "reviewed": 0,
     "registeredBanks": 202,
     "target": 184000,
@@ -2018,6 +2018,12 @@
       "sha256": "dff493a85fd9a5a3536e4eca33290d53433b872937ba4bcde33eb7992650e08f",
       "declared": 12,
       "actual": 12
+    },
+    {
+      "path": "original-multisubject-batch-315.json",
+      "sha256": "39675370d152493447875a855819206c120eeef185fae595562e5c726427ae86",
+      "declared": 20,
+      "actual": 20
     },
     {
       "path": "original-practice-batch-001.json",
@@ -5749,18 +5755,18 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-bdl-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
-      "raw": 24,
-      "validDrafts": 24,
+      "raw": 44,
+      "validDrafts": 44,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 24
+        "structured": 44
       },
       "difficulty": {
-        "standard": 24
+        "standard": 44
       },
-      "remaining": 976,
-      "mappedObjectives": 10,
-      "representedObjectives": 10,
+      "remaining": 956,
+      "mappedObjectives": 20,
+      "representedObjectives": 20,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -7945,18 +7951,18 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
+    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 599,
@@ -45858,6 +45864,126 @@
       "id": "ndv-314-012",
       "file": "original-multisubject-batch-314.json",
       "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-001",
+      "file": "original-multisubject-batch-315.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-002",
+      "file": "original-multisubject-batch-315.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-003",
+      "file": "original-multisubject-batch-315.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-004",
+      "file": "original-multisubject-batch-315.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-005",
+      "file": "original-multisubject-batch-315.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-006",
+      "file": "original-multisubject-batch-315.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-007",
+      "file": "original-multisubject-batch-315.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-008",
+      "file": "original-multisubject-batch-315.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-009",
+      "file": "original-multisubject-batch-315.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-010",
+      "file": "original-multisubject-batch-315.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-011",
+      "file": "original-multisubject-batch-315.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-012",
+      "file": "original-multisubject-batch-315.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-013",
+      "file": "original-multisubject-batch-315.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-014",
+      "file": "original-multisubject-batch-315.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-015",
+      "file": "original-multisubject-batch-315.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-016",
+      "file": "original-multisubject-batch-315.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-017",
+      "file": "original-multisubject-batch-315.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-018",
+      "file": "original-multisubject-batch-315.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-019",
+      "file": "original-multisubject-batch-315.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-315-020",
+      "file": "original-multisubject-batch-315.json",
+      "index": 19,
       "errors": []
     },
     {
@@ -112173,6 +112299,306 @@
       },
       "tiers": {
         "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-1-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Choosing sites with adult guidance",
+      "learningObjective": "Identify safe internet sites.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-2-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Recognising upsetting content",
+      "learningObjective": "State examples of upsetting content on the internet.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-3-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Reporting upsetting content",
+      "learningObjective": "Report upsetting content to a teacher or parent.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-4-v1",
+      "topic": "Safe Internet Use",
+      "subtopic": "Good manners online",
+      "learningObjective": "Display good manners while online.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 11 (PDF p. 24), Safe Internet Use, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-5-v1",
+      "topic": "Phishing",
+      "subtopic": "Meaning of phishing",
+      "learningObjective": "Define phishing.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-6-v1",
+      "topic": "Phishing",
+      "subtopic": "Warning signs",
+      "learningObjective": "Explain ways of detecting phishing.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-7-v1",
+      "topic": "Phishing",
+      "subtopic": "Protective responses",
+      "learningObjective": "Apply countermeasures against phishing.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 12 (PDF p. 25), Phishing, performance objective 4; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-8-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Meaning of cyberbullying",
+      "learningObjective": "Define cyberbullying.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 1; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-9-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Forms of cyberbullying",
+      "learningObjective": "State forms of cyberbullying.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 2; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Basic Digital Literacy",
+      "level": "Primary 4",
+      "specificationId": "nerdc-bdl-primary4-revised-2025",
+      "id": "nerdc-bdl-primary4-315-10-v1",
+      "topic": "Cyberbullying",
+      "subtopic": "Getting help and responding",
+      "learningObjective": "Identify ways of dealing with cyberbullying.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Cyberbullying, performance objective 3; content, learning activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
       },
       "assessmentObjectives": {},
       "coverageStatus": "represented_not_complete",
