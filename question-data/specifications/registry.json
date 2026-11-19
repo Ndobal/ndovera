@@ -3844,7 +3844,7 @@
         "Contents, PDF p.13",
         "Numbered objectives and content/skills in all15 tables, printed pp.1–15 / PDF14–28; selected full-table visual checks recorded in reconciliation326"
       ],
-      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches. Batch330 checksum matched; PDF14,15,24 read/visually checked. Ten new partial mappings support16 written/spoken/practical drafts. Regional dress, fruit naming and broad botanical season are qualified; actual practical delivery and native review pending."
+      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches. Batch330 checksum matched; PDF14,15,24 read/visually checked. Ten new partial mappings support16 written/spoken/practical drafts. Regional dress, fruit naming and broad botanical season are qualified; actual practical delivery and native review pending. Batch331 checksum matched; PDF25 read/visually checked for three new partial word-picture mappings and8 drafts with two actual original SVGs. Legible display, app rendering, access route and observed visual/speech performance remain pending."
     },
     {
       "id": "elias-igbo-introduction-327",
@@ -3976,6 +3976,19 @@
         "Publisher abstract and metadata."
       ],
       "note": "Opened/read primary-research publisher abstract; associates ube with Dacryodes edulis and reports livelihood uses. Only lexical association and food/sale context used. Origin beliefs, medicinal, sacred/cultural universal claims and preparation practices are not adopted. No full-article byte retrieval claimed; not a school-adoption source."
+    },
+    {
+      "id": "elias-igbo-classroom-vocabulary-331",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "university_supplementary_language_reference",
+      "source": "https://elias.unix.fas.harvard.edu/index.php/languages/igbo/Beginning/6/CLASSROOM",
+      "retrievedOn": "2026-11-19",
+      "sourceSections": [
+        "Lesson vocabulary and selected classroom conversation references."
+      ],
+      "note": "Opened/read selected university vocabulary for book/bookbag/clock and pencil wording. Introduction vocabulary page rechecked for chair/pencil/table variants. Supplementary language forms only, not Primary4 scope/adoption or mandatory spelling/pronunciation policy. No university exercise, dialogue or image copied. Cap term follows the already registered curriculum/dress references."
     }
   ],
   "banks": [
@@ -42880,6 +42893,60 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-1-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Recognising and describing pictured objects",
+      "learningObjective": "Recognise and describe objects represented in an original illustration.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 1; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-2-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Identifying represented words",
+      "learningObjective": "Identify suitable Igbo words for objects represented in an original illustration.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 2; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-3-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Matching words to pictures",
+      "learningObjective": "Match Igbo words to the corresponding objects in an original illustration.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 3; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -42983,6 +43050,7 @@
     "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.",
     "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open.",
     "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open.",
-    "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open."
+    "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open.",
+    "Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist."
   ]
 }

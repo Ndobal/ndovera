@@ -1,0 +1,478 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo original word-picture tasks",
+  "questionCount": 8,
+  "note": "Eight original structured drafts with two actual original SVG illustrations: six written, one live/recorded spoken and one observed pointing task. Three new limited mappings. Assets rendered and visually checked; no app delivery, learner performance or independent native academic review claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Recognising and describing pictured objects",
+      "learningObjective": "Recognise and describe objects represented in an original illustration.",
+      "id": "ndv-331-001",
+      "objectiveId": "nerdc-igbo-primary4-331-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Lee kaadị A na B. Kpọọ aha ihe nke ọ bụla n’asụsụ Igbo. Kọwaa otu ihe ị hụrụ n’ihe ọ bụla nke nyeere gị aka ịmata ya.",
+      "answer": "A bụ akwụkwọ; e nwere peeji abụọ meghere. B bụ oche; o nwere ebe a na-anọdụ na azụ oche.",
+      "explanation": "The task connects recognition with visible features rather than colour or an unseen label. Equivalent correct descriptions of these drawings are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names A as akwụkwọ/book."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a visible book feature, such as facing pages or spine."
+        },
+        {
+          "marks": 1,
+          "description": "Names B as oche/chair."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a visible chair feature, such as seat/back/legs."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original six-object cards",
+        "assetPath": "stimuli/batch-331/object-cards.svg",
+        "textAlternative": "A has two facing pages joined at a central spine. B has a seat, a back and legs. C has a pointed writing end and an eraser at the other end. D has carrying straps, a handle and a front pocket. E is round with two hands and tick marks. F has a domed top and a projecting brim. The panels are labelled A–F; no Igbo names are printed."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Identifying represented words",
+      "learningObjective": "Identify suitable Igbo words for objects represented in an original illustration.",
+      "id": "ndv-331-002",
+      "objectiveId": "nerdc-igbo-primary4-331-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Lee Eserese ụlọ. Họrọ naanị aha ihe ndị e sere n’ime ndepụta a. Kọwaa otu ihe i hụrụ nke kwadoro otu nhọrọ gị. Ndepụta: akwụkwọ, nkịta, pensụl, elekere, okpu, akpa akwụkwọ, ụgbọala, oche.",
+      "answer": "Akwụkwọ, pensụl, elekere, okpu, akpa akwụkwọ na oche dị na ya. Nkịta na ụgbọala adịghị na ya. Dịka ọmụmaatụ, elekere nwere aka abụọ na akara gburugburu ya.",
+      "explanation": "The original room scene contains the six target objects, with a table as contextual furniture. The two distractor objects are not depicted; no ownership or activity is inferred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 2,
+          "description": "Selects all six represented target names; award1 for four or five correct names without substitutions."
+        },
+        {
+          "marks": 1,
+          "description": "Excludes both nkịta and ụgbọala."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one correct choice using a genuine visible feature in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original room scene",
+        "assetPath": "stimuli/batch-331/room-scene.svg",
+        "textAlternative": "An unoccupied room contains an open book and a pencil on a table, a backpack below the table, a chair to its right, a clock high on the right wall and a peaked cap high on the left wall. No people, ownership labels, vehicle or dog appear."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Matching words to pictures",
+      "learningObjective": "Match Igbo words to the corresponding objects in an original illustration.",
+      "id": "ndv-331-003",
+      "objectiveId": "nerdc-igbo-primary4-331-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Jikọta okwu ndị a na kaadị A ruo F. Jiri okwu ọ bụla otu ugboro. Okwu: elekere, okpu, akpa akwụkwọ, oche, pensụl, akwụkwọ.",
+      "answer": "A—akwụkwọ; B—oche; C—pensụl; D—akpa akwụkwọ; E—elekere; F—okpu.",
+      "explanation": "The response pairs a shuffled word bank with six distinct original sketches. A generic bag name or locally verified equivalent is acceptable when its reference is clear.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 6,
+      "maxMarks": 6,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches A with akwụkwọ."
+        },
+        {
+          "marks": 1,
+          "description": "Matches B with oche."
+        },
+        {
+          "marks": 1,
+          "description": "Matches C with pensụl."
+        },
+        {
+          "marks": 1,
+          "description": "Matches D with akpa akwụkwọ or an equivalent bag name."
+        },
+        {
+          "marks": 1,
+          "description": "Matches E with elekere."
+        },
+        {
+          "marks": 1,
+          "description": "Matches F with okpu."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original six-object cards",
+        "assetPath": "stimuli/batch-331/object-cards.svg",
+        "textAlternative": "A has two facing pages joined at a central spine. B has a seat, a back and legs. C has a pointed writing end and an eraser at the other end. D has carrying straps, a handle and a front pocket. E is round with two hands and tick marks. F has a domed top and a projecting brim. The panels are labelled A–F; no Igbo names are printed."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending.",
+      "pictureWordMatching": {
+        "A": "akwụkwọ",
+        "B": "oche",
+        "C": "pensụl",
+        "D": "akpa akwụkwọ",
+        "E": "elekere",
+        "F": "okpu"
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Recognising and describing pictured objects",
+      "learningObjective": "Recognise and describe objects represented in an original illustration.",
+      "id": "ndv-331-004",
+      "objectiveId": "nerdc-igbo-primary4-331-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Họrọ otu kaadị. Gwa onye nkụzi aha ihe ahụ n’asụsụ Igbo ma kọwaa otu ihe ị hụrụ n’ime ya. Mgbe ọ jụrụ Gịnị ọzọ ị hụrụ?, zaa ya site n’iji ihe ọzọ dị n’eserese ahụ.",
+      "answer": "One possible actual response for C is: Nke a bụ pensụl. O nwere ọnụ dị nkọ. Mgbe a jụrụ ajụjụ ọzọ: E nwere ihe nhicha n’isi nke ọzọ. Other panels and accurate intelligible Igbo features are acceptable.",
+      "explanation": "The learner chooses a panel and responds to a follow-up rather than merely reciting a fixed script. Descriptions must fit the selected visible sketch.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names the selected panel correctly in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Describes one genuine visible feature intelligibly."
+        },
+        {
+          "marks": 1,
+          "description": "Responds to the follow-up using a second different visible feature."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "spoken",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original six-object cards",
+        "assetPath": "stimuli/batch-331/object-cards.svg",
+        "textAlternative": "A has two facing pages joined at a central spine. B has a seat, a back and legs. C has a pointed writing end and an eraser at the other end. D has carrying straps, a handle and a front pocket. E is round with two hands and tick marks. F has a domed top and a projecting brim. The panels are labelled A–F; no Igbo names are printed."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending. Require actual individual live or recorded speech, the selected panel and examiner follow-up response; a written model is insufficient.",
+      "teacherSupport": "Record the learner’s chosen letter. Ask “Gịnị ọzọ ị hụrụ?” after the first description. Do not require the sample choice or a specific accent. Local wording and actual delivery remain pending.",
+      "requiresRecordingOrLiveExaminer": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Identifying represented words",
+      "learningObjective": "Identify suitable Igbo words for objects represented in an original illustration.",
+      "id": "ndv-331-005",
+      "objectiveId": "nerdc-igbo-primary4-331-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Dee ahịrịokwu abụọ n’asụsụ Igbo maka Eserese ụlọ. Jiri aha ihe atọ dị na ya. Dee naanị ihe eserese ahụ gosiri, ọ bụghị akụkọ ị chepụtara.",
+      "answer": "Akwụkwọ na pensụl dị n’elu tebụl. Elekere dị n’elu mgbidi.",
+      "explanation": "The caption applies object vocabulary in context. The model uses three target names; other accurate captions and locally checked table terms are acceptable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses at least three correct names for represented objects."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the statements consistent with visible features/positions without invented people or events."
+        },
+        {
+          "marks": 1,
+          "description": "Writes two intelligible Igbo sentences with meaningful boundaries."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original room scene",
+        "assetPath": "stimuli/batch-331/room-scene.svg",
+        "textAlternative": "An unoccupied room contains an open book and a pencil on a table, a backpack below the table, a chair to its right, a clock high on the right wall and a peaked cap high on the left wall. No people, ownership labels, vehicle or dog appear."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending.",
+      "teacherSupport": "Accept tebụl or a locally checked equivalent such as the supplementary source’s oche ndebe ihe. The table is contextual furniture, not a seventh target in the card-matching key."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Matching words to pictures",
+      "learningObjective": "Match Igbo words to the corresponding objects in an original illustration.",
+      "id": "ndv-331-006",
+      "objectiveId": "nerdc-igbo-primary4-331-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Onye na-edepụta aha dere A—pensụl, C—akwụkwọ, E—elekere. Mezie naanị aha ndị e dere n’ebe na-ezighi ezi. Kọwaa otu ihe dị n’eserese nke nyeere gị aka imezi ha.",
+      "answer": "A kwesịrị ịbụ akwụkwọ, C kwesịrị ịbụ pensụl. E—elekere ziri ezi. Peeji dị na A na ọnụ pensụl dị na C na-enyere anyị aka ịmata ha.",
+      "explanation": "This is correction of a stated word-picture mismatch. The correct clock label is retained rather than changing every supplied pair.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects A to akwụkwọ."
+        },
+        {
+          "marks": 1,
+          "description": "Corrects C to pensụl."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps E as elekere."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an accurate visible feature to justify at least one correction."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original six-object cards",
+        "assetPath": "stimuli/batch-331/object-cards.svg",
+        "textAlternative": "A has two facing pages joined at a central spine. B has a seat, a back and legs. C has a pointed writing end and an eraser at the other end. D has carrying straps, a handle and a front pocket. E is round with two hands and tick marks. F has a domed top and a projecting brim. The panels are labelled A–F; no Igbo names are printed."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending.",
+      "pictureWordMatching": {
+        "A": "akwụkwọ",
+        "C": "pensụl",
+        "E": "elekere"
+      }
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Recognising and describing pictured objects",
+      "learningObjective": "Recognise and describe objects represented in an original illustration.",
+      "id": "ndv-331-007",
+      "objectiveId": "nerdc-igbo-primary4-331-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Mmadụ kwuru na okpu e sere n’Eserese ụlọ bụ nke onye nkụzi. Eserese ahụ ò gosiri ihe ga-eme ka anyị kweta nke a? Kọwaa otu ihe anyị nwere ike ikwu site n’ihe a hụrụ na otu ihe anyị amaghị.",
+      "answer": "Eserese ahụ egosighị onye nwe okpu ahụ. Anyị nwere ike ikwu na e nwere okpu n’elu n’aka ekpe. Anyị amaghị onye nwe ya n’ihi na aha ma ọ bụ onye nwe ya adịghị n’eserese ahụ.",
+      "explanation": "The task distinguishes visible recognition from an unsupported ownership inference. An empty room and a cap alone cannot identify an owner.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the ownership claim as unestablished by the illustration."
+        },
+        {
+          "marks": 1,
+          "description": "States an accurate visible observation about the cap or another object in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the owner’s identity/name is not shown."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "written",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original room scene",
+        "assetPath": "stimuli/batch-331/room-scene.svg",
+        "textAlternative": "An unoccupied room contains an open book and a pencil on a table, a backpack below the table, a chair to its right, a clock high on the right wall and a peaked cap high on the left wall. No people, ownership labels, vehicle or dog appear."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Matching words to pictures",
+      "learningObjective": "Match Igbo words to the corresponding objects in an original illustration.",
+      "id": "ndv-331-008",
+      "objectiveId": "nerdc-igbo-primary4-331-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Onye nkụzi ga-akpọ okwu elekere, akpa akwụkwọ na pensụl n’otu n’otu. Gosi ihe okwu ọ bụla na-ezo aka n’Eserese ụlọ. Ị nwere ike iji mkpịsị aka gosi ya ma ọ bụ tinye akara n’akwụkwọ e bipụtara.",
+      "answer": "A successful observed response points to or marks the round clock high on the right, the backpack below the table and the pencil on the table, corresponding to the three Igbo words in the examiner’s stated order.",
+      "explanation": "Actual word-to-picture matching is assessed through pointing/marking rather than relying on a written claim that the learner could identify the pictures.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Points to or marks the pictured clock for elekere."
+        },
+        {
+          "marks": 1,
+          "description": "Points to or marks the backpack for akpa akwụkwọ."
+        },
+        {
+          "marks": 1,
+          "description": "Points to or marks the pencil for pensụl."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic/academic review is pending. Preserve meaningful underdots and accept equivalent locally checked object names. These illustrations do not define the full class vocabulary, a pronunciation standard, adopted term placement or national grading policy.",
+      "responseMode": "practical",
+      "stimulus": {
+        "type": "diagram",
+        "title": "Original room scene",
+        "assetPath": "stimuli/batch-331/room-scene.svg",
+        "textAlternative": "An unoccupied room contains an open book and a pencil on a table, a backpack below the table, a chair to its right, a clock high on the right wall and a peaked cap high on the left wall. No people, ownership labels, vehicle or dog appear."
+      },
+      "stimulusProvenance": "original",
+      "deliveryNote": "Display/print the actual original SVG at a legible size before assessing picture recognition. Colour is not needed to distinguish the targets. The text alternative supports access but a text-only naming/translation route changes the visual-recognition construct; record the route and do not claim equivalent observed visual performance. App diagram rendering, accessibility accommodations, classroom display and native examiner calibration remain pending. Require the learner’s actual pointing or marked image and an examiner checklist. No pointing performance has been delivered or observed in authoring.",
+      "teacherSupport": "Display the actual room SVG legibly. Say each word once, with appropriate opportunity to respond or self-correct. Record three individual matches. The text-only alternative is a different access route and must not be reported as observed visual matching.",
+      "requiresObservedPracticalEvidence": true
+    }
+  ]
+}

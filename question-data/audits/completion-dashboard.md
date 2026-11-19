@@ -124,7 +124,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | English Studies / Primary 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | English Studies / Primary 4 | 1000 | 111 | 110 | 0 | 890 | partial_objective_register |
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
-| NERDC | Igbo Language / Primary 4 | 1000 | 66 | 66 | 0 | 934 | partial_objective_register |
+| NERDC | Igbo Language / Primary 4 | 1000 | 74 | 74 | 0 | 926 | partial_objective_register |
 | NERDC | Intermediate Science / JSS 1 | 1000 | 124 | 124 | 0 | 876 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
@@ -222,12 +222,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1426 | 1361 | 0 | 37000 | 35639 |
+| NERDC | 1434 | 1369 | 0 | 37000 | 35631 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5886, "validDrafts": 4207, "reviewed": 0, "registeredBanks": 203, "target": 185000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5894, "validDrafts": 4215, "reviewed": 0, "registeredBanks": 203, "target": 185000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -334,3 +334,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open.
 - Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open.
 - Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open.
+- Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist.

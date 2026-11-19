@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-19",
+  "license": "original-content",
+  "reviewStatus": "pending_independent_linguistic_and_visual_review",
+  "cardReference": {
+    "A": "akwụkwọ",
+    "B": "oche",
+    "C": "pensụl",
+    "D": "akpa akwụkwọ",
+    "E": "elekere",
+    "F": "okpu"
+  },
+  "roomTargets": [
+    "book",
+    "pencil",
+    "bag",
+    "chair",
+    "clock",
+    "cap"
+  ],
+  "assets": [
+    {
+      "id": "cards",
+      "assetPath": "stimuli/batch-331/object-cards.svg",
+      "sha256": "121b8bbddcad77995577fe7814cb2c1028d62ce7df9afc59d73eb4bd32e1c4be",
+      "contentType": "image/svg+xml",
+      "original": true,
+      "textAlternative": "A has two facing pages joined at a central spine. B has a seat, a back and legs. C has a pointed writing end and an eraser at the other end. D has carrying straps, a handle and a front pocket. E is round with two hands and tick marks. F has a domed top and a projecting brim. The panels are labelled A–F; no Igbo names are printed.",
+      "renderCheck": "Rendered from SVG through PyMuPDF and visually inspected. Final room book position adjusted and re-rendered to rest on the table.",
+      "limit": "Schematic practice illustration; physical objects, app/print rendering, accessible route and classroom delivery remain unverified."
+    },
+    {
+      "id": "room",
+      "assetPath": "stimuli/batch-331/room-scene.svg",
+      "sha256": "b710fd5eeb317e9536ad7639406794c876ec6ac1058e48615fa277b25a87740e",
+      "contentType": "image/svg+xml",
+      "original": true,
+      "textAlternative": "An unoccupied room contains an open book and a pencil on a table, a backpack below the table, a chair to its right, a clock high on the right wall and a peaked cap high on the left wall. No people, ownership labels, vehicle or dog appear.",
+      "renderCheck": "Rendered from SVG through PyMuPDF and visually inspected. Final room book position adjusted and re-rendered to rest on the table.",
+      "limit": "Schematic practice illustration; physical objects, app/print rendering, accessible route and classroom delivery remain unverified."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    25
+  ],
+  "authorMappings": [
+    {
+      "objectiveId": "nerdc-igbo-primary4-331-1-v1",
+      "inventoryId": "p4-igbo-table12-po1"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-331-2-v1",
+      "inventoryId": "p4-igbo-table12-po2"
+    },
+    {
+      "objectiveId": "nerdc-igbo-primary4-331-3-v1",
+      "inventoryId": "p4-igbo-table12-po3"
+    }
+  ],
+  "supplementarySources": [
+    "elias-igbo-classroom-vocabulary-331",
+    "elias-igbo-introduction-327"
+  ],
+  "assetsManifest": "stimuli/batch-331/manifest.json",
+  "decisions": [
+    "Exact-class source supplies the three word-picture objectives; supplementary university language forms are not a Primary4 syllabus or adoption record.",
+    "Two original SVGs provide six schematic referents; no copied source image, unseen picture or learner photograph. Both assets rendered and visually inspected, including a corrected book/table position.",
+    "Object recognition/describing, word identification, matching, error correction, captioning and observation versus inference are distinct practice routes; no one-question-per-object padding.",
+    "No answer words printed in learner images. Teacher manifest contains reference mapping and must not be shown as the learner stimulus.",
+    "Text-only alternatives change the visual construct; record accommodations without claiming equivalent observed visual recognition. App/print/accessibility delivery and full referent range remain open.",
+    "One spoken task requires actual live/recorded speech and one pointing task requires observed marking/pointing. No actual learner performance occurred.",
+    "Native labels/variants and grading remain pending; previous excursion/unit/sound/number-range, local season/culture, adoption and academic-review gaps preserved."
+  ],
+  "newQuestions": 8,
+  "written": 6,
+  "spoken": 1,
+  "practical": 1,
+  "academicReviewStatus": "pending"
+}

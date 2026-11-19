@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5886,
-    "validDrafts": 4207,
+    "raw": 5894,
+    "validDrafts": 4215,
     "reviewed": 0,
     "registeredBanks": 203,
     "target": 185000,
@@ -2108,6 +2108,12 @@
       "sha256": "cc0f60220472eaa2f077e10fbf02cb7121dd0a478b2ce11816fcbbf0942d4bab",
       "declared": 16,
       "actual": 16
+    },
+    {
+      "path": "original-multisubject-batch-331.json",
+      "sha256": "1aa7bf6fc7b12896bd3251ce757e84e5e36bcb120330d62828dc4bc91bc9e481",
+      "declared": 8,
+      "actual": 8
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6276,18 +6282,18 @@
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified.",
-      "raw": 66,
-      "validDrafts": 66,
+      "raw": 74,
+      "validDrafts": 74,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 66
+        "structured": 74
       },
       "difficulty": {
-        "standard": 66
+        "standard": 74
       },
-      "remaining": 934,
-      "mappedObjectives": 35,
-      "representedObjectives": 35,
+      "remaining": 926,
+      "mappedObjectives": 38,
+      "representedObjectives": 38,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8064,9 +8070,9 @@
     }
   ],
   "errorCounts": {
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
-    "independent_review_evidence_missing_or_invalid": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -47897,6 +47903,54 @@
       "id": "ndv-330-016",
       "file": "original-multisubject-batch-330.json",
       "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-001",
+      "file": "original-multisubject-batch-331.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-002",
+      "file": "original-multisubject-batch-331.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-003",
+      "file": "original-multisubject-batch-331.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-004",
+      "file": "original-multisubject-batch-331.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-005",
+      "file": "original-multisubject-batch-331.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-006",
+      "file": "original-multisubject-batch-331.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-007",
+      "file": "original-multisubject-batch-331.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-331-008",
+      "file": "original-multisubject-batch-331.json",
+      "index": 7,
       "errors": []
     },
     {
@@ -119086,6 +119140,96 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-1-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Recognising and describing pictured objects",
+      "learningObjective": "Recognise and describe objects represented in an original illustration.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 1; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-2-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Identifying represented words",
+      "learningObjective": "Identify suitable Igbo words for objects represented in an original illustration.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 2; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-331-3-v1",
+      "topic": "Mmakọ mkpụrụokwu na eserese",
+      "subtopic": "Matching words to pictures",
+      "learningObjective": "Match Igbo words to the corresponding objects in an original illustration.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Mbunuche objective 3; related content, activities and evaluation"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -119189,6 +119333,7 @@
     "Batch327 adds12 original Primary4 Igbo drafts under eight limited author mappings, including two spoken exchanges. Basic identity/residence/greeting forms are cross-checked against university teaching material, not adopted as a national standard. Native linguistic review, tone/reference pronunciation, local orthography/marking calibration, actual teacher-model copying and conversational performance, terminology and numeric-range discrepancies, school choice/adoption and full functional coverage remain open.",
     "Batch328 adds18 original Primary4 Igbo drafts, including four live/recorded reading/discussion tasks and three original family-related passages. Seventeen of55 numbered objectives now have partial author mappings,38 unmapped. Source Ikwunibe heading retained without inventing an official English title. Native linguistic review, vocabulary familiarity, complete tone/reference pronunciation, source terminology/numeric-range conflicts, actual learner performance, school language choice/adoption and full functional coverage remain open.",
     "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open.",
-    "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open."
+    "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open.",
+    "Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist."
   ]
 }
