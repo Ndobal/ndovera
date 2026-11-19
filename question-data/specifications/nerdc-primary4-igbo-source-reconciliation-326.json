@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-19",
+  "run": 326,
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/4.pdf",
+  "sha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "sourceBytes": 1315243,
+  "pageCount": 29,
+  "retrieval": "Fresh HTTPS retrieval matched registered checksum.",
+  "readSections": [
+    "All15 Mbunuche objective columns and content/skills columns, printed pp.1–15 / PDF14–28.",
+    "Rendered full tables visually checked on PDF14,16,21,26,27,28, including resources, activities and evaluation.",
+    "PDF29 has no extracted text."
+  ],
+  "visuallyCheckedPdfPages": [
+    14,
+    16,
+    21,
+    26,
+    27,
+    28
+  ],
+  "inventory": "nerdc-primary4-igbo-objective-inventory-326.json",
+  "numberedObjectives": 55,
+  "newQuestions": 0,
+  "reasonForSourceOnlyRun": "Complete exact-class source inventory and unresolved linguistic/notation issues take priority over unverified Igbo prompts, keys and pronunciation rubrics.",
+  "reconciliation": [
+    {
+      "pdfPages": [
+        20
+      ],
+      "issue": "Do not silently equate mkpụrụedide with letters, syllables or phonemes. Header also uses mkpụrụedemede; native specialist reconciliation pending."
+    },
+    {
+      "pdfPages": [
+        26
+      ],
+      "issue": "Sound examples and word transcriptions use mixed notation, including tone marks for one example but not a full tone model. No validated audio, dialect choice or scoring calibration established. Do not copy printed strings as universal IPA."
+    },
+    {
+      "pdfPages": [
+        27,
+        28
+      ],
+      "issue": "Learning-outcome header says totals do not exceed fifty; counting table specifies1–500 and arithmetic evaluation goes beyond50. Neither precedence nor corrected range is established."
+    },
+    {
+      "pdfPages": [
+        22,
+        23
+      ],
+      "issue": "Composition tables appear beneath an oral/literature theme header. Preserve source placement while treating the explicit objectives as written compositions; do not silently relabel the official theme."
+    },
+    {
+      "pdfPages": [
+        18
+      ],
+      "issue": "Family roles are a source topic, not evidence of fixed gender duties or a single required household structure."
+    }
+  ],
+  "deliveryGaps": [
+    "School-specific language choice, local adoption, exact term placement, age/cohort readiness and formal examination blueprint remain unverified.",
+    "No authentic excursion, dress demonstration, modelling, original picture assets, native recordings, learner performance, language-lab or conversational robot use delivered.",
+    "Orthography, underdots, tone conventions, local lexical variants and native-language marking standards require independent linguistic review. Historical orthography references are not evidence of present school adoption."
+  ],
+  "nextPriority": "Create a small original Igbo self-description/personal-letter/dialogue batch only after checking native wording and explicit marking standards; retain all55 source objectives as unmapped until valid source-linked drafts exist."
+}

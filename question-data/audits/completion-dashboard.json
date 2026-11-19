@@ -6248,7 +6248,7 @@
       "subject": "Igbo Language",
       "level": "Primary 4",
       "target": 1000,
-      "scopeStatus": "official_revised_exact_class_source_retrieved_objective_mapping_pending",
+      "scopeStatus": "official_revised_exact_class_55_objectives_inventoried_linguistic_reconciliation_pending",
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified.",
@@ -8036,8 +8036,8 @@
     }
   ],
   "errorCounts": {
-    "cognitive_demand_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
@@ -8045,9 +8045,9 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
-    "explanation_missing": 81
+    "explanation_missing": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 601,
@@ -117710,6 +117710,7 @@
     "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.",
     "Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open.",
     "Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist.",
-    "Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed."
+    "Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed.",
+    "Run326 inventories all55 numbered Primary4 Igbo objectives in15 tables, with zero draft mappings. Source terminology, mixed pronunciation notation and the fifty-versus-500 range discrepancy remain unresolved. Inventory is not question coverage or academic review. Native-language prompts/keys, actual oral/practical evidence, school language choice/adoption and official term placement remain open."
   ]
 }
