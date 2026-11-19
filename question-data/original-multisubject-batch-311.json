@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 2,
+  "collection": "NECO Commerce storage and retail decisions",
+  "questionCount": 12,
+  "note": "Original business scenarios under existing provisional cross-board mappings. Local practice marks and rubrics. Independent academic review pending.",
+  "questions": [
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-001",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A warehouse has enough floor area for a delivery of furniture, but a truck cannot turn inside its gate and loaded trolleys cannot pass between the storage rows. Explain why floor area alone is an insufficient measure of suitability and recommend two changes to investigate.",
+      "answer": "Storage must allow goods and vehicles to move safely and efficiently. Investigate a suitable vehicle access and turning arrangement, and a layout with adequate handling aisles. Each change should be checked against the dimensions of the loads and equipment.",
+      "explanation": "Capacity includes usable access and movement space as well as room occupied by stored goods.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a handling problem that total floor area overlooks."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a relevant vehicle-access change."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a relevant internal-layout change."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-002",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A distributor compares two warehouses for the same monthly shipment. Site A costs ₦180,000 in rent and requires 24 delivery trips at ₦7,500 each. Site B costs ₦240,000 in rent and requires 24 trips at ₦4,000 each. Other costs and service quality are equal. Compare the stated monthly costs and identify one assumption to test before signing a lease.",
+      "answer": "Site A costs ₦360,000 and site B costs ₦336,000. Site B is cheaper by ₦24,000 on the stated figures. Check whether the forecast trip numbers, trip costs or the equality of other costs and service will hold in practice.",
+      "explanation": "The location comparison combines rent and transport rather than selecting the lower rent alone.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the total for site A."
+        },
+        {
+          "marks": 1,
+          "description": "Calculates site B and identifies the ₦24,000 saving."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a stated assumption that needs checking."
+        }
+      ],
+      "verification": [
+        {
+          "expression": "180000+24*7500",
+          "expected": "360000",
+          "purpose": "Check arithmetic in the worked solution"
+        },
+        {
+          "expression": "240000+24*4000",
+          "expected": "336000",
+          "purpose": "Check arithmetic in the worked solution"
+        },
+        {
+          "expression": "360000-336000",
+          "expected": "24000",
+          "purpose": "Check arithmetic in the worked solution"
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-003",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A warehouse keeps accurate records of the quantities received and dispatched. Some stored cardboard cartons are nevertheless damaged by water entering through the roof. Explain why accurate stock records have not prevented this loss and recommend a control linked to its cause.",
+      "answer": "Stock records track quantities and movements, while a leaking roof exposes goods to physical damage. Repair and inspect the roof, investigate the water-entry route, and protect or relocate affected stock while repairs are completed.",
+      "explanation": "Documentation and physical protection perform different functions and must work together.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains what the stock records establish."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the loss to the storage condition."
+        },
+        {
+          "marks": 1,
+          "description": "Recommends a control addressing water entry or exposure."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-004",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A manufacturer holds packaging materials in a secure warehouse so production can continue while waiting for the next supplier delivery. Which purpose is most directly served?",
+      "answer": "Providing a reserve that helps maintain production continuity.",
+      "explanation": "The materials bridge a potential gap between incoming supplies and production needs.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Eliminating the need to monitor stock levels.",
+        "Transferring all production tasks to retailers.",
+        "Providing a reserve that helps maintain production continuity.",
+        "Guaranteeing that every finished product will be sold."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-005",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A warehouse inspection checks secure doors, fire precautions and pest-control arrangements. Which interpretation best explains why all three are relevant?",
+      "answer": "They address different ways stored goods could be lost or damaged.",
+      "explanation": "Effective storage needs controls against several types of risk.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "They address different ways stored goods could be lost or damaged.",
+        "Any one of them guarantees protection against every possible loss.",
+        "They replace the need to know what goods are stored.",
+        "Their only purpose is to increase the number of retail branches."
+      ],
+      "correctOption": "A"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Warehousing",
+      "subtopic": "Storage and distribution decisions",
+      "learningObjective": "Explain warehouse functions and assess storage decisions against business needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-006",
+      "objectiveId": "neco-commerce-distribution-1-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A trader wants buyers to inspect several grades of timber before ordering. Which arrangement best uses the warehouse’s role in supporting sales?",
+      "answer": "Keep the grades identifiable and provide controlled access to suitable samples or stock.",
+      "explanation": "Organised identification and inspection help buyers choose without losing control over stored goods.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Mix all grades without labels so buyers cannot compare them.",
+        "Dispatch goods before recording the buyer’s choice.",
+        "Remove all stock records whenever a buyer visits.",
+        "Keep the grades identifiable and provide controlled access to suitable samples or stock."
+      ],
+      "correctOption": "D"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-007",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A mobile retailer serves communities on different market days. Customers complain that the van sometimes arrives after they have left. Recommend an operating change and explain one limit that remains even if it is implemented.",
+      "answer": "Publish and communicate a reliable route and arrival schedule, then monitor whether it is followed. Customers will still be limited to the scheduled visits, so they may have to plan purchases or wait between visits.",
+      "explanation": "The change addresses unpredictability while recognising the periodic nature of a mobile outlet.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a clear, reliable schedule or communication change."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how it addresses the missed visits."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a limitation that scheduled mobile visits still impose."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-008",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A chain allows goods bought at one branch to be returned at another. Explain one benefit to customers and two arrangements needed to make this work reliably.",
+      "answer": "Customers can use a convenient branch. The branches need a way to verify the original purchase and common procedures for recording the return and updating stock or refunds, so the same transaction is treated consistently.",
+      "explanation": "The benefit depends on coordination across branches rather than the common trading name alone.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a customer convenience benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a way to verify the purchase."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need to coordinate return, stock or refund records."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-009",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A remote-order seller accepts 80 orders for a product, but has only 50 units available and no confirmed date for more stock. The catalogue is accurate about size and quality. Explain the different problem facing customers and recommend an action before accepting more orders.",
+      "answer": "Customers face uncertainty about availability and delivery despite accurate product descriptions. Update the advertised availability, confirm supply or restrict new orders, and communicate realistic delivery information and choices to existing buyers.",
+      "explanation": "The issue concerns fulfilment capacity rather than the accuracy of the product description.",
+      "cognitiveDemand": "evaluate",
+      "difficulty": "difficult",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "structured",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the availability or delivery problem."
+        },
+        {
+          "marks": 1,
+          "description": "Connects it to the gap between orders and available stock."
+        },
+        {
+          "marks": 1,
+          "description": "Recommends an action addressing fulfilment before more orders are taken."
+        }
+      ]
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-010",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A trader converts a van into a shop and carries goods to customers along a route. Another trader uses a vehicle only to transport goods to a fixed shop. What distinguishes the first arrangement?",
+      "answer": "Selling takes place from the vehicle at the visiting locations.",
+      "explanation": "Using a vehicle for delivery alone does not make the fixed shop a mobile shop.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "Every business that hires transport becomes a mobile shop.",
+        "Selling takes place from the vehicle at the visiting locations.",
+        "A mobile shop must have a permanent branch at each stop.",
+        "The vehicle removes the need to hold any saleable goods."
+      ],
+      "correctOption": "B"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-011",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A retailer is considering whether to add another branch. Which fact would most directly help assess whether the proposed location improves customer access?",
+      "answer": "The distance and travel difficulty customers face in reaching existing branches.",
+      "explanation": "The information connects the location decision to the stated aim of access.",
+      "cognitiveDemand": "apply",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The discount obtained through central purchasing.",
+        "The number of suppliers currently used by the chain.",
+        "The distance and travel difficulty customers face in reaching existing branches.",
+        "The cost of the chain’s staff uniforms."
+      ],
+      "correctOption": "C"
+    },
+    {
+      "exam": "NECO",
+      "subject": "Commerce",
+      "topic": "Retail outlets",
+      "subtopic": "Mobile shops, chains and remote orders",
+      "learningObjective": "Compare retail formats and choose a format based on customer access and operating needs.",
+      "specificationId": "neco-commerce-distribution-reference-2026",
+      "id": "ndv-311-012",
+      "objectiveId": "neco-commerce-distribution-2-v1",
+      "examType": "original-practice",
+      "curriculum": "exam-style",
+      "level": "Senior Secondary",
+      "prompt": "A mail-order business receives payment with an order and sends the goods by courier. Which description correctly separates the two arrangements?",
+      "answer": "The payment term determines when money is paid, while the courier arrangement determines how goods are delivered.",
+      "explanation": "Terms of payment and the physical delivery method are separate parts of fulfilling a remote order.",
+      "cognitiveDemand": "analyse",
+      "difficulty": "standard",
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "type": "mcq",
+      "score": 1,
+      "options": [
+        "The payment term determines when money is paid, while the courier arrangement determines how goods are delivered.",
+        "Payment with order means the customer must collect the goods personally.",
+        "Using a courier means the customer always pays after inspecting the goods.",
+        "Payment with order guarantees immediate delivery regardless of available stock."
+      ],
+      "correctOption": "A"
+    }
+  ]
+}
