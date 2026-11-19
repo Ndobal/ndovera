@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-19",
+  "sourceId": "nerdc-english-primary4-revised-2025",
+  "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/1.pdf",
+  "bytes": 1214109,
+  "pages": 31,
+  "sha256": "5178716024e91a9f1b81b474d32724bbc60dbf4ec045940e621a5c3509f6e8a0",
+  "tables": [
+    {
+      "pdfPage": 17,
+      "printedPage": 4,
+      "objectives": [
+        1
+      ]
+    },
+    {
+      "pdfPage": 26,
+      "printedPage": 13,
+      "objectives": [
+        1,
+        2
+      ]
+    },
+    {
+      "pdfPage": 27,
+      "printedPage": 14,
+      "objectives": [
+        1
+      ]
+    },
+    {
+      "pdfPage": 28,
+      "printedPage": 15,
+      "objectives": [
+        1,
+        2
+      ]
+    }
+  ],
+  "objectiveIds": [
+    "nerdc-english-primary4-325-1-v1",
+    "nerdc-english-primary4-325-2-v1",
+    "nerdc-english-primary4-325-3-v1",
+    "nerdc-english-primary4-325-4-v1",
+    "nerdc-english-primary4-325-5-v1",
+    "nerdc-english-primary4-325-6-v1"
+  ],
+  "checks": "Fresh English checksum matched. Four selected source tables read and visually inspected. Previous batch324 inventory/register/dashboard loaded from remote before authoring.",
+  "originalStimuli": {
+    "readingPassages": 4,
+    "fictionalLetters": 1
+  },
+  "vowelReconciliation": {
+    "sourceNotation": [
+      "/˄/",
+      "/3:/"
+    ],
+    "referenceNotation": [
+      "/ʌ/",
+      "/ɜː/"
+    ],
+    "words": {
+      "A": "bud /bʌd/",
+      "B": "bird /bɜːd/"
+    },
+    "retrieval": "Primary Cambridge indexed text retrieved; direct Cambridge and Oxford pages403, so no full page/audio retrieval claimed. BBC official sounds-chart PDF opened without readable text.",
+    "limitation": "Conditional non-rhotic reference-model listening draft only. Teacher must precheck actual model/contrast and access conditions before scoring; no delivered audio or learner natural-accent requirement.",
+    "key": [
+      "B",
+      "A",
+      "A",
+      "B"
+    ]
+  },
+  "manualInspection": "Every original passage, prompt, answer and marking criterion inspected. Literal answers match text; inference/critical answers permit supported alternatives. Read-aloud tasks require actual performance, not a submitted written paraphrase alone. Fictional bin/space arrangements do not assert universal recycling or school policies. Letter is fictional, with no real address collection or message sending. No MCQs or arithmetic claims. Checked the vowel key by matching script order to A/B anchors; not an audio execution.",
+  "newSourceDiscovery": {
+    "sourceId": "nerdc-igbo-primary4-revised-2025",
+    "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/4.pdf",
+    "bytes": 1315243,
+    "pages": 29,
+    "sha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+    "identityEvidence": "Rendered cover and copyright/title independently confirm Igbo Language Primary4 September2025. Overview/contents read; no body-objective or question authoring claimed.",
+    "next": "Read numbered body objectives, verify source terminology/orthography/tone and applicability, then author a small native-language production batch with pending academic review."
+  },
+  "remaining": [
+    "All English links remain partial; target1000, coverage depth, learning activities and academic review incomplete.",
+    "Teacher pronunciation model/audio verification, reading/listening access, actual individual evidence, examiner calibration, app line-break/audio/recording support.",
+    "Dictionary/online/digital activities, witnessed visits, group presentation coverage, school adoption and official term placement.",
+    "Igbo body-objective inventory and linguistic validation; no questions added to that bank.",
+    "Previous BDL equipment, authentic-guide, source-first, actual password enrolment and common-game/robotics gaps."
+  ]
+}

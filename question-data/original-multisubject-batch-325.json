@@ -1,0 +1,957 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 English reading evidence, letters and conditional vowel contrast",
+  "questionCount": 22,
+  "note": "Twenty-two original structured drafts:17 written interpretation tasks, four observed read-aloud tasks and one conditional listening task. Four original reading passages and one original fictional letter. Six new author-proposed mappings; all academic review pending. No actual audio or learner performance claimed.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Reading topical passages",
+      "learningObjective": "Read class-appropriate passages on topical issues.",
+      "id": "ndv-325-001",
+      "objectiveId": "nerdc-english-primary4-325-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read Learning the Fold aloud to a teacher. Use pauses to make the sequence clear. Afterwards, explain in your own words what Hauwa checked before her container could stand.",
+      "answer": "A successful reading keeps the words and event order clear, with useful pauses. Hauwa compared the last fold/corner with the example and corrected the corner tucked on the wrong side.",
+      "explanation": "Read-aloud performance is an original assessment route for the reading objective, not a prescribed national fluency rate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads accurately enough to preserve the passage’s meaning, allowing self-correction."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible phrasing and pauses."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the checked/corrected corner in her own words."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Learning the Fold\nAt the class craft table, Hauwa tried to fold a paper container. She watched the demonstration and quickly copied the first two folds. Her container looked neat, but it would not stand upright. Instead of starting with another sheet, she opened the last fold and compared it with the teacher’s example. One corner was tucked on the wrong side. Hauwa corrected it and marked that step on a small practice card. When her friend asked for help, she showed the tricky corner slowly. By the end of the lesson, Hauwa could explain the step without looking at the card. She had learnt more from checking one mistake than from hiding it.",
+      "stimulusProvenance": "original",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. A teacher prepares and checks the task, allows appropriate practice and scores intelligibility and the specified reading/listening features. A written script alone is insufficient. Actual classroom delivery, pronunciation model, recording arrangements and examiner calibration remain unverified. Do not penalise unrelated accent features or impose an invented reading-speed threshold."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-002",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What did Hauwa put on her practice card, and when did she stop needing to look at it?",
+      "answer": "She marked the tricky folding step. By the end of the lesson she could explain that step without looking at the card.",
+      "explanation": "Both answers are stated in the passage.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the marked folding step."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the end-of-lesson explanation without the card."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Learning the Fold\nAt the class craft table, Hauwa tried to fold a paper container. She watched the demonstration and quickly copied the first two folds. Her container looked neat, but it would not stand upright. Instead of starting with another sheet, she opened the last fold and compared it with the teacher’s example. One corner was tucked on the wrong side. Hauwa corrected it and marked that step on a small practice card. When her friend asked for help, she showed the tricky corner slowly. By the end of the lesson, Hauwa could explain the step without looking at the card. She had learnt more from checking one mistake than from hiding it.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-003",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why does Hauwa show the tricky corner slowly when helping her friend? Support your inference with an event in the passage.",
+      "answer": "She knows the corner can be confusing because she tucked it on the wrong side herself. Slowing down helps her friend notice the step she had missed.",
+      "explanation": "Accept a supported inference about preventing confusion or sharing what she learnt.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Infers a reason for showing the step slowly."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to her own earlier error/correction."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Learning the Fold\nAt the class craft table, Hauwa tried to fold a paper container. She watched the demonstration and quickly copied the first two folds. Her container looked neat, but it would not stand upright. Instead of starting with another sheet, she opened the last fold and compared it with the teacher’s example. One corner was tucked on the wrong side. Hauwa corrected it and marked that step on a small practice card. When her friend asked for help, she showed the tricky corner slowly. By the end of the lesson, Hauwa could explain the step without looking at the card. She had learnt more from checking one mistake than from hiding it.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-004",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says Hauwa should have hidden the first container and kept taking new sheets until one worked. Does the passage support that as the better learning plan? Explain using its events.",
+      "answer": "No. Comparing and correcting the corner helped her understand the step, explain it without the card and help her friend. Simply hiding the error would not show what needed correcting.",
+      "explanation": "Assess an evidence-based judgement; do not require the model’s exact wording.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Makes a clear judgement about the proposed plan."
+        },
+        {
+          "marks": 1,
+          "description": "Uses correction/explanation/helping as relevant evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why understanding the error matters more than hiding it."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Learning the Fold\nAt the class craft table, Hauwa tried to fold a paper container. She watched the demonstration and quickly copied the first two folds. Her container looked neat, but it would not stand upright. Instead of starting with another sheet, she opened the last fold and compared it with the teacher’s example. One corner was tucked on the wrong side. Hauwa corrected it and marked that step on a small practice card. When her friend asked for help, she showed the tricky corner slowly. By the end of the lesson, Hauwa could explain the step without looking at the card. She had learnt more from checking one mistake than from hiding it.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Reading topical passages",
+      "learningObjective": "Read class-appropriate passages on topical issues.",
+      "id": "ndv-325-005",
+      "objectiveId": "nerdc-english-primary4-325-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read The Practice Question aloud. Make the changes in the group’s activities clear through your phrasing. Then tell the teacher what Tomi discovered about his own understanding.",
+      "answer": "The learner reads intelligibly with suitable pauses between the stages. Tomi could recall the definition but could not explain its example.",
+      "explanation": "The oral response checks meaning as well as audible reading; no required accent or fixed speed is imposed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads the text with sufficient accuracy for meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Uses phrasing that distinguishes the activity stages."
+        },
+        {
+          "marks": 1,
+          "description": "Explains Tomi’s specific gap."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Practice Question\nTomi’s study group usually read their notes silently and then put the books away. Before a class quiz, Zainab suggested a different plan. Each pupil wrote one question about the lesson. They exchanged the questions, answered them without looking at the notes, and then checked the explanations together. When two answers disagreed, the group returned to the relevant paragraph instead of choosing the loudest speaker. Tomi discovered that he could remember a definition but could not explain its example. He marked that part for more practice. The group did not promise that everyone would get full marks. They wanted to find out what each person still needed to understand.",
+      "stimulusProvenance": "original",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. A teacher prepares and checks the task, allows appropriate practice and scores intelligibility and the specified reading/listening features. A written script alone is insufficient. Actual classroom delivery, pronunciation model, recording arrangements and examiner calibration remain unverified. Do not penalise unrelated accent features or impose an invented reading-speed threshold."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-006",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What did the study group do when two answers disagreed?",
+      "answer": "They returned to the relevant paragraph and checked the explanations rather than choosing the loudest speaker.",
+      "explanation": "The passage states the method used to settle the disagreement.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies returning to the relevant paragraph."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes checking evidence from choosing the loudest voice."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Practice Question\nTomi’s study group usually read their notes silently and then put the books away. Before a class quiz, Zainab suggested a different plan. Each pupil wrote one question about the lesson. They exchanged the questions, answered them without looking at the notes, and then checked the explanations together. When two answers disagreed, the group returned to the relevant paragraph instead of choosing the loudest speaker. Tomi discovered that he could remember a definition but could not explain its example. He marked that part for more practice. The group did not promise that everyone would get full marks. They wanted to find out what each person still needed to understand.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-007",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What does Tomi’s decision to mark one part for more practice suggest about his attitude? Give evidence.",
+      "answer": "He is willing to identify and improve a weak area instead of pretending he understands everything. He marks the example he cannot yet explain.",
+      "explanation": "Accept another supported description such as reflective, honest about learning or ready to practise.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a reasonable attitude inference."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to marking his unexplained example for practice."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Practice Question\nTomi’s study group usually read their notes silently and then put the books away. Before a class quiz, Zainab suggested a different plan. Each pupil wrote one question about the lesson. They exchanged the questions, answered them without looking at the notes, and then checked the explanations together. When two answers disagreed, the group returned to the relevant paragraph instead of choosing the loudest speaker. Tomi discovered that he could remember a definition but could not explain its example. He marked that part for more practice. The group did not promise that everyone would get full marks. They wanted to find out what each person still needed to understand.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-008",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Does The Practice Question prove that using this study method guarantees full marks? Explain why your answer follows from the passage.",
+      "answer": "No. The group explicitly makes no promise of full marks; its purpose is to identify remaining gaps in understanding.",
+      "explanation": "The passage separates a useful learning process from a guaranteed score outcome.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the guarantee claim."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the stated purpose and lack of a full-marks promise as evidence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "The Practice Question\nTomi’s study group usually read their notes silently and then put the books away. Before a class quiz, Zainab suggested a different plan. Each pupil wrote one question about the lesson. They exchanged the questions, answered them without looking at the notes, and then checked the explanations together. When two answers disagreed, the group returned to the relevant paragraph instead of choosing the loudest speaker. Tomi discovered that he could remember a definition but could not explain its example. He marked that part for more practice. The group did not promise that everyone would get full marks. They wanted to find out what each person still needed to understand.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Reading informational text",
+      "learningObjective": "Read class-appropriate informational texts on topical issues.",
+      "id": "ndv-325-009",
+      "objectiveId": "nerdc-english-primary4-325-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read A Sign for the Paper Bin aloud as an informational report. Afterwards, explain what the new sign was meant to improve.",
+      "answer": "The learner reads clearly, preserving the distinction between the initial problem and the reported change. The sign was meant to help users put only the accepted clean scrap paper into that collection.",
+      "explanation": "This is a fictional school-specific collection rule, not a universal recycling policy or an instruction to pupils to handle waste.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads the report accurately enough for meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Uses suitable phrasing for the informational sequence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the purpose of the clearer sign."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "A Sign for the Paper Bin\nAt a fictional school, a labelled bin was provided for clean scrap paper from classroom activities. At first, some pupils put empty drink cartons and wet food wrappers into it as well. The caretaker explained that these items did not belong in that particular paper collection. The environment club made a clearer sign, using examples of the paper the school accepted. A pupil checked the bin at the end of each club session and asked an adult for help if unsuitable items were found. The club’s report said that the clearer sign reduced mistakes. It did not claim that one bin had solved every litter problem in the school.",
+      "stimulusProvenance": "original",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. A teacher prepares and checks the task, allows appropriate practice and scores intelligibility and the specified reading/listening features. A written script alone is insufficient. Actual classroom delivery, pronunciation model, recording arrangements and examiner calibration remain unverified. Do not penalise unrelated accent features or impose an invented reading-speed threshold."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Main ideas",
+      "learningObjective": "Identify main ideas in class-appropriate informational texts.",
+      "id": "ndv-325-010",
+      "objectiveId": "nerdc-english-primary4-322-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "State the main idea of A Sign for the Paper Bin without claiming that the school solved every litter problem.",
+      "answer": "Clear, specific instructions can help pupils use the school’s paper-collection bin correctly and reduce sorting mistakes.",
+      "explanation": "The main idea reflects both the improvement and its stated limit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies clearer instructions and correct bin use."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the claim limited to reducing collection mistakes."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "A Sign for the Paper Bin\nAt a fictional school, a labelled bin was provided for clean scrap paper from classroom activities. At first, some pupils put empty drink cartons and wet food wrappers into it as well. The caretaker explained that these items did not belong in that particular paper collection. The environment club made a clearer sign, using examples of the paper the school accepted. A pupil checked the bin at the end of each club session and asked an adult for help if unsuitable items were found. The club’s report said that the clearer sign reduced mistakes. It did not claim that one bin had solved every litter problem in the school.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Supporting facts",
+      "learningObjective": "Identify supporting facts in class-appropriate informational texts.",
+      "id": "ndv-325-011",
+      "objectiveId": "nerdc-english-primary4-322-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give two facts from A Sign for the Paper Bin that support the claim that the club clarified the collection rule.",
+      "answer": "The new sign showed examples of accepted paper. A pupil checked the bin after sessions and asked an adult for help when unsuitable items were found. Accept other distinct relevant stated details.",
+      "explanation": "Supporting facts must come from the report rather than general knowledge about recycling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one relevant stated detail."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct relevant stated detail."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "A Sign for the Paper Bin\nAt a fictional school, a labelled bin was provided for clean scrap paper from classroom activities. At first, some pupils put empty drink cartons and wet food wrappers into it as well. The caretaker explained that these items did not belong in that particular paper collection. The environment club made a clearer sign, using examples of the paper the school accepted. A pupil checked the bin at the end of each club session and asked an adult for help if unsuitable items were found. The club’s report said that the clearer sign reduced mistakes. It did not claim that one bin had solved every litter problem in the school.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-012",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A visitor says, Your clearer sign means there can be no litter anywhere in the school. Is that conclusion justified by A Sign for the Paper Bin? Explain.",
+      "answer": "No. The report says the sign reduced mistakes in one paper collection, and explicitly does not claim to solve all school litter problems.",
+      "explanation": "A limited reported improvement does not support an unlimited conclusion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the unsupported conclusion."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the difference between one collection improvement and every litter problem."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "A Sign for the Paper Bin\nAt a fictional school, a labelled bin was provided for clean scrap paper from classroom activities. At first, some pupils put empty drink cartons and wet food wrappers into it as well. The caretaker explained that these items did not belong in that particular paper collection. The environment club made a clearer sign, using examples of the paper the school accepted. A pupil checked the bin at the end of each club session and asked an adult for help if unsuitable items were found. The club’s report said that the clearer sign reduced mistakes. It did not claim that one bin had solved every litter problem in the school.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Reading informational text",
+      "learningObjective": "Read class-appropriate informational texts on topical issues.",
+      "id": "ndv-325-013",
+      "objectiveId": "nerdc-english-primary4-325-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read Quiet Areas, Different Needs aloud. Then explain the purpose of separating the two activity areas.",
+      "answer": "The learner reads clearly and explains that the arrangement aims to let energetic and quiet activities share school space without one unnecessarily disturbing the other.",
+      "explanation": "This is a fictional environmental-space report, not a claim about an adopted school policy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads with sufficient accuracy and intelligibility."
+        },
+        {
+          "marks": 1,
+          "description": "Uses phrasing that makes the contrasting needs clear."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the shared-space purpose."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Quiet Areas, Different Needs\nA school’s environment club observed that pupils used the courtyard in different ways. Some played energetic games during break. Others wanted a place to read or talk quietly. The club did not ask everyone to remain silent throughout break. Instead, it proposed keeping noisy games near the playing field and reserving a small shaded corner for quieter activities. Teachers helped the pupils choose clear signs for both areas. After a trial week, the club invited comments about whether the arrangement worked. The report described this as a plan to share space more thoughtfully, not a rule that one kind of activity was always better than another.",
+      "stimulusProvenance": "original",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. A teacher prepares and checks the task, allows appropriate practice and scores intelligibility and the specified reading/listening features. A written script alone is insufficient. Actual classroom delivery, pronunciation model, recording arrangements and examiner calibration remain unverified. Do not penalise unrelated accent features or impose an invented reading-speed threshold."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Main ideas",
+      "learningObjective": "Identify main ideas in class-appropriate informational texts.",
+      "id": "ndv-325-014",
+      "objectiveId": "nerdc-english-primary4-322-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What main idea unites the details in Quiet Areas, Different Needs?",
+      "answer": "School space can be organised thoughtfully to meet different pupils’ needs.",
+      "explanation": "The idea includes both energetic play and quieter activities rather than declaring either wrong.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies thoughtful organisation of shared space."
+        },
+        {
+          "marks": 1,
+          "description": "Includes differing needs rather than only one group’s preference."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Quiet Areas, Different Needs\nA school’s environment club observed that pupils used the courtyard in different ways. Some played energetic games during break. Others wanted a place to read or talk quietly. The club did not ask everyone to remain silent throughout break. Instead, it proposed keeping noisy games near the playing field and reserving a small shaded corner for quieter activities. Teachers helped the pupils choose clear signs for both areas. After a trial week, the club invited comments about whether the arrangement worked. The report described this as a plan to share space more thoughtfully, not a rule that one kind of activity was always better than another.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Supporting facts",
+      "learningObjective": "Identify supporting facts in class-appropriate informational texts.",
+      "id": "ndv-325-015",
+      "objectiveId": "nerdc-english-primary4-322-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Which two details show that the club treated its proposal as something to try and review?",
+      "answer": "The arrangement was tried for a week, and the club invited comments about whether it worked.",
+      "explanation": "These details support trial and review rather than a claim of automatic success.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the trial week."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies inviting comments on whether the plan worked."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Quiet Areas, Different Needs\nA school’s environment club observed that pupils used the courtyard in different ways. Some played energetic games during break. Others wanted a place to read or talk quietly. The club did not ask everyone to remain silent throughout break. Instead, it proposed keeping noisy games near the playing field and reserving a small shaded corner for quieter activities. Teachers helped the pupils choose clear signs for both areas. After a trial week, the club invited comments about whether the arrangement worked. The report described this as a plan to share space more thoughtfully, not a rule that one kind of activity was always better than another.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "id": "ndv-325-016",
+      "objectiveId": "nerdc-english-primary4-325-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Does Quiet Areas, Different Needs support the claim that quiet pupils’ activities are always better than energetic games? Explain from the text.",
+      "answer": "No. The plan accommodates both activities and the report explicitly says it does not rank one as always better.",
+      "explanation": "A justified answer should distinguish accommodating needs from ranking people’s preferences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the ranking claim."
+        },
+        {
+          "marks": 1,
+          "description": "Uses accommodation of both needs or the report’s stated limit as evidence."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "Quiet Areas, Different Needs\nA school’s environment club observed that pupils used the courtyard in different ways. Some played energetic games during break. Others wanted a place to read or talk quietly. The club did not ask everyone to remain silent throughout break. Instead, it proposed keeping noisy games near the playing field and reserving a small shaded corner for quieter activities. Teachers helped the pupils choose clear signs for both areas. After a trial week, the club invited comments about whether the arrangement worked. The report described this as a plan to share space more thoughtfully, not a rule that one kind of activity was always better than another.",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Meaning and audience",
+      "learningObjective": "Explain the meaning of an informal letter.",
+      "id": "ndv-325-017",
+      "objectiveId": "nerdc-english-primary4-325-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional pupil writes to a cousin to describe a family celebration and ask about the cousin’s holiday. Explain why this is an informal letter.",
+      "answer": "It is a personal letter to a relative about shared or everyday experiences, written in a friendly rather than an official style.",
+      "explanation": "An informal letter is defined by personal purpose, relationship and style; it still needs clear organisation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the personal relationship/purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a friendly personal style rather than official business."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Meaning and audience",
+      "learningObjective": "Explain the meaning of an informal letter.",
+      "id": "ndv-325-018",
+      "objectiveId": "nerdc-english-primary4-325-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classmate says an informal letter is simply a letter with no rules and no clear order. Correct that explanation.",
+      "answer": "An informal letter is a personal, friendly letter, often to a friend or relative. It can still have an address, date, greeting, organised body, closing and sender’s name.",
+      "explanation": "Informal does not mean careless, unreadable or structure-free.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable personal/friendly meaning."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that clear structure and features still matter."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Features and functions",
+      "learningObjective": "Identify and explain features of an informal letter.",
+      "id": "ndv-325-019",
+      "objectiveId": "nerdc-english-primary4-325-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the supplied fictional letter, identify the sender’s address, date, greeting and closing.",
+      "answer": "Address: 7 Lantern Street, Example Town. Date: 18 November 2026. Greeting: Dear Chika. Closing: Your friend.",
+      "explanation": "The letter is original practice material with a fictional address, not actual correspondence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the address and date."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the greeting and closing."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "7 Lantern Street,\nExample Town.\n18 November 2026.\nDear Chika,\nI enjoyed the school concert on Friday. My favourite part was the short drum performance. What activity did you enjoy at your school this week?\nYour friend,\nBola\nBola (signature)",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Features and functions",
+      "learningObjective": "Identify and explain features of an informal letter.",
+      "id": "ndv-325-020",
+      "objectiveId": "nerdc-english-primary4-325-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the different jobs of Dear Chika and Bola at the end of the supplied letter.",
+      "answer": "Dear Chika greets the person receiving the letter. Bola at the end identifies the sender.",
+      "explanation": "The recipient and sender need not be confused simply because both are personal names.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the greeting’s recipient role."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the ending name’s sender role."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "passage": "7 Lantern Street,\nExample Town.\n18 November 2026.\nDear Chika,\nI enjoyed the school concert on Friday. My favourite part was the short drum performance. What activity did you enjoy at your school this week?\nYour friend,\nBola\nBola (signature)",
+      "stimulusProvenance": "original",
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Informal Letters",
+      "subtopic": "Features and functions",
+      "learningObjective": "Identify and explain features of an informal letter.",
+      "id": "ndv-325-021",
+      "objectiveId": "nerdc-english-primary4-325-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional paper letter has a friendly body, a date, a greeting and a closing, but no sender’s address. Which feature would you add, and what practical job could it do? Use only an invented address if you give an example.",
+      "answer": "Add the sender’s address. It can tell the recipient where a reply may be sent and identify the writer’s contact location.",
+      "explanation": "This assesses the feature and its purpose without asking for a learner’s real address or sending a message.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the missing sender’s address."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a suitable practical purpose."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "deliveryNote": "Written interpretation of supplied original material; not evidence of observed oral, dictionary or digital performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Vowel contrast in a stated model",
+      "learningObjective": "Discriminate vowel sounds in heard words using an explicit prechecked reference model.",
+      "id": "ndv-325-022",
+      "objectiveId": "nerdc-english-primary4-325-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Listen to the teacher’s reference words A and B, then to four test words. After each test word, say A or B to show which reference vowel it matches. Do not read the teacher’s word list.",
+      "answer": "B, A, A, B.",
+      "explanation": "This is listening discrimination in a stated non-rhotic British reference model: A has /ʌ/ as in bud; B has /ɜː/ as in bird. It does not assess whether the learner’s own accent must use those realisations. The source typography /˄/ and /3:/ is reconciled explicitly rather than treated as a universal accent rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the first two test vowels to B then A."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the last two test vowels to A then B."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "Require live or recorded individual evidence. A teacher prepares and checks the task, allows appropriate practice and scores intelligibility and the specified reading/listening features. A written script alone is insufficient. Actual classroom delivery, pronunciation model, recording arrangements and examiner calibration remain unverified. Do not penalise unrelated accent features or impose an invented reading-speed threshold.",
+      "examinerScript": "Precondition: a qualified teacher must establish an audible, consistent non-rhotic British reference contrast /ʌ/ versus /ɜː/, using an appropriate verified model before scoring. Cambridge indexed pronunciation entries support bud /bʌd/ and bird /bɜːd/; their full pages/audio were not retrieved in this run. If the model, hearing conditions or learner access needs prevent a fair contrast task, postpone rather than infer ability from spelling. During practice, say A: bud and B: bird; explain that the pupil matches vowel sounds, not meanings. Keep spellings, IPA and the key hidden during the test. Read the four test words naturally twice in this order: bird, bud, bud, bird. Permit spoken A/B labels. Do not judge the learner’s natural pronunciation or substitute r-colouring as the cue.",
+      "examinerScriptVisibility": "examiner_only_during_listening",
+      "contentSourceId": "cambridge-vowel-index-evidence-325"
+    }
+  ]
+}

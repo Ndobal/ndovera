@@ -3740,7 +3740,7 @@
         "nerdc-revised-bec-rollout-2025",
         "fme-curriculum-review-implementation-2026"
       ],
-      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified. Batch323 fresh PDF hash matched. All numbered objective columns read for a complete source inventory; early oral/aural tables and Songs/Poems rendered and visually inspected. New tasks require live/recorded individual evidence. No audio or actual classroom performance verified. Source vowel notation, non-minimal pairs and overgeneral stress patterns are recorded rather than silently imposed. Batch324 fresh checksum matched. Grammar/vocabulary tables PDF20–22,24–25 read and visually inspected. Nineteen partial author mappings; traditional adjective/determiner labels, overlapping homograph/homonym terms and school future-tense labels qualified. Six numbered objectives still have no registered draft link after these mappings; full competency and delivery requirements remain open.",
+      "note": "Direct-path candidate retrieved successfully; subject and exact class established by cover and title, not guessed from its filename. Cover, contents and five selected body tables read; selected tables rendered and visually inspected. Initial partial reading/writing mapping only. Full syllabus inventory, oral/aural performance, dictionary use, online retrieval, word-processing delivery, official term placement and school-specific adoption remain unverified. Batch323 fresh PDF hash matched. All numbered objective columns read for a complete source inventory; early oral/aural tables and Songs/Poems rendered and visually inspected. New tasks require live/recorded individual evidence. No audio or actual classroom performance verified. Source vowel notation, non-minimal pairs and overgeneral stress patterns are recorded rather than silently imposed. Batch324 fresh checksum matched. Grammar/vocabulary tables PDF20–22,24–25 read and visually inspected. Nineteen partial author mappings; traditional adjective/determiner labels, overlapping homograph/homonym terms and school future-tense labels qualified. Six numbered objectives still have no registered draft link after these mappings; full competency and delivery requirements remain open. Batch325 checksum matched; remaining tables PDF17,26–28 read and visually inspected. Six new limited mappings use actual read-aloud evidence, evidence-based comprehension, informal-letter features and one conditional reference-model vowel discrimination task. All59 numbered objectives now have partial draft links; full coverage, regional-model calibration and actual delivery are not established.",
       "lastSourceRecheck": "2026-11-19"
     },
     {
@@ -3812,6 +3812,38 @@
       "source": "https://learnenglishkids.britishcouncil.org/grammar-vocabulary/grammar-practice/comparatives-superlatives",
       "retrievedOn": "2026-11-19",
       "note": "LearnEnglish Kids grammar explanation opened/read. Comparative/superlative use and irregular better/best support technical accuracy. No source worksheet or game copied; selected examples do not exhaust all comparison rules."
+    },
+    {
+      "id": "cambridge-vowel-index-evidence-325",
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "kind": "official_dictionary_indexed_reference",
+      "source": "https://dictionary.cambridge.org/pronunciation/english/bud",
+      "additionalSource": "https://dictionary.cambridge.org/pronunciation/english/bird",
+      "retrievedOn": "2026-11-19",
+      "retrievalStatus": "indexed_text_only_direct_pages_403",
+      "note": "Primary publisher search-index text confirms UK bud /bʌd/ and bird /bɜːd/. Direct pronunciation pages and Oxford pronunciation guide returned403; no audio retrieval, playback or teacher model verification claimed. A BBC official sounds-chart PDF opened but does not by itself establish this word pair or delivered audio. Used only to specify a conditional reference-model listening draft."
+    },
+    {
+      "id": "nerdc-igbo-primary4-revised-2025",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/4.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-19",
+      "sourceBytes": 1315243,
+      "pageCount": 29,
+      "sha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+      "sourceSections": [
+        "Rendered cover, PDF p.1",
+        "Copyright/title, PDF p.3",
+        "Introduction/overview, PDF pp.10–12",
+        "Contents, PDF p.13"
+      ],
+      "note": "Candidate direct URL retrieved successfully. Filename did not identify the subject: rendered cover and copyright/title independently establish revised Igbo Language Primary4 September2025. Introduction/overview and contents read. This is source discovery only: numbered body objectives, tone/orthography, classroom regional-language choice, full adoption and age/class delivery are not yet reconciled. No Igbo questions or invented objective codes added. Applicable bank where Igbo is offered, not a claim that every school must teach all Nigerian languages."
     }
   ],
   "banks": [
@@ -6574,6 +6606,16 @@
       "scopeStatus": "official_revised_exact_class_partial_mapping",
       "specificationId": "nerdc-english-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_source_retrieved_objective_mapping_pending",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified."
     }
   ],
   "objectives": [
@@ -41968,6 +42010,114 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-1-v1",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Reading topical passages",
+      "learningObjective": "Read class-appropriate passages on topical issues.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Comprehension: contextual clues, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-2-v1",
+      "topic": "Comprehension: contextual clues",
+      "subtopic": "Literal inferential and critical responses",
+      "learningObjective": "Answer literal, inferential and critical questions on passages.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 13 (PDF p. 26), Comprehension: contextual clues, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-3-v1",
+      "topic": "Comprehension: main and supporting ideas",
+      "subtopic": "Reading informational text",
+      "learningObjective": "Read class-appropriate informational texts on topical issues.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 14 (PDF p. 27), Comprehension: main and supporting ideas, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-4-v1",
+      "topic": "Informal Letters",
+      "subtopic": "Meaning and audience",
+      "learningObjective": "Explain the meaning of an informal letter.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Informal Letters, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-5-v1",
+      "topic": "Informal Letters",
+      "subtopic": "Features and functions",
+      "learningObjective": "Identify and explain features of an informal letter.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 15 (PDF p. 28), Informal Letters, performance objective 2; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "English Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-english-primary4-revised-2025",
+      "id": "nerdc-english-primary4-325-6-v1",
+      "topic": "Aural Discrimination in Vowels and Consonants",
+      "subtopic": "Vowel contrast in a stated model",
+      "learningObjective": "Discriminate vowel sounds in heard words using an explicit prechecked reference model.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p. 4 (PDF p. 17), Aural Discrimination in Vowels and Consonants, performance objective 1; content, activities and evaluation guide"
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -42065,6 +42215,7 @@
     "Batch 298 adds four original TOEFL Academic Discussion drafts. Full section assembly, score calibration and independent review remain open.",
     "On 19 November 2026 the revised NERDC index and national cycle-entry notice were accessible. Primary 1, Primary 2 and JSS 1 landing pages still returned 403. The indexed Primary 1 CCA /web/12.pdf URL returned 404. A direct revised Primary 4 Basic Digital Literacy PDF succeeded and supports only an initial exact-class File Management mapping. This is not a complete Primary 4 subject inventory, school adoption record or formal assessment blueprint.",
     "Batch 321 partially maps Primary 4 history and passwording objectives. Source first labels remain underspecified; named milestone/event types do not establish a complete invention chronology. NIST centrally verified password rules are supplementary technical guidance, not proof of Nigerian adoption or a universal local unlock policy. The fictional offline-form route assesses candidate creation/entry only; actual enrolment, strength verification, equipment and classroom delivery remain open.",
-    "Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist."
+    "Batch 322 retrieves revised September 2025 Primary 4 English Studies directly and adds an initial partial reading/writing register; full exact-class subject inventory, adoption, official assessment framework, listening/speaking and digital delivery remain open. Primary 4 phishing types now have an author-proposed email/text/voice delivery grouping supported by NCSC, not an official NERDC taxonomy. Common-game and physical/autonomous robotics gaps persist.",
+    "Batch325 gives every one of the59 numbered Primary4 English objectives at least a partial author mapping, not complete functional/syllabus/target coverage. The new Igbo Language Primary4 revised source is verified only through cover/title/overview/contents; body-objective inventory and linguistic review remain pending. School-specific Nigerian-language choice/adoption is not assumed."
   ]
 }

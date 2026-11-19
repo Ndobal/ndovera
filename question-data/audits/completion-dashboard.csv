@@ -113,8 +113,9 @@ NERDC,Economics,SS 1,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only
 NERDC,English,Primary,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,English Studies,JSS 1,,1000,56,55,0,945,36,36,partial_objective_register,revised_2025_exact_class_national_rollout_evidenced_partial_mapping
 NERDC,English Studies,Primary 3,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
-NERDC,English Studies,Primary 4,,1000,89,88,0,912,51,51,partial_objective_register,official_revised_exact_class_partial_mapping
+NERDC,English Studies,Primary 4,,1000,111,110,0,890,57,57,partial_objective_register,official_revised_exact_class_partial_mapping
 NERDC,Financial Accounting,SS,,1000,1,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
+NERDC,Igbo Language,Primary 4,,1000,0,0,0,1000,0,0,specification_unresolved,official_revised_exact_class_source_retrieved_objective_mapping_pending
 NERDC,Intermediate Science,JSS 1,,1000,124,124,0,876,124,124,partial_objective_register,official_revised_exact_class_partial_mapping
 NERDC,Literacy,Nursery,,1000,3,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
 NERDC,Mathematics,JSS,,1000,2,0,0,1000,0,0,specification_unresolved,observed_only_specification_unresolved
