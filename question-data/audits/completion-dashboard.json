@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5952,
-    "validDrafts": 4273,
+    "raw": 5975,
+    "validDrafts": 4296,
     "reviewed": 0,
     "registeredBanks": 204,
     "target": 186000,
@@ -2138,6 +2138,12 @@
       "sha256": "a1df9b6d0bba36c383ce065c7b7d184c79c2214c8d098b1b6c233f27712285e0",
       "declared": 33,
       "actual": 33
+    },
+    {
+      "path": "original-multisubject-batch-336.json",
+      "sha256": "445bc468cc0248ee07826118e79f40a12a9abb962b5d4f31c0c68a1082def947",
+      "declared": 23,
+      "actual": 23
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6096,18 +6102,18 @@
       "applicabilityReferences": [
         "nerdc-primary-route-offering-reference-335"
       ],
-      "raw": 33,
-      "validDrafts": 33,
+      "raw": 56,
+      "validDrafts": 56,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 33
+        "structured": 56
       },
       "difficulty": {
-        "standard": 33
+        "standard": 56
       },
-      "remaining": 967,
-      "mappedObjectives": 29,
-      "representedObjectives": 29,
+      "remaining": 944,
+      "mappedObjectives": 41,
+      "representedObjectives": 41,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8121,17 +8127,17 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "invalid_score": 81,
     "marking_guide_requires_positive_marks_and_criteria": 16,
+    "invalid_score": 81,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -48350,6 +48356,144 @@
       "id": "ndv-335-033",
       "file": "original-multisubject-batch-335.json",
       "index": 32,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-001",
+      "file": "original-multisubject-batch-336.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-002",
+      "file": "original-multisubject-batch-336.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-003",
+      "file": "original-multisubject-batch-336.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-004",
+      "file": "original-multisubject-batch-336.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-005",
+      "file": "original-multisubject-batch-336.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-006",
+      "file": "original-multisubject-batch-336.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-007",
+      "file": "original-multisubject-batch-336.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-008",
+      "file": "original-multisubject-batch-336.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-009",
+      "file": "original-multisubject-batch-336.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-010",
+      "file": "original-multisubject-batch-336.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-011",
+      "file": "original-multisubject-batch-336.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-012",
+      "file": "original-multisubject-batch-336.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-013",
+      "file": "original-multisubject-batch-336.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-014",
+      "file": "original-multisubject-batch-336.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-015",
+      "file": "original-multisubject-batch-336.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-016",
+      "file": "original-multisubject-batch-336.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-017",
+      "file": "original-multisubject-batch-336.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-018",
+      "file": "original-multisubject-batch-336.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-019",
+      "file": "original-multisubject-batch-336.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-020",
+      "file": "original-multisubject-batch-336.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-021",
+      "file": "original-multisubject-batch-336.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-022",
+      "file": "original-multisubject-batch-336.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-336-023",
+      "file": "original-multisubject-batch-336.json",
+      "index": 22,
       "errors": []
     },
     {
@@ -120950,6 +121094,369 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-modes-v1",
+      "topic": "God Speaks to Us",
+      "subtopic": "Biblical modes of communication",
+      "learningObjective": "Identify selected ways biblical passages describe God communicating or making himself known, without treating every account as identical.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.1 / PDF p.13, Performance Objective 1; content/activities; partial author mapping.",
+        "Printed p.5 / PDF p.17, Performance Objective 2; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-purpose-v1",
+      "topic": "God Speaks to Us",
+      "subtopic": "Purpose of the message to Samuel",
+      "learningObjective": "Explain the corrective purpose of the message to Samuel in its narrative context.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.1 / PDF p.13, Performance Objective 2; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-jacob-v1",
+      "topic": "God Speaks to Us",
+      "subtopic": "Jacob’s encounter",
+      "learningObjective": "Retell selected events and the new-name message in Jacob’s encounter in Genesis32.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.1 / PDF p.13, Performance Objective 3; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-attitude-v1",
+      "topic": "God Speaks to Us",
+      "subtopic": "Listening and reverence",
+      "learningObjective": "Explain attentive and reverent responses in biblical speaking and revelation accounts.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.1 / PDF p.13, Performance Objective 4; content/activities; partial author mapping.",
+        "Printed p.5 / PDF p.17, Performance Objective 3; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-abram-v1",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Retelling the call of Abram",
+      "learningObjective": "Retell the call of Abram coherently while keeping it separate from other call narratives.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.15, Performance Objective 1; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-callpurpose-v1",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Purpose and service",
+      "learningObjective": "Explain proclamation and service as purposes of God’s call in the selected Christian teaching.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.15, Performance Objective 2; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-response-v1",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Willing response",
+      "learningObjective": "Explain willing response to God’s call using Isaiah and the call of James and John.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.15, Performance Objective 3; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-benefits-v1",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Blessing and new purpose",
+      "learningObjective": "Describe narrative benefits of responding to God’s call without reducing them to personal gain.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.15, Performance Objective 4; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-revealpurpose-v1",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Guidance and knowledge",
+      "learningObjective": "Explain guidance and instruction as purposes of revelation in the selected Christian passages.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.17, Performance Objective 1; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-samuel-v1",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Understanding Samuel’s call",
+      "learningObjective": "Explain Samuel’s initial misunderstanding, Eli’s guidance and Samuel’s listening response.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.17, Performance Objective 4; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-passion-v1",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Passion sequence with disclosed reference resolutions",
+      "learningObjective": "Retell a simple arrest, trial, death and resurrection sequence using checked author-proposed references while preserving source citation discrepancies.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.21, Performance Objective 1; content/activities; partial author mapping.",
+        "Source Matthew28:47–54 remains invalid. Author-proposed checked Matthew26:47–54 and Luke23:33–46 extend/replace mismatched ranges for practice, pending academic review; not an official NERDC erratum."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-336-sacrifice-v1",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Love and life",
+      "learningObjective": "Explain love and life as Christian reasons for Jesus’ self-giving in the selected John passages.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.21, Performance Objective 2; content/activities; partial author mapping."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -121058,6 +121565,7 @@
     "Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open.",
     "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model.",
     "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.",
-    "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained."
+    "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.",
+    "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed."
   ]
 }

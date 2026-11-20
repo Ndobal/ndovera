@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-crs-primary4-revised-2025",
+  "sourceSha256": "e446b1a7c6adae310d520cc4696de4a060a4b9260391ed05e4c3771866e3f3bc",
+  "freshRetrievalBytes": 2149790,
+  "readAndVisuallyCheckedPdfPages": [
+    13,
+    15,
+    17,
+    21
+  ],
+  "authorMappings": [
+    {
+      "inventoryId": "p4-crs-table1-po1",
+      "objectiveId": "nerdc-crs-primary4-336-modes-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table5-po2",
+      "objectiveId": "nerdc-crs-primary4-336-modes-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table1-po2",
+      "objectiveId": "nerdc-crs-primary4-336-purpose-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table1-po3",
+      "objectiveId": "nerdc-crs-primary4-336-jacob-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table1-po4",
+      "objectiveId": "nerdc-crs-primary4-336-attitude-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table5-po3",
+      "objectiveId": "nerdc-crs-primary4-336-attitude-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table3-po1",
+      "objectiveId": "nerdc-crs-primary4-336-abram-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table3-po2",
+      "objectiveId": "nerdc-crs-primary4-336-callpurpose-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table3-po3",
+      "objectiveId": "nerdc-crs-primary4-336-response-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table3-po4",
+      "objectiveId": "nerdc-crs-primary4-336-benefits-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table5-po1",
+      "objectiveId": "nerdc-crs-primary4-336-revealpurpose-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table5-po4",
+      "objectiveId": "nerdc-crs-primary4-336-samuel-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table9-po1",
+      "objectiveId": "nerdc-crs-primary4-336-passion-v1"
+    },
+    {
+      "inventoryId": "p4-crs-table9-po2",
+      "objectiveId": "nerdc-crs-primary4-336-sacrifice-v1"
+    }
+  ],
+  "newAuthorMappings": 12,
+  "newQuestions": 23,
+  "written": 20,
+  "spoken": 3,
+  "partiallyLinkedSourceObjectives": 43,
+  "uniqueAuthorMappings": 41,
+  "uniqueLinkedValidDrafts": 56,
+  "rowLinkedDrafts": 60,
+  "supplementarySourceId": "web-crs-passages-reference-336",
+  "protocolPath": "stimuli/batch-336/oral-delivery-protocol.json",
+  "academicReviewStatus": "pending",
+  "passionReferenceResolutions": [
+    {
+      "source": "Matthew28:47–54",
+      "status": "invalid_source_range_retained",
+      "practiceReference": "Matthew26:47–54",
+      "basis": "Checked text narrates Judas identification and Jesus being seized.",
+      "limitation": "Author-proposed cross-reference for practice; no official NERDC correction claimed."
+    },
+    {
+      "source": "Luke23:13–25 labelled death",
+      "status": "source_range_stops_before_death",
+      "practiceReference": "Luke23:33–46",
+      "basis": "Checked later range narrates crucifixion and Jesus breathing his last.",
+      "limitation": "Author-proposed range extension for practice, not official erratum."
+    }
+  ],
+  "overlapDecisions": [
+    "Table1po1 and table5po2 use a shared modes mapping with two actual drafts; dreams/visions/selected communication are not separate reworded question banks. Full law mode/range remains open.",
+    "Table1po4 and table5po3 share the same1Kings19 attitude content and one mapping with two actual drafts; both source rows remain partial.",
+    "Existing JSS1 ndv-150-021 already asks a compound Abram call-recall question. New Primary4 tasks instead detect narrative conflation and require actual individual oral sequencing; the earlier question is neither copied nor relabelled.",
+    "Old33 plus new23 give56 unique drafts. Four new questions are linked twice through shared rows, producing row sum60. No count inflation."
+  ],
+  "decisions": [
+    "Every new prompt, model answer, rubric and assessed purpose inspected. Three oral tasks require actual heard performance; the protocol is unfilled, no source audio or learner activity occurred.",
+    "New source-row links are not full functional coverage. No project/academic completion, official reference correction, prescribed translation, universal private-experience claim or1000-question target fulfilment.",
+    "Narrated violence is kept brief and age-appropriate; no physical fighting/arrest/crucifixion enactment or personal religious disclosure required.",
+    "Prior335 Mary/John8 identification, full commandments, truncated healing/incomplete Spirit references, all prior evidence and adoption/term gaps remain open. Next address those remaining content/delivery gaps or verify another exact class-subject source; do not multiply represented questions merely to inflate totals."
+  ]
+}

@@ -1,0 +1,1128 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 CRS calls, revelation and disclosed Passion reference resolutions",
+  "questionCount": 23,
+  "note": "Twenty written and three actual spoken drafts across12 new author mappings linked to14 previously unmapped source objectives. Two source-objective pairs share mappings rather than duplicate questions. All43 numbered objectives now have partial links through41 mappings; this is not complete competence, target or independent review. Source citation discrepancies retained.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Biblical modes of communication",
+      "learningObjective": "Identify selected ways biblical passages describe God communicating or making himself known, without treating every account as identical.",
+      "id": "ndv-336-001",
+      "objectiveId": "nerdc-crs-primary4-336-modes-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Numbers12:6–8 mentions dreams and visions, then describes communication with Moses differently. Name the two modes and explain why “every person in the passage receives the same kind of message in exactly the same way” is inaccurate.",
+      "answer": "Dreams and visions are named. Moses is described as receiving plain, direct communication rather than riddles. The passage itself distinguishes the ways of communication.",
+      "explanation": "The task recognises modes and variation within the stated biblical text; it does not certify any present-day private dream as a command.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names dreams and visions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the contrasting description of communication with Moses."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Numbers 12:6–8"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Biblical modes of communication",
+      "learningObjective": "Identify selected ways biblical passages describe God communicating or making himself known, without treating every account as identical.",
+      "id": "ndv-336-002",
+      "objectiveId": "nerdc-crs-primary4-336-modes-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A reader combines two accounts into one claim: “Samuel’s story says he received a written letter, and Numbers12 says God can speak only through letters.” Correct both parts using the accounts.",
+      "answer": "Samuel hears a call and initially goes to Eli; no written letter is the means of the call in1Samuel3. Numbers12 names dreams and visions and also describes communication with Moses, so it does not restrict communication to letters.",
+      "explanation": "This tests recognition of the communication actually described, rather than supplying a personal experience or merely copying a list.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects the letter claim using Samuel’s heard call."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the only-letters claim with a mode supported by Numbers12."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Samuel 3:3–10",
+        "Numbers 12:6–8"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Purpose of the message to Samuel",
+      "learningObjective": "Explain the corrective purpose of the message to Samuel in its narrative context.",
+      "id": "ndv-336-003",
+      "objectiveId": "nerdc-crs-primary4-336-purpose-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In1Samuel3:10–13, the message to Samuel concerns wrongdoing in Eli’s household. Why is “God speaks only to congratulate people” an incomplete explanation of this episode?",
+      "answer": "The episode includes a warning or judgment about wrongdoing that Eli knew about and did not restrain. Its message is corrective, not simply praise or congratulations.",
+      "explanation": "The model stays within the specified passage and does not turn the episode into a judgment about a modern child’s family.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the warning/corrective purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how that purpose contradicts the only-congratulations claim."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Samuel 3:10–13"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Jacob’s encounter",
+      "learningObjective": "Retell selected events and the new-name message in Jacob’s encounter in Genesis32.",
+      "id": "ndv-336-004",
+      "objectiveId": "nerdc-crs-primary4-336-jacob-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Genesis32:22–32, put these parts of Jacob’s encounter into a short coherent retelling: he receives a blessing; he is given the name Israel; he asks for a blessing during the night encounter. Keep the new-name message in your account.",
+      "answer": "During the night encounter Jacob asks for a blessing. He is told that his name will be Israel, and he receives a blessing. The account also describes him leaving with a limp; that is not a command for pupils to imitate an injury.",
+      "explanation": "The core is the message and sequence, not a physical demonstration of wrestling or a claim that the visitor gives a personal name when Jacob asks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the request before the new-name message."
+        },
+        {
+          "marks": 1,
+          "description": "Retains Israel as the new name."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the blessing in a coherent narrative sequence."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Genesis 32:22–32"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Jacob’s encounter",
+      "learningObjective": "Retell selected events and the new-name message in Jacob’s encounter in Genesis32.",
+      "id": "ndv-336-005",
+      "objectiveId": "nerdc-crs-primary4-336-jacob-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Tell the class a brief account of Jacob’s night encounter in Genesis32:22–32. Make clear what Jacob asks for, the message about his name, and how the encounter ends. Tell the story aloud without acting out a fight.",
+      "answer": "There is no required memorised script. An actual oral account should include Jacob’s request for a blessing, the new name Israel, and the blessing/conclusion, with a clear order. Equivalent age-appropriate narrative wording is accepted.",
+      "explanation": "This assesses individual oral storytelling and coherent communication; a written answer cannot prove delivery.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States Jacob’s request for a blessing in actual speech."
+        },
+        {
+          "marks": 1,
+          "description": "Communicates the Israel new-name message accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an ordered intelligible ending rather than an invented fight demonstration."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Genesis 32:22–32"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryProtocolPath": "stimuli/batch-336/oral-delivery-protocol.json",
+      "deliveryNote": "Require actual individual live/recorded oral performance under the unfilled teacher protocol. A written plan or model answer is insufficient. No source audio, classroom performance or pupil recording occurred during authoring. Use narration or spoken roles without physical fighting, restraint or crucifixion enactment."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Listening and reverence",
+      "learningObjective": "Explain attentive and reverent responses in biblical speaking and revelation accounts.",
+      "id": "ndv-336-006",
+      "objectiveId": "nerdc-crs-primary4-336-attitude-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In1Kings19:11–13, Elijah hears the quiet voice after the wind, earthquake and fire. Describe his response and explain one attitude the CRS lesson draws from it.",
+      "answer": "Elijah covers his face with his cloak and goes to the cave entrance. The lesson can draw attentiveness and reverence from his response rather than assuming that only the loudest event matters.",
+      "explanation": "The attitude objective appears in two curriculum tables with this same passage. One shared mapping is used; the task is not counted twice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a response supported by the account."
+        },
+        {
+          "marks": 1,
+          "description": "Explains attentiveness or reverence as the lesson’s interpretation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Kings 19:11–13"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Speaks to Us",
+      "subtopic": "Listening and reverence",
+      "learningObjective": "Explain attentive and reverent responses in biblical speaking and revelation accounts.",
+      "id": "ndv-336-007",
+      "objectiveId": "nerdc-crs-primary4-336-attitude-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a discussion of Elijah’s response, Sola keeps interrupting before a reader finishes the passage. Give two connected actions that would show attentive, respectful listening, and explain why silence without attention is not enough.",
+      "answer": "Sola can allow the passage to be read, listen carefully and then ask a relevant question. Merely staying silent while ignoring the meaning would not show understanding or thoughtful respect.",
+      "explanation": "This is a fictional application of listening and reverence, not a claim that classroom reading is identical to Elijah’s encounter.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives connected actions involving listening and a relevant response."
+        },
+        {
+          "marks": 1,
+          "description": "Explains attention/understanding rather than silence alone."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Kings 19:11–13"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Retelling the call of Abram",
+      "learningObjective": "Retell the call of Abram coherently while keeping it separate from other call narratives.",
+      "id": "ndv-336-008",
+      "objectiveId": "nerdc-crs-primary4-336-abram-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A draft retelling mixes two people: “Abram was lying near Eli when God told him to leave his country. Eli then gave him the name Israel.” Identify the two borrowed details that do not belong in the Genesis12 call account, and give a corrected short opening.",
+      "answer": "The detail involving Eli belongs to Samuel’s call, not Abram’s; the name Israel belongs to Jacob’s encounter, not Abram’s Genesis12 call. A corrected opening says that God calls Abram to leave his country and go to the land God will show him.",
+      "explanation": "This is a narrative-conflation task with different purpose from the existing JSS1 compound Abram recall question. It does not simply duplicate that earlier question at another level.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the Eli/Samuel conflation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the Israel/Jacob conflation."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a corrected Abram call opening."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Genesis 12:1–4",
+        "1 Samuel 3:3–10",
+        "Genesis 32:27–28"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Retelling the call of Abram",
+      "learningObjective": "Retell the call of Abram coherently while keeping it separate from other call narratives.",
+      "id": "ndv-336-009",
+      "objectiveId": "nerdc-crs-primary4-336-abram-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Retell the opening of Abram’s call aloud as a short story for your classmates. Include the call, one promise and his response. Keep the story about Abram, who is later known as Abraham, rather than changing him into Samuel or Jacob.",
+      "answer": "The learner must actually tell an ordered oral account of the call to leave for the land God would show, an appropriate promise such as becoming a blessing, and Abram’s departure in response. No fixed translation wording is required.",
+      "explanation": "Actual oral sequencing and accurate character continuity are assessed. The name Abram used in Genesis12 is accepted alongside the later name Abraham.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Communicates the call coherently in actual speech."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a promise supported by the passage."
+        },
+        {
+          "marks": 1,
+          "description": "Describes Abram’s response and keeps the identity/account consistent."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Genesis 12:1–4"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryProtocolPath": "stimuli/batch-336/oral-delivery-protocol.json",
+      "deliveryNote": "Require actual individual live/recorded oral performance under the unfilled teacher protocol. A written plan or model answer is insufficient. No source audio, classroom performance or pupil recording occurred during authoring. Use narration or spoken roles without physical fighting, restraint or crucifixion enactment."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Purpose and service",
+      "learningObjective": "Explain proclamation and service as purposes of God’s call in the selected Christian teaching.",
+      "id": "ndv-336-010",
+      "objectiveId": "nerdc-crs-primary4-336-callpurpose-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In1Peter2:9, being called into light is connected with proclaiming God’s goodness. Explain why a response to a calling is more than collecting an impressive title. Give one suitable way to use a talent in service.",
+      "answer": "The passage links the calling with declaring God’s excellence or goodness, not merely status. In a Christian service setting a pupil might use a singing talent to encourage others rather than demand special treatment.",
+      "explanation": "The service example is an original application of the source’s focal competence, not a quotation prescribing one occupation or a claim of superiority over other people.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains proclamation/purpose rather than status alone."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable talent-and-service connection."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Peter 2:9"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Willing response",
+      "learningObjective": "Explain willing response to God’s call using Isaiah and the call of James and John.",
+      "id": "ndv-336-011",
+      "objectiveId": "nerdc-crs-primary4-336-response-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Isaiah6:8 and Mark1:19–20 show different responses to a call. Describe what Isaiah says he is willing to do and what James and John do, then identify the common attitude.",
+      "answer": "Isaiah offers himself to be sent. James and John leave their boat and father with the hired servants and follow Jesus. The shared attitude is willingness to respond rather than indifference.",
+      "explanation": "The model distinguishes a verbal offer from a narrated action and does not tell pupils to leave their families or school.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes Isaiah’s willingness to be sent."
+        },
+        {
+          "marks": 1,
+          "description": "Describes James and John following Jesus."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the shared willing response."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Isaiah 6:8",
+        "Mark 1:19–20"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Willing response",
+      "learningObjective": "Explain willing response to God’s call using Isaiah and the call of James and John.",
+      "id": "ndv-336-012",
+      "objectiveId": "nerdc-crs-primary4-336-response-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A church children’s group asks volunteers to help arrange song sheets. Nene agrees eagerly but then ignores the task while others work. Using the lesson about responding to a call, explain what is missing and describe a realistic next step.",
+      "answer": "Willing words need responsible follow-through. Nene can ask what is needed and complete an agreed part of arranging the sheets, or explain honestly if help is needed.",
+      "explanation": "A small, suitable service task illustrates response without equating a leader’s request with an unquestionable command from God.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the gap between agreement and follow-through."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a realistic responsible next step."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Isaiah 6:8",
+        "Mark 1:19–20"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Blessing and new purpose",
+      "learningObjective": "Describe narrative benefits of responding to God’s call without reducing them to personal gain.",
+      "id": "ndv-336-013",
+      "objectiveId": "nerdc-crs-primary4-336-benefits-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke5:4–11, Simon receives a large catch but the account does not end with selling fish. What new purpose is spoken about, and what do the fishermen do at the end? Explain how this makes the benefit broader than a catch alone.",
+      "answer": "Jesus speaks of Simon catching people. The fishermen bring the boats to land, leave everything and follow him. The narrative connects the catch with a new calling and purpose, not only a successful fishing business.",
+      "explanation": "Catching people is interpreted as a calling to gather people to Jesus, not literally trapping or physically capturing people.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the new purpose using an appropriate explanation."
+        },
+        {
+          "marks": 1,
+          "description": "Describes following Jesus at the end."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a benefit or significance beyond the material catch."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Luke 5:4–11"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God calls us for a purpose",
+      "subtopic": "Blessing and new purpose",
+      "learningObjective": "Describe narrative benefits of responding to God’s call without reducing them to personal gain.",
+      "id": "ndv-336-014",
+      "objectiveId": "nerdc-crs-primary4-336-benefits-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Genesis12:2–3 connects a promise to Abram with blessing other families. A pupil summarises it as “Only Abram benefits and nobody else matters.” Explain what the summary leaves out.",
+      "answer": "The promise includes Abram becoming a blessing and families of the earth being blessed through him. It therefore looks beyond his private benefit to others.",
+      "explanation": "The task examines who is included in the promise’s benefit, not a guarantee that every modern act of obedience earns a particular reward.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies blessing extending to other families."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the only-Abram summary is incomplete."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Genesis 12:2–3"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Guidance and knowledge",
+      "learningObjective": "Explain guidance and instruction as purposes of revelation in the selected Christian passages.",
+      "id": "ndv-336-015",
+      "objectiveId": "nerdc-crs-primary4-336-revealpurpose-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Psalm119:105 compares God’s word with a lamp and a light for a path. In this Christian teaching, does that mean the written page is an electric torch? Explain the picture and the purpose it communicates.",
+      "answer": "No. The lamp/path image expresses guidance for living and choices. It helps readers understand direction rather than claiming that paper produces electric light.",
+      "explanation": "The response interprets a metaphor in a source-supported way without treating the picture as a laboratory claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the literal electric-torch reading."
+        },
+        {
+          "marks": 1,
+          "description": "Explains guidance or direction as the image’s purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Psalm 119:105"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Guidance and knowledge",
+      "learningObjective": "Explain guidance and instruction as purposes of revelation in the selected Christian passages.",
+      "id": "ndv-336-016",
+      "objectiveId": "nerdc-crs-primary4-336-revealpurpose-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "2Timothy3:15–17 links Scripture with teaching, correction and preparation for good work. Explain why copying a passage neatly while refusing to understand or use its teaching misses part of that purpose.",
+      "answer": "Neat copying alone does not show understanding, willingness to learn from correction or preparation for good action. The passage presents Scripture as instruction that equips a person for good work.",
+      "explanation": "The question applies the stated purpose of instruction, not a demand for a private conversion account or an assessment of handwriting.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a purpose beyond copying."
+        },
+        {
+          "marks": 1,
+          "description": "Connects learning/correction with good action or preparation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "2 Timothy 3:15–17"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Understanding Samuel’s call",
+      "learningObjective": "Explain Samuel’s initial misunderstanding, Eli’s guidance and Samuel’s listening response.",
+      "id": "ndv-336-017",
+      "objectiveId": "nerdc-crs-primary4-336-samuel-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In1Samuel3:3–10, why does Samuel repeatedly go to Eli, and how does Eli help him understand the call? Explain the change between Samuel’s first response and his later listening response.",
+      "answer": "Samuel initially thinks Eli has called. Eli recognises that God is calling Samuel and tells him how to answer. Samuel then responds as a servant ready to listen rather than continuing to treat it as Eli’s ordinary summons.",
+      "explanation": "The explanation keeps Eli as a guide in recognising the call and does not claim Eli himself creates the divine message.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains Samuel’s initial misunderstanding."
+        },
+        {
+          "marks": 1,
+          "description": "Explains Eli’s guidance."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the later readiness to listen."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Samuel 3:3–10"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Reveals Himself to Us",
+      "subtopic": "Understanding Samuel’s call",
+      "learningObjective": "Explain Samuel’s initial misunderstanding, Eli’s guidance and Samuel’s listening response.",
+      "id": "ndv-336-018",
+      "objectiveId": "nerdc-crs-primary4-336-samuel-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Take Samuel’s spoken role in a short classroom retelling of1Samuel3:3–10. The teacher will narrate and speak Eli’s guidance. Show in your words the move from thinking Eli called to being ready to listen to God. Afterwards explain that change in one sentence.",
+      "answer": "An actual spoken role should first show Samuel going/responding to Eli, then an appropriate listening response after the narrated guidance, followed by an accurate explanation of the misunderstanding being resolved. Equivalent age-appropriate wording is acceptable.",
+      "explanation": "This is an observed spoken role based on a biblical story, not a claim that the pupil personally heard a call. No costume, real sleeping place or physical enactment is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Speaks an appropriate initial response to Eli in the performed retelling."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate later readiness-to-listen response."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the change accurately after the role."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "1 Samuel 3:3–10"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryProtocolPath": "stimuli/batch-336/oral-delivery-protocol.json",
+      "deliveryNote": "Require actual individual live/recorded oral performance under the unfilled teacher protocol. A written plan or model answer is insufficient. No source audio, classroom performance or pupil recording occurred during authoring. Use narration or spoken roles without physical fighting, restraint or crucifixion enactment.",
+      "requiresObservedRolePlay": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Passion sequence with disclosed reference resolutions",
+      "learningObjective": "Retell a simple arrest, trial, death and resurrection sequence using checked author-proposed references while preserving source citation discrepancies.",
+      "id": "ndv-336-019",
+      "objectiveId": "nerdc-crs-primary4-336-passion-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using the checked references supplied, write a brief account in this order: arrest, trial, death, resurrection. Give one simple event at each stage. Use Matthew26:47–54 for arrest, Luke23:1–25 for the trial decision, Luke23:33–46 for death, and Matthew28:5–6 for the resurrection message.",
+      "answer": "Jesus is seized after Judas identifies him; he is brought before rulers and Pilate orders that the crowd’s demand be carried out; he is crucified and dies; at the tomb the women receive the message that he has risen. A clear age-appropriate account with those stages is sufficient.",
+      "explanation": "The arrest and death references are disclosed author-proposed resolutions/extensions of source mismatches. They are checked biblical passages, not a claim that NERDC has issued an erratum.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an accurate arrest event."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an accurate trial/decision event."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an accurate death event without unnecessary graphic detail."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the resurrection message in the proper sequence."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Matthew 26:47–54",
+        "Luke 23:1–25",
+        "Luke 23:33–46",
+        "Matthew 28:5–6"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified.",
+      "referenceResolutionStatus": "author_proposed_cross_references_pending_academic_review"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Passion sequence with disclosed reference resolutions",
+      "learningObjective": "Retell a simple arrest, trial, death and resurrection sequence using checked author-proposed references while preserving source citation discrepancies.",
+      "id": "ndv-336-020",
+      "objectiveId": "nerdc-crs-primary4-336-passion-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A summary says, “Luke23:13–25 already describes Jesus breathing his last.” Check that claim against Luke23:13–25 and23:44–46. Explain the different stage described in each range.",
+      "answer": "The first range concerns Pilate’s discussion and decision to hand Jesus over; it does not yet narrate his final breath. The later range includes Jesus committing his spirit to the Father and dying. A decision about execution and the account of death are different stages.",
+      "explanation": "This source-reading task corrects a range-level confusion without silently changing the official curriculum wording.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the decision/handing-over stage in13–25."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the death account in44–46 and distinguishes it from the earlier stage."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Luke 23:13–25",
+        "Luke 23:44–46"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified.",
+      "referenceResolutionStatus": "author_proposed_range_extension_pending_academic_review"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Passion sequence with disclosed reference resolutions",
+      "learningObjective": "Retell a simple arrest, trial, death and resurrection sequence using checked author-proposed references while preserving source citation discrepancies.",
+      "id": "ndv-336-021",
+      "objectiveId": "nerdc-crs-primary4-336-passion-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Matthew28:5–6 reports a message at the tomb. What does the messenger tell the women about Jesus, and why is it inaccurate to label this scene as the arrest of Jesus?",
+      "answer": "The messenger says that Jesus, who was crucified, is not there because he has risen. The scene concerns the tomb and resurrection message after the crucifixion, not people coming to seize Jesus before his trial.",
+      "explanation": "The task distinguishes narrative stages while keeping the curriculum’s invalid Matthew28 arrest range visible in reconciliation evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the resurrection message accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the tomb scene is not an arrest scene."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "Matthew 28:5–6",
+        "Matthew 26:47–50"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Love and life",
+      "learningObjective": "Explain love and life as Christian reasons for Jesus’ self-giving in the selected John passages.",
+      "id": "ndv-336-022",
+      "objectiveId": "nerdc-crs-primary4-336-sacrifice-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "John3:16–17 connects the giving of the Son with love and salvation. In the CRS lesson, explain why describing Jesus’ self-giving only as “an event with no purpose for other people” misses the stated reason.",
+      "answer": "The passage presents God’s love for the world and salvation or eternal life through the Son. Christian teaching therefore connects Jesus’ self-giving with love and life for others, rather than an event without that purpose.",
+      "explanation": "The model identifies the Christian interpretation in the cited text rather than demanding a personal statement of faith.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies love for the world."
+        },
+        {
+          "marks": 1,
+          "description": "Explains salvation/life for others as the stated purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "John 3:16–17"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "subtopic": "Love and life",
+      "learningObjective": "Explain love and life as Christian reasons for Jesus’ self-giving in the selected John passages.",
+      "id": "ndv-336-023",
+      "objectiveId": "nerdc-crs-primary4-336-sacrifice-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "John10:10–11 contrasts destroying life with the good shepherd’s care and self-giving. Explain what the shepherd image teaches about Jesus’ purpose, and why it should not be turned into an instruction for a child to accept harm.",
+      "answer": "The image presents Jesus as caring for the sheep and giving himself for them, with life rather than destruction as the purpose. Studying that unique religious account does not mean a child must agree to be harmed; ordinary care can be shown through safe, suitable acts of help.",
+      "explanation": "The task applies a Christian image while distinguishing Jesus’ self-giving from a demand that pupils imitate dangerous events.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains care/life and the shepherd’s self-giving."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the account’s purpose from an instruction to accept harm."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "web-crs-passages-reference-336",
+      "bibleReferences": [
+        "John 10:10–11"
+      ],
+      "contentProvenance": "Original prompt, model wording and practice rubric informed by checked public-domain biblical text; not a copied examination question or prescribed translation.",
+      "contentReviewNote": "Independent academic, denominational/translation, class suitability and rubric review pending. Christian interpretations are identified in CRS context. Do not require personal religious experiences, infer a child’s spiritual status or treat an invented scenario as observed conduct. Full activities, school/cohort adoption and official term placement unverified."
+    }
+  ]
+}

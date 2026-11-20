@@ -1,0 +1,670 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-crs-primary4-revised-2025",
+  "sourceSha256": "e446b1a7c6adae310d520cc4696de4a060a4b9260391ed05e4c3771866e3f3bc",
+  "scope": "All43 numbered objectives across11 tables now have partial links through41 unique author mappings. Modes and attitude each share one mapping across two source rows; labels/IDs are authored aids, not official codes. Full competency/target completion unestablished.",
+  "topicGroups": 11,
+  "numberedObjectives": 43,
+  "objectivesWithPartialDraftMapping": 43,
+  "unmappedNumberedObjectives": 0,
+  "registeredAuthorMappings": 41,
+  "independentColumnCount": {
+    "byPdfPage": [
+      [
+        13,
+        4
+      ],
+      [
+        14,
+        5
+      ],
+      [
+        15,
+        4
+      ],
+      [
+        16,
+        5
+      ],
+      [
+        17,
+        4
+      ],
+      [
+        18,
+        4
+      ],
+      [
+        19,
+        3
+      ],
+      [
+        20,
+        4
+      ],
+      [
+        21,
+        2
+      ],
+      [
+        22,
+        4
+      ],
+      [
+        23,
+        4
+      ]
+    ],
+    "total": 43,
+    "method": "PyMuPDF numbered word tokens in Performance Objectives column x120–200 below y190;1..N sequence checked independently against table text. Per-table numbering preserved."
+  },
+  "allNumberedObjectivesHavePartialMappings": true,
+  "fullCompetencyCoverageEstablished": false,
+  "uniqueLinkedValidDrafts": 56,
+  "objectives": [
+    {
+      "inventoryId": "p4-crs-table1-po1",
+      "topic": "God Speaks to Us",
+      "pdfPage": 13,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Ways of speaking",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-modes-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only; selected narrative/modes/attitude subset. Actual speech/drama/video/group evidence, full range, independent subject/rubric review, source discrepancy resolution, school adoption and terms remain open. Shared modes/attitude rows reuse identical question IDs rather than adding questions."
+    },
+    {
+      "inventoryId": "p4-crs-table1-po2",
+      "topic": "God Speaks to Us",
+      "pdfPage": 13,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Purpose of speaking",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-purpose-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table1-po3",
+      "topic": "God Speaks to Us",
+      "pdfPage": 13,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Jacob encounter",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-jacob-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table1-po4",
+      "topic": "God Speaks to Us",
+      "pdfPage": 13,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Listening attitude",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-attitude-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only; selected narrative/modes/attitude subset. Actual speech/drama/video/group evidence, full range, independent subject/rubric review, source discrepancy resolution, school adoption and terms remain open. Shared modes/attitude rows reuse identical question IDs rather than adding questions."
+    },
+    {
+      "inventoryId": "p4-crs-table2-po1",
+      "topic": "We are Children of One Father",
+      "pdfPage": 14,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Fatherhood and kinship",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t2-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table2-po2",
+      "topic": "We are Children of One Father",
+      "pdfPage": 14,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Significance of belonging",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t2-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table2-po3",
+      "topic": "We are Children of One Father",
+      "pdfPage": 14,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Family attitudes",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t2-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table2-po4",
+      "topic": "We are Children of One Father",
+      "pdfPage": 14,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Value of peace",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t2-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table2-po5",
+      "topic": "We are Children of One Father",
+      "pdfPage": 14,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Peace drawing",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t2-po5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table3-po1",
+      "topic": "God calls us for a purpose",
+      "pdfPage": 15,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Abraham call",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-abram-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table3-po2",
+      "topic": "God calls us for a purpose",
+      "pdfPage": 15,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Call purpose",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-callpurpose-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table3-po3",
+      "topic": "God calls us for a purpose",
+      "pdfPage": 15,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Response to call",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-response-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table3-po4",
+      "topic": "God calls us for a purpose",
+      "pdfPage": 15,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Obedience benefits",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-benefits-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table4-po1",
+      "topic": "God Gives His Law to Us",
+      "pdfPage": 16,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Law meaning",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t4-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table4-po2",
+      "topic": "God Gives His Law to Us",
+      "pdfPage": 16,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Law importance",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t4-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table4-po3",
+      "topic": "God Gives His Law to Us",
+      "pdfPage": 16,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Commandments",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t4-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table4-po4",
+      "topic": "God Gives His Law to Us",
+      "pdfPage": 16,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Law purpose",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t4-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table4-po5",
+      "topic": "God Gives His Law to Us",
+      "pdfPage": 16,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Reasons to obey",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t4-po5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table5-po1",
+      "topic": "God Reveals Himself to Us",
+      "pdfPage": 17,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Revelation purpose",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-revealpurpose-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table5-po2",
+      "topic": "God Reveals Himself to Us",
+      "pdfPage": 17,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Revelation modes",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-modes-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only; selected narrative/modes/attitude subset. Actual speech/drama/video/group evidence, full range, independent subject/rubric review, source discrepancy resolution, school adoption and terms remain open. Shared modes/attitude rows reuse identical question IDs rather than adding questions."
+    },
+    {
+      "inventoryId": "p4-crs-table5-po3",
+      "topic": "God Reveals Himself to Us",
+      "pdfPage": 17,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Revelation attitude",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-attitude-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only; selected narrative/modes/attitude subset. Actual speech/drama/video/group evidence, full range, independent subject/rubric review, source discrepancy resolution, school adoption and terms remain open. Shared modes/attitude rows reuse identical question IDs rather than adding questions."
+    },
+    {
+      "inventoryId": "p4-crs-table5-po4",
+      "topic": "God Reveals Himself to Us",
+      "pdfPage": 17,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Samuel call",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-samuel-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table6-po1",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "pdfPage": 18,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Sin and forgiveness",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t6-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table6-po2",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "pdfPage": 18,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Biblical forgiveness",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t6-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table6-po3",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "pdfPage": 18,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Repentance",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t6-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table6-po4",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "pdfPage": 18,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Value of forgiving",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t6-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table7-po1",
+      "topic": "Jesus Loves all People",
+      "pdfPage": 19,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Ways of love",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t7-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table7-po2",
+      "topic": "Jesus Loves all People",
+      "pdfPage": 19,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Love in narratives",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t7-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table7-po3",
+      "topic": "Jesus Loves all People",
+      "pdfPage": 19,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Value of love",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t7-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table8-po1",
+      "topic": "Jesus Prayed to the Father",
+      "pdfPage": 20,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Prayer meaning and importance",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t8-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table8-po2",
+      "topic": "Jesus Prayed to the Father",
+      "pdfPage": 20,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Prayer occasions",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t8-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table8-po3",
+      "topic": "Jesus Prayed to the Father",
+      "pdfPage": 20,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Prayer reasons",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t8-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table8-po4",
+      "topic": "Jesus Prayed to the Father",
+      "pdfPage": 20,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Prayer concerns",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t8-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table9-po1",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "pdfPage": 21,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Passion and resurrection",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-passion-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table9-po2",
+      "topic": "Jesus Gives His Life for Us on the Cross",
+      "pdfPage": 21,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Sacrifice reasons",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-336-sacrifice-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial author mapping only. Actual speech/drama/video/group delivery, full narrative/interpretive range, independent subject/rubric review, source reference discrepancies and author-proposed Passion resolutions, adoption and terms remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table10-po1",
+      "topic": "Jesus Gives Us a New Life",
+      "pdfPage": 22,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "New life meaning",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t10-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table10-po2",
+      "topic": "Jesus Gives Us a New Life",
+      "pdfPage": 22,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "New life evidence",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t10-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table10-po3",
+      "topic": "Jesus Gives Us a New Life",
+      "pdfPage": 22,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "New life characteristics",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t10-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table10-po4",
+      "topic": "Jesus Gives Us a New Life",
+      "pdfPage": 22,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "New life benefits",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t10-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table11-po1",
+      "topic": "The Holy Spirit Our Guide",
+      "pdfPage": 23,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Spirit promise",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t11-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table11-po2",
+      "topic": "The Holy Spirit Our Guide",
+      "pdfPage": 23,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Spirit gift",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t11-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table11-po3",
+      "topic": "The Holy Spirit Our Guide",
+      "pdfPage": 23,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Spirit work",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t11-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    },
+    {
+      "inventoryId": "p4-crs-table11-po4",
+      "topic": "The Holy Spirit Our Guide",
+      "pdfPage": 23,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Spirit fruit",
+      "mappedObjectiveIds": [
+        "nerdc-crs-primary4-335-t11-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial draft link only; full range, independent subject/rubric review, source discrepancy reconciliation, actual activity evidence, school adoption and term placement remain open."
+    }
+  ],
+  "supersedes": "nerdc-primary4-crs-objective-inventory-335.json",
+  "countNote": "Do not sum linkedValidDrafts as unique questions. Modes mapping is shared by table1po1/table5po2; attitude mapping by table1po4/table5po3. Four questions appear twice in rows: row sum60, unique questions56. Count unique IDs/mappings instead."
+}
