@@ -1,0 +1,162 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-phe-primary4-revised-2025",
+  "sourceUrl": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/7.pdf",
+  "sourceSha256": "443d3b89874c57644b41f89a9fd2e3d9b833e229a7d397b46dcf8b40c3f0381a",
+  "freshRetrievalBytes": 5493113,
+  "pageCount": 31,
+  "readTextPdfPages": [
+    1,
+    3,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "visuallyCheckedPdfPages": [
+    2,
+    3,
+    14,
+    15,
+    16,
+    17,
+    19,
+    22,
+    27,
+    28,
+    29,
+    30
+  ],
+  "retrieval": "Initial web PDF open inaccessible; cloud Python download succeeded. Hash matches339 cover-only evidence. Exact title/date read in PDF2 render, class also in tables; full objectives now read.",
+  "objectiveStatements": 35,
+  "numberedObjectives": 28,
+  "unnumberedObjectives": 7,
+  "countBasis": "All17 complete performance blocks between Pupils should and Knowledge extracted/read; numbered labels match contiguous1..N. Seven single unnumbered statements onPDF19/20/21/23/24/25/26 given author ordinal1, not invented official codes. Content/activities/evaluation numbering not counted. Selected table renders14/15/16/17/19/22/27/28/29/30 checked; no every-table independent OCR claim.",
+  "freshOffering": {
+    "url": "https://www.nerdc.gov.ng/content_manager/Basic%20and%20Senior%20Secondary%20Education%20Curriculum%20Offerings.pdf",
+    "selectedScope": "Parsed web PDF1 Primary4–6 Physical & Health Education row; no local hash or actual adoption claimed."
+  },
+  "freshSupplementaryReferences": [
+    {
+      "id": "scsa-movement-glossary-reference-350",
+      "url": "https://k10outline.scsa.wa.edu.au/__data/assets/pdf_file/0007/1230838/Western-Australian-Curriculum-Health-and-Physical-Education-Glossary-Pre-primary-Year-10.PDF",
+      "documentDate": "2023",
+      "selectedScope": "Selected glossary PDF12 locomotor/modified games andPDF14 non-locomotor entries.",
+      "limits": "Parsed web20-page PDF selected entries only. Australian class/age standards are not Nigerian mappings/adoption; no source art or exercises copied. ACARA v8 indexed glossary found but direct web retrieval403 retained; this SCSA primary glossary is the read terminology source."
+    },
+    {
+      "id": "who-physical-activity-reference-350",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+      "documentDate": "4 November2026",
+      "selectedScope": "Selected bodily-movement definition, walking/wheeling/leisure examples and child benefits.",
+      "limits": "No adult disease-management extrapolation, quantitative routine, diagnosis, universal effort prescription or guaranteed prevention."
+    },
+    {
+      "id": "cdc-child-activity-benefits-reference-350",
+      "url": "https://www.cdc.gov/physical-activity-basics/health-benefits/children.html",
+      "documentDate": "10 March2026",
+      "selectedScope": "Selected attention/memory, muscle/endurance and bone benefits.",
+      "limits": "No outcome guarantee, weight/appearance judgement, clinical programme or source infographic reuse."
+    },
+    {
+      "id": "cdc-school-sleep-reference-350",
+      "url": "https://www.cdc.gov/healthy-schools/sleep/index.html",
+      "documentDate": "10 September2026",
+      "selectedScope": "Selected focus/concentration and overall wellbeing concepts.",
+      "limits": "No U.S. prevalence, exact sleep-hours/class-age equivalence, clinical diagnosis or individual schedule."
+    },
+    {
+      "id": "cdc-child-activity-participation-reference-350",
+      "url": "https://www.cdc.gov/physical-activity-basics/adding-children-adolescents/",
+      "documentDate": "7 August2024",
+      "selectedScope": "Selected enjoyable active recreation, age-appropriate protective gear and individual-needs passages.",
+      "limits": "No blanket age clearance, quantified routine, clinical advice, actual equipment fitting or child activity performed."
+    },
+    {
+      "id": "cdc-school-activity-safety-reference-350",
+      "url": "https://www.cdc.gov/whole-school-community-child/strategies/strategies-physical-education-and-activity.html",
+      "documentDate": "18 October2024",
+      "selectedScope": "Selected physical-environment inspection, safe appropriate equipment, protective clothing and inclusive participation.",
+      "limits": "No U.S. curriculum mandate, actual facility inspection, fitting/certification, medical clearance or protection guarantee."
+    },
+    {
+      "id": "world-athletics-relay-reference-350",
+      "url": "https://worldathletics.org/download/download?filename=e7faf2e8-0385-4686-bbd0-acdb5d958e8f.pdf&urlslug=Competition+and+Technical+Rules+%E2%80%93+2026+Edition",
+      "documentDate": "2026 Edition",
+      "selectedScope": "Selected technical relay rulesTR24 PDF146–149/printed143–146:standard formats, hand-carrying and exchange.",
+      "limits": "Full268-page file downloaded3989395bytes SHA256537758a8a3e541f17bc6f5d11b65369623cbfc20ba7cd34ab4e62a3c9980e2fa; selected text/title and PDF148 render checked, not whole rulebook read. Current30m4x100 zone differs from older discipline webpage20m; no zone measurements taught. No adult distances imposed on pupils, throwing/jumping relay cue or school/cohort approval."
+    },
+    {
+      "id": "itf-tennis-scoring-2026-reference-350",
+      "url": "https://www.itftennis.com/media/7221/2026-rules-of-tennis-english.pdf",
+      "documentDate": "2026",
+      "selectedScope": "Parsed web47-page PDF title/contents, Rule5(a) PDF8/printed5 and AppendixVI No-Ad PDF29/printed26.",
+      "limits": "Local download yielded212-byte blank one-page PDF/hashd02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d; not accepted as full rules retrieval. Web primary parsed version supplies selected rules, not all47pages read or a valid local full-document checksum. Standard advantage versus No-Ad explicitly distinguished; no full match, under10 format, court/racket or actual gameplay claimed."
+    }
+  ],
+  "newQuestions": 37,
+  "responseModes": {
+    "written": 37
+  },
+  "newPartialMappings": 15,
+  "unmappedSourceStatements": 20,
+  "newBank": "NERDC/Physical and Health Education/Primary 4",
+  "target": 1000,
+  "targetStatus": "provisional authoring goal, not sourced quota or completed syllabus",
+  "originalContent": "Original fictional written prompts, models and rubrics; no copied exam/source prose/art, actual child/medical data or performance.",
+  "sourceConflictsAndLimits": "Batch350 opens one provisional1000-target Primary4 Physical and Health Education bank with37 original written drafts and15 partial mappings. Fresh31-page official exact-class file5493113bytes/hash matches339 cover-only evidence; title/copyright/introduction/delivery/overview/contents and all17 table texts read. Full inventory35 statements(28 numbered,7 single unnumbered),15 partially linked,20 unmapped. Source14/15 features are examples; no every-jump/travel equivalence or all-limb-still definition inferred. Source17 includes unsuitable jumping/throwing relay cues; source18/19/21 copied relay headers and19 conflicting500/10000 versus3000/5000 distances remain unresolved. Source22 Tennis topic is headed table tennis and0=lave; selected ITF2026 tennis score labels/methods checked, no official erratum or full gameplay claim. ITF local212-byte PDF blank; read parsed web47-page selected rules instead. World Athletics2026 full file downloaded, selected relay text only read; old overview zone length conflicts recorded and not assessed. Source25 jump-ball versus jump-pass and dunking/slamming require age/equipment/coaching review; no such action authored. Source27 clinical instructions/resources include spirits, iodine, scissors and razor blade; no first-aid mapping or actual injury/treatment/material use. Source30 stimulant/depressant-only taxonomy needs primary pharmacology/safeguarding clarification; unmapped, no real drugs/alcohol. Selected SCSA movement glossary, WHO/CDC benefits/safety and current federation rules support limited written concepts, not foreign-class adoption, exact age/intensity/sleep targets, medical or venue/equipment clearance, actual movement/race/racket/team/practical skill, source videos/teacher-guide framework or academic approval. School/cohort adoption, official terms, full range/depth and1000 target remain open. All prior banks, legacy holds and unfilled protocols preserved.",
+  "manualInspection": {
+    "status": "author_inspected_all37_prompts_models_rubrics_and_source_mappings_independent_review_pending",
+    "novelty": "Travel versus limb motion/adaptive movement, named action features, combined movement sequence, awake rest versus sleep, qualified child benefits, relay-format versus performance and hand-carry exchange, nonlinear tennis labels/server-first/deuce/No-Ad distinction, sports-specific space/equipment reasoning and contextual recreation. No numerical-template series or cosmetics-only variants; two arithmetic claims are purposeful relay totals in one comparison.",
+    "limits": "Source16 disease-free/prevent-heart-disease wording not adopted as immunity. Source15 features/examples and performance/evaluation differences kept separate; all actual movement/sport/first-aid/drug competencies remain unperformed. Descriptive source17o1 mapping does not fulfil its actual-race part. No actual equipment/facility/model/cohort check, photos/video, private data or clinical action."
+  },
+  "validation": {
+    "status": "automated_checks_passed_academic_review_pending",
+    "testsPassed": 56,
+    "commands": [
+      "python -m unittest discover -s question-data/tests -v",
+      "python question-data/tools/audit.py --write --strict-new",
+      "git diff --check"
+    ],
+    "newQuestionsPassing": 37,
+    "priorQuestionAuditRecordsUnchanged": 6296,
+    "priorFileChecksumsUnchanged": 384,
+    "priorBankTotalsUnchanged": true,
+    "priorExceptionCountsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaims": 625,
+    "newArithmeticClaims": 2,
+    "arithmeticFailures": 0,
+    "globalIdsClassObjectiveSourceAndMarkingTotalsChecked": true,
+    "inventoryAndCoverageChecked": true,
+    "partialSourceStatements": 15,
+    "unmappedSourceStatements": 20,
+    "bankValidDrafts": 37,
+    "totals": {
+      "raw": 6333,
+      "validDrafts": 4654,
+      "reviewed": 0
+    },
+    "registeredBankRows": 208,
+    "target": 190000,
+    "parentCommit": "ee182125084a0ac83533be37f9ad6b93c45333e4",
+    "remoteCommitVerification": "Verified parent recorded; resulting commit independently checked after protected ref update, avoiding self-reference."
+  },
+  "copyrightCheck": "PDF3 rendered copyrightSeptember2025/NERDC rights read; no source pages/art/prose reproduced in the bank. Source facts and short author inventory labels only."
+}

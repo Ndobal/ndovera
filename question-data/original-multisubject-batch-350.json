@@ -1,0 +1,1639 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 Physical and Health Education written foundations — batch350",
+  "questionCount": 37,
+  "note": "37 original written draft tasks open one provisional exact-class bank.15 partial author mappings from35 source statements. No actual exercise/sports/first-aid/drug activity, observation or performance; all academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement meaning",
+      "learningObjective": "Explain locomotor movement as travelling from one place to another, using supplied written examples and allowing different ways of moving.",
+      "id": "ndv-350-001",
+      "objectiveId": "nerdc-phe-primary4-350-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain locomotor movement using the idea of location. Give one example in which the whole body travels rather than only one body part moving.",
+      "answer": "Locomotor movement takes the body from one place to another, such as walking across a room.",
+      "explanation": "The key idea is travel, not just visible motion of a limb.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains travel/change of place. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable whole-body travelling example. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement meaning",
+      "learningObjective": "Explain locomotor movement as travelling from one place to another, using supplied written examples and allowing different ways of moving.",
+      "id": "ndv-350-002",
+      "objectiveId": "nerdc-phe-primary4-350-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional pupil moves from one end of a level path to the other by wheeling a wheelchair. Another pupil says a movement cannot involve travel unless it uses running feet. Explain the error using the change of place.",
+      "answer": "The pupil’s whole body changes place along the path. Travel is not limited to running on feet; people can move between places in different ways.",
+      "explanation": "This is written reasoning about movement and inclusion, not an assessment or prescription of wheelchair technique.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the change of place. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects running feet as the only way to travel. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-physical-activity-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement features",
+      "learningObjective": "Identify selected walking/running/hopping movement features from written descriptions, without demonstrating or assessing pupils’ physical ability.",
+      "id": "ndv-350-003",
+      "objectiveId": "nerdc-phe-primary4-350-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two movement descriptions are given: A, stepping across a yard; B, standing on one spot while raising an arm. Which description is a locomotor example, and which part of its description supports your choice?",
+      "answer": "A, because the person travels across the yard. B describes a limb moving while the base stays in place.",
+      "explanation": "The task uses supplied words, not an observed movement demonstration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses A. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Uses travel across the yard as evidence. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement features",
+      "learningObjective": "Identify selected walking/running/hopping movement features from written descriptions, without demonstrating or assessing pupils’ physical ability.",
+      "id": "ndv-350-004",
+      "objectiveId": "nerdc-phe-primary4-350-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A walking description says at least one foot stays in contact with the ground. A running description includes a brief moment with neither foot on the ground. Explain one difference between these actions and one travelling feature they share.",
+      "answer": "They differ in ground contact: the given run has a flight moment while walking retains contact. Both can move the body from one place to another.",
+      "explanation": "The descriptions specify conventional examples, without testing or ranking an individual’s gait.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the stated contact/flight difference. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies travel as the shared feature. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement features",
+      "learningObjective": "Identify selected walking/running/hopping movement features from written descriptions, without demonstrating or assessing pupils’ physical ability.",
+      "id": "ndv-350-005",
+      "objectiveId": "nerdc-phe-primary4-350-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A story describes someone taking off and landing repeatedly on the same foot while moving along a line. Name the movement and identify the clue that distinguishes it from merely standing on one foot.",
+      "answer": "Hopping; repeated take-offs/landings on the same foot with travel distinguish it from a stationary balance.",
+      "explanation": "Only the written feature is classified; no hopping trial or endurance requirement is set.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names hopping. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the repeated moving take-off/landing clue. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement meaning",
+      "learningObjective": "Explain non-locomotor movement relative to a stationary base, distinguishing it from being completely still and from a sequence that also travels.",
+      "id": "ndv-350-006",
+      "objectiveId": "nerdc-phe-primary4-350-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What does non-locomotor movement mean? Explain why the term does not mean that every part of the body is motionless.",
+      "answer": "Movement occurs around a base that stays in the same place; parts can bend, twist or swing even though the person does not travel to a new place.",
+      "explanation": "A stationary base and a completely still body are different ideas.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains no travelling change of base/location. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that body parts can still move. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement meaning",
+      "learningObjective": "Explain non-locomotor movement relative to a stationary base, distinguishing it from being completely still and from a sequence that also travels.",
+      "id": "ndv-350-007",
+      "objectiveId": "nerdc-phe-primary4-350-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A written sequence says, “Stand in one place and twist gently; then walk to a new marker.” Must the entire sequence be classified as only non-locomotor? Explain the two parts separately, without performing them.",
+      "answer": "No. The fixed-base twisting part is non-locomotor; the walking part involves travelling and is locomotor.",
+      "explanation": "A sequence can combine categories; classification is based on the particular action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies the fixed-base twist appropriately. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies the walking part as travelling. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement examples",
+      "learningObjective": "Distinguish selected bending, twisting, stretching and swinging examples from supplied written descriptions; no actual performance.",
+      "id": "ndv-350-008",
+      "objectiveId": "nerdc-phe-primary4-350-p15-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In three written examples, a person remains on the same spot: bends a knee; rotates the trunk; extends the arms away from the body. Match the examples to bending, twisting and stretching.",
+      "answer": "Bends a knee: bending. Rotates the trunk: twisting. Extends arms away: stretching.",
+      "explanation": "The specified stationary base makes these non-travelling examples; no body-range or flexibility standard is assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the knee example with bending. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Matches rotation with twisting. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Matches extension with stretching. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement examples",
+      "learningObjective": "Distinguish selected bending, twisting, stretching and swinging examples from supplied written descriptions; no actual performance.",
+      "id": "ndv-350-009",
+      "objectiveId": "nerdc-phe-primary4-350-p15-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A description compares an arm moving smoothly back and forth like a pendulum with a hand held completely still. Which is a swinging movement, and why can it remain non-locomotor?",
+      "answer": "The back-and-forth arm action is swinging. It can be non-locomotor when the person’s base stays in the same place.",
+      "explanation": "Motion of a body part does not automatically establish whole-body travel.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the back-and-forth action. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the stationary base. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "scsa-movement-glossary-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Exercise, rest and sleep",
+      "learningObjective": "Explain selected exercise, rest and sleep concepts, including that awake rest is not the same as sleep and activity is wider than competitive sport.",
+      "id": "ndv-350-010",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the difference between planned exercise and an awake rest break. Give a suitable paper example of each, without carrying out an activity.",
+      "answer": "Exercise is planned physical activity for purposes such as practising fitness or movement skills; an awake rest break reduces or pauses effort while the person remains awake. Examples include a planned movement session and quiet sitting after it.",
+      "explanation": "Not every pause is sleep, and no actual exercise programme is prescribed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains planned physical activity/exercise. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains awake rest as a pause/reduction of effort. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives compatible examples of both. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Exercise, rest and sleep",
+      "learningObjective": "Explain selected exercise, rest and sleep concepts, including that awake rest is not the same as sleep and activity is wider than competitive sport.",
+      "id": "ndv-350-011",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil sits quietly reading while awake and calls it the same thing as being asleep. Explain why this is an awake rest activity rather than sleep.",
+      "answer": "The pupil is awake and reading; quietness alone is not sleep. Sleep is a different natural resting state in which ordinary wakeful activity is suspended.",
+      "explanation": "The distinction is conceptual, not a clinical test of sleep or a judgement of someone’s sleep needs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses wakefulness/reading to identify awake rest. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that sleep is different from merely being quiet. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-sleep-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Exercise, rest and sleep",
+      "learningObjective": "Explain selected exercise, rest and sleep concepts, including that awake rest is not the same as sleep and activity is wider than competitive sport.",
+      "id": "ndv-350-012",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A poster says physical activity happens only during competitive sport. Use an everyday movement and a leisure example to show why that definition is too narrow.",
+      "answer": "Walking as transport and active play during leisure both involve bodily movement using energy, even without competition.",
+      "explanation": "WHO includes transport, leisure and everyday movement; no quantity or intensity is assigned to a pupil.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an everyday non-competitive active example. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an active leisure example and explains both are wider than competition. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-physical-activity-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Selected activity and sleep benefits",
+      "learningObjective": "Explain selected benefits of physical activity and sufficient rest/sleep for children, without promising disease prevention, prescribing effort/intake or assuming a class-age threshold.",
+      "id": "ndv-350-013",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give one benefit that suitable regular physical activity can support for muscles or bones, and one benefit for attention or memory.",
+      "answer": "It can support stronger muscles or bones and improve attention or memory.",
+      "explanation": "Benefits are possibilities supported by the reference, not a guarantee of a particular pupil’s marks or health.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate muscle/bone benefit. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate attention/memory benefit. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-child-activity-benefits-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Selected activity and sleep benefits",
+      "learningObjective": "Explain selected benefits of physical activity and sufficient rest/sleep for children, without promising disease prevention, prescribing effort/intake or assuming a class-age threshold.",
+      "id": "ndv-350-014",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional pupil replaces sleep every night with extra revision and says studying time alone guarantees better learning. Explain why sufficient sleep still matters.",
+      "answer": "Sufficient sleep supports focus and concentration. Extra study time does not remove the need for sleep or guarantee learning when the pupil is sleep-deprived.",
+      "explanation": "This is a general benefit explanation, not an individual sleep schedule or diagnosis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links sleep to focus/concentration. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects study-time alone as a guarantee. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-sleep-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Personal health",
+      "subtopic": "Selected activity and sleep benefits",
+      "learningObjective": "Explain selected benefits of physical activity and sufficient rest/sleep for children, without promising disease prevention, prescribing effort/intake or assuming a class-age threshold.",
+      "id": "ndv-350-015",
+      "objectiveId": "nerdc-phe-primary4-350-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A caption says, “Anyone who exercises will never become ill.” Rewrite it as a more accurate health statement and explain the change.",
+      "answer": "Suitable regular activity can support health and reduce some risks, but cannot guarantee that a person will never become ill.",
+      "explanation": "The source’s broad prevention wording is not treated as immunity or a promise about any child.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses a qualified health/risk-reduction statement. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects a never-ill guarantee. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-physical-activity-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Relay races",
+      "subtopic": "Relay-format description only",
+      "learningObjective": "Interpret four-by-one-hundred and four-by-four-hundred metre formats in writing; actual running component of the combined source statement remains unmet.",
+      "id": "ndv-350-016",
+      "objectiveId": "nerdc-phe-primary4-350-p17-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Interpret the event names 4 × 100 m and 4 × 400 m in a written relay comparison. State the number of legs, the distance of each leg and the total distance for each. Does writing this comparison show that a pupil has actually run either event?",
+      "answer": "Each has four legs. In 4 × 100 m, each leg is100 m and the total is400 m. In 4 × 400 m, each leg is400 m and the total is1600 m. Written interpretation is not actual running evidence.",
+      "explanation": "The description maps only part of a combined describe-and-perform source objective; no distance is assigned for pupil participation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies four legs for both. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Interprets100 m legs and400 m total. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Interprets400 m legs and1600 m total. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes written description from actual performance. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "world-athletics-relay-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred.",
+      "verification": [
+        {
+          "expression": "4*100",
+          "expected": "400",
+          "purpose": "Total metres in the named4x100m format."
+        },
+        {
+          "expression": "4*400",
+          "expected": "1600",
+          "purpose": "Total metres in the named4x400m format."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Relay races",
+      "subtopic": "Selected relay-exchange concepts",
+      "learningObjective": "Describe selected hand-carried baton exchange/cooperation concepts checked against World Athletics2026; no actual exchange technique or competition delivery assessed.",
+      "id": "ndv-350-017",
+      "objectiveId": "nerdc-phe-primary4-350-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional relay diagram caption says the baton should be thrown forward to save time. Explain the correct hand-carried exchange concept, without attempting an exchange.",
+      "answer": "The baton is carried by hand and passed between runners, not thrown ahead as a shortcut. A controlled handover transfers possession to the receiving runner.",
+      "explanation": "Selected World Athletics2026 relay principles clarify the source’s unsuitable throwing cue; no pupil handover technique, zone measurement or rulebook completion is assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects throwing as the described exchange. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains hand-carrying and transfer of possession. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "world-athletics-relay-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Relay races",
+      "subtopic": "Selected relay-exchange concepts",
+      "learningObjective": "Describe selected hand-carried baton exchange/cooperation concepts checked against World Athletics2026; no actual exchange technique or competition delivery assessed.",
+      "id": "ndv-350-018",
+      "objectiveId": "nerdc-phe-primary4-350-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "One relay runner says only individual sprint speed matters, so planning the team’s exchanges is unnecessary. Explain why exchange coordination is a different part of relay performance.",
+      "answer": "A relay requires the baton to move between team members as well as each runner covering a leg. Poorly coordinated exchanges can interrupt the team’s progress, so speed alone is not the whole task.",
+      "explanation": "This assesses descriptive cooperation reasoning; no actual exchange, lane or track setup is claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies baton exchange as distinct from running a leg. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why coordination affects the team. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "world-athletics-relay-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Tennis",
+      "subtopic": "Selected tennis score interpretation",
+      "learningObjective": "Interpret selected standard-game point labels and deuce/advantage states, with a limited checked No-Ad comparison; source typo clarified from ITF2026, no full match/racket performance.",
+      "id": "ndv-350-019",
+      "objectiveId": "nerdc-phe-primary4-350-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For standard tennis-game scoring, write the calls for no points, one point, two points and three points. Explain why the third-point label should not be calculated as45.",
+      "answer": "Love,15,30,40. These are conventional score labels, so the third is40 rather than a repeated addition of15.",
+      "explanation": "This uses checked ITF2026 labels and corrects the local source’s lave typo without claiming an official erratum.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives love and15. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives30 and40. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains conventional labels rather than an arithmetic sequence. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "itf-tennis-scoring-2026-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Tennis",
+      "subtopic": "Selected tennis score interpretation",
+      "learningObjective": "Interpret selected standard-game point labels and deuce/advantage states, with a limited checked No-Ad comparison; source typo clarified from ITF2026, no full match/racket performance.",
+      "id": "ndv-350-020",
+      "objectiveId": "nerdc-phe-primary4-350-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a standard tennis game before deuce, the server has won two points and the receiver one. What score is called? Explain whose score comes first.",
+      "answer": "30–15; the server’s score is called first.",
+      "explanation": "The task interprets a score call, not a set, match or actual rally.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives30–15. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "States that the server’s score comes first. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "itf-tennis-scoring-2026-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Tennis",
+      "subtopic": "Selected tennis score interpretation",
+      "learningObjective": "Interpret selected standard-game point labels and deuce/advantage states, with a limited checked No-Ad comparison; source typo clarified from ITF2026, no full match/racket performance.",
+      "id": "ndv-350-021",
+      "objectiveId": "nerdc-phe-primary4-350-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A standard advantage tennis game is at deuce. The server wins the next point, then the receiver wins the following point. Describe the score states after those two points and explain whether the game has ended.",
+      "answer": "After the first point the server has advantage; after the next, the score returns to deuce. The game has not ended because neither won two consecutive points from deuce.",
+      "explanation": "This is explicitly standard advantage scoring, not the approved No-Ad alternative.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives advantage to the server after the first point. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Returns to deuce after the receiver’s point. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why this sequence does not win the game. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "itf-tennis-scoring-2026-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Tennis",
+      "subtopic": "Selected tennis score interpretation",
+      "learningObjective": "Interpret selected standard-game point labels and deuce/advantage states, with a limited checked No-Ad comparison; source typo clarified from ITF2026, no full match/racket performance.",
+      "id": "ndv-350-022",
+      "objectiveId": "nerdc-phe-primary4-350-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two tennis lesson cards name different methods: standard advantage scoring and No-Ad scoring. At deuce, how does winning the next point differ between them? Explain why the method must be stated in a written question.",
+      "answer": "In standard advantage scoring it gives advantage, with another consecutive point needed to win; in No-Ad it wins the deciding point and game. The named method determines how the same situation is scored.",
+      "explanation": "The limited No-Ad comparison is an author-added check against ITF2026 AppendixVI, not a claim the source supplies the full method or that every school game must use it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the standard advantage result. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the No-Ad deciding-point result. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the scoring method changes the answer. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "itf-tennis-scoring-2026-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Sports precaution meaning",
+      "learningObjective": "Explain a preventive precaution in a fictional sports setting, distinguishing it from responding after harm.",
+      "id": "ndv-350-023",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Before a class ball activity, a teacher checks the space and separates the playing area from a busy walkway. Explain why this is a safety precaution rather than first aid.",
+      "answer": "It is a step taken to reduce the chance of a collision before harm happens. First aid responds to injury or illness after it occurs.",
+      "explanation": "No actual activity or first-aid treatment is performed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains prevention/reduction of risk beforehand. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes response after harm. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Sports precaution meaning",
+      "learningObjective": "Explain a preventive precaution in a fictional sports setting, distinguishing it from responding after harm.",
+      "id": "ndv-350-024",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A proposed sports routine says, “Start the game first and look for hazards only if someone falls.” State the planning error and a more appropriate order.",
+      "answer": "Hazards should be checked before play begins; waiting for a fall leaves foreseeable risks unaddressed. The responsible adult checks/arranges the area before authorising activity.",
+      "explanation": "A paper order does not establish that a real place has been inspected or cleared.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies delayed checks as the error. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Places responsible checking before play. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Reasons for sports precautions",
+      "learningObjective": "Explain selected people/space and risk-reduction benefits of sports precautions without assuming a guarantee against injury.",
+      "id": "ndv-350-025",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why is keeping spectators outside the marked play space useful even when players know the game’s rules? Explain a benefit for each group.",
+      "answer": "Players have clearer movement space with less chance of collision, while spectators are less likely to be struck or run into. Knowing game rules does not keep a crowded area clear by itself.",
+      "explanation": "This uses a fictional space arrangement, not a certified safe venue.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a risk reduction for players. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a risk reduction for spectators. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Reasons for sports precautions",
+      "learningObjective": "Explain selected people/space and risk-reduction benefits of sports precautions without assuming a guarantee against injury.",
+      "id": "ndv-350-026",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A team follows the agreed safety precautions, but a caption claims this makes injury impossible. Explain why precautions are still valuable without supporting the word impossible.",
+      "answer": "Precautions reduce avoidable risks and make play better organised, but cannot remove every chance of harm. Their value does not depend on a perfect guarantee.",
+      "explanation": "Risk reduction is distinct from certainty; no clinical prediction or blame for an injury is made.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the risk-reduction value. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects complete certainty. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Equipment purpose and suitability",
+      "learningObjective": "Discuss selected protective-equipment purposes and why activity/environment/fit checks matter; no actual fitting, equipment certification or protection guarantee.",
+      "id": "ndv-350-027",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A cycle helmet and a ball-game whistle are listed as if they protect the same body part in the same way. Explain the difference between protective equipment and a signalling tool in these examples.",
+      "answer": "A suitable cycle helmet is intended to protect the head in cycling; a whistle gives a signal and is not head protection. Their roles differ even if both are present in an activity session.",
+      "explanation": "Naming a helmet does not establish its fit, condition, certification or suitability for another sport.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the helmet’s intended protective role. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the whistle’s signalling role rather than bodily protection. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-child-activity-participation-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Equipment purpose and suitability",
+      "learningObjective": "Discuss selected protective-equipment purposes and why activity/environment/fit checks matter; no actual fitting, equipment certification or protection guarantee.",
+      "id": "ndv-350-028",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school equipment list says, “One kind of protective gear is suitable for every sport.” Identify two things a teacher should check before accepting that claim for a planned activity.",
+      "answer": "The actual activity and environment, and the equipment’s suitability, fit and condition for the pupil must be checked. Different hazards can need different protection.",
+      "explanation": "This is written selection reasoning only; no pupil fits or tests protective gear.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Checks the activity/environment and its hazards. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Checks appropriate suitability/fit/condition rather than accepting one universal item. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Equipment purpose and suitability",
+      "learningObjective": "Discuss selected protective-equipment purposes and why activity/environment/fit checks matter; no actual fitting, equipment certification or protection guarantee.",
+      "id": "ndv-350-029",
+      "objectiveId": "nerdc-phe-primary4-350-p28-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A knee pad has a loose strap, and a pupil says owning protective equipment is enough even if it does not stay in place. Explain why the condition and fit matter to its intended use.",
+      "answer": "Equipment that slips may not remain over the area it is intended to protect. The teacher must check suitability and address the fault before any use is considered; the pupil should not improvise a repair.",
+      "explanation": "Protective purpose does not mean the actual item has passed fit or condition checks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links slipping/poor fit to loss of intended protection. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Requires responsible adult checking rather than use or pupil repair. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Leisure and recreation concepts",
+      "learningObjective": "Explain recreation as chosen leisure activity for enjoyment/relaxation, recognising that not all recreation is vigorous sport.",
+      "id": "ndv-350-030",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain recreation using a fictional example of someone choosing an enjoyable activity in free time. Distinguish it from a required task.",
+      "answer": "Recreation is an activity chosen for enjoyment or relaxation during leisure, such as choosing a board game after required tasks. A compulsory assignment is not the same simply because it may also be enjoyable.",
+      "explanation": "The example does not require disclosure of a pupil’s home life or assume everyone has the same free time.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains chosen enjoyment/relaxation in leisure. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes it from a required task with a suitable example. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Leisure and recreation concepts",
+      "learningObjective": "Explain recreation as chosen leisure activity for enjoyment/relaxation, recognising that not all recreation is vigorous sport.",
+      "id": "ndv-350-031",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A leisure poster says every recreational activity must make a person run or sweat. Give one quiet recreational example and explain why the poster is too narrow.",
+      "answer": "Reading a story for pleasure or a suitable board game can be recreation without vigorous movement. Enjoyment/relaxation in leisure is wider than running or sweating.",
+      "explanation": "This does not treat quiet recreation as a substitute for all physical activity or sleep.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate quiet recreation example. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains recreation is wider than vigorous exercise. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Activity location and context",
+      "learningObjective": "Distinguish indoor/outdoor settings and contextual changes without treating every activity as permanently belonging to only one setting.",
+      "id": "ndv-350-032",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional groups play the same board game: one inside a hall, the other at a safe sheltered outdoor table. Classify each setting and explain whether the game’s name alone determines indoor or outdoor.",
+      "answer": "Hall: indoor. Outdoor table: outdoor. The actual setting, not only the name of the game, determines this location label.",
+      "explanation": "The outdoor location is supplied as a paper scenario, not a claim that a real place has been cleared.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies both supplied settings correctly. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the same game can have different setting labels. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Activity location and context",
+      "learningObjective": "Distinguish indoor/outdoor settings and contextual changes without treating every activity as permanently belonging to only one setting.",
+      "id": "ndv-350-033",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class plan includes outdoor storytelling, but a responsible adult reports unsafe weather. Explain a possible change to the plan without claiming that an indoor room is automatically safe.",
+      "answer": "Postpone it or consider an appropriate indoor setting only after the adult checks the space, access and arrangements. The venue can change while the leisure activity remains storytelling.",
+      "explanation": "The answer distinguishes setting from activity and retains the need for actual local checks.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes postponement or a checked alternative setting. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Retains checks rather than assuming every indoor space is suitable. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Activity location and context",
+      "learningObjective": "Distinguish indoor/outdoor settings and contextual changes without treating every activity as permanently belonging to only one setting.",
+      "id": "ndv-350-034",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Does “indoor” mean an activity uses no body movement, while “outdoor” means it must be vigorous? Explain with a possible counterexample for either side.",
+      "answer": "No. A suitable indoor dance activity can involve movement, while quiet outdoor reading can be gentle. Indoor/outdoor describes setting rather than intensity.",
+      "explanation": "The paper examples are not instructions to perform an activity in an unchecked space.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes location from intensity. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a counterexample that supports the distinction. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Selected recreation benefits",
+      "learningObjective": "Discuss selected enjoyment, relationships and inclusive participation benefits without guaranteeing health outcomes or requiring one kind of leisure.",
+      "id": "ndv-350-035",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A family enjoys a shared game during leisure. Explain one possible enjoyment benefit and one possible relationship skill the activity could support without guaranteeing every family will have the same experience.",
+      "answer": "It may provide relaxation or fun and offer practice in turn-taking, communicating or cooperating. Outcomes depend on the people and arrangements.",
+      "explanation": "The source’s broad family/community benefit statements are not treated as guaranteed outcomes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains enjoyment/relaxation. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a suitable relationship skill with qualified wording. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Selected recreation benefits",
+      "learningObjective": "Discuss selected enjoyment, relationships and inclusive participation benefits without guaranteeing health outcomes or requiring one kind of leisure.",
+      "id": "ndv-350-036",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil prefers drawing alone for enjoyment while another enjoys a group game. Must the first activity have no leisure benefit because it is not a team sport? Explain.",
+      "answer": "No. Chosen drawing can offer enjoyment, relaxation and creative expression, while a group game may offer different social benefits. Leisure benefits are not restricted to teams.",
+      "explanation": "The task avoids ranking preferences or requiring social participation as proof of wellbeing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects no benefit from individual recreation. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a suitable possible benefit without demanding a group. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Recreation and leisure",
+      "subtopic": "Selected recreation benefits",
+      "learningObjective": "Discuss selected enjoyment, relationships and inclusive participation benefits without guaranteeing health outcomes or requiring one kind of leisure.",
+      "id": "ndv-350-037",
+      "objectiveId": "nerdc-phe-primary4-350-p29-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A recreation club offers only one activity and tells pupils who cannot access it to remain spectators every time. Suggest a more inclusive planning principle and explain a possible benefit.",
+      "answer": "Offer suitable choices/adaptations with responsible adult and individual-needs checks, so pupils have meaningful opportunities to participate. This can support enjoyment and a sense of belonging rather than routine exclusion.",
+      "explanation": "No adaptation is prescribed for an individual and no activity is automatically safe or accessible.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes meaningful choices/adaptations with relevant checks. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains an appropriate enjoyment/belonging benefit. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-school-activity-safety-reference-350",
+      "contentProvenance": "Original fictional written situation, answer and practice rubric; no copied exam/source prose or illustration, authentic pupil/medical data, performance or historical-paper claim. Concepts attributed in registry and reconciliation350.",
+      "contentReviewNote": "Independent Primary4 PHE, sports-rule, health/inclusion and rubric calibration pending. Written knowledge only: no actual exercise, race, jumping, baton/racket/ball skill, protective-equipment fitting, first aid, drug/alcohol item or pupil performance. Class does not establish exact age, capacity or school/cohort adoption. No clinical diagnosis, activity prescription, disease-free guarantee, full competition rulebook, official terms or full competency/1000-target completion inferred."
+    }
+  ]
+}

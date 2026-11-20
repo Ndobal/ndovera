@@ -4960,6 +4960,152 @@
       "subject": "Pre-vocational Studies",
       "level": "Primary 4",
       "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "nerdc-phe-primary4-revised-2025",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/7.pdf",
+      "documentDate": "September2025",
+      "sourceBytes": 5493113,
+      "pageCount": 31,
+      "sha256": "443d3b89874c57644b41f89a9fd2e3d9b833e229a7d397b46dcf8b40c3f0381a",
+      "sourceSections": [
+        "Title/copyright PDF1–3, introduction/delivery/overview/contents PDF10–13",
+        "All17 performance blocks and related table texts PDF14–30:35 statements,28 numbered and7 single unnumbered",
+        "Rendered PDF2/14/15/16/17/19/22/27/28/29/30 inspected"
+      ],
+      "note": "Fresh file matches339 cover-only evidence; now actual objectives inventoried. Subject/class confirmed, not school/cohort adoption or terms. Several copied headers, distance/technique/scoring/resource conflicts preserved in reconciliation350. Written descriptions do not fulfil actual performance objectives.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "nerdc-primary-offering-phe-reference-350",
+      "kind": "official_subject_offering",
+      "source": "https://www.nerdc.gov.ng/content_manager/Basic%20and%20Senior%20Secondary%20Education%20Curriculum%20Offerings.pdf",
+      "pageCount": 3,
+      "sourceSections": [
+        "Parsed web PDF1 Primary4–6, Physical & Health Education row"
+      ],
+      "retrievalMethod": "Fresh parsed web PDF text; no local hash claimed.",
+      "note": "Confirms named offering, not exact-school/cohort adoption or official terms.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "scsa-movement-glossary-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://k10outline.scsa.wa.edu.au/__data/assets/pdf_file/0007/1230838/Western-Australian-Curriculum-Health-and-Physical-Education-Glossary-Pre-primary-Year-10.PDF",
+      "documentDate": "2023",
+      "sourceSections": [
+        "Selected glossary PDF12 locomotor/modified games andPDF14 non-locomotor entries."
+      ],
+      "note": "Parsed web20-page PDF selected entries only. Australian class/age standards are not Nigerian mappings/adoption; no source art or exercises copied. ACARA v8 indexed glossary found but direct web retrieval403 retained; this SCSA primary glossary is the read terminology source.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "who-physical-activity-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+      "documentDate": "4 November2026",
+      "sourceSections": [
+        "Selected bodily-movement definition, walking/wheeling/leisure examples and child benefits."
+      ],
+      "note": "No adult disease-management extrapolation, quantitative routine, diagnosis, universal effort prescription or guaranteed prevention.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cdc-child-activity-benefits-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cdc.gov/physical-activity-basics/health-benefits/children.html",
+      "documentDate": "10 March2026",
+      "sourceSections": [
+        "Selected attention/memory, muscle/endurance and bone benefits."
+      ],
+      "note": "No outcome guarantee, weight/appearance judgement, clinical programme or source infographic reuse.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cdc-school-sleep-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cdc.gov/healthy-schools/sleep/index.html",
+      "documentDate": "10 September2026",
+      "sourceSections": [
+        "Selected focus/concentration and overall wellbeing concepts."
+      ],
+      "note": "No U.S. prevalence, exact sleep-hours/class-age equivalence, clinical diagnosis or individual schedule.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cdc-child-activity-participation-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cdc.gov/physical-activity-basics/adding-children-adolescents/",
+      "documentDate": "7 August2024",
+      "sourceSections": [
+        "Selected enjoyable active recreation, age-appropriate protective gear and individual-needs passages."
+      ],
+      "note": "No blanket age clearance, quantified routine, clinical advice, actual equipment fitting or child activity performed.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cdc-school-activity-safety-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cdc.gov/whole-school-community-child/strategies/strategies-physical-education-and-activity.html",
+      "documentDate": "18 October2024",
+      "sourceSections": [
+        "Selected physical-environment inspection, safe appropriate equipment, protective clothing and inclusive participation."
+      ],
+      "note": "No U.S. curriculum mandate, actual facility inspection, fitting/certification, medical clearance or protection guarantee.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "world-athletics-relay-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://worldathletics.org/download/download?filename=e7faf2e8-0385-4686-bbd0-acdb5d958e8f.pdf&urlslug=Competition+and+Technical+Rules+%E2%80%93+2026+Edition",
+      "documentDate": "2026 Edition",
+      "sourceSections": [
+        "Selected technical relay rulesTR24 PDF146–149/printed143–146:standard formats, hand-carrying and exchange."
+      ],
+      "note": "Full268-page file downloaded3989395bytes SHA256537758a8a3e541f17bc6f5d11b65369623cbfc20ba7cd34ab4e62a3c9980e2fa; selected text/title and PDF148 render checked, not whole rulebook read. Current30m4x100 zone differs from older discipline webpage20m; no zone measurements taught. No adult distances imposed on pupils, throwing/jumping relay cue or school/cohort approval.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "itf-tennis-scoring-2026-reference-350",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.itftennis.com/media/7221/2026-rules-of-tennis-english.pdf",
+      "documentDate": "2026",
+      "sourceSections": [
+        "Parsed web47-page PDF title/contents, Rule5(a) PDF8/printed5 and AppendixVI No-Ad PDF29/printed26."
+      ],
+      "note": "Local download yielded212-byte blank one-page PDF/hashd02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d; not accepted as full rules retrieval. Web primary parsed version supplies selected rules, not all47pages read or a valid local full-document checksum. Standard advantage versus No-Ad explicitly distinguished; no full match, under10 format, court/racket or actual gameplay claimed.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
     }
   ],
   "banks": [
@@ -7783,6 +7929,19 @@
       "applicability": "Official Primary4 exact-class document and Primary4–6 offering checked; school/cohort adoption and official terms unverified.",
       "applicabilityReferences": [
         "nerdc-primary-offering-prevoc-reference-346"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "applicability": "Exact September2025 class document and Primary4–6 offering checked; school/cohort adoption, official terms and actual delivery unverified.",
+      "applicabilityReferences": [
+        "nerdc-primary-offering-phe-reference-350"
       ]
     }
   ],
@@ -47630,6 +47789,276 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p14-o1-v1",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement meaning",
+      "learningObjective": "Explain locomotor movement as travelling from one place to another, using supplied written examples and allowing different ways of moving.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p14-o2-v1",
+      "topic": "Moving our body parts I",
+      "subtopic": "Travelling movement features",
+      "learningObjective": "Identify selected walking/running/hopping movement features from written descriptions, without demonstrating or assessing pupils’ physical ability.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p15-o1-v1",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement meaning",
+      "learningObjective": "Explain non-locomotor movement relative to a stationary base, distinguishing it from being completely still and from a sequence that also travels.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p15-o2-v1",
+      "topic": "Moving our body parts II",
+      "subtopic": "Non-travelling movement examples",
+      "learningObjective": "Distinguish selected bending, twisting, stretching and swinging examples from supplied written descriptions; no actual performance.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p16-o1-v1",
+      "topic": "Personal health",
+      "subtopic": "Exercise, rest and sleep",
+      "learningObjective": "Explain selected exercise, rest and sleep concepts, including that awake rest is not the same as sleep and activity is wider than competitive sport.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p16-o2-v1",
+      "topic": "Personal health",
+      "subtopic": "Selected activity and sleep benefits",
+      "learningObjective": "Explain selected benefits of physical activity and sufficient rest/sleep for children, without promising disease prevention, prescribing effort/intake or assuming a class-age threshold.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p17-o1-v1",
+      "topic": "Relay races",
+      "subtopic": "Relay-format description only",
+      "learningObjective": "Interpret four-by-one-hundred and four-by-four-hundred metre formats in writing; actual running component of the combined source statement remains unmet.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p17-o2-v1",
+      "topic": "Relay races",
+      "subtopic": "Selected relay-exchange concepts",
+      "learningObjective": "Describe selected hand-carried baton exchange/cooperation concepts checked against World Athletics2026; no actual exchange technique or competition delivery assessed.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p22-o2-v1",
+      "topic": "Tennis",
+      "subtopic": "Selected tennis score interpretation",
+      "learningObjective": "Interpret selected standard-game point labels and deuce/advantage states, with a limited checked No-Ad comparison; source typo clarified from ITF2026, no full match/racket performance.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p28-o1-v1",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Sports precaution meaning",
+      "learningObjective": "Explain a preventive precaution in a fictional sports setting, distinguishing it from responding after harm.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p28-o2-v1",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Reasons for sports precautions",
+      "learningObjective": "Explain selected people/space and risk-reduction benefits of sports precautions without assuming a guarantee against injury.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p28-o3-v1",
+      "topic": "Safety precautions in games and sports",
+      "subtopic": "Equipment purpose and suitability",
+      "learningObjective": "Discuss selected protective-equipment purposes and why activity/environment/fit checks matter; no actual fitting, equipment certification or protection guarantee.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, performance objective 3 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p29-o1-v1",
+      "topic": "Recreation and leisure",
+      "subtopic": "Leisure and recreation concepts",
+      "learningObjective": "Explain recreation as chosen leisure activity for enjoyment/relaxation, recognising that not all recreation is vigorous sport.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, performance objective 1 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p29-o2-v1",
+      "topic": "Recreation and leisure",
+      "subtopic": "Activity location and context",
+      "learningObjective": "Distinguish indoor/outdoor settings and contextual changes without treating every activity as permanently belonging to only one setting.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, performance objective 2 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-350-p29-o3-v1",
+      "topic": "Recreation and leisure",
+      "subtopic": "Selected recreation benefits",
+      "learningObjective": "Discuss selected enjoyment, relationships and inclusive participation benefits without guaranteeing health outcomes or requiring one kind of leisure.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, performance objective 3 and related content. Selected written subset; reconciliation350 retains heading/content conflicts and practical/full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -47752,6 +48181,7 @@
     "Batch346 opens a provisional1000-target Primary4 Pre-vocational Studies bank using the exact September2025 curriculum and fresh official Primary4–6 offering.40 original drafts (38 written,2 conditional spoken) across13 partial author mappings passing automated checks. Full12-table inventory contains44 statements:42 numbered and2 single unnumbered(PDF16/23);13 linked,31 unmapped. Fresh26-page PDF hash matches339 cover-only evidence; title/copyright/introduction/delivery/contents and all12 table texts now read; renders14/15/16/19/23 checked. Agriculture/Home Economics are components of this exact composite subject, not additional banks. General soil definitions/textures and FAO fertility/organic-matter concepts plus USGS leaching crosschecked; foreign references do not establish Nigerian class adoption or full field taxonomy. No fixed soil component ratios, size-range error, colour-only classification, universally best loam, plant diagnosis or crop/fertilizer prescription adopted. Written soil cards are supplied descriptions, not real sample identification. Source15 PO6 requires actual enrichment though evaluation says explain; keep actual demonstration unmet. Source17/25 generic wash/oil/repair wording cannot be transferred to every tool or powered equipment; manufacturer/context safety, actual identification/handling/maintenance and practical resources remain unresolved. Source20 cosmetic suitability/chemicals/allergens and personal-care/clinical boundaries, source21 laundry labels/agents and hot/sharp/electrical practicals, and source22 age-specific nutrition/deficiency interpretation need primary specialist references and calibration before mapping. Source teachers’ guide assessment framework, full scope/depth/careers, source videos/charts, actual oral/practical/field delivery, school/cohort adoption, official terms and1000 target remain open. Soil-organism/nutrient/water tasks are knowledge only; no actual soil, organic manure, NPK, cosmetic, food, animal, hot/sharp/powered tool or occupational activity. Oral protocol unfilled; no pupil performance/recording or production import. All previous banks’ holds and scope gaps retained; no independent academic approval.",
     "Batch347 adds30 original written Primary4 Pre-vocational Studies drafts across13 new partial mappings after fresh26-page official September2025 PDF retrieval (2188329 bytes; hash matches346). Inventory347 inherits the44-statement count (42 numbered,2 unnumbered) from346;26 statements now have partial draft links,18 remain unmapped;70 unique bank drafts. Clothing labels/agents, tool functions and selected safety reasoning crosschecked against selected live ACI/GINETEX/GARDENA/RHS primary references. Written descriptions and original fictional text tags only: no care symbols, manufacturer artwork, real-object/image recognition, machinery operation, actual pupil laundry/tool handling/maintenance or practical competency. GARDENA title/specification dimensions differ and are not assessed. No full manual or child-suitability clearance obtained; generic wash/oil/repair wording not generalised. Source18 evaluation1 names tool identification while performance1 requires safety measures; performance block controls mapping. Actual soil enrichment, agricultural tool care, clothing care, Home Economics handling/maintenance remain unmapped; cosmetic/bodycare7 and nutrition6 remain unmapped pending specialist scope/safety evidence. Earlier2 conditional oral tasks remain unfilled. Full depth/range, actual resources, teachers’ guide, delivery, exact-school/cohort adoption, official terms,1000 target and independent review remain unmet. All prior banks and legacy holds retained.",
     "Batch348 adds7 original Primary4 Pre-vocational Studies drafts:4 diagram-dependent written and3 conditional observed folding/spoon-handling/spoon-drying/storage tasks. Original generic five-object SVG supplied with examiner key, hashes and rendering inspection. Picture recognition is a limited two-garden/three-household subset, not real-object/brand/full-tool recognition. Fresh26-page exact September2025 official PDF hash matches347; selected1/3/17/21/24/25 text and17/21/24/25 renders checked;44-statement inventory count inherited346/347, not recounted in full. Inventory348 has29 partially linked source statements through31 author mappings and77 unique bank drafts;15 remain unmapped. New3 actual-performance mappings are conditional draft task designs, not pupil competence: protocol has no records, actual resource/model/context checks and independent class/safety/rubric/accessibility calibration still pending. Garment task only folding/storage; spoon handling only empty unbreakable cold bowl; care only clean-water drying/storage with a compatible smooth rounded spoon/soft cloth. No chemicals, food, heat, sharp/powered tools, washing/ironing/mending, sanitation, oiling or repair. Selected fresh ACI/GARDENA/RHS text and Robert Welch manufacturer drying guidance checked; no full manuals, copied photos/video, universal rust/material claims, brand clearance or school adoption inferred. Actual agricultural enrichment/tool maintenance, cosmetic/bodycare7 and nutrition6 remain unmapped; wider practical range, source charts/videos/teachers’ guide, delivery/adoption/terms/1000 target and independent review remain unmet. Prior spoken protocols unfilled and all legacy holds preserved.",
-    "Batch349 adds32 original written Primary4 Pre-vocational nutrition/grooming concept drafts across12 new partial mappings. Fresh26-page exact September2025 official PDF2188329bytes/hash matches348; selected1/3/20/22 text and20/22 renders checked. Inventory349 retains346 full44-statement count(42 numbered,2 unnumbered), not a new all-table recount;41 source statements now partially linked through43 author mappings to109 unique bank drafts,3 unmapped. Selected WHO26Jan2026 healthy-diet and10Feb2025 anaemia, FAO2004 concepts, NIH/NIAMS, CDC and FDA primary passages checked; old FAO Nigeria2001 profile is historical context only, not current adoption. No adult numerical diet targets, one-nutrient-only foods, menu certification from names, infant/preschool-to-Primary4 equivalence, U.S./EU law, foreign contact numbers, supplement/treatment advice, body/skin appearance judgement or universal natural-product safety. Source22 demand for deficiency disease/symptoms of each nutrient is not treated as one-to-one exhaustive taxonomy; only selected scurvy/vitamin C and iron-deficiency anaemia associations, not symptom-based diagnosis. Other nutrient ranges/diseases and clinical/specialist/rubric calibration remain unmet. Source20 body-care performance asks describe, while evaluation asks demonstrate; this batch only written description, no actual body-care competency. Actual cosmetics application(source20o6), soil enrichment(source15o6) and agricultural tool maintenance(source17o3) remain unmapped. Full body-part/function/care range, food classification taxonomies, real items/charts/videos, teachers’ guide, actual oral/practical delivery, model/local checks, school/cohort adoption, terms and1000 target remain open. Prior protocols unfilled; all other banks and legacy holds retained; no independent academic approval."
+    "Batch349 adds32 original written Primary4 Pre-vocational nutrition/grooming concept drafts across12 new partial mappings. Fresh26-page exact September2025 official PDF2188329bytes/hash matches348; selected1/3/20/22 text and20/22 renders checked. Inventory349 retains346 full44-statement count(42 numbered,2 unnumbered), not a new all-table recount;41 source statements now partially linked through43 author mappings to109 unique bank drafts,3 unmapped. Selected WHO26Jan2026 healthy-diet and10Feb2025 anaemia, FAO2004 concepts, NIH/NIAMS, CDC and FDA primary passages checked; old FAO Nigeria2001 profile is historical context only, not current adoption. No adult numerical diet targets, one-nutrient-only foods, menu certification from names, infant/preschool-to-Primary4 equivalence, U.S./EU law, foreign contact numbers, supplement/treatment advice, body/skin appearance judgement or universal natural-product safety. Source22 demand for deficiency disease/symptoms of each nutrient is not treated as one-to-one exhaustive taxonomy; only selected scurvy/vitamin C and iron-deficiency anaemia associations, not symptom-based diagnosis. Other nutrient ranges/diseases and clinical/specialist/rubric calibration remain unmet. Source20 body-care performance asks describe, while evaluation asks demonstrate; this batch only written description, no actual body-care competency. Actual cosmetics application(source20o6), soil enrichment(source15o6) and agricultural tool maintenance(source17o3) remain unmapped. Full body-part/function/care range, food classification taxonomies, real items/charts/videos, teachers’ guide, actual oral/practical delivery, model/local checks, school/cohort adoption, terms and1000 target remain open. Prior protocols unfilled; all other banks and legacy holds retained; no independent academic approval.",
+    "Batch350 opens one provisional1000-target Primary4 Physical and Health Education bank with37 original written drafts and15 partial mappings. Fresh31-page official exact-class file5493113bytes/hash matches339 cover-only evidence; title/copyright/introduction/delivery/overview/contents and all17 table texts read. Full inventory35 statements(28 numbered,7 single unnumbered),15 partially linked,20 unmapped. Source14/15 features are examples; no every-jump/travel equivalence or all-limb-still definition inferred. Source17 includes unsuitable jumping/throwing relay cues; source18/19/21 copied relay headers and19 conflicting500/10000 versus3000/5000 distances remain unresolved. Source22 Tennis topic is headed table tennis and0=lave; selected ITF2026 tennis score labels/methods checked, no official erratum or full gameplay claim. ITF local212-byte PDF blank; read parsed web47-page selected rules instead. World Athletics2026 full file downloaded, selected relay text only read; old overview zone length conflicts recorded and not assessed. Source25 jump-ball versus jump-pass and dunking/slamming require age/equipment/coaching review; no such action authored. Source27 clinical instructions/resources include spirits, iodine, scissors and razor blade; no first-aid mapping or actual injury/treatment/material use. Source30 stimulant/depressant-only taxonomy needs primary pharmacology/safeguarding clarification; unmapped, no real drugs/alcohol. Selected SCSA movement glossary, WHO/CDC benefits/safety and current federation rules support limited written concepts, not foreign-class adoption, exact age/intensity/sleep targets, medical or venue/equipment clearance, actual movement/race/racket/team/practical skill, source videos/teacher-guide framework or academic approval. School/cohort adoption, official terms, full range/depth and1000 target remain open. All prior banks, legacy holds and unfilled protocols preserved."
   ]
 }
