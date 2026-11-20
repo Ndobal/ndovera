@@ -1,0 +1,692 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-prevoc-primary4-revised-2025",
+  "sourceSha256": "de0782bd928a5cc6fb01c4f3dfc2eda96943c342ce9257f5e78e067b6d99f4d1",
+  "scope": "Inventory346 count retained:44 source statements (42 numbered,2 unnumbered).26 now have partial author mappings and70 unique drafts;18 unmapped. Written knowledge is not actual performance or full coverage.",
+  "topicGroups": 12,
+  "objectiveStatements": 44,
+  "numberedObjectives": 42,
+  "unnumberedObjectives": 2,
+  "objectivesWithPartialDraftMapping": 26,
+  "unmappedObjectiveStatements": 18,
+  "registeredAuthorMappings": 26,
+  "uniqueLinkedValidDrafts": 70,
+  "fullCompetencyCoverageEstablished": false,
+  "countMethod": "Each complete extracted performance block between Pupils should and Knowledge read and checked; numbered labels compared with contiguous1..N sequences, with single unnumbered statements onPDF16/23 given author ordinal1. Topic/content numbering is not counted as performance numbering. Visual checksPDF14/15/16/19/23; no claim that every table was independently OCR-counted. Batch347 retains this count rather than claiming a new complete table recount; selected text17/18/21/24/25 and renders17/21/24/25 checked again.",
+  "statementCountsByPdfPage": [
+    [
+      14,
+      3
+    ],
+    [
+      15,
+      6
+    ],
+    [
+      16,
+      1
+    ],
+    [
+      17,
+      3
+    ],
+    [
+      18,
+      2
+    ],
+    [
+      19,
+      3
+    ],
+    [
+      20,
+      7
+    ],
+    [
+      21,
+      5
+    ],
+    [
+      22,
+      6
+    ],
+    [
+      23,
+      1
+    ],
+    [
+      24,
+      2
+    ],
+    [
+      25,
+      5
+    ]
+  ],
+  "objectives": [
+    {
+      "inventoryId": "p4-prevoc-p14-o1",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Agriculture meaning",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p14-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p14-o2",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Agriculture importance",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p14-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p14-o3",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Agriculture scope",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p14-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o1",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Soil meaning",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p15-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o2",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Soil importance",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p15-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o3",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Soil types",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p15-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o4",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Soil infertility",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p15-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o5",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 5,
+      "authorOrdinal": 5,
+      "shortLabel": "Causes of soil infertility",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p15-o5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p15-o6",
+      "topic": "Soil Classification and Enrichment",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 6,
+      "authorOrdinal": 6,
+      "shortLabel": "Actual soil enrichment",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p16-o1",
+      "topic": "Vocational Skills in Agriculture",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Agricultural opportunities",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p16-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 5,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p17-o1",
+      "topic": "Agricultural Tools and Equipment",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Tool identification",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p17-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p17-o2",
+      "topic": "Agricultural Tools and Equipment",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Tool uses",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p17-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p17-o3",
+      "topic": "Agricultural Tools and Equipment",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual tool care",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p18-o1",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Safety measures",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p18-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p18-o2",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Reasons for safety",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p18-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p19-o1",
+      "topic": "Concept of Home Economics",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Home Economics meaning",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p19-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p19-o2",
+      "topic": "Concept of Home Economics",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Home Economics scope",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p19-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p19-o3",
+      "topic": "Concept of Home Economics",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Home Economics importance",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p19-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o1",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Body parts",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o2",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Body-part functions",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o3",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Body-care materials",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o4",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Body-part care",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o5",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 5,
+      "authorOrdinal": 5,
+      "shortLabel": "Daily care reasons",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o6",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 6,
+      "authorOrdinal": 6,
+      "shortLabel": "Actual safe cosmetics application",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p20-o7",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 7,
+      "authorOrdinal": 7,
+      "shortLabel": "Cosmetic chemical effects",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p21-o1",
+      "topic": "Care of Personal Clothing",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Clothing types",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p21-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p21-o2",
+      "topic": "Care of Personal Clothing",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Reasons for clothing",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p21-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p21-o3",
+      "topic": "Care of Personal Clothing",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Laundry agents",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p21-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p21-o4",
+      "topic": "Care of Personal Clothing",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Clothing-care steps",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p21-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p21-o5",
+      "topic": "Care of Personal Clothing",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 5,
+      "authorOrdinal": 5,
+      "shortLabel": "Actual clothing care",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o1",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Food meaning",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o2",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Food sources",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o3",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Nutrients",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o4",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Nutrient functions",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o5",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 5,
+      "authorOrdinal": 5,
+      "shortLabel": "Adequate diet",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p22-o6",
+      "topic": "Food Classification and Functions",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 6,
+      "authorOrdinal": 6,
+      "shortLabel": "Deficiency diseases/symptoms",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p23-o1",
+      "topic": "Job/Career Opportunities in Home Economics",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Home Economics careers",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-346-p23-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected conceptual or conditional oral subset only. Written soil descriptions are not actual local sample identification; oral explanation is not vocational practical competence. Full range/depth, media/charts/field/workplace delivery, actual performance, independent terminology/class/rubric review, adoption/terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p24-o1",
+      "topic": "Home Economics Tools and Equipment",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Tool identification",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p24-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p24-o2",
+      "topic": "Home Economics Tools and Equipment",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Tool uses",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p24-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p25-o1",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Safety meaning",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p25-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p25-o2",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Safety precautions",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p25-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p25-o3",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Maintenance guidelines",
+      "mappedObjectiveIds": [
+        "nerdc-prevoc-primary4-347-p25-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written descriptions/functions/reasoning only; no actual-object or image identification, practical handling/care/maintenance, care-symbol literacy or full range/depth. Independent Primary4 terminology, inclusion, safety and rubric review, actual delivery, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-prevoc-p25-o4",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Actual correct tool handling",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    },
+    {
+      "inventoryId": "p4-prevoc-p25-o5",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 5,
+      "authorOrdinal": 5,
+      "shortLabel": "Actual maintenance",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Full content/resources, actual performance, independent specialist/class/rubric review and safety/delivery requirements must be verified; no source objective inferred from a broad topic name."
+    }
+  ]
+}

@@ -1,0 +1,1306 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 Pre-vocational Studies clothing, tools and safety — batch347",
+  "questionCount": 30,
+  "note": "30 individually authored written drafts across13 new partial mappings. No practical, spoken, image-identification or care-symbol task; actual-performance objectives remain unmapped. All academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Written tool descriptions",
+      "learningObjective": "Identify selected agricultural tools from supplied written descriptions; actual object or image recognition remains unassessed.",
+      "id": "ndv-347-001",
+      "objectiveId": "nerdc-prevoc-primary4-347-p17-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A tool card describes a short-handled garden tool with a small scoop-shaped blade for working soil around small plants. Name the tool and identify the clue that distinguishes it from a watering can.",
+      "answer": "A hand trowel; its small soil-working blade distinguishes it from a container with a spout.",
+      "explanation": "Written features support a name; this is not recognition of a real tool.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a hand trowel. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Links the blade/scoop feature to working soil. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "gardena-trowel-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Written tool descriptions",
+      "learningObjective": "Identify selected agricultural tools from supplied written descriptions; actual object or image recognition remains unassessed.",
+      "id": "ndv-347-002",
+      "objectiveId": "nerdc-prevoc-primary4-347-p17-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school garden list contains a watering can, a hand trowel and a classroom chalkboard. Identify the two garden tools and explain why the chalkboard has a different role.",
+      "answer": "The watering can and hand trowel are garden tools. The chalkboard displays information rather than directly watering or working soil.",
+      "explanation": "An item can support a garden lesson without being a soil-working or watering tool.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects both garden tools. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the information-display role of the chalkboard. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Tool and task matching",
+      "learningObjective": "Explain selected hand-trowel and watering-can uses without claiming practical operation or crop-specific prescriptions.",
+      "id": "ndv-347-003",
+      "objectiveId": "nerdc-prevoc-primary4-347-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult gardener wants to make a small planting hole in a flowerpot. The choices are a hand trowel and a watering can. Select the suitable tool and explain its function.",
+      "answer": "The hand trowel can move soil to make the small hole; the watering can supplies water.",
+      "explanation": "The decision concerns the tool function, not permission for children to operate it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the hand trowel. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its soil-moving function. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "gardena-trowel-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Tool and task matching",
+      "learningObjective": "Explain selected hand-trowel and watering-can uses without claiming practical operation or crop-specific prescriptions.",
+      "id": "ndv-347-004",
+      "objectiveId": "nerdc-prevoc-primary4-347-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult has finished placing a plant in a pot and now needs to supply water near it. Explain which tool is useful, a watering can or a hand trowel, and state what further information is needed before deciding how much water to give.",
+      "answer": "A watering can supplies water. The amount depends on the plant and its conditions, including how moist the soil already is; the tool name alone does not give a quantity.",
+      "explanation": "Choosing equipment does not establish a watering schedule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses a watering can for supplying water. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a relevant plant/soil-condition information need. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "rhs-watering-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Safety decisions",
+      "learningObjective": "Identify suitable reporting and instruction-checking decisions in fictional agricultural tool situations.",
+      "id": "ndv-347-005",
+      "objectiveId": "nerdc-prevoc-primary4-347-p18-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Before a garden lesson, Efe notices that a tool handle is loose. Another pupil offers to hold it together while Efe works. State a safe decision and explain why the offer should be refused.",
+      "answer": "Do not use the tool; tell the teacher and keep others from using it. Holding a damaged handle together does not make the tool sound.",
+      "explanation": "Damage should be reported rather than improvised around by pupils.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Stops use and reports the damage. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the fault remains and could cause injury. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Safety decisions",
+      "learningObjective": "Identify suitable reporting and instruction-checking decisions in fictional agricultural tool situations.",
+      "id": "ndv-347-006",
+      "objectiveId": "nerdc-prevoc-primary4-347-p18-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A new farm tool arrives without its instructions. Someone says that instructions for a different-looking tool will be close enough. What should the teacher obtain before considering any demonstration, and why?",
+      "answer": "Obtain the correct instructions for the actual tool and check suitability and precautions before any demonstration. Different tools can have different hazards and procedures.",
+      "explanation": "Correct manufacturer information is part of planning, not proof that any tool is suitable for children.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Requests the actual tool’s instructions. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why another tool’s directions may be unsuitable. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Reasons for precautions",
+      "learningObjective": "Explain how selected agricultural-tool precautions protect people and equipment.",
+      "id": "ndv-347-007",
+      "objectiveId": "nerdc-prevoc-primary4-347-p18-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare two garden stores: one leaves tools across the entrance; the other keeps the entrance clear and stores tools securely. Explain one benefit for people and one benefit for the tools in the second store.",
+      "answer": "People are less likely to trip or strike tools. Tools are less likely to be stepped on, knocked over or damaged.",
+      "explanation": "The same precaution can reduce injury and damage through different mechanisms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a specific reduced risk to people. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a specific reduced risk to tools. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Reasons for precautions",
+      "learningObjective": "Explain how selected agricultural-tool precautions protect people and equipment.",
+      "id": "ndv-347-008",
+      "objectiveId": "nerdc-prevoc-primary4-347-p18-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A worker says that reporting a cracked tool wastes time because a replacement costs money. Explain how reporting it can prevent a greater loss, and state why money is not the only concern.",
+      "answer": "A cracked tool could break further and damage work or other equipment, causing replacement or interruption costs. Avoiding injury to people matters even when no equipment cost is involved.",
+      "explanation": "Safety includes human wellbeing as well as equipment and productivity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects a fault to a plausible larger equipment/work loss. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that protecting people is a separate concern. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Clothing by purpose",
+      "learningObjective": "Identify selected personal clothing types through purpose and supplied context, without gender or cultural exclusion.",
+      "id": "ndv-347-009",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Sort these named items by their main stated purpose: a school uniform worn to school, nightwear worn for sleeping, and sportswear worn for games. Give one purpose for each type.",
+      "answer": "Uniform: school identification/required school dress; nightwear: clothing for sleeping; sportswear: clothing suited to games or exercise.",
+      "explanation": "The categories describe uses, not who is allowed to wear a particular style.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links uniform with school. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Links nightwear with sleeping. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Links sportswear with physical activity. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Clothing by purpose",
+      "learningObjective": "Identify selected personal clothing types through purpose and supplied context, without gender or cultural exclusion.",
+      "id": "ndv-347-010",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ada wears a raincoat over her school uniform during rain. Are the raincoat and uniform the same clothing type just because they are worn together? Name each type by its purpose.",
+      "answer": "No. The raincoat is protective outer clothing for rain; the uniform is school clothing.",
+      "explanation": "Layers worn at the same time can serve different purposes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the rain-protection type. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the school-uniform type. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Reasons for wearing clothing",
+      "learningObjective": "Explain selected weather-protection, identification and activity-related reasons for clothing choices.",
+      "id": "ndv-347-011",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a chilly morning journey, a pupil wears an extra layer over ordinary school clothes. Explain the reason for the layer and why the same choice may need changing on a very hot afternoon.",
+      "answer": "The layer helps retain warmth in cool conditions. In very hot conditions an unnecessary heavy layer can be uncomfortable, so clothing should suit the conditions and school requirements.",
+      "explanation": "Clothing choices respond to context rather than one rule for all weather.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains warmth in the cool morning. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Connects a possible change to hotter conditions. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Reasons for wearing clothing",
+      "learningObjective": "Explain selected weather-protection, identification and activity-related reasons for clothing choices.",
+      "id": "ndv-347-012",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For a school sports activity, a teacher asks pupils to wear clothing that allows easy movement. A pupil says clothes are needed only for decoration. Give two reasons from this situation that challenge the claim.",
+      "answer": "Suitable clothing covers the body and can allow comfortable movement during sport; decoration is not its only purpose.",
+      "explanation": "A reason should explain what the clothing enables or provides.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives body coverage/modesty or another distinct defensible clothing purpose, such as protection appropriate to the stated sport. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains movement or comfort suited to sport. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Laundry agents and equipment",
+      "learningObjective": "Distinguish selected laundry cleaning agents from equipment using written examples; no chemical use or dosing.",
+      "id": "ndv-347-013",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A written laundry list names laundry soap, laundry detergent, a basin and clothes pegs. Identify the two cleaning agents and explain how the other two items differ from them.",
+      "answer": "Laundry soap and laundry detergent are cleaning agents. The basin holds items/water and pegs hold clothes; these are equipment rather than cleaning substances.",
+      "explanation": "A laundry resource can be useful without being a cleaning agent.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies both cleaning agents. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes equipment by its holding function. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Laundry agents and equipment",
+      "learningObjective": "Distinguish selected laundry cleaning agents from equipment using written examples; no chemical use or dosing.",
+      "id": "ndv-347-014",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional packet is labelled “laundry detergent”. A pupil calls the packet a drying tool and says every laundry job requires the same product. Correct both parts of the claim without giving any dosage or using the product.",
+      "answer": "Laundry detergent is a cleaning agent, not a drying tool. Product choice must suit the garment instructions and the product’s stated use; one product is not automatically suitable for every garment.",
+      "explanation": "The label gives a product category, not a universal permission to use it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly classifies laundry detergent. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects universal suitability using garment/product instructions. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Care instructions and sequence",
+      "learningObjective": "Explain selected care-label, sorting, drying and storage decisions from original fictional text instructions.",
+      "id": "ndv-347-015",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read this original fictional garment tag: “No ironing. Dry flat.” Which two parts of a proposed plan—“hang it on a line, then iron it”—conflict with the tag? Write corrections for the paper plan.",
+      "answer": "Hanging conflicts with drying flat; ironing conflicts with no ironing. Plan to dry it flat and omit ironing.",
+      "explanation": "The task applies supplied words, without interpreting protected care symbols or operating equipment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces hanging with drying flat. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Removes ironing. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "ginetex-care-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Care instructions and sequence",
+      "learningObjective": "Explain selected care-label, sorting, drying and storage decisions from original fictional text instructions.",
+      "id": "ndv-347-016",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional shirt’s text tag says “Wash separately.” A paper plan groups it with a pale school blouse because both are shirts. Explain why the grouping should change and what the revised grouping is.",
+      "answer": "The care instruction takes priority over both being shirts. Keep the separately-washed shirt apart from the blouse for washing.",
+      "explanation": "Shared garment type does not establish shared treatment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the separate-wash instruction as the reason. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the shirt out of the blouse’s washing group. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Care instructions and sequence",
+      "learningObjective": "Explain selected care-label, sorting, drying and storage decisions from original fictional text instructions.",
+      "id": "ndv-347-017",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Arrange these care stages in a sensible order for an ordinary washable garment whose instructions allow the proposed treatment: store neatly; check the care instructions; wash as directed; allow to dry fully. Explain why storage comes where it does.",
+      "answer": "Check instructions, wash as directed, allow to dry fully, then store neatly. Clothing should be fully dry before storage.",
+      "explanation": "The conditional instructions determine treatment; this does not require every garment to be washed in the same way.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places checking before washing. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Places drying after washing and before storage. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need to be fully dry before storage. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Care instructions and sequence",
+      "learningObjective": "Explain selected care-label, sorting, drying and storage decisions from original fictional text instructions.",
+      "id": "ndv-347-018",
+      "objectiveId": "nerdc-prevoc-primary4-347-p21-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A clean school shirt is still damp at the seams. A pupil wants to fold it into a crowded closed drawer immediately. State a better next step and explain why “clean” alone is not enough for that storage decision.",
+      "answer": "Let it finish drying in an appropriate safe place before storing. Cleanliness does not mean the cloth is dry; damp storage can leave clothes musty.",
+      "explanation": "Drying and cleaning are distinct stages of clothing care.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Waits for full drying before storage. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes clean from dry and gives an appropriate damp-storage concern. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool categories",
+      "learningObjective": "Identify selected Home Economics tools and their categories from written lists and descriptions; no actual-object recognition.",
+      "id": "ndv-347-019",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "From a written list containing a sewing needle, a cooking pot and an ironing board, identify the sewing tool and the laundry support equipment.",
+      "answer": "The sewing needle is the sewing tool; the ironing board supports ironing in laundry work.",
+      "explanation": "The classification names functions; pupils are not asked to handle a needle or iron.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the sewing needle. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Selects the ironing board for laundry. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool categories",
+      "learningObjective": "Identify selected Home Economics tools and their categories from written lists and descriptions; no actual-object recognition.",
+      "id": "ndv-347-020",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A word card describes a kitchen utensil with a small bowl-shaped end on a handle, used to scoop food. Name it and place it in one of these lesson categories: cooking utensils, sewing tools or laundry equipment.",
+      "answer": "A spoon, in the cooking-utensil category.",
+      "explanation": "A written shape/function description provides clues but does not assess actual-object recognition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a spoon. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Places it among cooking utensils. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool categories",
+      "learningObjective": "Identify selected Home Economics tools and their categories from written lists and descriptions; no actual-object recognition.",
+      "id": "ndv-347-021",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom poster places thread beside a sewing machine and places a cooking pot beside a laundry iron. Which item should be moved out of the laundry group, and into which group? Explain your choice.",
+      "answer": "Move the cooking pot to the cooking group because it holds food during cooking.",
+      "explanation": "Sorting is based on the item’s intended function, not where it happens to be placed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Moves the cooking pot to the cooking group. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its food-holding/cooking function. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool functions",
+      "learningObjective": "Explain selected sewing, cooking and laundry tool functions without operating equipment.",
+      "id": "ndv-347-022",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a paper sewing plan, a needle and thread are listed as if they do exactly the same job. Explain the different roles of the two items in making stitches.",
+      "answer": "A needle guides or carries thread through material; the thread forms the stitches that hold the material.",
+      "explanation": "The tools work together but their functions differ; no sewing is performed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the needle’s guiding/carrying role. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the thread’s stitch-forming role. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool functions",
+      "learningObjective": "Explain selected sewing, cooking and laundry tool functions without operating equipment.",
+      "id": "ndv-347-023",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult cook lists a pot and a spoon for preparing a meal. Explain one suitable function of each without describing how to use heat or handle hot food.",
+      "answer": "A pot contains food during preparation/cooking; a suitable spoon can mix or scoop food.",
+      "explanation": "The answer concerns functions, not a practical cooking procedure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable pot function. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable spoon function. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool functions",
+      "learningObjective": "Explain selected sewing, cooking and laundry tool functions without operating equipment.",
+      "id": "ndv-347-024",
+      "objectiveId": "nerdc-prevoc-primary4-347-p24-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An iron and an ironing board appear on a laundry chart. Explain how their functions differ and why calling both “heating devices” is inaccurate.",
+      "answer": "The iron supplies heat for pressing suitable garments; the board supplies a supporting surface. The board is not itself the heating device.",
+      "explanation": "Equipment used together need not supply the same action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the iron’s pressing/heat role. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the board’s support role and corrects the claim. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Meaning of safety",
+      "learningObjective": "Explain safety as reducing the chance of harm when handling Home Economics tools and equipment.",
+      "id": "ndv-347-025",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a Home Economics lesson, what does safety in handling tools mean? Explain it using a precaution taken before a task rather than a response after someone is hurt.",
+      "answer": "Safety means reducing the chance of harm. For example, checking for visible damage and asking the teacher about a fault before use can prevent an accident.",
+      "explanation": "Safety includes preventing harm, not merely treating its consequences.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains reduction/prevention of harm. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant preventive example. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Meaning of safety",
+      "learningObjective": "Explain safety as reducing the chance of harm when handling Home Economics tools and equipment.",
+      "id": "ndv-347-026",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A group says, “Nobody was hurt yesterday, so our tool routine must be safe.” Explain why that conclusion is unreliable and what should be checked instead.",
+      "answer": "One injury-free occasion does not show that hazards are controlled. Check whether equipment is suitable and undamaged, instructions and precautions are followed, and the work area is safe.",
+      "explanation": "A near miss or chance outcome is not proof of a sound routine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the inference from one injury-free occasion. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a relevant equipment/procedure/work-area check. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Precautions before handling",
+      "learningObjective": "Outline selected safe decisions about damaged tools, unsuitable equipment and obstructions; no practical handling.",
+      "id": "ndv-347-027",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A laundry demonstration is planned beside a doorway blocked by bags. Before any equipment is brought out, what change should be made to the area and which risk does it reduce?",
+      "answer": "Have the bags put in a suitable place so the doorway and route are clear. This reduces trips and obstruction of movement.",
+      "explanation": "Preparing the area is a precaution before equipment use.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Clears the doorway/route by suitable bag storage. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the change to trip/obstruction risk. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Precautions before handling",
+      "learningObjective": "Outline selected safe decisions about damaged tools, unsuitable equipment and obstructions; no practical handling.",
+      "id": "ndv-347-028",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says wearing gloves makes any kitchen or sewing tool suitable for a child to try. Explain why this is wrong and name who should decide whether a planned classroom activity is suitable.",
+      "answer": "Gloves do not remove all hazards or establish suitability. The teacher/responsible adult must check the actual tool, instructions, pupil needs and safe arrangements; unsuitable activities must not go ahead.",
+      "explanation": "Protective equipment cannot turn every activity into an appropriate pupil task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that gloves leave other hazards/suitability questions. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns the suitability decision to the responsible teacher/adult. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Maintenance decisions",
+      "learningObjective": "Explain inspection, reporting and suitable care instructions without repairing or maintaining actual equipment.",
+      "id": "ndv-347-029",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom equipment plan says, “Check each item before the lesson; put everything straight back after the lesson.” Explain why checking before use does not replace care after use. Add one missing after-use step to the written plan.",
+      "answer": "Use can leave an item dirty, wet or newly damaged even if it was sound beforehand. Before storage, arrange appropriate cleaning/drying or report any new damage, following the actual item’s instructions and the teacher’s arrangements.",
+      "explanation": "Inspection before use and suitable care after use occur at different stages; neither is a substitute for the other. This is a paper plan, not pupil cleaning or repair.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a change that can occur during use, such as dirt, moisture or new damage. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Adds an appropriate after-use care or fault-reporting step, with no universal washing or pupil repair instruction. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Maintenance decisions",
+      "learningObjective": "Explain inspection, reporting and suitable care instructions without repairing or maintaining actual equipment.",
+      "id": "ndv-347-030",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A general classroom note says “wash tools before storage.” May a pupil apply it to every Home Economics item, including an electrical iron? Explain what must guide the care decision instead.",
+      "answer": "No. A general note is not a care method for every material or electrical appliance. The responsible adult must use the correct item’s instructions and suitable safety arrangements; pupils should not try washing an iron.",
+      "explanation": "Tool-specific instructions limit broad maintenance slogans.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects applying one wash rule to every item/electrical iron. Accept equivalent accurate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Requires actual-item instructions and responsible adult control. Accept equivalent accurate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional scenario, text instructions, model answer and practice rubric. No copied examination item, care symbol, manufacturer image, pupil record or historical past-paper claim. Source concepts attributed in registry and reconciliation347.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion, safety and rubric review pending. Written knowledge only; no actual object/image recognition, laundry, food preparation, tool operation, repair or practical competence assessed. No actual pupil activity. Fictional text tags apply only to the stated scenario; no universal material, temperature, chemical, crop-water or child-suitability rule inferred. School/cohort adoption, official terms, full depth and 1000 target remain open."
+    }
+  ]
+}

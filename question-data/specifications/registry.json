@@ -4733,6 +4733,71 @@
       "subject": "Pre-vocational Studies",
       "level": "Primary 4",
       "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "aci-laundry-reference-347",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cleaninginstitute.org/cleaning-tips/clothes/laundry-basics",
+      "sourceSections": [
+        "Laundry Basics updated March10,2026; selected sorting, agent/equipment distinctions and fold/store fully-dry guidance."
+      ],
+      "note": "Industry primary guidance only; no chemical dosing, stain treatment, machinery operation, blanket bleach recommendations, sanitation or Nigerian adoption inferred.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "ginetex-care-reference-347",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.ginetex.net/en/care-labelling/",
+      "sourceSections": [
+        "Selected care-labelling principles: item-specific treatment information and symbol reproduction restrictions."
+      ],
+      "note": "No symbols reproduced or interpreted, no licensed artwork, ISO text or numerical temperature assessment. Original fictional text tags are author-created scenarios, not authentic manufacturer labels or Nigerian legal requirements.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "gardena-trowel-reference-347",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.gardena.com/int/products/soil-ground/garden-tools/comfort-hand-trowel/967096701.html",
+      "sourceSections": [
+        "Selected product description and Use field: planting/transplanting; written trowel features."
+      ],
+      "note": "Basic function only; not full manual, child-suitability approval or operating procedure. No product image reused/visually inspected. Page title8cm and specification8.5cm differ; no dimensions/warranty/model facts assessed.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "rhs-watering-reference-347",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.rhs.org.uk/garden-jobs/garden-watering-methods",
+      "sourceSections": [
+        "Selected watering-can versus hose and precision paragraphs."
+      ],
+      "note": "Tool function only; no UK plant prescription, crop schedule, water quantity or heavy-can pupil handling adopted.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "rhs-tool-care-reference-347",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.rhs.org.uk/garden-jobs/cleaning-tools",
+      "sourceSections": [
+        "Selected quick facts and cultivation-tool cleaning/drying paragraphs."
+      ],
+      "note": "Contextual hand-tool care only, not universal washing/oiling advice, electrical-tool directions, child manual, actual maintenance, sharpening, sterilisation or repair. No source artwork copied.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
     }
   ],
   "banks": [
@@ -46863,6 +46928,240 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p17-o1-v1",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Written tool descriptions",
+      "learningObjective": "Identify selected agricultural tools from supplied written descriptions; actual object or image recognition remains unassessed.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 1; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p17-o2-v1",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Tool and task matching",
+      "learningObjective": "Explain selected hand-trowel and watering-can uses without claiming practical operation or crop-specific prescriptions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 2; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p18-o1-v1",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Safety decisions",
+      "learningObjective": "Identify suitable reporting and instruction-checking decisions in fictional agricultural tool situations.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, performance objective 1; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p18-o2-v1",
+      "topic": "Safety Measures in Handling Agricultural Tools/Equipment",
+      "subtopic": "Reasons for precautions",
+      "learningObjective": "Explain how selected agricultural-tool precautions protect people and equipment.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, performance objective 2; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p21-o1-v1",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Clothing by purpose",
+      "learningObjective": "Identify selected personal clothing types through purpose and supplied context, without gender or cultural exclusion.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 1; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p21-o2-v1",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Reasons for wearing clothing",
+      "learningObjective": "Explain selected weather-protection, identification and activity-related reasons for clothing choices.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 2; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p21-o3-v1",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Laundry agents and equipment",
+      "learningObjective": "Distinguish selected laundry cleaning agents from equipment using written examples; no chemical use or dosing.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 3; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p21-o4-v1",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Care instructions and sequence",
+      "learningObjective": "Explain selected care-label, sorting, drying and storage decisions from original fictional text instructions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 4; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p24-o1-v1",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool categories",
+      "learningObjective": "Identify selected Home Economics tools and their categories from written lists and descriptions; no actual-object recognition.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, performance objective 1; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p24-o2-v1",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Home Economics tool functions",
+      "learningObjective": "Explain selected sewing, cooking and laundry tool functions without operating equipment.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, performance objective 2; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p25-o1-v1",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Meaning of safety",
+      "learningObjective": "Explain safety as reducing the chance of harm when handling Home Economics tools and equipment.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, performance objective 1; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p25-o2-v1",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Precautions before handling",
+      "learningObjective": "Outline selected safe decisions about damaged tools, unsuitable equipment and obstructions; no practical handling.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, performance objective 2; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "id": "nerdc-prevoc-primary4-347-p25-o3-v1",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Maintenance decisions",
+      "learningObjective": "Explain inspection, reporting and suitable care instructions without repairing or maintaining actual equipment.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, performance objective 3; related content. Selected written subset only; reconciliation347 records actual-performance and full-scope gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -46982,6 +47281,7 @@
     "Batch343 adds18 original Primary4 Social and Citizenship Studies drafts (16 written,1 conditional classroom campaign,1 conditional spoken tabletop report) across6 new partial mappings on PDF35–36. Inventory343 links64/82 source statements through64 author mappings and126 unique valid drafts passing automated checks;18 statements remain unmapped. Fresh official PDF hash matched, selected text/renders checked; inventory339 count basis retained, no all-table recount. Fresh UNODC/WHO2018 selected sections support interactive general skills and qualify sport/information-only efficacy; this historical supplementary reference is not current Nigerian adoption or a validated complete intervention. Wigan own guidance supplies narrow behaviour/fact/where/when principles, not UK numbers, terrorist/appearance cues, pupil patrols or Nigerian legal/service procedures. Tabletop is simulated observation, not real neighbourhood competence; supportive campaign does not prove prevention. Source35 campaign is absent from evaluation column; source36 mixes drug-campaign content with security and uses potentially harmful practical/consequence wording. No official erratum claimed; adult-led, non-graphic, non-blaming adaptations remain independently unreviewed. UN article/NPF/NICE full web opens returned403; indexed summaries not treated as complete documents or additional content sources. Source drug-characteristic stereotypes, finance/CBN and trafficking evidence, nation classification, clinical/local safeguarding and all earlier depth/delivery/adoption/terms/1000-target gaps remain open. No real substances, private disclosures, pupil performance, public campaign, incident, surveillance, report, clinical action or production import occurred; protocol unfilled.",
     "Batch344 adds18 original Primary4 SCS drafts (17 written,1 conditional actual infographic) through5 unique author mappings, linking7 source statements fromPDF37/38. Inventory344 gives71/82 partial statement links through69 mappings and144 unique class drafts passing automated checks;11 remain unmapped. Shared meaning (4 questions) and operations (7) links repeat across two tables; inventory row sum155 is not155 unique questions. Fresh official class hash matched; selected text/renders read, inventory339 count basis retained. Original practice value cards only assess displayed denomination labels and size/value reasoning, not genuine banknote/coin or counterfeit recognition. Current CBN banknote list, selected history/gallery anchors and SEC2023 concepts checked; historical CBN2006–2007 general definitions/history are supplementary, not current law/institution counts/curriculum adoption. Full2022 PDF shell403/web size limit and2017 PDF403 recorded, no full retrieval claimed. CBN50 dimensions and republic-related currency-history wording conflict; none assessed, no official erratum. SEC risk-free/tenor/return rankings and derivatives taxonomy not adopted. Selected1958 Act/1959 operations/1973 currency anchors do not establish beginning or whole history of finance. Documentary, museum trip, actual banknotes/coin handling, full services/current legal/regulatory/age suitability, infographic/print/accessibility delivery, adoption/terms/1000 target and independent review remain open. Nation characteristics1, drug names/characteristics2 and trafficking8 remain unmapped. No actual learner performance, financial transaction, account data, loan, investment or production import occurred; protocol unfilled. Preserve all earlier safeguarding, clinical, source omissions and delivery gaps.",
     "Batch345 adds22 original Primary4 SCS drafts (21 written,1 conditional classroom campaign) across8 partial mappings onPDF39–42. Inventory345 links79/82 source statements through77 mappings, with166 unique class drafts passing automated checks; row sum177 retains11 shared financial links, not extra questions. Fresh exact-class hash matched; selected text/renders read, inventory339 count basis retained. Fresh NAPTIP2023 journalist handbook (38pages) downloaded after web502; selected concepts/history/protection passages read, not a whole-handbook or classroom validation. Fresh UNODC2019 definition and Sherloc framework establish selected adult act/means/purpose and Protocol child exception; old e4j404 and direct OHCHR403 recorded. UNICEF2025 landing highlights read, not linked full paper. Source40 causal wording may blame poverty/family/migration wishes; risks are not proof or blame. Source41 simple three-part list omits child exception; handbook transport sequence is not a universal compulsory order. Source42 disease wording is not diagnosis or grounds for exclusion; clinical/epidemiological claims, graphic content, full consequences/forms and local care not assessed. No official erratum claimed. NAPTIP personnel overview (66pages) retrieved and selected1/51/52 read for reconciliation; conflicting14July/8August2003 establishment days, no verified publication date/current legal consolidation, not used as question content. Only selected response years2000/2003/2015, not whole historical trends or beginning of trafficking; source slavery/modern-slavery shorthand not treated as universally identical legal terms. School-wide/public campaign scope is replaced by a conditional supportive classroom-only subset, with specialist/local safeguarding/rubric review prerequisite. No actual learner campaign, survivor image/identity/story, public contact, private disclosure, investigation, diagnosis, legal ruling or production import; protocol unfilled. Three source statements remain unmapped: nation characteristics1 and drug names/characteristics2. All earlier financial, safeguarding, clinical, full source range/depth, delivery/adoption/terms/1000-target and independent-review gaps remain open.",
-    "Batch346 opens a provisional1000-target Primary4 Pre-vocational Studies bank using the exact September2025 curriculum and fresh official Primary4–6 offering.40 original drafts (38 written,2 conditional spoken) across13 partial author mappings passing automated checks. Full12-table inventory contains44 statements:42 numbered and2 single unnumbered(PDF16/23);13 linked,31 unmapped. Fresh26-page PDF hash matches339 cover-only evidence; title/copyright/introduction/delivery/contents and all12 table texts now read; renders14/15/16/19/23 checked. Agriculture/Home Economics are components of this exact composite subject, not additional banks. General soil definitions/textures and FAO fertility/organic-matter concepts plus USGS leaching crosschecked; foreign references do not establish Nigerian class adoption or full field taxonomy. No fixed soil component ratios, size-range error, colour-only classification, universally best loam, plant diagnosis or crop/fertilizer prescription adopted. Written soil cards are supplied descriptions, not real sample identification. Source15 PO6 requires actual enrichment though evaluation says explain; keep actual demonstration unmet. Source17/25 generic wash/oil/repair wording cannot be transferred to every tool or powered equipment; manufacturer/context safety, actual identification/handling/maintenance and practical resources remain unresolved. Source20 cosmetic suitability/chemicals/allergens and personal-care/clinical boundaries, source21 laundry labels/agents and hot/sharp/electrical practicals, and source22 age-specific nutrition/deficiency interpretation need primary specialist references and calibration before mapping. Source teachers’ guide assessment framework, full scope/depth/careers, source videos/charts, actual oral/practical/field delivery, school/cohort adoption, official terms and1000 target remain open. Soil-organism/nutrient/water tasks are knowledge only; no actual soil, organic manure, NPK, cosmetic, food, animal, hot/sharp/powered tool or occupational activity. Oral protocol unfilled; no pupil performance/recording or production import. All previous banks’ holds and scope gaps retained; no independent academic approval."
+    "Batch346 opens a provisional1000-target Primary4 Pre-vocational Studies bank using the exact September2025 curriculum and fresh official Primary4–6 offering.40 original drafts (38 written,2 conditional spoken) across13 partial author mappings passing automated checks. Full12-table inventory contains44 statements:42 numbered and2 single unnumbered(PDF16/23);13 linked,31 unmapped. Fresh26-page PDF hash matches339 cover-only evidence; title/copyright/introduction/delivery/contents and all12 table texts now read; renders14/15/16/19/23 checked. Agriculture/Home Economics are components of this exact composite subject, not additional banks. General soil definitions/textures and FAO fertility/organic-matter concepts plus USGS leaching crosschecked; foreign references do not establish Nigerian class adoption or full field taxonomy. No fixed soil component ratios, size-range error, colour-only classification, universally best loam, plant diagnosis or crop/fertilizer prescription adopted. Written soil cards are supplied descriptions, not real sample identification. Source15 PO6 requires actual enrichment though evaluation says explain; keep actual demonstration unmet. Source17/25 generic wash/oil/repair wording cannot be transferred to every tool or powered equipment; manufacturer/context safety, actual identification/handling/maintenance and practical resources remain unresolved. Source20 cosmetic suitability/chemicals/allergens and personal-care/clinical boundaries, source21 laundry labels/agents and hot/sharp/electrical practicals, and source22 age-specific nutrition/deficiency interpretation need primary specialist references and calibration before mapping. Source teachers’ guide assessment framework, full scope/depth/careers, source videos/charts, actual oral/practical/field delivery, school/cohort adoption, official terms and1000 target remain open. Soil-organism/nutrient/water tasks are knowledge only; no actual soil, organic manure, NPK, cosmetic, food, animal, hot/sharp/powered tool or occupational activity. Oral protocol unfilled; no pupil performance/recording or production import. All previous banks’ holds and scope gaps retained; no independent academic approval.",
+    "Batch347 adds30 original written Primary4 Pre-vocational Studies drafts across13 new partial mappings after fresh26-page official September2025 PDF retrieval (2188329 bytes; hash matches346). Inventory347 inherits the44-statement count (42 numbered,2 unnumbered) from346;26 statements now have partial draft links,18 remain unmapped;70 unique bank drafts. Clothing labels/agents, tool functions and selected safety reasoning crosschecked against selected live ACI/GINETEX/GARDENA/RHS primary references. Written descriptions and original fictional text tags only: no care symbols, manufacturer artwork, real-object/image recognition, machinery operation, actual pupil laundry/tool handling/maintenance or practical competency. GARDENA title/specification dimensions differ and are not assessed. No full manual or child-suitability clearance obtained; generic wash/oil/repair wording not generalised. Source18 evaluation1 names tool identification while performance1 requires safety measures; performance block controls mapping. Actual soil enrichment, agricultural tool care, clothing care, Home Economics handling/maintenance remain unmapped; cosmetic/bodycare7 and nutrition6 remain unmapped pending specialist scope/safety evidence. Earlier2 conditional oral tasks remain unfilled. Full depth/range, actual resources, teachers’ guide, delivery, exact-school/cohort adoption, official terms,1000 target and independent review remain unmet. All prior banks and legacy holds retained."
   ]
 }

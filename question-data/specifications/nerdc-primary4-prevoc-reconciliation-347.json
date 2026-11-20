@@ -1,0 +1,107 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-prevoc-primary4-revised-2025",
+  "sourceUrl": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/15.pdf",
+  "sourceSha256": "de0782bd928a5cc6fb01c4f3dfc2eda96943c342ce9257f5e78e067b6d99f4d1",
+  "freshRetrievalBytes": 2188329,
+  "pageCount": 26,
+  "readTextPdfPages": [
+    1,
+    3,
+    17,
+    18,
+    21,
+    24,
+    25
+  ],
+  "visuallyCheckedPdfPages": [
+    17,
+    21,
+    24,
+    25
+  ],
+  "inventoryCountBasis": "Retained346 full12-table inventory; no new all-table independent recount.44 statements:42 numbered,2 single unnumbered.",
+  "supplementaryReferences": [
+    {
+      "id": "aci-laundry-reference-347",
+      "url": "https://www.cleaninginstitute.org/cleaning-tips/clothes/laundry-basics",
+      "selectedScope": "Laundry Basics updated March10,2026; selected sorting, agent/equipment distinctions and fold/store fully-dry guidance.",
+      "limits": "Industry primary guidance only; no chemical dosing, stain treatment, machinery operation, blanket bleach recommendations, sanitation or Nigerian adoption inferred."
+    },
+    {
+      "id": "ginetex-care-reference-347",
+      "url": "https://www.ginetex.net/en/care-labelling/",
+      "selectedScope": "Selected care-labelling principles: item-specific treatment information and symbol reproduction restrictions.",
+      "limits": "No symbols reproduced or interpreted, no licensed artwork, ISO text or numerical temperature assessment. Original fictional text tags are author-created scenarios, not authentic manufacturer labels or Nigerian legal requirements."
+    },
+    {
+      "id": "gardena-trowel-reference-347",
+      "url": "https://www.gardena.com/int/products/soil-ground/garden-tools/comfort-hand-trowel/967096701.html",
+      "selectedScope": "Selected product description and Use field: planting/transplanting; written trowel features.",
+      "limits": "Basic function only; not full manual, child-suitability approval or operating procedure. No product image reused/visually inspected. Page title8cm and specification8.5cm differ; no dimensions/warranty/model facts assessed."
+    },
+    {
+      "id": "rhs-watering-reference-347",
+      "url": "https://www.rhs.org.uk/garden-jobs/garden-watering-methods",
+      "selectedScope": "Selected watering-can versus hose and precision paragraphs.",
+      "limits": "Tool function only; no UK plant prescription, crop schedule, water quantity or heavy-can pupil handling adopted."
+    },
+    {
+      "id": "rhs-tool-care-reference-347",
+      "url": "https://www.rhs.org.uk/garden-jobs/cleaning-tools",
+      "selectedScope": "Selected quick facts and cultivation-tool cleaning/drying paragraphs.",
+      "limits": "Contextual hand-tool care only, not universal washing/oiling advice, electrical-tool directions, child manual, actual maintenance, sharpening, sterilisation or repair. No source artwork copied."
+    }
+  ],
+  "newQuestions": 30,
+  "responseModes": {
+    "written": 30
+  },
+  "newPartialMappings": 13,
+  "partiallyMappedSourceStatements": 26,
+  "unmappedSourceStatements": 18,
+  "uniqueBankDrafts": 70,
+  "reviewed": 0,
+  "originalContent": "Original fictional text scenarios and practice rubrics; no care symbols, pictures, external prose/exam items or historical-paper claim. No drawn assets or pupil data.",
+  "sourceDiscrepancies": [
+    "PDF18 evaluation1 says identify tools; performance1 says identify safety measures. Map safety statement, not mismatching evaluation.",
+    "Generic source17/25 wash/oil/repair statements cannot be used for every tool or as pupil repair directions.",
+    "GARDENA page title8cm versus technical field8.5cm; dimensions not assessed."
+  ],
+  "deliveryLimits": "All30 tasks are written knowledge only. No actual object/image recognition, care-symbol reading, spoken delivery or practical handling/care claimed. Prior346 spoken protocol remains unfilled. Proposed safe-object practical tasks deferred because actual model/context prechecks and delivery resources have not been established.",
+  "academicReview": "Pending independent subject, age/class, inclusion, safety and marking calibration; author inspection is not independent review.",
+  "remainingGaps": "Batch347 adds30 original written Primary4 Pre-vocational Studies drafts across13 new partial mappings after fresh26-page official September2025 PDF retrieval (2188329 bytes; hash matches346). Inventory347 inherits the44-statement count (42 numbered,2 unnumbered) from346;26 statements now have partial draft links,18 remain unmapped;70 unique bank drafts. Clothing labels/agents, tool functions and selected safety reasoning crosschecked against selected live ACI/GINETEX/GARDENA/RHS primary references. Written descriptions and original fictional text tags only: no care symbols, manufacturer artwork, real-object/image recognition, machinery operation, actual pupil laundry/tool handling/maintenance or practical competency. GARDENA title/specification dimensions differ and are not assessed. No full manual or child-suitability clearance obtained; generic wash/oil/repair wording not generalised. Source18 evaluation1 names tool identification while performance1 requires safety measures; performance block controls mapping. Actual soil enrichment, agricultural tool care, clothing care, Home Economics handling/maintenance remain unmapped; cosmetic/bodycare7 and nutrition6 remain unmapped pending specialist scope/safety evidence. Earlier2 conditional oral tasks remain unfilled. Full depth/range, actual resources, teachers’ guide, delivery, exact-school/cohort adoption, official terms,1000 target and independent review remain unmet. All prior banks and legacy holds retained.",
+  "validation": {
+    "status": "automated_checks_passed_academic_review_pending",
+    "testsPassed": 56,
+    "commands": [
+      "python -m unittest discover -s question-data/tests -v",
+      "python question-data/tools/audit.py --write --strict-new",
+      "git diff --check"
+    ],
+    "totals": {
+      "raw": 6257,
+      "validDrafts": 4578,
+      "reviewed": 0
+    },
+    "newQuestionsPassing": 30,
+    "priorQuestionAuditRecordsUnchanged": 6227,
+    "priorFileChecksumsUnchanged": 381,
+    "priorExceptionCountsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaims": 623,
+    "arithmeticFailures": 0,
+    "newArithmeticClaims": 0,
+    "inventoryCoverageAndUniqueIdsChecked": true,
+    "bankValidDrafts": 70,
+    "registeredAuthorMappings": 26,
+    "scopeGaps": 118,
+    "sourceCompatibilityAndMarkingTotalsChecked": true,
+    "parentCommit": "ca071aa69c374c4e8ea72afad1fce8cfb5f36554",
+    "remoteCommitVerification": "Checkpoint records verified parent; resulting commit is verified externally after protected ref update to avoid a self-referential commit hash."
+  },
+  "manualInspection": {
+    "questionsInspected": 30,
+    "findings": "All prompts, models, rubrics and source mappings inspected by author.029 changed from another damaged-tool reporting situation to distinguishing pre-use inspection from post-use care;012 rubric expanded for equivalent defensible purposes. No arithmetic or MCQ items. Author inspection is not independent academic review.",
+    "novelty": "Selected written description/category, tool-task, instruction-transfer, economic/human safety, clothing purpose, agent/equipment, label conflict, sequence, damp-storage, tool-function contrast and maintenance-stage decisions. No numerical variants. Practical and visual recognition gaps remain."
+  }
+}
