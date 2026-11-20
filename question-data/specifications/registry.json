@@ -4289,6 +4289,46 @@
         "PDF1, Primary4–6 Social and Citizenship Studies row"
       ],
       "note": "Confirms subject offering across Primary4–6, not school/cohort adoption or exact term placement. Source general offering cannot replace exact-class objectives."
+    },
+    {
+      "id": "nass-electoral-act-2026-reference-340",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_current_official_statute",
+      "source": "https://nass.gov.ng/documents/download/11248",
+      "retrievedOn": "2026-11-20",
+      "documentTitle": "Electoral Act,2026 (Act No.1)",
+      "commencementDate": "2026-02-18",
+      "gazetteDate": "2026-03-02",
+      "sourceBytes": 347280,
+      "pageCount": 121,
+      "sha256": "dee5a37b62b920c9cfaf009b7dc1dcf5ccb5cbbeff807f5487eac868ce882fd6",
+      "sourceSections": [
+        "Cover/arrangement; PDF9 section1–2 and commencement",
+        "PDF12 section9; PDF20 sections28–29; PDF25 sections44–47; PDF26 section50; PDF28–29 sections60–62",
+        "PDF58–59 section125; PDF69 sections151/154; PDF70 selected definitions"
+      ],
+      "note": "Fresh National Assembly-hosted gazette, selected passages read, not a complete legal analysis. Section154 repeals Electoral Act2022; section151 permits regulations subject to the Act. Tasks use broad selected process distinctions, no penalties/deadline/eligibility adjudication, actual registration, voting or personal legal advice. No full state-law, judicial-pronouncement, amended-Constitution or operational-guideline coverage inferred."
+    },
+    {
+      "id": "inec-guidelines-2026-identity-reference-340",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_guidelines_identity_and_front_matter",
+      "source": "https://www.inecnigeria.org/documents/guidelines/REGULATIONS-AND-GUIDELINES-FOR-2026.pdf",
+      "indexUrl": "https://www.inecnigeria.org/elections/guidelines",
+      "retrievedOn": "2026-11-20",
+      "documentTitle": "Regulations and Guidelines for the Conduct of Elections,2026",
+      "sourceBytes": 18985915,
+      "pageCount": 41,
+      "sha256": "658cb09b5163a8a8767ceaa9863414f04239959dda6d70de5479fd7635f2a7c0",
+      "sourceSections": [
+        "Parsed official index publication labels",
+        "Rendered PDF1 cover and PDF3 selected foreword ending, dated30April2026"
+      ],
+      "note": "Web PDF open timed out; cloud HTTP download200 succeeded. Scanned/image PDF; sampled pages1–4 have no extractable text. Cover and PDF3 only visually read. Full body, all rules, forms, dates and compatibility not reviewed. This record verifies document identity, not full operational scope; no source video or classroom performance retrieved."
     }
   ],
   "banks": [
@@ -45324,6 +45364,168 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p24-o1-v1",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Meaning of good governance",
+      "learningObjective": "Explain good governance through fair, transparent and accountable management of shared public affairs.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Performance Objective 1; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p24-o2-v1",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Levels of government",
+      "learningObjective": "Identify local, state and federal government as levels, distinguishing the level labels from branches or activities.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Performance Objective 2; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p24-o3-v1",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Good governance features",
+      "learningObjective": "Explain selected features of good governance using concrete evidence of fairness, transparency or accountability.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Performance Objective 3; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p26-o1-v1",
+      "topic": "Electoral Process",
+      "subtopic": "Meaning of electoral process",
+      "learningObjective": "Explain electoral process as connected activities for choosing representatives, extending beyond marking a ballot.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.13 / PDF p.26, Performance Objective 1; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p26-o2-v1",
+      "topic": "Electoral Process",
+      "subtopic": "Selected electoral stages",
+      "learningObjective": "Distinguish selected preparation, voting, counting and results activities without claiming a complete universal timetable.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.13 / PDF p.26, Performance Objective 2; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p26-o3-v1",
+      "topic": "Electoral Process",
+      "subtopic": "Threats to electoral integrity",
+      "learningObjective": "Identify selected threats to an electoral process and explain their effects on informed, free or fair participation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.13 / PDF p.26, Performance Objective 3; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p27-o1-v1",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Electoral components",
+      "learningObjective": "Distinguish selected institutions, rules and activities as components of an electoral process.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Performance Objective 1; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p27-o2-v1",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Selected current legal framework",
+      "learningObjective": "Identify the checked Electoral Act2026 and the role of INEC regulations while keeping incomplete current Constitution and state-law coverage explicit.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Performance Objective 2; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-340-p27-o3-v1",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Importance of a legal framework",
+      "learningObjective": "Explain why known rules, responsibilities and records matter for fairness and accountability in an electoral process.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Performance Objective 3; content, focal competence, activities and evaluation. Partial authored mapping. Selected Act2026 and retrieval limits in reconciliation340."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -45436,6 +45638,7 @@
     "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.",
     "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.",
     "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.",
-    "Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open."
+    "Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open.",
+    "Batch340 adds21 original written Primary4 SCS governance/electoral drafts across9 partial mappings:39/82 source statements now partially linked,61 unique drafts passing automated checks;43 statements unmapped. Fresh class PDF matches339 hash. NASS gazette Electoral Act2026 selected passages checked, section154 repeals2022; section151 permits guidance subject to Act. INEC2026 guidelines full41-page image PDF retrieved, cover/PDF3 only read, not full operational body. FMJ Constitution download explicitly first3 alterations, not full current consolidation; current Constitution/state laws/judicial decisions remain unresolved. Types-of-government overlaps/no-end-tenure wording, party-system definitions, actual current party symbols/pressure groups and drawings remain unmapped. Source stage bullets are not a complete mandatory linear timetable; no all-party fresh registration or electronic-transmission simplification taught. All earlier medical/financial/trafficking/adoption/terms/teacher-guide/actual-performance/full-target gaps retained."
   ]
 }

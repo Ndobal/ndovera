@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "visuallyCheckedPdfPages": [
+    24,
+    25
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained; six governance table blocks re-read, no new all-table count or OCR pass claimed.",
+  "partialAuthorMappings": 39,
+  "newQuestions": 21,
+  "written": 21,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "nass-electoral-act-2026-reference-340",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_current_official_statute",
+      "source": "https://nass.gov.ng/documents/download/11248",
+      "retrievedOn": "2026-11-20",
+      "documentTitle": "Electoral Act,2026 (Act No.1)",
+      "commencementDate": "2026-02-18",
+      "gazetteDate": "2026-03-02",
+      "sourceBytes": 347280,
+      "pageCount": 121,
+      "sha256": "dee5a37b62b920c9cfaf009b7dc1dcf5ccb5cbbeff807f5487eac868ce882fd6",
+      "sourceSections": [
+        "Cover/arrangement; PDF9 section1–2 and commencement",
+        "PDF12 section9; PDF20 sections28–29; PDF25 sections44–47; PDF26 section50; PDF28–29 sections60–62",
+        "PDF58–59 section125; PDF69 sections151/154; PDF70 selected definitions"
+      ],
+      "note": "Fresh National Assembly-hosted gazette, selected passages read, not a complete legal analysis. Section154 repeals Electoral Act2022; section151 permits regulations subject to the Act. Tasks use broad selected process distinctions, no penalties/deadline/eligibility adjudication, actual registration, voting or personal legal advice. No full state-law, judicial-pronouncement, amended-Constitution or operational-guideline coverage inferred."
+    },
+    {
+      "id": "inec-guidelines-2026-identity-reference-340",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_guidelines_identity_and_front_matter",
+      "source": "https://www.inecnigeria.org/documents/guidelines/REGULATIONS-AND-GUIDELINES-FOR-2026.pdf",
+      "indexUrl": "https://www.inecnigeria.org/elections/guidelines",
+      "retrievedOn": "2026-11-20",
+      "documentTitle": "Regulations and Guidelines for the Conduct of Elections,2026",
+      "sourceBytes": 18985915,
+      "pageCount": 41,
+      "sha256": "658cb09b5163a8a8767ceaa9863414f04239959dda6d70de5479fd7635f2a7c0",
+      "sourceSections": [
+        "Parsed official index publication labels",
+        "Rendered PDF1 cover and PDF3 selected foreword ending, dated30April2026"
+      ],
+      "note": "Web PDF open timed out; cloud HTTP download200 succeeded. Scanned/image PDF; sampled pages1–4 have no extractable text. Cover and PDF3 only visually read. Full body, all rules, forms, dates and compatibility not reviewed. This record verifies document identity, not full operational scope; no source video or classroom performance retrieved."
+    }
+  ],
+  "retrievalLimits": [
+    {
+      "url": "https://www.inecnigeria.org/documents/guidelines/REGULATIONS-AND-GUIDELINES-FOR-2026.pdf",
+      "webResult": "Timeout",
+      "cloudResult": "HTTP200,18985915bytes,41-page image PDF",
+      "read": "Rendered cover/PDF1 and foreword ending/PDF3 only; sampledPDF1–4 text extraction empty. Full body not reviewed."
+    },
+    {
+      "url": "https://wp1.inecnigeria.org/guidelines/",
+      "result": "Web502; index on www.inecnigeria.org read instead."
+    },
+    {
+      "url": "https://www.unescap.org/sites/default/files/good-governance.pdf",
+      "result": "Web403; not retrieved or used as an eight-feature source."
+    },
+    {
+      "url": "https://justice.gov.ng/wp-content/uploads/2020/09/Nigerian-Constitution.pdf",
+      "result": "Parsed title/front matter read: first,second,third alterations only; no current consolidated coverage claim."
+    },
+    {
+      "url": "https://statehouse.gov.ng/wp-content/uploads/2025/10/Reduced-Terms.pdf",
+      "result": "Opened and identified as2025 mercy instrument, not a consolidated Constitution; rejected for this purpose."
+    }
+  ],
+  "decisions": [
+    "Source focal competence names fairness/transparency/accountability; no unverified eight-feature taxonomy added. Public-service examples are original and fictional.",
+    "PDF25 labels are overlapping types, and monarchy succession/no-end-tenure wording needs qualification. Both objectives remain unmapped, with no categorical traditional-versus-constitutional contradiction adopted.",
+    "PDF26 party-primary/campaign bullets do not establish a universal linear clock. New tasks distinguish selected stages and primary selection versus public election; no rule that parties must freshly register for every election.",
+    "Checked current NASS-hosted Act2026 cover/selected body, includingsection154 repeal and151 guidance power. Exact penalties, deadlines, voter eligibility, device failure, electronic-transmission fallback, local-election jurisprudence and complete legal hierarchy are outside the tasks.",
+    "New threat gift example is an author-proposed narrow addition informed bysection125, not a source verbatim list or allegation. Group-stereotype example is a civics distinction, not an adjudication of a real offence.",
+    "Current party names/symbols, group identities, party-system definitions, country classifications, actual drawing and full guideline-body reading remain open. FMJ earlier Constitution edition does not settle all current alterations.",
+    "Earlier Government/Civic prompts031 and169 inspected, including electoral-register accuracy and market-project accountability. New tasks focus exact-class levels/features, source-currency, rule-versus-record inference and selected process distinctions, not recycled project checklists or cosmetic numerical variants.",
+    "Every new prompt/model/rubric and assessed purpose manually inspected; all21 tasks written. No real civic action, registration, voting, political contact, pupil preference, source video/audio or classroom performance occurred. Independent subject/legal/rubric review pending; all earlier holds/gaps preserved."
+  ]
+}

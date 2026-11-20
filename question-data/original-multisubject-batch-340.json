@@ -1,0 +1,952 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary4 Social and Citizenship Studies governance and electoral-process practice — batch340",
+  "questionCount": 21,
+  "note": "21 original written drafts across9 partial mappings. Selected Act2026 passages freshly checked; no full current legal-framework, guideline-body, class/term/adoption or academic approval claimed. Types of government and party topics remain unmapped. See reconciliation340.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Meaning of good governance",
+      "learningObjective": "Explain good governance through fair, transparent and accountable management of shared public affairs.",
+      "id": "ndv-340-001",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional council consults residents about a shared service, explains its decision and checks whether it has done what it promised. Explain why this shows good governance rather than simply giving an order.",
+      "answer": "It manages shared affairs with participation, clear reasons and responsibility for results. Those actions help make decisions fair and open to checking.",
+      "explanation": "The source focal competence supplies fairness, transparency and accountability; this is an authored illustration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains management of shared affairs rather than personal command."
+        },
+        {
+          "marks": 1,
+          "description": "Links the actions to fairness, transparency or accountability."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Meaning of good governance",
+      "learningObjective": "Explain good governance through fair, transparent and accountable management of shared public affairs.",
+      "id": "ndv-340-002",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A public office has an impressive building but refuses to explain decisions or respond to mistakes. Is the building alone enough evidence of good governance? Explain using two features from the lesson.",
+      "answer": "No. A fine building does not show that decisions are transparent or that officials account for and correct mistakes. Those features require evidence about how the office is managed.",
+      "explanation": "This assesses evidence about governing, not a judgement about an actual office.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why appearance alone is insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Connects two missing features to decision-making or responsibility."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Levels of government",
+      "learningObjective": "Identify local, state and federal government as levels, distinguishing the level labels from branches or activities.",
+      "id": "ndv-340-003",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A chart is headed “Levels of government in Nigeria”. It lists local government, state government and federal government. Another pupil wants to replace the list with “making laws, carrying out policies and deciding cases”. Explain why the original list fits the heading better.",
+      "answer": "Local, state and federal are level labels. The proposed replacement describes kinds of government functions rather than those levels.",
+      "explanation": "This checks classification, without assigning exclusive service powers or teaching an exhaustive constitutional division.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies local, state and federal as levels."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes level labels from functions or branches."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Good governance features",
+      "learningObjective": "Explain selected features of good governance using concrete evidence of fairness, transparency or accountability.",
+      "id": "ndv-340-004",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional public-service committee displays the criteria it will use to choose between proposals before making a decision. Explain how this can support transparency and identify something the display alone does not prove.",
+      "answer": "People can see the basis on which proposals should be assessed. The display alone does not prove that the committee actually followed the criteria.",
+      "explanation": "Transparency concerns access to relevant reasons; no private personal information needs to be displayed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains visibility of the decision criteria."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes published criteria from evidence of actual compliance."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Good governance features",
+      "learningObjective": "Explain selected features of good governance using concrete evidence of fairness, transparency or accountability.",
+      "id": "ndv-340-005",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An official’s progress report says a promised task is unfinished, explains the delay and states what will be done next. Explain how this can show accountability even though the task is not yet complete.",
+      "answer": "The official acknowledges the gap, gives an explanation and accepts responsibility for the next action. Accountability involves answering for conduct rather than pretending that every promise has already been fulfilled.",
+      "explanation": "This is a written interpretation of a fictional report, not proof of a real official’s conduct.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses acknowledgement/explanation as evidence of answering for conduct."
+        },
+        {
+          "marks": 1,
+          "description": "Explains responsibility for the next action without claiming completion."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Meaning and importance of Good Governance",
+      "subtopic": "Good governance features",
+      "learningObjective": "Explain selected features of good governance using concrete evidence of fairness, transparency or accountability.",
+      "id": "ndv-340-006",
+      "objectiveId": "nerdc-scs-primary4-340-p24-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two residents need the same public information. One can read a printed notice and the other needs it explained aloud. Explain why providing both ways can be fair, even though the help is not identical.",
+      "answer": "Both residents should have a meaningful chance to understand the information. Different suitable ways of sharing it can provide fair access rather than excluding someone through a single format.",
+      "explanation": "The example applies fairness; it does not prescribe a complete legal accessibility standard.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains fair access or opportunity for both residents."
+        },
+        {
+          "marks": 1,
+          "description": "Connects different formats with meeting the different needs."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Meaning of electoral process",
+      "learningObjective": "Explain electoral process as connected activities for choosing representatives, extending beyond marking a ballot.",
+      "id": "ndv-340-007",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil describes an electoral process as “only the moment someone marks a ballot”. Explain what the description leaves out, giving one activity before voting and one after it.",
+      "answer": "The process connects preparation, voting and results activities. Voter registration can take place before voting; counting and recording votes happen afterwards.",
+      "explanation": "These are selected examples, not a complete timetable or real instructions for pupils to register.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that the process involves connected activities beyond ballot marking."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a fitting activity before voting."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a fitting activity after voting."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections9,47,60–62"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Selected electoral stages",
+      "learningObjective": "Distinguish selected preparation, voting, counting and results activities without claiming a complete universal timetable.",
+      "id": "ndv-340-008",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a simplified account, a party selects a candidate and later eligible voters choose among candidates in an election. Explain the different purpose of the two choices.",
+      "answer": "The party’s selection decides whom it will put forward. The later election lets eligible voters choose among the candidates for the public office.",
+      "explanation": "Source campaign bullets are not treated as steps inside a primary. This does not claim one prescribed nomination method or full qualification rules.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains selection of a party’s candidate."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the later choice among candidates for public office."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 section29 and selected candidate definition,section155"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Selected electoral stages",
+      "learningObjective": "Distinguish selected preparation, voting, counting and results activities without claiming a complete universal timetable.",
+      "id": "ndv-340-009",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Distinguish entering a person’s details in a voters’ register from checking an intending voter for accreditation at a polling unit. Why are they not the same activity?",
+      "answer": "Registration creates or updates the official record of qualified voters. Accreditation checks an intending voter’s registered particulars at the polling unit before voting.",
+      "explanation": "Selected distinctions from sections9 and47; no pupil’s eligibility is decided and no registration or polling action is assigned.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the record-making/updating role of registration."
+        },
+        {
+          "marks": 1,
+          "description": "Explains checking registered particulars for accreditation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections9,47"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Selected electoral stages",
+      "learningObjective": "Distinguish selected preparation, voting, counting and results activities without claiming a complete universal timetable.",
+      "id": "ndv-340-010",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Arrange these selected polling activities in their usual logical order and explain one link: counting the cast votes; accreditation of an intending voter; marking and depositing a ballot.",
+      "answer": "Accreditation comes before marking and depositing a ballot; counting the cast votes follows voting. The voter is checked before voting, and cast votes are available to count after ballots have been deposited.",
+      "explanation": "This is a limited sequence of three activities, not the complete rules on opening/closing, accessibility, devices, collation or declaration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places accreditation before ballot marking/deposit."
+        },
+        {
+          "marks": 1,
+          "description": "Places counting after casting votes."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a valid link in that order."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections47,50,60"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Selected electoral stages",
+      "learningObjective": "Distinguish selected preparation, voting, counting and results activities without claiming a complete universal timetable.",
+      "id": "ndv-340-011",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A report lists two results activities: counting votes at a polling unit and collating results from polling units. Explain the difference without calculating any totals.",
+      "answer": "Counting establishes votes recorded at an individual polling unit. Collation brings the unit results together at the relevant next stage.",
+      "explanation": "The answer does not settle all rules on transmission, communications failure, recounts or declaration thresholds.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the individual polling-unit count."
+        },
+        {
+          "marks": 1,
+          "description": "Explains bringing unit results together at a later stage."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections60–62"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Threats to electoral integrity",
+      "learningObjective": "Identify selected threats to an electoral process and explain their effects on informed, free or fair participation.",
+      "id": "ndv-340-012",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional forwarded message claims a poll has moved to a different day but gives no issuing authority or official notice. Explain one way the message could harm the electoral process and how its claim should be checked before it is repeated.",
+      "answer": "It could confuse people and cause them to miss the correct arrangements. Check the claim against the responsible election authority’s current official notice rather than assuming a forwarded message is authoritative.",
+      "explanation": "No actual poll date is supplied or verified by this fictional task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains confusion or disruption of participation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies checking a current authoritative notice before repeating the claim."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections44–45"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Threats to electoral integrity",
+      "learningObjective": "Identify selected threats to an electoral process and explain their effects on informed, free or fair participation.",
+      "id": "ndv-340-013",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a fictional campaign, a speaker claims that every person from a particular community is dishonest and should be ignored. Explain why this threatens respectful electoral discussion, and contrast it with criticism of a specific policy.",
+      "answer": "The claim attacks a whole community through a stereotype and can encourage hostility or exclusion. A policy criticism can instead discuss a proposal and its evidence without condemning everyone from a community.",
+      "explanation": "This is a civics distinction tied to the curriculum’s hate-speech threat, not a determination of a particular legal offence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the blanket stereotype and harm to respectful participation."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes evidence-based policy criticism from group condemnation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Electoral Process",
+      "subtopic": "Threats to electoral integrity",
+      "learningObjective": "Identify selected threats to an electoral process and explain their effects on informed, free or fair participation.",
+      "id": "ndv-340-014",
+      "objectiveId": "nerdc-scs-primary4-340-p26-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional example, someone offers a gift on condition that a voter chooses a named candidate. Explain how the condition threatens free choice; do not discuss penalties or accuse any real person.",
+      "answer": "The gift is being used to influence the voter’s choice for someone else’s benefit. It can replace a freely considered choice with pressure to obtain a reward.",
+      "explanation": "A narrow original application informed by section125; it does not classify every lawful election expense as bribery or decide a real case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the gift being tied to a particular vote."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the threat to free or considered choice."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 section125"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Electoral components",
+      "learningObjective": "Distinguish selected institutions, rules and activities as components of an electoral process.",
+      "id": "ndv-340-015",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A lesson lists INEC and the Electoral Act as components of an electoral process. Explain why an election-management body and a law belong to different kinds of component, even though both matter.",
+      "answer": "The body is an institution responsible for election functions. The Act is part of the rules defining how the process is governed.",
+      "explanation": "No claim is made that one body alone conducts every kind of election or that one Act exhausts the legal framework.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes an institution from a legal rule/source."
+        },
+        {
+          "marks": 1,
+          "description": "Explains their different supporting roles."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections1–2,151"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Electoral components",
+      "learningObjective": "Distinguish selected institutions, rules and activities as components of an electoral process.",
+      "id": "ndv-340-016",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A simplified election pack contains an authority’s notice specifying the poll’s day and places, and a campaign leaflet describing a candidate’s promises. Explain the different purpose of each document.",
+      "answer": "The official notice gives arrangements established by the election authority. The leaflet communicates campaign proposals or promises and does not itself set the official polling arrangements.",
+      "explanation": "The task distinguishes components and communication purposes; no real notice, candidate or polling place is supplied.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the official notice’s arrangement/information role."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the campaign leaflet’s proposals role."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 sections44–45"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Selected current legal framework",
+      "learningObjective": "Identify the checked Electoral Act2026 and the role of INEC regulations while keeping incomplete current Constitution and state-law coverage explicit.",
+      "id": "ndv-340-017",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "As checked on20November2026, the National Assembly gazette contains the Electoral Act2026 and section154 says the Electoral Act2022 is repealed. A pupil has only a saved2022 Act. Explain why the pupil should not present that saved file as proof of the current Act.",
+      "answer": "The checked2026 Act expressly repeals the2022 Act. The pupil should use and verify the current enactment for current claims instead of assuming the older saved file is still the governing Act.",
+      "explanation": "This is a dated source-currency exercise, not a claim that a single Act covers every election rule or that all legal issues have been reviewed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the checked repeal/current enactment distinction."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the need to verify current text rather than rely on the old file alone."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 section154; commencement18February2026,gazette2March2026"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Selected current legal framework",
+      "learningObjective": "Identify the checked Electoral Act2026 and the role of INEC regulations while keeping incomplete current Constitution and state-law coverage explicit.",
+      "id": "ndv-340-018",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Section151 of the checked Electoral Act2026 permits INEC to issue regulations, guidelines or manuals subject to the Act. Explain why such guidance is useful and why it should be read with the Act rather than treated as permission to ignore it.",
+      "answer": "Guidance can explain how the Act is to be administered in practice. The power is subject to the Act, so guidance is not a general permission to set the Act aside.",
+      "explanation": "The official2026 guidelines identity is separately checked, but their full scanned body has not been reviewed; no particular operational rule from them is asserted.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains practical administration or giving effect to the Act."
+        },
+        {
+          "marks": 1,
+          "description": "Preserves the qualification that the power is subject to the Act."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nass-electoral-act-2026-reference-340",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested.",
+      "legalReferences": [
+        "Act2026 section151"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Importance of a legal framework",
+      "learningObjective": "Explain why known rules, responsibilities and records matter for fairness and accountability in an electoral process.",
+      "id": "ndv-340-019",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why is it fairer for election participants to know the applicable rules before a process begins than for an official to invent a new rule only after seeing who would benefit? Give two reasons.",
+      "answer": "Known rules allow people to understand what is expected and prepare accordingly. Applying the same established standards also reduces decisions made merely to favour a particular person.",
+      "explanation": "This is an authored explanation of the importance of a framework, not a ruling on an actual rule change.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains predictable expectations/preparation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains consistent standards rather than favouritism."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Importance of a legal framework",
+      "learningObjective": "Explain why known rules, responsibilities and records matter for fairness and accountability in an electoral process.",
+      "id": "ndv-340-020",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An observer wants to check whether a fictional election decision followed the rules. Explain why both the applicable rule and a clear record of what happened are needed.",
+      "answer": "The rule supplies the standard to apply, while the record supplies evidence of the actions or decision. Having only one does not show whether the actual conduct matched the standard.",
+      "explanation": "This assesses accountability reasoning rather than legal standing, evidence admissibility or an appeal procedure.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the rule as the standard."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the record as evidence needed for comparison."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Components of the Electoral Process",
+      "subtopic": "Importance of a legal framework",
+      "learningObjective": "Explain why known rules, responsibilities and records matter for fairness and accountability in an electoral process.",
+      "id": "ndv-340-021",
+      "objectiveId": "nerdc-scs-primary4-340-p27-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Someone says, “Once an election law is published, every election is automatically fair.” Explain why a legal framework is important but the claim still goes too far.",
+      "answer": "A framework establishes rules and responsibilities that support fairness. Actual fairness also depends on how people follow, administer and check those rules; publication alone does not prove compliance.",
+      "explanation": "No actual election is judged. The conclusion is about the limits of an inference, not a legal prediction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a positive role of the legal framework."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the existence of rules from evidence of actual compliance."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional examples, model and practice rubric; not a copied examination item or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, legal/current-source, inclusion and rubric review pending. Accept equivalent accurate wording. Selected written knowledge only, not real election participation, personal legal advice, a full current legal framework, complete statutory procedure, school adoption or official term placement. No names of current parties/candidates, required affiliation, personal voting preference or real political contact requested."
+    }
+  ]
+}
