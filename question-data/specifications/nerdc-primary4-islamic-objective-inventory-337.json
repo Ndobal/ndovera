@@ -1,0 +1,658 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-islamic-primary4-revised-2025",
+  "sourceSha256": "c0632672cc38278c53f7bd7edf0c1c02446c593ebd5f71390dd12817cb6bcdca",
+  "scope": "All36 numbered Performance Objectives across11 tables visually inventoried with OCR assistance.23 partial mappings;13 unmapped. Short labels/IDs are authored aids, not official codes. Full functional and target coverage unestablished.",
+  "topicGroups": 11,
+  "numberedObjectives": 36,
+  "objectivesWithPartialDraftMapping": 23,
+  "unmappedNumberedObjectives": 13,
+  "registeredAuthorMappings": 23,
+  "independentColumnCount": {
+    "byPdfPage": [
+      [
+        14,
+        2
+      ],
+      [
+        15,
+        3
+      ],
+      [
+        16,
+        3
+      ],
+      [
+        17,
+        4
+      ],
+      [
+        18,
+        4
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        20,
+        4
+      ],
+      [
+        21,
+        4
+      ],
+      [
+        22,
+        3
+      ],
+      [
+        23,
+        3
+      ],
+      [
+        24,
+        2
+      ]
+    ],
+    "total": 36,
+    "method": "Separate performance-column crop OCR compared with numbered labels in every full rendered source table. Raw OCR detected35 labels; first label on PDF16 visually resolved as1. Visual count36 is not claimed as a clean fully automatic extraction.",
+    "ocrComparison": [
+      {
+        "pdfPage": 14,
+        "ocrDetectedNumbers": [
+          1,
+          2
+        ],
+        "visuallyVerifiedCount": 2,
+        "correction": null
+      },
+      {
+        "pdfPage": 15,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3
+        ],
+        "visuallyVerifiedCount": 3,
+        "correction": null
+      },
+      {
+        "pdfPage": 16,
+        "ocrDetectedNumbers": [
+          2,
+          3
+        ],
+        "visuallyVerifiedCount": 3,
+        "correction": "OCR missed the first1 label as a nonnumeric glyph; visual source clearly shows1,2,3."
+      },
+      {
+        "pdfPage": 17,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visuallyVerifiedCount": 4,
+        "correction": null
+      },
+      {
+        "pdfPage": 18,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visuallyVerifiedCount": 4,
+        "correction": null
+      },
+      {
+        "pdfPage": 19,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visuallyVerifiedCount": 4,
+        "correction": null
+      },
+      {
+        "pdfPage": 20,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visuallyVerifiedCount": 4,
+        "correction": null
+      },
+      {
+        "pdfPage": 21,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visuallyVerifiedCount": 4,
+        "correction": null
+      },
+      {
+        "pdfPage": 22,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3
+        ],
+        "visuallyVerifiedCount": 3,
+        "correction": null
+      },
+      {
+        "pdfPage": 23,
+        "ocrDetectedNumbers": [
+          1,
+          2,
+          3
+        ],
+        "visuallyVerifiedCount": 3,
+        "correction": null
+      },
+      {
+        "pdfPage": 24,
+        "ocrDetectedNumbers": [
+          1,
+          2
+        ],
+        "visuallyVerifiedCount": 2,
+        "correction": null
+      }
+    ]
+  },
+  "allNumberedObjectivesHavePartialMappings": false,
+  "fullCompetencyCoverageEstablished": false,
+  "uniqueLinkedValidDrafts": 29,
+  "objectives": [
+    {
+      "inventoryId": "p4-islamic-table1-po1",
+      "topic": "Recitation of Qur’an",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Recitation",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table1-po2",
+      "topic": "Recitation of Qur’an",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Memorisation",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table2-po1",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Arabic reading",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table2-po2",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t2-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table2-po3",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Arabic memorisation",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table3-po1",
+      "topic": "Purpose of human creation",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Creation meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t3-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table3-po2",
+      "topic": "Purpose of human creation",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Creation purpose",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t3-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table3-po3",
+      "topic": "Purpose of human creation",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Daily application",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t3-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table4-po1",
+      "topic": "Salat",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t4-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table4-po2",
+      "topic": "Salat",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t4-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table4-po3",
+      "topic": "Salat",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Significance",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t4-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table4-po4",
+      "topic": "Salat",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Performance description",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table5-po1",
+      "topic": "Sawm",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t5-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table5-po2",
+      "topic": "Sawm",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t5-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table5-po3",
+      "topic": "Sawm",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Significance",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t5-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table5-po4",
+      "topic": "Sawm",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Observance",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table6-po1",
+      "topic": "Zakat",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t6-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table6-po2",
+      "topic": "Zakat",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table6-po3",
+      "topic": "Zakat",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Significance",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t6-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table6-po4",
+      "topic": "Zakat",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Zakat and sadaqah",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t6-po4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table7-po1",
+      "topic": "Hajj",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t7-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table7-po2",
+      "topic": "Hajj",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Types",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table7-po3",
+      "topic": "Hajj",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Significance",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t7-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table7-po4",
+      "topic": "Hajj",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Hajj and Umrah",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table8-po1",
+      "topic": "Prophets and rightly guided caliphs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Prophet biographies",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table8-po2",
+      "topic": "Prophets and rightly guided caliphs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Caliph biographies",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table8-po3",
+      "topic": "Prophets and rightly guided caliphs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Caliph contributions",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table8-po4",
+      "topic": "Prophets and rightly guided caliphs",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Biographical lessons",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Unmapped: requires checked complete source/model/ruling and appropriate actual skill or narrative evidence. See reconciliation337; not silently replaced by written MCQ."
+    },
+    {
+      "inventoryId": "p4-islamic-table9-po1",
+      "topic": "Moral virtues in Islam",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Virtue meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t9-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table9-po2",
+      "topic": "Moral virtues in Islam",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Virtue identification",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t9-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table9-po3",
+      "topic": "Moral virtues in Islam",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Virtue demonstration",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t9-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table10-po1",
+      "topic": "Moral vices",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Vice meaning",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t10-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table10-po2",
+      "topic": "Moral vices",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Vice identification",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t10-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table10-po3",
+      "topic": "Moral vices",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Vice consequences",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t10-po3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table11-po1",
+      "topic": "Virtues for responsible adulthood",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Responsibility qualities",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t11-po1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    },
+    {
+      "inventoryId": "p4-islamic-table11-po2",
+      "topic": "Virtues for responsible adulthood",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Responsibility benefits",
+      "mappedObjectiveIds": [
+        "nerdc-islamic-primary4-337-t11-po2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Partial meaning/conduct subset only. Full source range, scholarly/translation/rubric review, actual Arabic/ritual/video/role evidence, source discrepancy reconciliation, adoption and official terms remain open."
+    }
+  ]
+}

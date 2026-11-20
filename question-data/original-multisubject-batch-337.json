@@ -1,0 +1,1285 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Islamic Studies first bank: selected meanings, worship and responsible conduct",
+  "questionCount": 29,
+  "note": "Twenty-eight written and one observed conduct-role draft across23 partial mappings from36 inventoried source objectives. Recitation, Arabic reading/memorisation and unresolved ritual/history objectives remain unmapped. No actual worship, fasting, pilgrimage, source audio or learner performance claimed. All independent review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain selected lessons of An-Nawawi Hadith2 and3 without substituting meaning questions for Arabic reading or memorisation.",
+      "id": "ndv-337-001",
+      "objectiveId": "nerdc-islamic-primary4-337-t2-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Hadith2 of An-Nawawi’s collection describes Ihsan in relation to worship. A learner is careful only when an audience is watching but careless when alone. Explain the lesson the learner is missing.",
+      "answer": "Ihsan involves sincere excellence in worship with awareness of Allah, not merely appearing careful before an audience. The lesson therefore concerns sincerity even without public praise.",
+      "explanation": "This is a selected meaning/application task, not Arabic reading or memorisation of the long hadith.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains sincere excellence or awareness of Allah."
+        },
+        {
+          "marks": 1,
+          "description": "Contrasts that with performing only for an audience."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith2"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain selected lessons of An-Nawawi Hadith2 and3 without substituting meaning questions for Arabic reading or memorisation.",
+      "id": "ndv-337-002",
+      "objectiveId": "nerdc-islamic-primary4-337-t2-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Hadith3 describes Islam using the image of five pillars. Explain what “pillars” means in this teaching, and name two of the practices it mentions. Do not describe literal building materials.",
+      "answer": "The pillars are foundational religious commitments or practices. Examples include the declaration of faith, Salat, Zakat, fasting Ramadan and Hajj; any two accurately identified are acceptable.",
+      "explanation": "The image concerns foundations of religious practice rather than columns made from bricks. Full Arabic reading/memory remains separate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the foundational-practice image."
+        },
+        {
+          "marks": 1,
+          "description": "Names one correct pillar."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second different correct pillar."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith3"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Purpose of human creation",
+      "subtopic": "Creation meaning",
+      "learningObjective": "Explain the religious meaning of human creation within the Islamic Studies lesson.",
+      "id": "ndv-337-003",
+      "objectiveId": "nerdc-islamic-primary4-337-t3-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Within this Islamic Studies lesson, explain the statement that Allah created human beings. Is it a statement that a classroom carpenter made the pupils? Keep your answer about the religious meaning.",
+      "answer": "The lesson identifies Allah as the Creator and source of human existence. It is not saying that a carpenter manufactured pupils as classroom objects.",
+      "explanation": "The task checks the religious meaning of creation without inventing a scientific process, age or physical timeline.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Allah as Creator within the Islamic teaching."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that meaning from making a classroom object."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an51:56"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Purpose of human creation",
+      "subtopic": "Creation purpose",
+      "learningObjective": "State worship of Allah as the purpose expressed in Qur’an51:56.",
+      "id": "ndv-337-004",
+      "objectiveId": "nerdc-islamic-primary4-337-t3-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Qur’an51:56 connects the creation of humans with worship. State the purpose expressed in the verse and explain why “only to win other people’s applause” does not express it.",
+      "answer": "The verse expresses worship of Allah as the purpose. Winning applause is a different aim from sincere worship and cannot replace that stated purpose.",
+      "explanation": "The response paraphrases the checked verse without requiring one translation to be recited word for word.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States worship of Allah."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that purpose from seeking applause."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an51:56"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Purpose of human creation",
+      "subtopic": "Daily application",
+      "learningObjective": "Connect the lesson on human purpose with sincere, responsible daily conduct.",
+      "id": "ndv-337-005",
+      "objectiveId": "nerdc-islamic-primary4-337-t3-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says the lesson about serving Allah has no connection with how an entrusted task is done. Explain how completing a suitable task honestly and sincerely can relate to the lesson, even when no reward is offered.",
+      "answer": "In the lesson, awareness of Allah and sincere service can guide daily conduct. Doing the entrusted task honestly shows that the aim is responsible conduct rather than only collecting a reward.",
+      "explanation": "The application links religious purpose to conduct; it is not a declaration that every task or adult instruction is automatically a religious duty.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects sincere religious purpose with honest conduct."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why an immediate reward is not the only reason to act responsibly."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an51:56",
+        "An-Nawawi Forty Hadith2"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Salat",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Salat as the prescribed ritual prayer in Islamic teaching.",
+      "id": "ndv-337-006",
+      "objectiveId": "nerdc-islamic-primary4-337-t4-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain why the term Salat in this lesson does not simply mean any conversation a person happens to have. What kind of worship does it identify?",
+      "answer": "Salat identifies prescribed ritual prayer in Islam, with an established form of worship. It is not the name for every ordinary conversation.",
+      "explanation": "A definition is assessed here; knowing it does not prove the learner can perform the prayer correctly.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies ritual prayer."
+        },
+        {
+          "marks": 1,
+          "description": "Explains prescribed worship rather than ordinary conversation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith3"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Salat",
+      "subtopic": "Types",
+      "learningObjective": "Distinguish the two named content categories of obligatory and supererogatory Salat while retaining the source evaluation-count gap.",
+      "id": "ndv-337-007",
+      "objectiveId": "nerdc-islamic-primary4-337-t4-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The source content names obligatory and supererogatory prayer. Explain the difference between these two broad categories. Does choosing an additional voluntary prayer automatically remove an obligatory duty?",
+      "answer": "Obligatory prayer is required when its conditions apply; supererogatory prayer is additional voluntary worship. Choosing extra worship does not by itself cancel a required duty.",
+      "explanation": "Only the two content categories are used. The source evaluation asks for three types; that unresolved count is not filled with an invented third category.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes required from additional voluntary worship."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that an extra voluntary act does not automatically replace the duty."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "sourceLimitation": "Two named source content categories only. Evaluation asks for three types; intended third category and full local classification remain unresolved."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Salat",
+      "subtopic": "Significance",
+      "learningObjective": "Explain a spiritual or cooperative significance of Salat without claiming demonstrated ritual competence.",
+      "id": "ndv-337-008",
+      "objectiveId": "nerdc-islamic-primary4-337-t4-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class discusses the source’s lesson that prayer can strengthen fellowship. Explain how consideration for other worshippers can support that aim, and why pushing someone aside would conflict with it.",
+      "answer": "Consideration allows people to share the worship space respectfully. Pushing someone aside harms the fellowship and care the lesson seeks to develop.",
+      "explanation": "This connects a social significance with behaviour; no actual collective prayer or ritual demonstration is claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects consideration with respectful shared worship."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the conflict between pushing and fellowship."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Sawm",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Sawm using a checked dawn-to-nightfall interval rather than interpreting whole day as24hours.",
+      "id": "ndv-337-009",
+      "objectiveId": "nerdc-islamic-primary4-337-t5-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learning note says fasting means not eating or drinking for a whole day. Using the dawn-to-nightfall interval in Qur’an2:187, explain why this must not be read as a continuous24-hour ban on eating and drinking.",
+      "answer": "The daily fasting interval described runs from dawn until nightfall; it does not run through the entire following night as an uninterrupted24-hour ban. This is a text-meaning question, not a direction to begin a fast.",
+      "explanation": "The model clarifies the source’s ambiguous whole-day wording with the checked verse. It gives no personal eligibility or health ruling.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies dawn as the start and nightfall as the end."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects a continuous24-hour interpretation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an2:187"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model.",
+      "sourceLimitation": "No real fasting assignment, eligibility judgment or universal health-benefit claim."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Sawm",
+      "subtopic": "Types",
+      "learningObjective": "Distinguish obligatory Ramadan fasting from additional voluntary fasting as broad source categories.",
+      "id": "ndv-337-010",
+      "objectiveId": "nerdc-islamic-primary4-337-t5-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In this lesson, Ramadan fasting is placed under obligatory fasting and an additional voluntary fast under supererogatory fasting. Explain what the labels tell you about the two examples, without claiming that every person has the same eligibility.",
+      "answer": "The first label describes a religious duty when the relevant conditions apply; the second describes additional voluntary worship. The labels do not by themselves decide an individual person’s eligibility or circumstances.",
+      "explanation": "This is a narrow category contrast. It does not teach detailed exemption or expiation rules, or require a pupil to fast.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains obligatory versus additional voluntary."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises that the labels alone do not decide individual eligibility."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith3"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Sawm",
+      "subtopic": "Significance",
+      "learningObjective": "Explain mindfulness and self-discipline as religious purposes of Sawm without asserting universal health benefits.",
+      "id": "ndv-337-011",
+      "objectiveId": "nerdc-islamic-primary4-337-t5-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Qur’an2:183 links fasting with mindfulness of Allah. Explain that aim and give an example of self-discipline that fits the lesson without making a claim that fasting cures every illness.",
+      "answer": "The aim concerns awareness of Allah and disciplined conduct. An example is choosing patient, considerate words rather than speaking impulsively. This does not establish a cure for every illness.",
+      "explanation": "Only a religious/character significance is assessed. The curriculum’s broad health-promotion wording is not treated as a universal medical conclusion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains mindfulness of Allah or disciplined conduct."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant example without turning it into a universal health claim."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an2:183"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Zakat",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain obligatory Zakat as a form of giving with conditions and eligible recipients.",
+      "id": "ndv-337-012",
+      "objectiveId": "nerdc-islamic-primary4-337-t6-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why is it incomplete to define Zakat only as “any present given to a friend”? Explain the duty and recipient features that such a definition leaves out.",
+      "answer": "Zakat is an obligatory form of giving when its conditions apply, directed to eligible recipients. An ordinary present is not automatically Zakat just because it is a gift.",
+      "explanation": "The question concerns meaning, not a personal calculation or a decision about any real household’s wealth.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the obligatory/conditional character."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies eligible recipients rather than any gift recipient."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith3",
+        "Qur’an9:60"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Zakat",
+      "subtopic": "Significance",
+      "learningObjective": "Explain a social benefit of Zakat without reducing recipients to publicity for the giver.",
+      "id": "ndv-337-013",
+      "objectiveId": "nerdc-islamic-primary4-337-t6-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A poster about Zakat shows the donor’s name in large letters but says nothing about the people the giving is intended to support. Explain one social purpose the poster has overlooked.",
+      "answer": "The lesson includes support for eligible people in need and the sharing of wealth, not only attention for the giver. A better explanation would describe the intended support and dignity of recipients.",
+      "explanation": "The primary4 response is a focused critique of a fictional poster, not a copy of the earlier senior-secondary multi-purpose essay.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a recipient-focused social purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why donor publicity alone does not describe that purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an9:60"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Zakat",
+      "subtopic": "Zakat and sadaqah",
+      "learningObjective": "Distinguish obligatory Zakat from a voluntary sadaqah gift in a stated comparison without claiming sadaqah can never denote obligatory charity.",
+      "id": "ndv-337-014",
+      "objectiveId": "nerdc-islamic-primary4-337-t6-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional record contains two entries: “obligatory Zakat due under its rules” and “an extra voluntary sadaqah gift.” Explain why relabelling the extra gift does not by itself prove the obligatory entry has been settled.",
+      "answer": "The two entries have different stated roles. An additional voluntary gift is not automatically fulfilment of an obligatory duty merely because someone changes its label; the relevant requirements would need checking. This comparison uses voluntary sadaqah specifically, not a claim that the word sadaqah can never refer to obligatory charity.",
+      "explanation": "The broad term sadaqah also occurs with obligatory charity in primary texts. Source Zakat-al-Fitr classification is kept unresolved rather than flattened into an always-voluntary rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes the stated required entry from the additional voluntary gift."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a label alone does not establish fulfilment."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "An-Nawawi Forty Hadith3",
+        "Sahih al-Bukhari1503"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model.",
+      "sourceLimitation": "Limited comparison of obligatory Zakat and voluntary sadaqah; not a universal definition of every occurrence of sadaqah or a ruling on a real payment."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Hajj",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Hajj as pilgrimage worship in its appointed period rather than ordinary sightseeing.",
+      "id": "ndv-337-015",
+      "objectiveId": "nerdc-islamic-primary4-337-t7-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A tourist visits shops in Makkah, while a pilgrim intends to carry out Hajj worship in its appointed period. Why does being in the same city not make the two descriptions identical?",
+      "answer": "Hajj is pilgrimage worship involving prescribed rites and an appointed period, not simply any visit to shops in the city. Location alone does not establish that Hajj has been performed.",
+      "explanation": "The definition is educational; no travel, current permit, package, timetable or actual pilgrimage is arranged or claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Hajj as pilgrimage worship with rites."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why merely being in Makkah is insufficient."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an2:197",
+        "Nusuk Hajj journey overview"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Hajj",
+      "subtopic": "Significance",
+      "learningObjective": "Explain worship and fellowship as significances of Hajj without requiring real travel.",
+      "id": "ndv-337-016",
+      "objectiveId": "nerdc-islamic-primary4-337-t7-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The source connects Hajj with fellowship among people from different countries. Explain how patient cooperation can support that meaning, and why nationality should not be used as a reason to mock another worshipper.",
+      "answer": "Patient cooperation helps people share worship respectfully despite differences of language or origin. Mocking nationality undermines the fellowship and tolerance described in the lesson.",
+      "explanation": "The task applies a source significance, not a claim that a classroom simulation or tourist journey is actual Hajj.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects cooperation with shared worship or fellowship."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why mocking nationality conflicts with that aim."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue meaning",
+      "learningObjective": "Explain moral virtue as good conduct or character within Islamic teaching.",
+      "id": "ndv-337-017",
+      "objectiveId": "nerdc-islamic-primary4-337-t9-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil defines moral virtue as “a good quality shown in how a person behaves.” Explain the definition using truthfulness, including what someone can say when they do not know an answer.",
+      "answer": "Truthfulness is a good quality expressed by giving honest information. A person can say they do not know or need to check instead of inventing an answer to appear knowledgeable.",
+      "explanation": "This assesses honest handling of uncertainty as conduct, rather than treating confidence or appearance as proof of virtue.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains truthfulness as a quality expressed in conduct."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an honest response to uncertainty."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue identification",
+      "learningObjective": "Identify trustworthiness and respectful conduct in original everyday situations.",
+      "id": "ndv-337-018",
+      "objectiveId": "nerdc-islamic-primary4-337-t9-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Amina is asked to deliver a message exactly. She thinks a different message would make her sound more important. Which virtue should guide her, and what should she do if she thinks the original wording needs checking?",
+      "answer": "Trustworthiness should guide her. She should preserve the message or ask the sender to clarify it, rather than secretly changing it to gain importance.",
+      "explanation": "The situation tests faithful communication and clarification, not simply a memorised list of virtue names.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies trustworthiness or honesty."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests faithful delivery or checking with the sender instead of secret alteration."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue identification",
+      "learningObjective": "Identify trustworthiness and respectful conduct in original everyday situations.",
+      "id": "ndv-337-019",
+      "objectiveId": "nerdc-islamic-primary4-337-t9-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An older person corrects a pupil’s factual mistake. Describe a response that combines respect with careful thinking, rather than either insulting the person or agreeing with something the pupil has not understood.",
+      "answer": "The pupil can listen politely, ask a relevant question and check the correction. Respectful listening does not require pretending to understand or using insults when clarification is needed.",
+      "explanation": "The response recognises respectful inquiry and avoids equating every adult statement with unquestionable truth.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes polite listening or questioning."
+        },
+        {
+          "marks": 1,
+          "description": "Includes checking/understanding rather than insult or empty agreement."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue demonstration",
+      "learningObjective": "Demonstrate honesty and responsibility in an observed fictional classroom role.",
+      "id": "ndv-337-020",
+      "objectiveId": "nerdc-islamic-primary4-337-t9-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a teacher-observed role-play, return a borrowed ruler after noticing a crack. Tell the lender what you noticed, ask about an appropriate next step and respond respectfully. Use the classroom prop supplied; do not pretend that a written plan is the performed role.",
+      "answer": "There is no single required script. Actual performance should disclose the noticed crack without inventing who caused it, ask what should be done and respond respectfully. The prop situation is fictional and is not evidence of real damage or a real debt.",
+      "explanation": "The source asks for demonstration. Honest uncertainty about the cause matters: the learner should not falsely confess or falsely blame someone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually discloses the noticed condition in the performed role without inventing its cause."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a suitable next-step question."
+        },
+        {
+          "marks": 1,
+          "description": "Responds respectfully in the observed interaction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "requiresObservedPracticalEvidence": true,
+      "deliveryProtocolPath": "stimuli/batch-337/conduct-role-protocol.json",
+      "deliveryNote": "Require an actual supervised role with a teacher-provided prop and agreed access route. Do not create real damage, collect payment or infer a child’s personal faith. No role-play or learner evidence occurred during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral vices",
+      "subtopic": "Vice meaning",
+      "learningObjective": "Explain a moral vice while distinguishing it from respectful disagreement or a genuine question.",
+      "id": "ndv-337-021",
+      "objectiveId": "nerdc-islamic-primary4-337-t10-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says any disagreement is a moral vice. Explain why a polite question about an uncertain fact is different from arrogantly refusing to listen to anyone.",
+      "answer": "A respectful question can seek understanding. Arrogantly rejecting others without listening is a harmful attitude. Disagreement alone does not prove a vice; the conduct and reasons matter.",
+      "explanation": "The task distinguishes inquiry from arrogance rather than treating a pupil’s question as wrongdoing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Recognises respectful inquiry as different from a vice."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the harmful refusal to listen in arrogance."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral vices",
+      "subtopic": "Vice identification",
+      "learningObjective": "Identify envy, harmful rumour or dishonesty in stated situations.",
+      "id": "ndv-337-022",
+      "objectiveId": "nerdc-islamic-primary4-337-t10-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After a friend wins a handwriting prize, Musa wants to improve his own work. Another pupil wants the friend to lose the prize simply because the friend has it. Distinguish the two responses using the lesson on envy.",
+      "answer": "Wanting to learn and improve one’s work is constructive. Wanting a friend deprived of a good thing merely out of resentment shows envy.",
+      "explanation": "The distinction concerns the direction of the desire, not a rule that every wish to improve is envy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies constructive self-improvement."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the resentful wish for the other’s loss as envy."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral vices",
+      "subtopic": "Vice identification",
+      "learningObjective": "Identify envy, harmful rumour or dishonesty in stated situations.",
+      "id": "ndv-337-023",
+      "objectiveId": "nerdc-islamic-primary4-337-t10-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An unsigned note claims that a classmate has stolen supplies. A pupil wants to repeat the claim as a proven fact. Identify the problem and give a responsible next step without circulating the accusation.",
+      "answer": "Treating an unverified accusation as fact can spread falsehood and harm a person’s reputation. The pupil should avoid spreading it and, if there is a genuine concern, give the information privately to a responsible teacher for checking.",
+      "explanation": "The lesson about harmful speech does not require hiding a genuine concern; checking through an appropriate adult differs from gossip.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies unverified harmful accusation or dishonest reporting."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests not spreading it and appropriate private checking."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established.",
+      "contentSourceId": "islamic-primary-text-reference-337",
+      "religiousReferences": [
+        "Qur’an49:12"
+      ],
+      "contentProvenance": "Original wording and scenarios informed by selected checked primary religious text; no copied examination item, required translation wording or full Arabic recitation model."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral vices",
+      "subtopic": "Vice consequences",
+      "learningObjective": "Explain how moral vices can harm trust, learning or cooperation.",
+      "id": "ndv-337-024",
+      "objectiveId": "nerdc-islamic-primary4-337-t10-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A group records observations for a seed-growing project. One member invents results to make the project look successful. Explain one effect on the group’s conclusions and one effect on trust.",
+      "answer": "Invented results can lead the group to a false conclusion about the seeds. When the invention is discovered, members may no longer trust that person’s reports.",
+      "explanation": "This applies consequences of dishonesty to evidence and cooperation, not an arithmetic exercise or a claim that a real experiment occurred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains an effect on the accuracy of conclusions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct effect on trust."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Moral vices",
+      "subtopic": "Vice consequences",
+      "learningObjective": "Explain how moral vices can harm trust, learning or cooperation.",
+      "id": "ndv-337-025",
+      "objectiveId": "nerdc-islamic-primary4-337-t10-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil refuses to check a spelling correction because “I can never be wrong.” Explain how this attitude could harm learning and cooperation even before an argument begins.",
+      "answer": "Refusing to check can leave the mistake uncorrected and block learning. Others may find it difficult to work with someone who dismisses every contribution.",
+      "explanation": "The task examines consequences of arrogance rather than merely naming it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a learning consequence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a cooperation consequence."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility qualities",
+      "learningObjective": "Describe accountability and self-discipline as habits that prepare learners for responsible adulthood.",
+      "id": "ndv-337-026",
+      "objectiveId": "nerdc-islamic-primary4-337-t11-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional class-library task, Sadiq is responsible for a shelf but blames the weather whenever books are misplaced. Describe accountability in this situation and one useful action he could take.",
+      "answer": "Accountability means giving an honest account of the task and one’s part in it. Sadiq can check the shelf record, explain what is known and help correct the arrangement rather than use an unrelated excuse.",
+      "explanation": "The question describes a suitable child-level habit that prepares for responsibility; it does not assign adult employment or financial liability.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains honest responsibility for one’s part."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a relevant checking or corrective action."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility qualities",
+      "learningObjective": "Describe accountability and self-discipline as habits that prepare learners for responsible adulthood.",
+      "id": "ndv-337-027",
+      "objectiveId": "nerdc-islamic-primary4-337-t11-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner plans to label the group’s seed pots before a game, but keeps starting the game and forgetting the labels. Describe a self-discipline plan with an order of actions and a way to check completion.",
+      "answer": "The learner can label the pots first, compare them with the agreed list, then join the game after checking the task. A simple checklist or partner check can confirm completion.",
+      "explanation": "Self-discipline is expressed through a workable plan and follow-through, not merely the statement “I will try harder.”",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an order that completes the agreed task before the distraction."
+        },
+        {
+          "marks": 1,
+          "description": "Includes a concrete completion check."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility benefits",
+      "learningObjective": "Explain practical benefits of responsibility and accountability in shared tasks.",
+      "id": "ndv-337-028",
+      "objectiveId": "nerdc-islamic-primary4-337-t11-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why can a clear record of who has completed a shared task help a group, provided it records facts fairly rather than shaming people? Give two distinct benefits.",
+      "answer": "It can prevent duplicated or missed work and help the group decide where support is needed. It can also make progress clear without relying on rumours or blame; any two distinct relevant benefits are acceptable.",
+      "explanation": "The benefits come from fair accountability and reliable information, not public humiliation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one concrete benefit of a fair record."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct benefit."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility benefits",
+      "learningObjective": "Explain practical benefits of responsibility and accountability in shared tasks.",
+      "id": "ndv-337-029",
+      "objectiveId": "nerdc-islamic-primary4-337-t11-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A reliable pupil is asked to help with a task but knows they cannot finish it by the agreed time. Explain why saying this early can be more responsible than making a promise they cannot keep.",
+      "answer": "Early honesty lets the group adjust the work or find help. An impossible promise may leave others unprepared when the task is not done. Responsible limits can protect trust.",
+      "explanation": "The question tests realistic commitment and communication, not the idea that responsibility requires accepting every request.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how early communication helps planning or support."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why realistic commitments protect trust better than an impossible promise."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original Primary4 Islamic Studies practice; independent subject, Arabic/translation, school tradition, class suitability and rubric review pending. Accept equivalent relevant wording. Written knowledge is not evidence of actual prayer, fasting, pilgrimage, recitation or a child’s personal faith. No school/cohort adoption or official term placement established."
+    }
+  ]
+}

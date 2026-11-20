@@ -5,11 +5,11 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5975,
-    "validDrafts": 4296,
+    "raw": 6004,
+    "validDrafts": 4325,
     "reviewed": 0,
-    "registeredBanks": 204,
-    "target": 186000,
+    "registeredBanks": 205,
+    "target": 187000,
     "identicalPromptGroups": 401,
     "numericTemplateGroups": 150,
     "nearDuplicatePairs": 685
@@ -2144,6 +2144,12 @@
       "sha256": "445bc468cc0248ee07826118e79f40a12a9abb962b5d4f31c0c68a1082def947",
       "declared": 23,
       "actual": 23
+    },
+    {
+      "path": "original-multisubject-batch-337.json",
+      "sha256": "4f185da4b6556a63eb004ace11e0957f7fe299c4b3977c05c6bec32fad1ef017",
+      "declared": 29,
+      "actual": 29
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6379,6 +6385,33 @@
     },
     {
       "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "applicability": "Muslim-pupil Islamic Studies route in official Primary4–6 offering; school/cohort adoption and term placement unverified. Not compulsory dual CRS/IS enrolment.",
+      "applicabilityReferences": [
+        "nerdc-primary-route-offering-reference-335"
+      ],
+      "raw": 29,
+      "validDrafts": 29,
+      "reviewed": 0,
+      "questionTypes": {
+        "structured": 29
+      },
+      "difficulty": {
+        "standard": 29
+      },
+      "remaining": 971,
+      "mappedObjectives": 23,
+      "representedObjectives": 23,
+      "coverage": "partial_objective_register",
+      "completionStatus": "in_progress"
+    },
+    {
+      "exam": "NERDC",
       "subject": "Literacy",
       "level": "Nursery",
       "target": 1000,
@@ -8127,9 +8160,9 @@
     }
   ],
   "errorCounts": {
-    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
+    "objective_mapping_missing": 1679,
     "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
@@ -48494,6 +48527,180 @@
       "id": "ndv-336-023",
       "file": "original-multisubject-batch-336.json",
       "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-001",
+      "file": "original-multisubject-batch-337.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-002",
+      "file": "original-multisubject-batch-337.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-003",
+      "file": "original-multisubject-batch-337.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-004",
+      "file": "original-multisubject-batch-337.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-005",
+      "file": "original-multisubject-batch-337.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-006",
+      "file": "original-multisubject-batch-337.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-007",
+      "file": "original-multisubject-batch-337.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-008",
+      "file": "original-multisubject-batch-337.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-009",
+      "file": "original-multisubject-batch-337.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-010",
+      "file": "original-multisubject-batch-337.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-011",
+      "file": "original-multisubject-batch-337.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-012",
+      "file": "original-multisubject-batch-337.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-013",
+      "file": "original-multisubject-batch-337.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-014",
+      "file": "original-multisubject-batch-337.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-015",
+      "file": "original-multisubject-batch-337.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-016",
+      "file": "original-multisubject-batch-337.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-017",
+      "file": "original-multisubject-batch-337.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-018",
+      "file": "original-multisubject-batch-337.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-019",
+      "file": "original-multisubject-batch-337.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-020",
+      "file": "original-multisubject-batch-337.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-021",
+      "file": "original-multisubject-batch-337.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-022",
+      "file": "original-multisubject-batch-337.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-023",
+      "file": "original-multisubject-batch-337.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-024",
+      "file": "original-multisubject-batch-337.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-025",
+      "file": "original-multisubject-batch-337.json",
+      "index": 24,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-026",
+      "file": "original-multisubject-batch-337.json",
+      "index": 25,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-027",
+      "file": "original-multisubject-batch-337.json",
+      "index": 26,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-028",
+      "file": "original-multisubject-batch-337.json",
+      "index": 27,
+      "errors": []
+    },
+    {
+      "id": "ndv-337-029",
+      "file": "original-multisubject-batch-337.json",
+      "index": 28,
       "errors": []
     },
     {
@@ -121457,6 +121664,696 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t2-po2-v1",
+      "topic": "Hadith Nos.2 and3 of An-Nawawi’s Collection",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain selected lessons of An-Nawawi Hadith2 and3 without substituting meaning questions for Arabic reading or memorisation.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t3-po1-v1",
+      "topic": "Purpose of human creation",
+      "subtopic": "Creation meaning",
+      "learningObjective": "Explain the religious meaning of human creation within the Islamic Studies lesson.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t3-po2-v1",
+      "topic": "Purpose of human creation",
+      "subtopic": "Creation purpose",
+      "learningObjective": "State worship of Allah as the purpose expressed in Qur’an51:56.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t3-po3-v1",
+      "topic": "Purpose of human creation",
+      "subtopic": "Daily application",
+      "learningObjective": "Connect the lesson on human purpose with sincere, responsible daily conduct.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t4-po1-v1",
+      "topic": "Salat",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Salat as the prescribed ritual prayer in Islamic teaching.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t4-po2-v1",
+      "topic": "Salat",
+      "subtopic": "Types",
+      "learningObjective": "Distinguish the two named content categories of obligatory and supererogatory Salat while retaining the source evaluation-count gap.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t4-po3-v1",
+      "topic": "Salat",
+      "subtopic": "Significance",
+      "learningObjective": "Explain a spiritual or cooperative significance of Salat without claiming demonstrated ritual competence.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t5-po1-v1",
+      "topic": "Sawm",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Sawm using a checked dawn-to-nightfall interval rather than interpreting whole day as24hours.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t5-po2-v1",
+      "topic": "Sawm",
+      "subtopic": "Types",
+      "learningObjective": "Distinguish obligatory Ramadan fasting from additional voluntary fasting as broad source categories.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t5-po3-v1",
+      "topic": "Sawm",
+      "subtopic": "Significance",
+      "learningObjective": "Explain mindfulness and self-discipline as religious purposes of Sawm without asserting universal health benefits.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t6-po1-v1",
+      "topic": "Zakat",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain obligatory Zakat as a form of giving with conditions and eligible recipients.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t6-po3-v1",
+      "topic": "Zakat",
+      "subtopic": "Significance",
+      "learningObjective": "Explain a social benefit of Zakat without reducing recipients to publicity for the giver.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t6-po4-v1",
+      "topic": "Zakat",
+      "subtopic": "Zakat and sadaqah",
+      "learningObjective": "Distinguish obligatory Zakat from a voluntary sadaqah gift in a stated comparison without claiming sadaqah can never denote obligatory charity.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, Performance Objective 4; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t7-po1-v1",
+      "topic": "Hajj",
+      "subtopic": "Meaning",
+      "learningObjective": "Explain Hajj as pilgrimage worship in its appointed period rather than ordinary sightseeing.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.7 / PDF p.20, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t7-po3-v1",
+      "topic": "Hajj",
+      "subtopic": "Significance",
+      "learningObjective": "Explain worship and fellowship as significances of Hajj without requiring real travel.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.7 / PDF p.20, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t9-po1-v1",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue meaning",
+      "learningObjective": "Explain moral virtue as good conduct or character within Islamic teaching.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t9-po2-v1",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue identification",
+      "learningObjective": "Identify trustworthiness and respectful conduct in original everyday situations.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t9-po3-v1",
+      "topic": "Moral virtues in Islam",
+      "subtopic": "Virtue demonstration",
+      "learningObjective": "Demonstrate honesty and responsibility in an observed fictional classroom role.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t10-po1-v1",
+      "topic": "Moral vices",
+      "subtopic": "Vice meaning",
+      "learningObjective": "Explain a moral vice while distinguishing it from respectful disagreement or a genuine question.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t10-po2-v1",
+      "topic": "Moral vices",
+      "subtopic": "Vice identification",
+      "learningObjective": "Identify envy, harmful rumour or dishonesty in stated situations.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t10-po3-v1",
+      "topic": "Moral vices",
+      "subtopic": "Vice consequences",
+      "learningObjective": "Explain how moral vices can harm trust, learning or cooperation.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, Performance Objective 3; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t11-po1-v1",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility qualities",
+      "learningObjective": "Describe accountability and self-discipline as habits that prepare learners for responsible adulthood.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Performance Objective 1; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "id": "nerdc-islamic-primary4-337-t11-po2-v1",
+      "topic": "Virtues for responsible adulthood",
+      "subtopic": "Responsibility benefits",
+      "learningObjective": "Explain practical benefits of responsibility and accountability in shared tasks.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.11 / PDF p.24, Performance Objective 2; rendered content/activities. Limited author mapping; source gaps in reconciliation337."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -121566,6 +122463,7 @@
     "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model.",
     "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.",
     "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.",
-    "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed."
+    "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.",
+    "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open."
   ]
 }
