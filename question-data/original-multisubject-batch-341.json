@@ -1,0 +1,1148 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary4 government, party and peer-influence comparisons — batch341",
+  "questionCount": 25,
+  "note": "25 original drafts:22 written,2 actual spoken tasks and1 observed fictional peer-role task. Ten new partial author mappings; selected foreign concepts are not Nigerian legal rules or adoption. No learner performance occurred; protocols unfilled. See reconciliation341.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Types of Government",
+      "subtopic": "Selected government-type concepts",
+      "learningObjective": "Explain selected government-type terms while distinguishing a title from evidence about actual governing power.",
+      "id": "ndv-341-001",
+      "objectiveId": "nerdc-scs-primary4-341-p25-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional country, a small privileged circle controls all final public decisions and prevents the wider population from sharing that power. Explain why the lesson’s term “oligarchy” fits better than simply calling this an ordinary small working committee.",
+      "answer": "Oligarchy concerns governing power concentrated in a few privileged people. An ordinary working committee can have a limited delegated task; being small alone does not show that it controls the country.",
+      "explanation": "The fictional description supplies the controlling power; no actual government is classified or judged.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects oligarchy to concentrated governing power among a privileged few."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that power from the mere size of a limited-task committee."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Types of Government",
+      "subtopic": "Selected government-type concepts",
+      "learningObjective": "Explain selected government-type terms while distinguishing a title from evidence about actual governing power.",
+      "id": "ndv-341-002",
+      "objectiveId": "nerdc-scs-primary4-341-p25-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class index lists Oba, Emir and Obi under “traditional leadership titles”. What broad idea do these titles illustrate in this lesson, and why should a learner ask about the particular place and role before claiming that any holder has a specific legal power?",
+      "answer": "They illustrate leadership associated with community traditions. The title alone does not establish every holder’s functions or legal powers; these need to be checked for the particular place and role.",
+      "explanation": "The source supplies title examples. Their holders, jurisdiction, selection, powers and status are not treated as identical or universally outside constitutional arrangements.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies leadership associated with community traditions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a title alone does not establish a specific power."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Types of Government",
+      "subtopic": "Comparing bases of authority",
+      "learningObjective": "Compare selected features of governmental arrangements without assuming that monarchy, tradition and constitutional limits are mutually exclusive.",
+      "id": "ndv-341-003",
+      "objectiveId": "nerdc-scs-primary4-341-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional fact card says: “A king is Head of State. An elected parliament makes laws under constitutional rules.” A pupil files the card only under monarchy and crosses out constitutional government. Correct the filing, and identify one claim about the king’s tenure that the card does not establish.",
+      "answer": "Both labels can fit different features: monarchy describes the king as Head of State, while constitutional rules describe how authority is organised or limited. The card does not establish, for example, that the king must remain in office until death or can never leave it.",
+      "explanation": "The task assesses multiple classification axes and a limit of supplied evidence, not the earlier bank’s single coexistence MCQ. Source no-end-to-tenure wording is not adopted as a universal rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects monarchy to the stated Head of State."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why constitutional rules can also apply."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a tenure claim not established by the card."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "royal-monarchy-concept-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Types of Government",
+      "subtopic": "Comparing bases of authority",
+      "learningObjective": "Compare selected features of governmental arrangements without assuming that monarchy, tradition and constitutional limits are mutually exclusive.",
+      "id": "ndv-341-004",
+      "objectiveId": "nerdc-scs-primary4-341-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional role cards describe how authority is recognised. One refers to a community’s customary selection of a traditional leader; the other refers to offices and powers defined by constitutional rules. Explain the different emphasis of the cards without claiming that tradition and constitutional law can never operate together.",
+      "answer": "The first emphasises customary selection or recognition. The second emphasises rules defining public offices and powers. These are different descriptions of authority and need not be mutually exclusive in every arrangement.",
+      "explanation": "The supplied cases are illustrative. No specific Nigerian traditional institution’s legal status is decided.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies custom/recognition as the first emphasis."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies constitutionally defined offices/powers as the second."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids treating the two descriptions as necessarily incompatible."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "royal-monarchy-concept-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Types of Government",
+      "subtopic": "Comparing bases of authority",
+      "learningObjective": "Compare selected features of governmental arrangements without assuming that monarchy, tradition and constitutional limits are mutually exclusive.",
+      "id": "ndv-341-005",
+      "objectiveId": "nerdc-scs-primary4-341-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give an actual spoken explanation to an examiner comparing these supplied ideas: monarchy identifies a king or queen as Head of State; oligarchy concerns governing control by a privileged few. Explain why asking “Who has the title?” can be different from asking “Who actually controls decisions?” A written script alone is not the response.",
+      "answer": "A possible heard explanation distinguishes the Head-of-State title from the distribution of decision-making power and explains why title alone is not enough to identify who controls all decisions. Other accurate phrasing is acceptable.",
+      "explanation": "This is an individual oral comparison, not a claim about any country or a completed learner performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Audibly explains the Head-of-State idea."
+        },
+        {
+          "marks": 1,
+          "description": "Audibly explains governing control by a privileged few."
+        },
+        {
+          "marks": 1,
+          "description": "Clearly contrasts title with control using the supplied ideas."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "royal-monarchy-concept-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "nerdc-scs-primary4-revised-2025"
+      ],
+      "requiresRecordingOrLiveExaminer": true,
+      "evidenceProtocol": "stimuli/batch-341/oral-protocol.json",
+      "deliveryNote": "Requires actual individual speech heard by a live examiner or consented recording. A written script alone earns no oral-performance credit. Protocol is unfilled; no learner speech/audio occurred during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system meaning and evidence",
+      "learningObjective": "Explain a party system as a pattern of party competition and relationships, distinguishing it from one party’s name or policies.",
+      "id": "ndv-341-006",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A report describes how several political parties compete for support and cooperate or oppose one another. A separate leaflet describes the policies of just one party. Explain which document is more directly about a party system and why.",
+      "answer": "The report is about a party system because it describes a pattern of relationships and competition among parties. A single party’s policy leaflet describes that organisation’s ideas, rather than the whole pattern.",
+      "explanation": "This is a conceptual comparison using fictional documents, not a current-country classification.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the report’s inter-party pattern."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that pattern from one party’s policies."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "ndi-party-concept-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system meaning and evidence",
+      "learningObjective": "Explain a party system as a pattern of party competition and relationships, distinguishing it from one party’s name or policies.",
+      "id": "ndv-341-007",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner knows the name and colour of one fictional political party and claims to know the country’s party system. Identify two further kinds of information that would be useful before making such a claim.",
+      "answer": "It would help to know which other parties can compete and how support or effective competition is distributed among them. A name and colour alone do not show these relationships.",
+      "explanation": "Accept other relevant information about inter-party relationships. Neither a logo nor a raw party count alone settles every typology.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies information about other parties’ ability to compete."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies information about support, dominance or effective competition."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "ndi-party-concept-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system comparisons",
+      "learningObjective": "Compare selected one-party, two-party and multiparty patterns, distinguishing legal permission, electoral dominance and coalition cooperation.",
+      "id": "ndv-341-008",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare these fictional cases: in one, rules permit only one party to contest for governing power; in the other, several parties may compete but the same party has won repeatedly. Why does repeated victory alone not prove that both cases have the same restriction?",
+      "answer": "The first explicitly restricts competition to one party. The second states an electoral outcome, not a ban on other parties. Repeated wins do not by themselves prove that rivals are forbidden to compete.",
+      "explanation": "A narrow one-party restriction example is used; no real country label or all one-party/dominant-party variants are claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the explicit restriction in the first case."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes repeated victory from evidence of a ban."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "ndi-party-concept-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "peo-party-concepts-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system comparisons",
+      "learningObjective": "Compare selected one-party, two-party and multiparty patterns, distinguishing legal permission, electoral dominance and coalition cooperation.",
+      "id": "ndv-341-009",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional system, two major parties usually dominate elections, but smaller parties also contest seats. A pupil says the smaller parties must be breaking the meaning of “two-party system”. Explain the mistake.",
+      "answer": "The term can describe dominance by two major parties rather than a rule allowing exactly two parties to exist. Smaller parties can therefore compete without contradicting that description.",
+      "explanation": "PEO explicitly distinguishes dominance from a strict two-party count and qualifies its own Australian example; no Australian or Nigerian seat totals are assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains dominance rather than an exact legal limit."
+        },
+        {
+          "marks": 1,
+          "description": "Applies that distinction to the smaller parties in the case."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system comparisons",
+      "learningObjective": "Compare selected one-party, two-party and multiparty patterns, distinguishing legal permission, electoral dominance and coalition cooperation.",
+      "id": "ndv-341-010",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional country has several parties with a realistic chance to gain governing power, either separately or by cooperating. Why can this fit a multiparty pattern, and why does the description not guarantee that every government must be a coalition?",
+      "answer": "More than two parties can compete effectively for governing power. They may cooperate, but a party could also obtain enough support on its own; the description gives possibilities rather than an inevitable coalition.",
+      "explanation": "This narrow fictional pattern does not promise stability or instability, prescribe a majority rule for Nigeria or adopt the handout’s historical country examples.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains effective competition involving several parties."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes possible cooperation from an unavoidable coalition."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "ndi-party-concept-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "peo-party-concepts-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Party Systems",
+      "subtopic": "Party-system comparisons",
+      "learningObjective": "Compare selected one-party, two-party and multiparty patterns, distinguishing legal permission, electoral dominance and coalition cooperation.",
+      "id": "ndv-341-011",
+      "objectiveId": "nerdc-scs-primary4-341-p28-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional parties cooperate to form a governing coalition but keep separate names, policies and meetings. Someone calls the coalition a new one-party system merely because there is one government. Explain why that conclusion does not follow.",
+      "answer": "One government can be supported by more than one party. Cooperating in a coalition does not by itself merge the parties or ban other parties from competing.",
+      "explanation": "PEO’s coalition-identity explanation supports the conceptual point; no full country-specific government-formation rule is applied.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes the number of governments from the number of cooperating parties."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that coalition cooperation does not itself erase separate party identities or establish a ban."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Organisational purposes and overlap",
+      "learningObjective": "Distinguish party and pressure-group purposes when membership or campaign methods overlap, without inferring legal registration from a fictional description.",
+      "id": "ndv-341-012",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional political party and a fictional pressure group both publish posters about the same public issue. A pupil says the shared method proves they are the same kind of organisation. Explain why the method is insufficient and what purpose should also be checked.",
+      "answer": "Posters are a method that different organisations can use. Check whether the organisation seeks representatives in government through elections, chiefly seeks to influence decisions on an issue, or has a more complex combination of activities.",
+      "explanation": "This tests an evidence boundary and overlapping methods, rather than repeating the earlier bank’s direct party-versus-group definition question.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that a shared method does not establish organisational identity."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the need to check purposes beyond the method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "uk-parliament-party-group-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "peo-party-concepts-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Organisational purposes and overlap",
+      "learningObjective": "Distinguish party and pressure-group purposes when membership or campaign methods overlap, without inferring legal registration from a fictional description.",
+      "id": "ndv-341-013",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a supplied fictional example, one adult belongs to a political party and also to a professional pressure group. Explain why the person’s two memberships do not make the two organisations identical.",
+      "answer": "An individual can support different organisations for different purposes. The party’s electoral role and the professional group’s issue-related influence can remain distinct even when membership overlaps.",
+      "explanation": "UK Parliament describes pressure groups with party affiliations. No learner’s own membership or political preference is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes a person’s memberships from organisational identity."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how purposes can remain different despite overlap."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "uk-parliament-party-group-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "peo-party-concepts-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Organisational purposes and overlap",
+      "learningObjective": "Distinguish party and pressure-group purposes when membership or campaign methods overlap, without inferring legal registration from a fictional description.",
+      "id": "ndv-341-014",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional issue campaign starts discussing whether to nominate candidates for public office. What new organisational aim should a learner investigate, and why is the discussion alone not proof that it is a legally registered political party?",
+      "answer": "The learner should investigate whether seeking elected office is becoming an aim in addition to influencing an issue. Talking about candidates does not establish that any legal registration requirements have been completed.",
+      "explanation": "This is conceptual source evaluation, not an assessment of actual registration law or the status of a real group.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies seeking elected office as the new aim to investigate."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes a stated discussion/aim from evidence of legal registration."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "uk-parliament-party-group-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected party and group functions",
+      "learningObjective": "Explain selected policy-development, scrutiny and information functions of political parties and pressure groups using supplied fictional cases.",
+      "id": "ndv-341-015",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Members of a fictional party collect different suggestions, debate them and agree a policy proposal to present to voters. Explain the function shown and how agreeing a proposal differs from proving that every voter supports it.",
+      "answer": "The party is developing and organising policy choices. Agreement within the party establishes its proposal, not the views of every voter, who may compare it with alternatives.",
+      "explanation": "This adds a policy-making and inference task rather than another generic election-definition item. No proposal is supplied for pupils to advocate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains policy development/organisation of choices."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes internal agreement from universal voter support."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "peo-party-concepts-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "supplementarySourceIds": [
+        "uk-parliament-party-group-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected party and group functions",
+      "learningObjective": "Explain selected policy-development, scrutiny and information functions of political parties and pressure groups using supplied fictional cases.",
+      "id": "ndv-341-016",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional professional pressure group supplies an inquiry with clear information about the issue it studies. Explain the function of supplying that information and why this does not mean the group can make the government’s final decision.",
+      "answer": "It contributes relevant knowledge or evidence that may inform public decision-making. Providing information is an influence or advisory function, not by itself authority to make the final public decision.",
+      "explanation": "This focuses on an advisory function and decision authority, without copying the earlier environmental campaign’s methods/representativeness checklist.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the information/evidence contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes contributing evidence from final governing authority."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "uk-parliament-party-group-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected party and group functions",
+      "learningObjective": "Explain selected policy-development, scrutiny and information functions of political parties and pressure groups using supplied fictional cases.",
+      "id": "ndv-341-017",
+      "objectiveId": "nerdc-scs-primary4-341-p29-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give an actual short spoken explanation to an examiner of these two supplied functions: a party outside government questions government proposals and offers alternatives; a pressure group provides specialist information about an issue. Explain one way each can contribute between elections. A written script alone is not the response.",
+      "answer": "A possible heard explanation says that questioning and alternatives can help scrutinise government choices, while specialist information can help decision-makers understand an issue. Neither contribution guarantees that a proposal will be accepted.",
+      "explanation": "This is an individual communication task using supplied functions, not a real campaign, meeting or recorded pupil performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Audibly explains scrutiny or an alternative-policy function."
+        },
+        {
+          "marks": 1,
+          "description": "Audibly explains an information contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Links each contribution to public decision-making without claiming guaranteed acceptance."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "uk-parliament-party-group-reference-341",
+      "contentProvenance": "Original fictional cases, wording, model and practice rubric; no copied examination item, political logo or historical past-question label.",
+      "contentReviewNote": "Independent Primary4 subject, conceptual/translation/local-scope, inclusion and rubric review pending. Accept equivalent accurate explanations. Foreign supplementary concepts are not Nigerian legal rules, full classifications, adoption or official terms. No political preference, party membership, real public campaigning, registration or private disclosure requested; written knowledge is not actual speech or conduct.",
+      "requiresRecordingOrLiveExaminer": true,
+      "evidenceProtocol": "stimuli/batch-341/oral-protocol.json",
+      "deliveryNote": "Requires actual individual speech heard by a live examiner or consented recording. A written script alone earns no oral-performance credit. Protocol is unfilled; no learner speech/audio occurred during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Meaning of peer pressure",
+      "learningObjective": "Explain peer pressure as influence from peers on choices, including expectations about fitting in.",
+      "id": "ndv-341-018",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional pupil wants to follow an agreed classroom plan but changes the decision after classmates say that joining them is the only way to fit in. Explain the peer-pressure element in this situation.",
+      "answer": "The classmates’ expectation about belonging influences the pupil’s choice. The decision changes to gain acceptance rather than simply because the pupil independently prefers the other plan.",
+      "explanation": "No learner’s own experience is requested; the example explains a concept rather than diagnosing a pupil.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies influence from peers or their expectation."
+        },
+        {
+          "marks": 1,
+          "description": "Connects fitting in/acceptance with the changed decision."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms.",
+      "supplementarySourceIds": [
+        "fcps-peer-influence-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Meaning of peer pressure",
+      "learningObjective": "Explain peer pressure as influence from peers on choices, including expectations about fitting in.",
+      "id": "ndv-341-019",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Can a pupil feel peer pressure even when nobody gives a direct order? Explain using the idea of wanting to fit in, without describing your own classmates.",
+      "answer": "Yes. A pupil may feel expected to copy what peers do in order to be accepted, even without a spoken command.",
+      "explanation": "The hypothetical answer distinguishes perceived social expectations from formal instructions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that influence need not be a direct order."
+        },
+        {
+          "marks": 1,
+          "description": "Connects perceived expectations or acceptance with a choice."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms.",
+      "supplementarySourceIds": [
+        "fcps-peer-influence-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Observed fictional peer roles",
+      "learningObjective": "Demonstrate and distinguish selected positive and negative peer-influence examples in an actually observed, bounded fictional role.",
+      "id": "ndv-341-020",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In an actual supervised role with an adult playing a fictional peer, demonstrate two short examples about a harmless classroom turn-taking game. First invite the partner to respect agreed turns. Then use the supplied pretend line “Let us skip the agreed turn” as an example of unhelpful influence. Immediately step out of role and explain the difference. Do not actually skip anyone’s turn or pressure another pupil.",
+      "answer": "Observed evidence: a constructive invitation about agreed turns, the bounded pretend unhelpful line and an out-of-role explanation that one supports fairness while the other invites breaking the agreement.",
+      "explanation": "Use an adult partner, fictional roles and a stop option. This is representation and explanation, not an assignment to manipulate a real peer. No performance occurred during authoring.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually gives a constructive invitation respecting agreed turns."
+        },
+        {
+          "marks": 1,
+          "description": "Performs only the supplied harmless pretend line, without carrying out exclusion."
+        },
+        {
+          "marks": 1,
+          "description": "Steps out of role and clearly distinguishes the two influences."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-341/peer-role-protocol.json",
+      "deliveryNote": "Requires actual supervised fictional role with an adult playing the other peer; record individual actions/words. Written preparation alone earns no performance credit. Protocol unfilled; no role has been performed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Distinguishing influence by context",
+      "learningObjective": "Differentiate constructive and unhelpful peer influence using the proposed action and its context.",
+      "id": "ndv-341-021",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "One fictional friend encourages a pupil to ask for help with difficult work; another says asking for help will make the pupil look foolish. Compare the likely direction of the two influences using the situation described.",
+      "answer": "The first supports learning and getting appropriate help. The second uses fear of embarrassment to discourage a useful action.",
+      "explanation": "The answer evaluates the suggested actions and context, without labelling every action of either fictional person good or bad.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the constructive support in the first example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the unhelpful pressure or discouragement in the second."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Distinguishing influence by context",
+      "learningObjective": "Differentiate constructive and unhelpful peer influence using the proposed action and its context.",
+      "id": "ndv-341-022",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A card contains only the words “Come with us”. A pupil immediately labels it negative peer influence. Explain why more context is needed and identify one useful question to ask about the invitation.",
+      "answer": "The words alone do not show what action is proposed or whether it respects others and the pupil’s choice. Ask, for example, what the group intends to do or whether declining is respected.",
+      "explanation": "This assesses insufficient evidence, not an instruction to accept an unfamiliar invitation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why the proposed action/context matters."
+        },
+        {
+          "marks": 1,
+          "description": "Asks a relevant question about the activity or freedom to decline."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Responding to unwanted pressure",
+      "learningObjective": "Identify constructive ways of resisting unwanted peer pressure, including clear refusal, support and considered choice.",
+      "id": "ndv-341-023",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional classroom example, a peer asks a pupil to copy another person’s answers instead of doing the work. Suggest a clear refusal and a constructive alternative that supports learning.",
+      "answer": "The pupil could say, “I will do my own work; we can ask for an explanation of the part we do not understand.”",
+      "explanation": "Accept equivalent original wording; no copying, deception or real confrontation is assigned.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a clear refusal to copy."
+        },
+        {
+          "marks": 1,
+          "description": "Offers a constructive learning alternative."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Responding to unwanted pressure",
+      "learningObjective": "Identify constructive ways of resisting unwanted peer pressure, including clear refusal, support and considered choice.",
+      "id": "ndv-341-024",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional pupil has already refused an unwanted request, but the pressure continues. Identify two further helpful steps without saying the pupil must solve it alone.",
+      "answer": "The pupil can step away from the pressure where appropriate and seek support from a trusted adult such as a teacher.",
+      "explanation": "This is a general classroom strategy example, not a promise that one response always stops pressure or a requirement to disclose a personal case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a reasonable way to disengage from continuing pressure."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies trusted-adult support."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms.",
+      "supplementarySourceIds": [
+        "fcps-peer-influence-reference-341"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Responding to unwanted pressure",
+      "learningObjective": "Identify constructive ways of resisting unwanted peer pressure, including clear refusal, support and considered choice.",
+      "id": "ndv-341-025",
+      "objectiveId": "nerdc-scs-primary4-341-p30-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Someone says that resisting unwanted peer pressure means rejecting every idea from every friend. Explain a more thoughtful approach.",
+      "answer": "Consider each suggestion against what is right for the situation and one’s values or goals. Supportive ideas can be accepted while unwanted pressure can be refused.",
+      "explanation": "The source distinguishes positive and negative influence; friendship does not require automatic agreement or automatic rejection.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains considered judgement of the suggestion."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes accepting constructive influence from refusing unwanted pressure."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional classroom examples, model and practice rubric; no copied examination question or supplied source song/video.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric calibration pending. Accept equivalent reasonable responses. Do not ask learners to disclose their own experiences, name peers, act out harm or apply real pressure to others. This is selected knowledge or conditional performance, not counselling, a guaranteed strategy, actual conduct evidence, school adoption or official terms."
+    }
+  ]
+}

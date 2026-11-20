@@ -1,0 +1,25 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-341-020"
+  ],
+  "preconditions": [
+    "Independent Primary4 subject/rubric/inclusion review and teacher permission before delivery.",
+    "An adult plays a fictional peer; use only a harmless turn-taking game and the bounded supplied line. Never ask a pupil to manipulate another pupil or actually exclude anyone.",
+    "No physical contact, name-calling, threats, real misconduct, personal experiences or disclosures. Respect a stop option and accessible equivalent communication."
+  ],
+  "evidenceRequirements": [
+    "Record the individual learner’s actual invitation, bounded pretend line and out-of-role explanation against the criteria.",
+    "Written plans alone do not demonstrate the role; do not award credit for genuine coercion or exclusion."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupAndConsentChecked": null,
+    "observedWordsAndActions": null,
+    "criterionMarks": null
+  },
+  "records": []
+}

@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 6082,
-    "validDrafts": 4403,
+    "raw": 6107,
+    "validDrafts": 4428,
     "reviewed": 0,
     "registeredBanks": 206,
     "target": 188000,
@@ -2168,6 +2168,12 @@
       "sha256": "241b506cebba21e6e0c979b3eed582472dd66b872f3ed081ab0fa38690fb4038",
       "declared": 21,
       "actual": 21
+    },
+    {
+      "path": "original-multisubject-batch-341.json",
+      "sha256": "3203115a199a147acec035d4701adf20321921625134687a6abcee31cf6b2783",
+      "declared": 25,
+      "actual": 25
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6805,18 +6811,18 @@
       "applicabilityReferences": [
         "nerdc-primary-offering-scs-reference-339"
       ],
-      "raw": 61,
-      "validDrafts": 61,
+      "raw": 86,
+      "validDrafts": 86,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 61
+        "structured": 86
       },
       "difficulty": {
-        "standard": 61
+        "standard": 86
       },
-      "remaining": 939,
-      "mappedObjectives": 39,
-      "representedObjectives": 39,
+      "remaining": 914,
+      "mappedObjectives": 49,
+      "representedObjectives": 49,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8206,17 +8212,17 @@
   ],
   "errorCounts": {
     "numeric_template_hold": 1256,
+    "objective_mapping_missing": 1679,
     "cognitive_demand_missing_or_invalid": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "objective_mapping_missing": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 622,
@@ -49214,6 +49220,156 @@
       "id": "ndv-340-021",
       "file": "original-multisubject-batch-340.json",
       "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-001",
+      "file": "original-multisubject-batch-341.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-002",
+      "file": "original-multisubject-batch-341.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-003",
+      "file": "original-multisubject-batch-341.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-004",
+      "file": "original-multisubject-batch-341.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-005",
+      "file": "original-multisubject-batch-341.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-006",
+      "file": "original-multisubject-batch-341.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-007",
+      "file": "original-multisubject-batch-341.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-008",
+      "file": "original-multisubject-batch-341.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-009",
+      "file": "original-multisubject-batch-341.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-010",
+      "file": "original-multisubject-batch-341.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-011",
+      "file": "original-multisubject-batch-341.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-012",
+      "file": "original-multisubject-batch-341.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-013",
+      "file": "original-multisubject-batch-341.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-014",
+      "file": "original-multisubject-batch-341.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-015",
+      "file": "original-multisubject-batch-341.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-016",
+      "file": "original-multisubject-batch-341.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-017",
+      "file": "original-multisubject-batch-341.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-018",
+      "file": "original-multisubject-batch-341.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-019",
+      "file": "original-multisubject-batch-341.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-020",
+      "file": "original-multisubject-batch-341.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-021",
+      "file": "original-multisubject-batch-341.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-022",
+      "file": "original-multisubject-batch-341.json",
+      "index": 21,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-023",
+      "file": "original-multisubject-batch-341.json",
+      "index": 22,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-024",
+      "file": "original-multisubject-batch-341.json",
+      "index": 23,
+      "errors": []
+    },
+    {
+      "id": "ndv-341-025",
+      "file": "original-multisubject-batch-341.json",
+      "index": 24,
       "errors": []
     },
     {
@@ -124157,6 +124313,306 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p25-o1-v1",
+      "topic": "Types of Government",
+      "subtopic": "Selected government-type concepts",
+      "learningObjective": "Explain selected government-type terms while distinguishing a title from evidence about actual governing power.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Performance Objective 1; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p25-o2-v1",
+      "topic": "Types of Government",
+      "subtopic": "Comparing bases of authority",
+      "learningObjective": "Compare selected features of governmental arrangements without assuming that monarchy, tradition and constitutional limits are mutually exclusive.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.12 / PDF p.25, Performance Objective 2; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p28-o1-v1",
+      "topic": "Party Systems",
+      "subtopic": "Party-system meaning and evidence",
+      "learningObjective": "Explain a party system as a pattern of party competition and relationships, distinguishing it from one party’s name or policies.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Performance Objective 1; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p28-o2-v1",
+      "topic": "Party Systems",
+      "subtopic": "Party-system comparisons",
+      "learningObjective": "Compare selected one-party, two-party and multiparty patterns, distinguishing legal permission, electoral dominance and coalition cooperation.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Performance Objective 2; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p29-o1-v1",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Organisational purposes and overlap",
+      "learningObjective": "Distinguish party and pressure-group purposes when membership or campaign methods overlap, without inferring legal registration from a fictional description.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, Performance Objective 1; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p29-o2-v1",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected party and group functions",
+      "learningObjective": "Explain selected policy-development, scrutiny and information functions of political parties and pressure groups using supplied fictional cases.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, Performance Objective 2; related content/activities/evaluation. Selected comparative concepts only; source reconciliation341 qualifies scope and unresolved examples."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p30-o1-v1",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Meaning of peer pressure",
+      "learningObjective": "Explain peer pressure as influence from peers on choices, including expectations about fitting in.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, Performance Objective 1, related knowledge, role-play activities and evaluation. Selected authored scenarios; no source song/video or actual pupil performance retrieved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p30-o2-v1",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Observed fictional peer roles",
+      "learningObjective": "Demonstrate and distinguish selected positive and negative peer-influence examples in an actually observed, bounded fictional role.",
+      "questionTypes": {
+        "structured": 1
+      },
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, Performance Objective 2, related knowledge, role-play activities and evaluation. Selected authored scenarios; no source song/video or actual pupil performance retrieved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 1,
+      "validDrafts": 1,
+      "difficulty": {
+        "standard": 1
+      },
+      "tiers": {
+        "not_specified": 1
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p30-o3-v1",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Distinguishing influence by context",
+      "learningObjective": "Differentiate constructive and unhelpful peer influence using the proposed action and its context.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, Performance Objective 3, related knowledge, role-play activities and evaluation. Selected authored scenarios; no source song/video or actual pupil performance retrieved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-341-p30-o4-v1",
+      "topic": "Peer behaviours that influence decision Making",
+      "subtopic": "Responding to unwanted pressure",
+      "learningObjective": "Identify constructive ways of resisting unwanted peer pressure, including clear refusal, support and considered choice.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, Performance Objective 4, related knowledge, role-play activities and evaluation. Selected authored scenarios; no source song/video or actual pupil performance retrieved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -124270,6 +124726,7 @@
     "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.",
     "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.",
     "Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open.",
-    "Batch340 adds21 original written Primary4 SCS governance/electoral drafts across9 partial mappings:39/82 source statements now partially linked,61 unique drafts passing automated checks;43 statements unmapped. Fresh class PDF matches339 hash. NASS gazette Electoral Act2026 selected passages checked, section154 repeals2022; section151 permits guidance subject to Act. INEC2026 guidelines full41-page image PDF retrieved, cover/PDF3 only read, not full operational body. FMJ Constitution download explicitly first3 alterations, not full current consolidation; current Constitution/state laws/judicial decisions remain unresolved. Types-of-government overlaps/no-end-tenure wording, party-system definitions, actual current party symbols/pressure groups and drawings remain unmapped. Source stage bullets are not a complete mandatory linear timetable; no all-party fresh registration or electronic-transmission simplification taught. All earlier medical/financial/trafficking/adoption/terms/teacher-guide/actual-performance/full-target gaps retained."
+    "Batch340 adds21 original written Primary4 SCS governance/electoral drafts across9 partial mappings:39/82 source statements now partially linked,61 unique drafts passing automated checks;43 statements unmapped. Fresh class PDF matches339 hash. NASS gazette Electoral Act2026 selected passages checked, section154 repeals2022; section151 permits guidance subject to Act. INEC2026 guidelines full41-page image PDF retrieved, cover/PDF3 only read, not full operational body. FMJ Constitution download explicitly first3 alterations, not full current consolidation; current Constitution/state laws/judicial decisions remain unresolved. Types-of-government overlaps/no-end-tenure wording, party-system definitions, actual current party symbols/pressure groups and drawings remain unmapped. Source stage bullets are not a complete mandatory linear timetable; no all-party fresh registration or electronic-transmission simplification taught. All earlier medical/financial/trafficking/adoption/terms/teacher-guide/actual-performance/full-target gaps retained.",
+    "Batch341 adds25 original Primary4 SCS comparative/peer-influence drafts(22 written,2 actual spoken,1 observed fictional role) across10 partial mappings;49/82 statements now linked,86 unique drafts passing automated checks;33 unmapped. Fresh class PDF matches hash; PDF25/28/29/30 read/rendered. Royal institutional text checks monarchy/constitutional coexistence; PEO distinguishes two-party dominance from permission and coalition from merger; selected UK Parliament PDF and NDI parsed concepts checked. Foreign rules, current seat/country classifications, historical stereotypes and deterministic coalition claims not adopted. NDI binary403 despite parsed web access; no full checksum claimed. Traditional/local constitutional roles and tenure limits need deeper primary evidence; selected concepts are not complete classification. Party names/symbols and Nigerian pressure-group identities remain unmapped, actual drawings absent. Source drawings/video/full speech, all prior legal/guideline/medical/financial/trafficking/adoption/terms/teacher-guide/1000-target and independent review gaps retained; oral protocol unfilled. Peer-influence tasks use a narrow checked public-school reference; no foreign school policy, diagnosis, deception/medical excuses or older-age risks adopted. Source song/video not retrieved; adult-partner fictional role protocol unfilled, no real peer coercion or pupil performance."
   ]
 }

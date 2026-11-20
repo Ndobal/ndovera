@@ -1,0 +1,26 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-341-005",
+    "ndv-341-017"
+  ],
+  "preconditions": [
+    "Independent Primary4 subject/rubric/local-scope calibration before delivery.",
+    "Use supplied fictional concepts only; no party preference, membership, personal disclosure, outside contact or public campaigning required.",
+    "Provide accessible equivalent communication and ordinary classroom support; live examiner or recording only with applicable consent/policy."
+  ],
+  "evidenceRequirements": [
+    "Actually hear each learner’s own explanation against each criterion; a script alone earns no oral marks.",
+    "Record the individual explanation and criterion marks, not just a group product or intention to speak."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "individualHeardResponse": null,
+    "criterionMarks": null,
+    "recordingConsentIfUsed": null
+  },
+  "records": []
+}

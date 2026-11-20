@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    25,
+    28,
+    29,
+    30
+  ],
+  "visuallyCheckedPdfPages": [
+    25,
+    28,
+    29,
+    30
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained, no all-table recount or OCR pass341.",
+  "partialAuthorMappings": 49,
+  "newQuestions": 25,
+  "written": 22,
+  "spoken": 2,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "royal-monarchy-concept-reference-341",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_official_institution_concept_reference",
+      "source": "https://www.royal.uk/the-role-of-the-monarchy",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Parsed opening role paragraphs: monarch as Head of State and UK constitutional monarchy, elected Parliament legislation"
+      ],
+      "note": "Official institutional explanation used narrowly to check that monarchy and constitutional limits can coexist. Not a full constitutional-law account, Nigerian traditional-ruler law, universal tenure rule or current Nigerian adoption evidence. No imagery, reign dates or current-person identification assessed."
+    },
+    {
+      "id": "peo-party-concepts-reference-341",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_parliamentary_education_reference",
+      "source": "https://peo.gov.au/understand-our-parliament/your-questions-on-notice/questions/what-is-the-two-party-system",
+      "urls": [
+        "https://peo.gov.au/understand-our-parliament/your-questions-on-notice/questions/what-is-the-two-party-system",
+        "https://peo.gov.au/understand-our-parliament/parliament-and-its-people/people-in-parliament/political-parties"
+      ],
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Two-party answer opening paragraphs: dominance, other parties and Australia qualification",
+        "Political parties: selected definition, policy/candidate purposes and coalition identity paragraphs"
+      ],
+      "note": "Australian Parliamentary Education Office text read, no images copied. Narrow concepts only: not Australian Year8/10 alignment transferred to Primary4, no seat data or foreign formation rules applied to Nigeria, and no current-country party-system classification assumed."
+    },
+    {
+      "id": "uk-parliament-party-group-reference-341",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_parliament_authored_education_reference",
+      "source": "https://www.parliament.uk/globalassets/about-parliament/how-parliament-works/accessible-resources/how-it-works-e-text-accessible.pdf",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 1723524,
+      "pageCount": 49,
+      "sha256": "d6045c028c5947e5828dbc67276dbbcef575413b4b56c30669973712dd949b86",
+      "sourceSections": [
+        "PDF41 selected party policy/choice/opposition functions",
+        "PDF42 opening continuation only",
+        "PDF44 pressure-group information/campaign and affiliation paragraphs"
+      ],
+      "note": "Full accessible PDF downloaded; selected passages only read. Foreign illustrative concepts, not current Nigeria-specific legal status, pressure-group names, political symbols, seat counts, voting thresholds or electoral rules. No suggested public campaigning performed or assigned to pupils."
+    },
+    {
+      "id": "ndi-party-concept-reference-341",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_publisher_authored_civic_concept_reference",
+      "source": "https://www.ndi.org/sites/default/files/YALA_Toolkit%20Handout%20Annex_EN_WEB%20%28v.1%29%20%281%29.pdf",
+      "retrievedOn": "2026-11-20",
+      "pageCount": 191,
+      "retrievalMethod": "Selected parsed web PDF text; direct cloud binary request403, no full-download hash claimed.",
+      "sourceSections": [
+        "Printed54–55 / PDF54–55, selected Party Systems definitions and permission-versus-dominance distinction"
+      ],
+      "note": "NDI Inclusive Civic Engagement training annex is an older supplementary conceptual handout, not official NERDC adoption or a full current country typology. Its country examples, sweeping evaluative/ideological generalisations, deterministic instability claims and all-level dominance language are not adopted. Only narrow fictional one-party restriction and multiparty capacity examples used; PEO corroborates dominance distinction."
+    },
+    {
+      "id": "fcps-peer-influence-reference-341",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_public_school_education_reference",
+      "source": "https://www.fcps.edu/student-wellness-tips/peer-pressure",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Selected What is peer pressure paragraphs",
+        "Selected plan-ahead, clear response and trusted-adult support strategies"
+      ],
+      "note": "Fairfax County Public Schools author guidance read as supplementary concept support, not Nigerian class adoption, medical diagnosis, a guaranteed outcome or transferred US policy. No deception/medical excuses, older-age risk activities, counselling procedure or webpage images adopted. Fictional classroom examples only; no pupil disclosure or real negative pressure assigned."
+    }
+  ],
+  "decisions": [
+    "SourcePDF25 categories can overlap; selected tasks distinguish title, governing control, customary recognition and constitutional rules. No universal no-end-to-tenure rule or full Nigerian traditional-ruler legal mapping adopted; no official erratum claimed.",
+    "SourcePDF28 list is clarified through author-proposed selected definitions. Two-party dominance does not mean exactly two legally permitted parties; a coalition does not erase party identities. No current country/seat classification or Nigerian government-formation rule inferred.",
+    "SourcePDF29 first2 objectives now partially mapped; current Nigerian party names/symbols and pressure-group identities remain unmapped pending direct primary verification. No foreign organisations substituted as Nigerian examples, no political logos copied or drawing assessed.",
+    "NDI direct binary download403; selected parsed PDF54–55 read through web. Narrow conceptual patterns only; historical country examples, sweeping ideological/evaluative language and instability claims not adopted. UK accessible49-page PDF downloaded but only selected41/42-opening/44 text read.",
+    "Earlier031-012 direct distinction,031-028 coexistence MCQ and031-045 environmental methods/representativeness task were read. New tasks instead assess classification axes plus missing evidence, overlap of methods/memberships, changes in stated aims, coalition identity, advisory-versus-final authority, and actual individual oral comparison. No recycled environmental checklist or relabelled past question.",
+    "Every new prompt/model/original rubric and purpose manually inspected for source fit, educational correctness and conceptual novelty. The final25 tasks comprise22 written,2 conditional spoken and1 observed fictional role; no learner speech, recording, party preference, membership, registration, real campaigning, outside contact or production action occurred. Protocol unfilled; all independent academic review pending.",
+    "Earlier Act2026/guideline/Constitution references and unresolved body/local-law questions are preserved from340; they were not freshly re-retrieved here or treated as fully reviewed. Full competency/target, depth, adoption, terms, teacher-guide/rubric calibration and other source gaps remain open.",
+    "After the initial17-draft strict gate passed, added8 distinct sourcePDF30 peer-influence tasks across4 mappings, including one actually observed bounded role. Full25-draft tests/audit rerun required. Peer-pressure prompt search found no earlier prompt with that phrase; new tasks assess expectations, context, refusal/support and a harmless adult-partner role. FCPS selected definition/strategies read, not full foreign policy or clinical guidance. Both protocols remain unfilled; no learner speech, real pressure, harm or private disclosure occurred."
+  ],
+  "practical": 1
+}
