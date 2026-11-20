@@ -4213,6 +4213,48 @@
         "Hajj definition and selected journey overview, parsed page read"
       ],
       "note": "Official Saudi site selected overview supports meaning/appointed journey context only. Two haj.gov.sa guide PDFs returned403 on full open; search-indexed passages were seen but full guides not retrieved. No comprehensive Hajj/Umrah comparison, class-practical delivery, current travel permit or individual eligibility ruling claimed."
+    },
+    {
+      "id": "islamic-sirah-primary-text-reference-338",
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_primary_religious_text",
+      "source": "https://sunnah.com/bukhari:3",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Bukhari3: Hira, Khadija and Waraqa; Bukhari4986: Umar proposes, Abu Bakr commissions, Zaid collects; Bukhari4987: Uthman commissions copies from Hafsa’s manuscripts",
+        "Qur’an11:37–38;51:24–27;28:23–24;3:49; Abu Dawud3582 (page grade Hasan, Al-Albani): Ali sent as judge before caliphate"
+      ],
+      "urls": [
+        "https://sunnah.com/bukhari:3",
+        "https://quran.com/11/37",
+        "https://quran.com/11/38",
+        "https://quran.com/51/27",
+        "https://quran.com/28/24",
+        "https://quran.com/3/49",
+        "https://sunnah.com/bukhari:4986",
+        "https://sunnah.com/bukhari:4987",
+        "https://sunnah.com/abudawud:3582"
+      ],
+      "note": "Selected parsed English text/context read. No source audio, whole compilation, Arabic model or classroom performance retrieved. Original paraphrases and rubrics require independent scholarly, translation and age suitability review. Abu Dawud narrator notes uncertainty in ending phrase; tasks use the clear hear-both-sides instruction only. These supplements are not additions to an official prescribed verse list or evidence of school adoption."
+    },
+    {
+      "id": "noun-isl271-selected-sirah-reference-338",
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_university_history_reference",
+      "source": "https://nou.edu.ng/coursewarecontent/ISL271%20The%20Rightly%20Guided%20and%20the%20Umayyads%20%281%29.pdf",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 1063529,
+      "pageCount": 148,
+      "sha256": "4a95c5f001581b7a6ea8b66e73ed8668836cd192fcdd08bfc27711db66faa4d5",
+      "sourceSections": [
+        "Cover/copyright and selected guide text PDF1–7",
+        "Selected body extracts PDF25/printed9 (Abu Bakr trading);44/printed28 (Umar succeeds Abu Bakr);59/printed43 (Uthman business and assistance);68/printed52 (Ali son of Abu Talib);69/printed53 (Ali fourth caliph)"
+      ],
+      "note": "NOUN ISL271 cover; some running headers ISL127. Copyright gives First Printed2012,2022. Selected text only, not whole chapters, verified current Primary4 adoption or an endorsed full historical account. Conflicting dates, polemical descriptions, modern political analogies, superlatives and disputed quotations are not adopted. Exact dates and claims of universal consensus are not assessed. Later Qur’an service facts checked against Bukhari4986/4987; Ali’s earlier judging episode against Abu Dawud3582."
     }
   ],
   "banks": [
@@ -44623,6 +44665,78 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 1; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 2; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po3-v1",
+      "subtopic": "Preserving the Qur’an",
+      "learningObjective": "Explain the distinct contributions of Abu Bakr, Umar and Uthman to the collection and copying of the Qur’an in the selected accounts.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 3; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 4; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -44733,6 +44847,7 @@
     "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.",
     "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.",
     "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.",
-    "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open."
+    "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.",
+    "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained."
   ]
 }

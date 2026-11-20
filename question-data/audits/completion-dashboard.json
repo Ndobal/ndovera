@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 6004,
-    "validDrafts": 4325,
+    "raw": 6021,
+    "validDrafts": 4342,
     "reviewed": 0,
     "registeredBanks": 205,
     "target": 187000,
@@ -2150,6 +2150,12 @@
       "sha256": "4f185da4b6556a63eb004ace11e0957f7fe299c4b3977c05c6bec32fad1ef017",
       "declared": 29,
       "actual": 29
+    },
+    {
+      "path": "original-multisubject-batch-338.json",
+      "sha256": "83350ba44dfa2baa5f9393c09d62e1a20d5f3cce1ddf695b28e3a08a86bc3111",
+      "declared": 17,
+      "actual": 17
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6395,18 +6401,18 @@
       "applicabilityReferences": [
         "nerdc-primary-route-offering-reference-335"
       ],
-      "raw": 29,
-      "validDrafts": 29,
+      "raw": 46,
+      "validDrafts": 46,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 29
+        "structured": 46
       },
       "difficulty": {
-        "standard": 29
+        "standard": 46
       },
-      "remaining": 971,
-      "mappedObjectives": 23,
-      "representedObjectives": 23,
+      "remaining": 954,
+      "mappedObjectives": 27,
+      "representedObjectives": 27,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8169,8 +8175,8 @@
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
     "invalid_score": 81,
+    "marking_guide_requires_positive_marks_and_criteria": 16,
     "explanation_missing": 81
   },
   "mathematicalVerification": {
@@ -48701,6 +48707,108 @@
       "id": "ndv-337-029",
       "file": "original-multisubject-batch-337.json",
       "index": 28,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-001",
+      "file": "original-multisubject-batch-338.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-002",
+      "file": "original-multisubject-batch-338.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-003",
+      "file": "original-multisubject-batch-338.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-004",
+      "file": "original-multisubject-batch-338.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-005",
+      "file": "original-multisubject-batch-338.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-006",
+      "file": "original-multisubject-batch-338.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-007",
+      "file": "original-multisubject-batch-338.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-008",
+      "file": "original-multisubject-batch-338.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-009",
+      "file": "original-multisubject-batch-338.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-010",
+      "file": "original-multisubject-batch-338.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-011",
+      "file": "original-multisubject-batch-338.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-012",
+      "file": "original-multisubject-batch-338.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-013",
+      "file": "original-multisubject-batch-338.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-014",
+      "file": "original-multisubject-batch-338.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-015",
+      "file": "original-multisubject-batch-338.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-016",
+      "file": "original-multisubject-batch-338.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-338-017",
+      "file": "original-multisubject-batch-338.json",
+      "index": 16,
       "errors": []
     },
     {
@@ -122354,6 +122462,126 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "questionTypes": {
+        "structured": 5
+      },
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 1; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 2; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po3-v1",
+      "subtopic": "Preserving the Qur’an",
+      "learningObjective": "Explain the distinct contributions of Abu Bakr, Umar and Uthman to the collection and copying of the Qur’an in the selected accounts.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 3; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "id": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "questionTypes": {
+        "structured": 5
+      },
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, table8 Performance Objective 4; selected supplementary passages in reconciliation338. Partial author mapping, not full biography or five contributions per person."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 5,
+      "validDrafts": 5,
+      "difficulty": {
+        "standard": 5
+      },
+      "tiers": {
+        "not_specified": 5
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -122464,6 +122692,7 @@
     "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.",
     "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.",
     "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.",
-    "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open."
+    "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.",
+    "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained."
   ]
 }

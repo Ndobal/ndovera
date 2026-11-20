@@ -1,0 +1,831 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary4 Islamic Studies selected Sirah practice — batch338",
+  "questionCount": 17,
+  "note": "Seventeen original written drafts across four partial author mappings. Selected episodes only, not complete biographies, five contributions per person, full functional scope or academic approval. Source and content limits in reconciliation338; all earlier source gaps and legacy holds preserved.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "id": "ndv-338-001",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Retell the beginning-of-revelation episode in Bukhari3 in three connected steps: where Muhammad was, whom he went to when frightened, and who was then consulted.",
+      "answer": "Muhammad received the first revelation while at the cave of Hira. He returned frightened to Khadija, who reassured him. She then took him to Waraqa.",
+      "explanation": "This is one early episode, not a complete biography. The order connects revelation, reassurance and consultation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Hira as the setting of revelation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the return to Khadija and her reassurance."
+        },
+        {
+          "marks": 1,
+          "description": "Places consultation with Waraqa afterwards."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Bukhari3"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "id": "ndv-338-002",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using Qur’an11:37–38, explain the difference between the instruction Nuh received and the reaction he met while carrying it out.",
+      "answer": "Nuh was instructed by Allah to build the Ark under divine direction. While he was building, some chiefs who passed by mocked him.",
+      "explanation": "The instruction and the people’s reaction have different roles in the account; mockery was not the instruction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the instruction to build the Ark."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies mockery by passing chiefs during the work."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an11:37–38"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "id": "ndv-338-003",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A story card about Ibrahim’s guests says: “He welcomed them, brought food and watched them finish it.” Check the final part against Qur’an51:24–27 and rewrite the card accurately.",
+      "answer": "Ibrahim exchanged greetings of peace with the guests, brought a roasted calf and placed it before them, inviting them to eat. These verses do not say that the guests finished the food.",
+      "explanation": "The correction preserves the welcome and offer while removing an invented outcome.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Retains the greeting/welcome."
+        },
+        {
+          "marks": 1,
+          "description": "Describes bringing and offering food."
+        },
+        {
+          "marks": 1,
+          "description": "Removes the unsupported claim that they finished eating."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an51:24–27"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "id": "ndv-338-004",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Describe Musa’s help at the well in Qur’an28:23–24. Include why two women were waiting and what Musa did after helping.",
+      "answer": "The women were holding their flock back until the other shepherds finished; their father was very old. Musa watered their animals, then went to the shade and prayed for provision.",
+      "explanation": "The account moves from the women’s situation to Musa’s help and then his prayer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains waiting for the shepherds and the elderly father’s situation."
+        },
+        {
+          "marks": 1,
+          "description": "States that Musa watered their flock."
+        },
+        {
+          "marks": 1,
+          "description": "Places going to the shade and praying after the help."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an28:23–24"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected prophetic episodes",
+      "learningObjective": "Retell selected source-supported episodes from the lives of the five named great Prophets, distinguishing what the account states from invented details.",
+      "id": "ndv-338-005",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In an Islamic Studies retelling of Qur’an3:49, a pupil says Isah gave signs entirely by his own independent power. Explain what must be corrected and name the people to whom the verse describes him as a messenger.",
+      "answer": "The account attributes the signs to Allah’s permission, rather than Isah’s independent power. It describes him as a messenger to the Children of Israel.",
+      "explanation": "This checks the account’s own qualification and setting, without making a medical claim or assigning an experiment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Restores Allah’s permission as the qualification."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the Children of Israel."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an3:49"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "id": "ndv-338-006",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Khadija reminded Muhammad of his care for relatives and people in need when he returned frightened in Bukhari3. A classmate is upset after struggling with reading. Suggest a supportive response and explain its connection to Khadija’s action.",
+      "answer": "Speak kindly and offer patient help, for example listening while the classmate tries again. Khadija’s reassurance shows supporting a distressed person with care rather than ridicule.",
+      "explanation": "The classroom example is an authored application, not an event claimed in the hadith.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a specific kind, supportive response."
+        },
+        {
+          "marks": 1,
+          "description": "Links it to reassurance or care for a distressed person in the episode."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Bukhari3"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "id": "ndv-338-007",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Nuh continued building while people mocked him in Qur’an11:37–38. A pupil uses this story to say, “I should ignore my teacher’s correction of a spelling mistake.” Explain a better lesson and why the pupil’s comparison is weak.",
+      "answer": "The story can teach steadfastness in carrying out a good responsibility despite mockery. Helpful correction is different from mockery; the pupil should consider the teacher’s advice and correct the mistake.",
+      "explanation": "A lesson drawn from a story needs a relevant comparison; persistence does not mean refusing useful guidance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies steadfastness despite mockery."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes helpful correction from mockery and accepts correction in the example."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an11:37–38"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "id": "ndv-338-008",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ibrahim placed food before his visitors and invited them to eat in Qur’an51:24–27. At a school welcome event, one visitor declines a snack. Explain a hospitable response that fits an invitation rather than forcing a guest.",
+      "answer": "Offer a warm welcome and allow the visitor to decline politely. The episode shows offering food generously; an invitation does not require forcing a person to eat.",
+      "explanation": "Respectful guest choice is an original classroom application. No personal dietary or religious ruling is being assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Offers a warm and respectful welcome."
+        },
+        {
+          "marks": 1,
+          "description": "Connects offering/inviting in the account with allowing a polite refusal."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an51:24–27"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "id": "ndv-338-009",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil claims that Musa first demanded a reward before helping the women at the well. Use Qur’an28:23–24 to explain a lesson about helping, and identify what is unsupported in the claim.",
+      "answer": "Musa watered the flock and then went to the shade and prayed. These verses do not describe an advance demand for payment. A relevant lesson is willingness to help someone in difficulty without first bargaining for praise or a reward.",
+      "explanation": "This concerns the order and content of the selected account, not a rule that all work must be unpaid.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the help-then-prayer sequence as evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the unsupported advance demand."
+        },
+        {
+          "marks": 1,
+          "description": "Derives a relevant lesson about willing help without claiming all paid work is wrong."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Qur’an28:23–24"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "id": "ndv-338-010",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write a brief account connecting Abu Bakr’s earlier occupation with one later service. Use the checked NOUN profile for the occupation and Bukhari4986 for the service; keep them as different stages of his life.",
+      "answer": "Abu Bakr worked as a trader. Later, as caliph, he commissioned Zaid to collect the Qur’an after Umar raised concern about its preservation.",
+      "explanation": "The two checked details form a limited life sketch, not a full biography.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies trading as the earlier occupation."
+        },
+        {
+          "marks": 1,
+          "description": "Describes commissioning Zaid’s collection as a later service."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "noun-isl271-selected-sirah-reference-338",
+      "religiousReferences": [
+        "NOUN ISL271 PDF25/printed9; Bukhari4986"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred.",
+      "supplementarySourceIds": [
+        "islamic-sirah-primary-text-reference-338"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "id": "ndv-338-011",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Prepare two short sentences for a life-sketch card about Uthman: one on his earlier business and use of wealth in the checked NOUN profile, and one on his later Qur’an-copying work in Bukhari4987.",
+      "answer": "Uthman engaged in textile business and assisted people in need. Later, as caliph, he arranged for a committee to make copies from manuscripts kept by Hafsa.",
+      "explanation": "The task selects an earlier activity and a later service; the source’s disputed political descriptions and exact dates are outside it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies textile business and assistance to people in need."
+        },
+        {
+          "marks": 1,
+          "description": "Describes arranging copies through a committee using Hafsa’s manuscripts."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "noun-isl271-selected-sirah-reference-338",
+      "religiousReferences": [
+        "NOUN ISL271 PDF59/printed43; Bukhari4987"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred.",
+      "supplementarySourceIds": [
+        "islamic-sirah-primary-text-reference-338"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "id": "ndv-338-012",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A display labels Ali’s mission as a judge in Yemen “an order he received after becoming the fourth caliph.” Correct the order of events. Add the name of his father from the checked NOUN profile.",
+      "answer": "Ali’s father was Abu Talib. The Prophet sent Ali as a judge during the Prophet’s lifetime, before Ali later became the fourth caliph.",
+      "explanation": "The judging account is an earlier service episode, not a contribution being dated to Ali’s caliphate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names Abu Talib as Ali’s father."
+        },
+        {
+          "marks": 1,
+          "description": "Places the Prophet’s judging mission before Ali’s later caliphate."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "noun-isl271-selected-sirah-reference-338",
+      "religiousReferences": [
+        "NOUN ISL271 PDF68–69/printed52–53; Abu Dawud3582"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred.",
+      "supplementarySourceIds": [
+        "islamic-sirah-primary-text-reference-338"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Preserving the Qur’an",
+      "learningObjective": "Explain the distinct contributions of Abu Bakr, Umar and Uthman to the collection and copying of the Qur’an in the selected accounts.",
+      "id": "ndv-338-013",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the collection account in Bukhari4986, identify who raised the preservation concern, who commissioned the work, and who carried out the collection. Explain why calling all three people “the collector” loses information.",
+      "answer": "Umar raised the concern, Abu Bakr commissioned the work, and Zaid carried out the collection. Calling all three the collector hides their different responsibilities.",
+      "explanation": "The account distinguishes proposing a response, authorising it and doing the collection; Zaid was not one of the four caliphs named in this curriculum table.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Assigns raising the concern to Umar."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns commissioning to Abu Bakr."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns collecting to Zaid and explains that the roles differ."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Bukhari4986"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Preserving the Qur’an",
+      "learningObjective": "Explain the distinct contributions of Abu Bakr, Umar and Uthman to the collection and copying of the Qur’an in the selected accounts.",
+      "id": "ndv-338-014",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why did Uthman arrange the copying work described in Bukhari4987, and what did he do with the copies? Include the source of the manuscripts used.",
+      "answer": "Concern had arisen about differences in recitation. Uthman obtained Hafsa’s manuscripts for the copying work and sent completed copies to different regions.",
+      "explanation": "The selected contribution concerns coordinated copying and distribution, not composing new revelation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies concern over differences in recitation."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Hafsa’s manuscripts as the material used."
+        },
+        {
+          "marks": 1,
+          "description": "Explains distributing completed copies to different regions."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Bukhari4987"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Preserving the Qur’an",
+      "learningObjective": "Explain the distinct contributions of Abu Bakr, Umar and Uthman to the collection and copying of the Qur’an in the selected accounts.",
+      "id": "ndv-338-015",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare the preservation work in Bukhari4986 and Bukhari4987. Explain one difference between the work commissioned by Abu Bakr and the later work commissioned by Uthman, and correct the claim that the later committee invented a new Qur’an.",
+      "answer": "Abu Bakr commissioned Zaid to gather the Qur’an into a collection. Uthman later commissioned copies using the preserved manuscripts. The later account describes copying existing material, not inventing new revelation.",
+      "explanation": "Comparison distinguishes two stages of preservation without treating the original wording of every report as a prescribed pupil response.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the earlier collection work."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the later copying from preserved manuscripts."
+        },
+        {
+          "marks": 1,
+          "description": "Uses that distinction to reject the claim of invented revelation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Bukhari4986",
+        "Bukhari4987"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Lessons supported by episodes",
+      "learningObjective": "Derive and explain a moral lesson from a checked biographical episode, linking the lesson to the action described.",
+      "id": "ndv-338-016",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Abu Dawud3582, Ali was advised to hear the other side before deciding a dispute. A class monitor hears one pupil’s complaint and immediately blames another pupil. Explain the missing step and connect it to the episode.",
+      "answer": "The monitor should let the other pupil explain what happened before deciding who is responsible. The advice given to Ali shows the importance of hearing both sides rather than judging from one account alone.",
+      "explanation": "This is a fictional classroom fairness application, not legal advice or evidence that a real dispute was judged.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies hearing the other pupil before deciding."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the missing step to the advice given to Ali."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "islamic-sirah-primary-text-reference-338",
+      "religiousReferences": [
+        "Abu Dawud3582"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-islamic-primary4-revised-2025",
+      "topic": "History of the great Prophets and the four Rightly Guided Caliphs",
+      "subtopic": "Selected caliph biographies",
+      "learningObjective": "Narrate selected biographical details and service episodes of the four named Rightly Guided Caliphs without claiming complete life histories.",
+      "id": "ndv-338-017",
+      "objectiveId": "nerdc-islamic-primary4-338-t8-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write a short account of two stages of Umar’s public service: his part in the collection discussion while Abu Bakr was caliph, and his later position described in the checked NOUN account. Do not add dates.",
+      "answer": "Umar urged Abu Bakr to arrange the collection of the Qur’an because of a concern about preservation. Umar later succeeded Abu Bakr as caliph.",
+      "explanation": "The selected sequence gives one service and one later position. It does not settle the supplement’s inconsistent reign dates or offer a complete biography.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes Umar raising the collection/preservation concern with Abu Bakr."
+        },
+        {
+          "marks": 1,
+          "description": "Places his succession to Abu Bakr afterwards."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "noun-isl271-selected-sirah-reference-338",
+      "religiousReferences": [
+        "Bukhari4986; NOUN ISL271 PDF44/printed28"
+      ],
+      "contentProvenance": "Original prompt, model and practice rubric based on the selected checked passages; no copied examination item or required translation wording.",
+      "contentReviewNote": "Independent Islamic Studies, historical/translation, Primary4 suitability and rubric review pending. Accept equivalent accurate names, transliterations and relevant wording. Selected written narrative/meaning evidence only; no actual recitation, ritual, role performance, audio or complete biography competence established. No official term or school/cohort adoption inferred.",
+      "supplementarySourceIds": [
+        "islamic-sirah-primary-text-reference-338"
+      ]
+    }
+  ]
+}

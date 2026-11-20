@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-islamic-primary4-revised-2025",
+  "sourceSha256": "c0632672cc38278c53f7bd7edf0c1c02446c593ebd5f71390dd12817cb6bcdca",
+  "freshRetrievalBytes": 7424318,
+  "pageCount": 25,
+  "visuallyCheckedPdfPages": [
+    21
+  ],
+  "numberedObjectives": 36,
+  "numberedObjectiveCountBasis": "Inherited all-table inventory337; fresh table8 render338 agrees on four Sirah objectives. No new all-table OCR pass claimed.",
+  "partialAuthorMappings": 27,
+  "newQuestions": 17,
+  "written": 17,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "islamic-sirah-primary-text-reference-338",
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_primary_religious_text",
+      "source": "https://sunnah.com/bukhari:3",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Bukhari3: Hira, Khadija and Waraqa; Bukhari4986: Umar proposes, Abu Bakr commissions, Zaid collects; Bukhari4987: Uthman commissions copies from Hafsa’s manuscripts",
+        "Qur’an11:37–38;51:24–27;28:23–24;3:49; Abu Dawud3582 (page grade Hasan, Al-Albani): Ali sent as judge before caliphate"
+      ],
+      "urls": [
+        "https://sunnah.com/bukhari:3",
+        "https://quran.com/11/37",
+        "https://quran.com/11/38",
+        "https://quran.com/51/27",
+        "https://quran.com/28/24",
+        "https://quran.com/3/49",
+        "https://sunnah.com/bukhari:4986",
+        "https://sunnah.com/bukhari:4987",
+        "https://sunnah.com/abudawud:3582"
+      ],
+      "note": "Selected parsed English text/context read. No source audio, whole compilation, Arabic model or classroom performance retrieved. Original paraphrases and rubrics require independent scholarly, translation and age suitability review. Abu Dawud narrator notes uncertainty in ending phrase; tasks use the clear hear-both-sides instruction only. These supplements are not additions to an official prescribed verse list or evidence of school adoption."
+    },
+    {
+      "id": "noun-isl271-selected-sirah-reference-338",
+      "exam": "NERDC",
+      "subject": "Islamic Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_university_history_reference",
+      "source": "https://nou.edu.ng/coursewarecontent/ISL271%20The%20Rightly%20Guided%20and%20the%20Umayyads%20%281%29.pdf",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 1063529,
+      "pageCount": 148,
+      "sha256": "4a95c5f001581b7a6ea8b66e73ed8668836cd192fcdd08bfc27711db66faa4d5",
+      "sourceSections": [
+        "Cover/copyright and selected guide text PDF1–7",
+        "Selected body extracts PDF25/printed9 (Abu Bakr trading);44/printed28 (Umar succeeds Abu Bakr);59/printed43 (Uthman business and assistance);68/printed52 (Ali son of Abu Talib);69/printed53 (Ali fourth caliph)"
+      ],
+      "note": "NOUN ISL271 cover; some running headers ISL127. Copyright gives First Printed2012,2022. Selected text only, not whole chapters, verified current Primary4 adoption or an endorsed full historical account. Conflicting dates, polemical descriptions, modern political analogies, superlatives and disputed quotations are not adopted. Exact dates and claims of universal consensus are not assessed. Later Qur’an service facts checked against Bukhari4986/4987; Ali’s earlier judging episode against Abu Dawud3582."
+    }
+  ],
+  "decisions": [
+    "NERDC source table8 lists Muhammad,Nuh,Ibrahim,Musa,Isah and Abubakar,Umar,Uthman,Aliyu. Transliteration variants accepted. Selected episodes only; full biographies and source evaluation of five roles/contributions/lessons for each remain open.",
+    "Fresh NOUN PDF downloaded and hash recorded; selected text extracts read, not full chapters. Older university course is supplementary factual support, not Primary4 adoption. CoverISL271 versus someISL127 headers and inconsistent dates retained. No sectarian descriptions, exact chronology dates, modern political analogies, disputed quotations or universal consensus adopted.",
+    "Qur’an11:37/38,51:27(context24–27),28:24(context23–24),3:49 and Bukhari3/4986/4987, AbuDawud3582 selected parsed passages read. No audio/model recitation or learner performance occurred.",
+    "Author-proposed selected references are not a new official prescribed verse/hadith list. Bukhari4986 differentiates Umar’s proposal, Abu Bakr’s commission and Zaid’s collection; Bukhari4987 copying/distribution is distinct. Ali’s judging service is during the Prophet’s lifetime, not during his later caliphate.",
+    "Existing Islamic Studies prompt inventory searched for Nuh,Ibrahim,Musa,caliph,Khadija,Uthman,Zaid,Midian; only a prior fictional pupil named Musa found. New tasks assess distinct factual narrative, source correction, service-role comparison or applied lesson; no superficial numerical variants.",
+    "Nine source objectives remain unmapped: Qur’an recitation/memory2, Hadith Arabic reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2. Preserve all reconciliation337 issues and wider class/exam gaps.",
+    "Each new prompt/model/rubric manually inspected for source support, educational correctness, answer completeness and assessed purpose; independent academic review still pending. All tasks written; no observed narrative, practical, audio, deployment or production import claimed."
+  ]
+}

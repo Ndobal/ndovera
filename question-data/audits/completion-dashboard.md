@@ -127,7 +127,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Financial Accounting / SS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Igbo Language / Primary 4 | 1000 | 99 | 99 | 0 | 901 | partial_objective_register |
 | NERDC | Intermediate Science / JSS 1 | 1000 | 124 | 124 | 0 | 876 | partial_objective_register |
-| NERDC | Islamic Studies / Primary 4 | 1000 | 29 | 29 | 0 | 971 | partial_objective_register |
+| NERDC | Islamic Studies / Primary 4 | 1000 | 46 | 46 | 0 | 954 | partial_objective_register |
 | NERDC | Literacy / Nursery | 1000 | 3 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS | 1000 | 2 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Mathematics / JSS 1 | 1000 | 106 | 105 | 0 | 895 | partial_objective_register |
@@ -224,12 +224,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1544 | 1479 | 0 | 39000 | 37521 |
+| NERDC | 1561 | 1496 | 0 | 39000 | 37504 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 6004, "validDrafts": 4325, "reviewed": 0, "registeredBanks": 205, "target": 187000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 6021, "validDrafts": 4342, "reviewed": 0, "registeredBanks": 205, "target": 187000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -343,3 +343,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.
 - Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.
 - Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.
+- Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.
