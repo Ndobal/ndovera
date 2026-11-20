@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readAndVisuallyCheckedPdfPages": [
+    27,
+    28
+  ],
+  "authorMappings": [
+    {
+      "inventoryId": "p4-igbo-table14-po1",
+      "objectiveId": "nerdc-igbo-primary4-333-1-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table14-po2",
+      "objectiveId": "nerdc-igbo-primary4-333-2-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table14-po3",
+      "objectiveId": "nerdc-igbo-primary4-333-3-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po1",
+      "objectiveId": "nerdc-igbo-primary4-333-4-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po2",
+      "objectiveId": "nerdc-igbo-primary4-333-5-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po3",
+      "objectiveId": "nerdc-igbo-primary4-333-6-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po4",
+      "objectiveId": "nerdc-igbo-primary4-333-7-v1",
+      "reused": false
+    }
+  ],
+  "supplementarySources": [
+    "elias-igbo-number-reference-333"
+  ],
+  "newQuestions": 13,
+  "written": 11,
+  "spoken": 1,
+  "observedPractical": 1,
+  "uniqueAuthorMappings": 51,
+  "partiallyLinkedSourceObjectives": 52,
+  "uniqueLinkedValidDrafts": 95,
+  "academicReviewStatus": "pending",
+  "decisions": [
+    "Header limits totals to fifty whereas table14 objectives and evaluations extend to500; table15 includes arithmetic above50. The conflict is retained. Authoring within50 uses their common subset without deciding which range governs. Above50 remains unaddressed.",
+    "Seven source-numbered objectives receive limited author mappings, not full competency coverage. The multiplication/division mapping reflects objective3; objective4 is practised with addition/subtraction only.",
+    "Harvard selected number examples and dialect notes support illustrative names only. No exercises copied, universal dialect/IPA model, fixed speech speed or exhaustive term equivalence asserted.",
+    "Thirteen task purposes: one-to-one observed counting; quantity conservation; bounded spoken sequence; numeral/name conversion; tens-units contrast; meaning of addition/removal; selecting a removal sign; relational equality; equal-group multiplication versus addition; equal sharing and its check; reconstructing an initial set; inverse error check; empty remainder. No numerical-template expansion used.",
+    "Practical001 requires actual11 counters and individual observation; spoken003 requires actual heard speech. Neither performance nor reference audio occurred during authoring.",
+    "Written tasks require intelligible Igbo explanations rather than English-only mathematics. Rubrics are original practice criteria pending independent native and academic calibration.",
+    "Source sound table text was inspected but its mixed notation has not been reconciled against a verified pronunciation model; no new sound mapping or claim of phonetic correctness. Source unit definition remains unresolved.",
+    "Existing shared word-definition mapping still links two drafts twice in inventory rows: row sum97, unique questions95. Legacy backlog and all earlier source/delivery/adoption gaps preserved."
+  ]
+}

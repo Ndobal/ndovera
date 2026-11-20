@@ -2,44 +2,44 @@
   "schemaVersion": 1,
   "branch": "question-bank/complete-bank-development",
   "baselineCommit": "2472a516b5b2701f507f137389715de10eca7aa9",
-  "phase": "batch_332_automated_validation_passed",
+  "phase": "batch_333_automated_validation_passed",
   "projectComplete": false,
   "academicReviewComplete": false,
-  "nextBatch": "original-multisubject-batch-333.json",
+  "nextBatch": "original-multisubject-batch-334.json",
   "nextPriorities": [
-    "Primary4 Igbo inventory332 has45 partial source-objective links through44 unique author mappings;10 of55 objectives remain unmapped. Eighty-two unique valid drafts include8 new explicit-letter/spelling and excursion tasks. Shared word-definition links reuse two earlier drafts: row counts sum84 but unique questions82, not84. Source mkpụrụedide definition remains unresolved despite two search-system exact-term lookups; no letter/syllable/morpheme equivalence inferred. Explicit letters in the header support limited formation/spelling only. Next inspect the sound and number/arithmetic tables and reconcile source notation/range before extending them; preserve the fifty-versus-500 conflict and avoid numerical-template padding. Remaining unmapped blocks: unit definition1, sounds2, numbers3, arithmetic4. Actual-excursion tasks004/005/008 require real prior experience, individual vocabulary and firsthand observations verified using the unfilled teacher protocol; fictional preparation006/007 is not attendance evidence. No trip or reference audio occurred. Preserve native review, letter-name/pronunciation/orthographic/marking calibration, fuller word ranges, source terminology, actual oral/written evidence, visual/app/print/accessibility delivery, local season/culture/material verification, school choice/adoption and official term placement. Primary 4 English inventory 325 now gives all 59 numbered objectives partial links through 57 author mappings; this is not full syllabus/functional/target completion. Preserve comprehension depth, class-appropriate range, dictionary/online/digital activities, witnessed events, presentations, official term placement and actual oral/aural evidence. The vowel task is conditional on an audible prechecked non-rhotic reference model; indexed Cambridge text is not full-page/audio retrieval or classroom calibration. No actual audio/recording, speed standard or universal accent requirement is established. English target 1000 and broader source-justified targets remain unmet. Primary 4 BDL inventory322 has 84 numbered objectives, 81 partial links and three unmapped: common mobile games, physical robotics accessory identification and autonomous programming. The new email/text/voice grouping is supplementary NCSC interpretation, not a prescribed/exhaustive NERDC taxonomy. Keep source-first labels, full history/wearable chronology, actual password enrolment/local policy, connected peripherals/all key groups, authentic AI guides17/18/24/25, incomplete game reference, PictoBlox model/version/runtime/image-authorisation, robotics kit/manual/cohort suitability, all observed delivery, school adoption, term placement, sprite-export, animate-name, infographic and source wording gaps open. Broader class-subject lists remain unresolved. Adaptive assembly and scaled scoring remain open. Cambridge 0620 hands-on Paper 5 and full assembly remain open. SAT graphic delivery remains open. Cambridge 0625 Paper 5 and full-paper assembly remain open. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
+    "Primary4 Igbo inventory333 has52 of55 source objectives partially linked through51 unique author mappings;95 unique valid drafts include13 new numerical-language tasks (11 written,1 spoken,1 observed practical). Row linked counts sum97 because two existing word-definition drafts appear twice; unique questions remain95. Number and arithmetic subset is within50 only: source header limits totals to fifty while the body specifies1–500, so range above50 is unresolved and not covered here. Three source objectives remain unmapped: table7 unit definition mkpụrụedide and table13 sound identification/pronunciation. Next obtain resolving native/primary linguistic evidence for that unit and reconcile mixed sound notation with a prechecked pronunciation model before authoring sound tasks; do not equate written-letter recognition with heard sounds. Actual11-counter observation and spoken20–25 performance are required and have not occurred; no source audio was retrieved. Preserve native language review, local number variants, marking/orthographic/pronunciation calibration, full range and functional competence, school choice/adoption, official term placement and prior visual/app/print/accessibility delivery. Actual-excursion332 tasks still require verified real prior experience; fictional planning is not attendance evidence. Primary 4 English inventory 325 now gives all 59 numbered objectives partial links through 57 author mappings; this is not full syllabus/functional/target completion. Preserve comprehension depth, class-appropriate range, dictionary/online/digital activities, witnessed events, presentations, official term placement and actual oral/aural evidence. The vowel task is conditional on an audible prechecked non-rhotic reference model; indexed Cambridge text is not full-page/audio retrieval or classroom calibration. No actual audio/recording, speed standard or universal accent requirement is established. English target 1000 and broader source-justified targets remain unmet. Primary 4 BDL inventory322 has 84 numbered objectives, 81 partial links and three unmapped: common mobile games, physical robotics accessory identification and autonomous programming. The new email/text/voice grouping is supplementary NCSC interpretation, not a prescribed/exhaustive NERDC taxonomy. Keep source-first labels, full history/wearable chronology, actual password enrolment/local policy, connected peripherals/all key groups, authentic AI guides17/18/24/25, incomplete game reference, PictoBlox model/version/runtime/image-authorisation, robotics kit/manual/cohort suitability, all observed delivery, school adoption, term placement, sprite-export, animate-name, infographic and source wording gaps open. Broader class-subject lists remain unresolved. Adaptive assembly and scaled scoring remain open. Cambridge 0620 hands-on Paper 5 and full assembly remain open. SAT graphic delivery remains open. Cambridge 0625 Paper 5 and full-paper assembly remain open. Cambridge 0455 full-paper assembly remains open. Check remaining IELTS Academic Reading response formats during assembly. Diagram delivery in the app remains open. Table rendering and full test assembly remain open. Timed IELTS Speaking delivery remains open. TOEFL recorded audio, visual progression, playback and timing remain open. Seek the separate official NECO syllabus copies and Basic Science and Technology practical instructions through the documented school channel. State and local forestry rules, field excursions and workshop practical gaps remain open. Machine servicing, lubrication demonstrations and supervised product-making projects remain open. Pencil-point preparation remains open. Preserve the gaps for supervised facility visits, safety-device observation and first-aid practicals. Fieldwork and Digital Technologies practical gaps remain open.",
     "Obtain official NECO 2026 BECE and SSCE Internal syllabus copies through the school channel documented in their registration guidelines. For BECE BST seek any separate practical and drawing instructions, equipment and marking requirements. Confirm the curriculum used by the examination cohort.",
     "Extend NECO General Mathematics to further source-supported objectives and obtain the current official topic specification. Geometry and probability coverage remains provisional and partial.",
     "Verify remaining NERDC exact class-subject-objective sources and adoption. Some direct revised JSS 1 and Primary 4 PDFs are accessible while tested class landing pages return 403. Older PDFs are not evidence of current adoption. Preserve legacy holds and obtain independent academic review."
   ],
   "resumeCommand": "python -m unittest discover -s question-data/tests -v && python question-data/tools/audit.py --write --strict-new",
-  "lastValidatedBatch": "original-multisubject-batch-332.json",
-  "lastRemoteVerifiedCommit": "eaf03abc81c9ec7f176a8479b4317d4b067e3fce",
+  "lastValidatedBatch": "original-multisubject-batch-333.json",
+  "lastRemoteVerifiedCommit": "e0460d3df6b6080436533bebad039be75debfa57",
   "verifiedTotals": {
-    "raw": 5902,
-    "validDrafts": 4223,
+    "raw": 5915,
+    "validDrafts": 4236,
     "reviewed": 0
   },
   "lastRunTestCount": 56,
-  "lastPopulatedBatch": "original-multisubject-batch-332.json",
+  "lastPopulatedBatch": "original-multisubject-batch-333.json",
   "unauditedDraftAdditions": {},
-  "inventoryRaw": 5902,
-  "lastSourceUpdate": "nerdc-primary4-igbo-mapping-332.json",
+  "inventoryRaw": 5915,
+  "lastSourceUpdate": "nerdc-primary4-igbo-mapping-333.json",
   "lastSourceRecheck": {
     "id": "nerdc-igbo-primary4-revised-2025",
-    "date": "2026-11-19",
+    "date": "2026-11-20",
     "sha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
     "alsoChecked": [
-      "elias-igbo-letter-reference-332"
+      "elias-igbo-number-reference-333"
     ],
     "numberedObjectives": 55,
-    "partiallyMappedNumberedObjectives": 45,
-    "uniqueAuthorMappings": 44,
-    "uniqueLinkedValidDrafts": 82
+    "partiallyMappedNumberedObjectives": 52,
+    "uniqueAuthorMappings": 51,
+    "uniqueLinkedValidDrafts": 95
   },
-  "lastCompletedRun": 332,
+  "lastCompletedRun": 333,
   "lastRunQuestionChanges": {
-    "added": 8,
+    "added": 13,
     "corrected": 0,
     "newHeld": 0
   }

@@ -1,0 +1,848 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "scope": "All55 numbered source objectives across15 tables with52 partial links through51 unique author mappings. One word-definition mapping is shared. New numerical-language subset stays within50; full range/competence unresolved. Labels and IDs are authored aids, not official codes.",
+  "topicGroups": 15,
+  "numberedObjectives": 55,
+  "objectivesWithPartialDraftMapping": 52,
+  "unmappedNumberedObjectives": 3,
+  "registeredAuthorMappings": 51,
+  "independentColumnCount": {
+    "byPdfPage": [
+      [
+        14,
+        5
+      ],
+      [
+        15,
+        4
+      ],
+      [
+        16,
+        5
+      ],
+      [
+        17,
+        4
+      ],
+      [
+        18,
+        3
+      ],
+      [
+        19,
+        4
+      ],
+      [
+        20,
+        4
+      ],
+      [
+        21,
+        4
+      ],
+      [
+        22,
+        3
+      ],
+      [
+        23,
+        3
+      ],
+      [
+        24,
+        4
+      ],
+      [
+        25,
+        3
+      ],
+      [
+        26,
+        2
+      ],
+      [
+        27,
+        3
+      ],
+      [
+        28,
+        4
+      ]
+    ],
+    "total": 55,
+    "method": "Independently extracted numbered lines from the Mbunuche column using PyMuPDF x140–252; sequence 1..N checked against each authored topic inventory. Continuation tables retain their own numbered sequences."
+  },
+  "allNumberedObjectivesHavePartialMappings": false,
+  "fullCompetencyCoverageEstablished": false,
+  "objectives": [
+    {
+      "inventoryId": "p4-igbo-table1-po1",
+      "topic": "Igbo identity and dress",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Describe Igbo people",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Cultural variation and actual dress demonstration remain open; no universal or exclusive identity claim. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table1-po2",
+      "topic": "Igbo identity and dress",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Explain culture",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Cultural variation and actual dress demonstration remain open; no universal or exclusive identity claim. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table1-po3",
+      "topic": "Igbo identity and dress",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Describe varieties of Igbo dress",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Cultural variation and actual dress demonstration remain open; no universal or exclusive identity claim. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table1-po4",
+      "topic": "Igbo identity and dress",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "State uses or benefits of Igbo dress",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Cultural variation and actual dress demonstration remain open; no universal or exclusive identity claim. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table1-po5",
+      "topic": "Igbo identity and dress",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Use different forms of dress",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Cultural variation and actual dress demonstration remain open; no universal or exclusive identity claim. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table2-po1",
+      "topic": "Fruits in Igbo cultural contexts",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Name selected fruits associated with Igbo communities",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Local names, seasons, botanical equivalence and actual drawing/modelling need confirmation. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table2-po2",
+      "topic": "Fruits in Igbo cultural contexts",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "State when selected fruits are available",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Local names, seasons, botanical equivalence and actual drawing/modelling need confirmation. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table2-po3",
+      "topic": "Fruits in Igbo cultural contexts",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Describe benefits of fruits",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Local names, seasons, botanical equivalence and actual drawing/modelling need confirmation. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table2-po4",
+      "topic": "Fruits in Igbo cultural contexts",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Draw and model selected fruits",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Local names, seasons, botanical equivalence and actual drawing/modelling need confirmation. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table3-po1",
+      "topic": "Self-description using appropriate sentences",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain a simple sentence",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Written and conversational performance are distinct; source stems are examples, not an exhaustive grammar model. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table3-po2",
+      "topic": "Self-description using appropriate sentences",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Explain a verb",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Written and conversational performance are distinct; source stems are examples, not an exhaustive grammar model. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table3-po3",
+      "topic": "Self-description using appropriate sentences",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Show self-description verbs in sentences",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Written and conversational performance are distinct; source stems are examples, not an exhaustive grammar model. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table3-po4",
+      "topic": "Self-description using appropriate sentences",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Write self-description sentences for different situations",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Written and conversational performance are distinct; source stems are examples, not an exhaustive grammar model. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table3-po5",
+      "topic": "Self-description using appropriate sentences",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 5,
+      "shortLabel": "Describe oneself through conversation using suitable sentences",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Written and conversational performance are distinct; source stems are examples, not an exhaustive grammar model. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po1",
+      "topic": "Expressing views about an excursion",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Identify the topic of an excursion taken by pupils",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires a real witnessed excursion for full performance evidence; fictional writing cannot establish attendance. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po2",
+      "topic": "Expressing views about an excursion",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Explain new words in the excursion account",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires a real witnessed excursion for full performance evidence; fictional writing cannot establish attendance. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po3",
+      "topic": "Expressing views about an excursion",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Discuss benefits and disadvantages of excursions",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires a real witnessed excursion for full performance evidence; fictional writing cannot establish attendance. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table4-po4",
+      "topic": "Expressing views about an excursion",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Recount an excursion and what was observed",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires a real witnessed excursion for full performance evidence; fictional writing cannot establish attendance. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table5-po1",
+      "topic": "Family and household roles",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain family",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source names mother/father/child roles; do not infer universal gender duties or require disclosure of personal family circumstances. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table5-po2",
+      "topic": "Family and household roles",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "List members of a family",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source names mother/father/child roles; do not infer universal gender duties or require disclosure of personal family circumstances. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table5-po3",
+      "topic": "Family and household roles",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Discuss roles of mothers, fathers and children in a family",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source names mother/father/child roles; do not infer universal gender duties or require disclosure of personal family circumstances. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table6-po1",
+      "topic": "Family-related comprehension",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Read a comprehension passage appropriately",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Need original Igbo passage and text-grounded answer keys, plus actual read-aloud evidence. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table6-po2",
+      "topic": "Family-related comprehension",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Identify unfamiliar words in a passage read",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Need original Igbo passage and text-grounded answer keys, plus actual read-aloud evidence. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table6-po3",
+      "topic": "Family-related comprehension",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Answer questions about the passage",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Need original Igbo passage and text-grounded answer keys, plus actual read-aloud evidence. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 6
+    },
+    {
+      "inventoryId": "p4-igbo-table6-po4",
+      "topic": "Family-related comprehension",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Discuss personal views on the comprehension topic",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Need original Igbo passage and text-grounded answer keys, plus actual read-aloud evidence. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po1",
+      "topic": "Forming simple words",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain the source term mkpụrụedide with examples",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_source_inventoried_pending_linguistic_review",
+      "limitation": "Source uses mkpụrụedide alongside mkpụrụedemede in its header; specialist reconciliation required before translating this as a particular linguistic unit.",
+      "linkedValidDrafts": 0
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po2",
+      "topic": "Forming simple words",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Explain a word",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses mkpụrụedide alongside mkpụrụedemede in its header; specialist reconciliation required before translating this as a particular linguistic unit. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po3",
+      "topic": "Forming simple words",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Form words",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses mkpụrụedide alongside mkpụrụedemede in its header; specialist reconciliation required before translating this as a particular linguistic unit. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table7-po4",
+      "topic": "Forming simple words",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Spell and write words",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-332-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses mkpụrụedide alongside mkpụrụedemede in its header; specialist reconciliation required before translating this as a particular linguistic unit. Partial mapping only. Explicit letter tasks do not resolve mkpụrụedide. Actual excursion and oral/written evidence require teacher verification. Shared definition links are not additional unique questions.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table8-po1",
+      "topic": "Personal letter",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain a personal letter",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Teacher-model copying and independent composition are separate; no teacher model or learner performance delivered. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table8-po2",
+      "topic": "Personal letter",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Describe features of a personal letter",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Teacher-model copying and independent composition are separate; no teacher model or learner performance delivered. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table8-po3",
+      "topic": "Personal letter",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Copy a teacher-written letter following its layout",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Teacher-model copying and independent composition are separate; no teacher model or learner performance delivered. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table8-po4",
+      "topic": "Personal letter",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Write a personal letter",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Teacher-model copying and independent composition are separate; no teacher model or learner performance delivered. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 3
+    },
+    {
+      "inventoryId": "p4-igbo-table9-po1",
+      "topic": "Descriptive composition: bank visit",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain descriptive composition and its features",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "A bank visit is the source context; no actual visit or bank services verified. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table9-po2",
+      "topic": "Descriptive composition: bank visit",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Understand a descriptive composition topic",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "A bank visit is the source context; no actual visit or bank services verified. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table9-po3",
+      "topic": "Descriptive composition: bank visit",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Write a descriptive composition",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "A bank visit is the source context; no actual visit or bank services verified. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 3
+    },
+    {
+      "inventoryId": "p4-igbo-table10-po1",
+      "topic": "Narrative composition: football contest",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain narrative composition and its features",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses Enyimba/Rangers as an example; no historical match details or result established. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table10-po2",
+      "topic": "Narrative composition: football contest",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Understand a narrative composition topic",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses Enyimba/Rangers as an example; no historical match details or result established. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table10-po3",
+      "topic": "Narrative composition: football contest",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Write a narrative composition",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-329-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Source uses Enyimba/Rangers as an example; no historical match details or result established. Partial draft link is not full competency, actual visit/event evidence, adopted terminology or independent native review.",
+      "linkedValidDrafts": 5
+    },
+    {
+      "inventoryId": "p4-igbo-table11-po1",
+      "topic": "Vocabulary for interpersonal relationships",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain a word",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-330-10-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Greetings and prayer occur as source examples; contextual appropriateness and native-language dialogue require review. Partial draft link only: actual demonstration/material evidence, full regional vocabulary/seasonal range, cultural variation and native academic review remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table11-po2",
+      "topic": "Vocabulary for interpersonal relationships",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Explain relationships",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Greetings and prayer occur as source examples; contextual appropriateness and native-language dialogue require review. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table11-po3",
+      "topic": "Vocabulary for interpersonal relationships",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "List words relating to interpersonal relationships",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-328-9-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Greetings and prayer occur as source examples; contextual appropriateness and native-language dialogue require review. Partial draft link is not full competency, content range, actual performance or native academic review.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table11-po4",
+      "topic": "Vocabulary for interpersonal relationships",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Use these words in conversation",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-327-8-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Greetings and prayer occur as source examples; contextual appropriateness and native-language dialogue require review. Partial draft link is not full competency, content range, observed performance or independent academic review.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table12-po1",
+      "topic": "Matching words and pictures",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Recognise and describe things represented in pictures",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-331-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires actual original picture assets, referents and accessible delivery, not text pretending to be a picture. Actual original SVGs now available, but wider vocabulary, app/print display, accessible route, observed performance and native review remain pending. Partial mapping only.",
+      "linkedValidDrafts": 3
+    },
+    {
+      "inventoryId": "p4-igbo-table12-po2",
+      "topic": "Matching words and pictures",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Identify words represented in pictures",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-331-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires actual original picture assets, referents and accessible delivery, not text pretending to be a picture. Actual original SVGs now available, but wider vocabulary, app/print display, accessible route, observed performance and native review remain pending. Partial mapping only.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table12-po3",
+      "topic": "Matching words and pictures",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Match words to things represented in pictures",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-331-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Requires actual original picture assets, referents and accessible delivery, not text pretending to be a picture. Actual original SVGs now available, but wider vocabulary, app/print display, accessible route, observed performance and native review remain pending. Partial mapping only.",
+      "linkedValidDrafts": 3
+    },
+    {
+      "inventoryId": "p4-igbo-table13-po1",
+      "topic": "Speech sounds and their pronunciation in words",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Identify speech sounds in words",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_source_inventoried_pending_linguistic_review",
+      "limitation": "Printed pronunciation strings mix tone marks and phonetic conventions; no calibrated native reference recording or resolved dialect model.",
+      "linkedValidDrafts": 0
+    },
+    {
+      "inventoryId": "p4-igbo-table13-po2",
+      "topic": "Speech sounds and their pronunciation in words",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Pronounce different speech sounds in words",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped_source_inventoried_pending_linguistic_review",
+      "limitation": "Printed pronunciation strings mix tone marks and phonetic conventions; no calibrated native reference recording or resolved dialect model.",
+      "linkedValidDrafts": 0
+    },
+    {
+      "inventoryId": "p4-igbo-table14-po1",
+      "topic": "Counting 1–500",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Use numbers 1–500 when counting objects",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table14-po2",
+      "topic": "Counting 1–500",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Count numbers 1–500",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table14-po3",
+      "topic": "Counting 1–500",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Write ordinary numbers from 1 to 500",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po1",
+      "topic": "Arithmetic vocabulary and operations",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 1,
+      "shortLabel": "Explain arithmetic operations",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 1
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po2",
+      "topic": "Arithmetic vocabulary and operations",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 2,
+      "shortLabel": "Demonstrate signs and words used for addition and subtraction",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-5-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po3",
+      "topic": "Arithmetic vocabulary and operations",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 3,
+      "shortLabel": "Use signs for addition, subtraction, multiplication and division",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-6-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 2
+    },
+    {
+      "inventoryId": "p4-igbo-table15-po4",
+      "topic": "Arithmetic vocabulary and operations",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 4,
+      "shortLabel": "Perform arithmetic operations",
+      "mappedObjectiveIds": [
+        "nerdc-igbo-primary4-333-7-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_linguistic_review",
+      "limitation": "Limited subset within50 only; source header fifty versus table1–500 remains unresolved and range above50 is not covered here. Actual objects/live speech, local numeral variants, native academic review, grading, full competence, school adoption and official term placement remain pending.",
+      "linkedValidDrafts": 3
+    }
+  ],
+  "supersedes": "nerdc-primary4-igbo-objective-inventory-332.json",
+  "countNote": "Do not sum linkedValidDrafts rows as unique questions: the two existing word-definition drafts are linked to both source table7 objective2 and table11 objective1. Count unique question IDs instead.",
+  "uniqueLinkedValidDrafts": 95
+}

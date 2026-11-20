@@ -3833,7 +3833,7 @@
       "kind": "official_revised_exact_class_curriculum",
       "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/4.pdf",
       "documentDate": "September 2025",
-      "retrievedOn": "2026-11-19",
+      "retrievedOn": "2026-11-20",
       "sourceBytes": 1315243,
       "pageCount": 29,
       "sha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
@@ -3844,7 +3844,7 @@
         "Contents, PDF p.13",
         "Numbered objectives and content/skills in all15 tables, printed pp.1–15 / PDF14–28; selected full-table visual checks recorded in reconciliation326"
       ],
-      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches. Batch330 checksum matched; PDF14,15,24 read/visually checked. Ten new partial mappings support16 written/spoken/practical drafts. Regional dress, fruit naming and broad botanical season are qualified; actual practical delivery and native review pending. Batch331 checksum matched; PDF25 read/visually checked for three new partial word-picture mappings and8 drafts with two actual original SVGs. Legible display, app rendering, access route and observed visual/speech performance remain pending. Batch332 checksum matched; PDF17,20 read/visually checked. Source unit mkpụrụedide remains unresolved/unmapped. Explicit letter formation/spelling and conditional actual-excursion tasks added; the repeated word-definition objective reuses existing drafts without increasing question counts."
+      "note": "Fresh checksum-matched retrieval in runs326/327; all55 numbered body objectives inventoried across15 tables. Batch327 reads and visually checks PDF16,21,24 and adds eight limited author mappings for12 original drafts. English inventory labels are authored paraphrases pending linguistic review, not official translations/codes. Mixed pronunciation notation, mkpụrụedide terminology and fifty-versus-500 number range remain unresolved. Supplementary university language references support selected basic forms only; independent native/academic review, local grading and actual performance remain pending. Applies where Igbo is offered; school choice/adoption and term placement unverified. See inventory327, mapping327 and reconciliation326. Batch328 freshly matches the checksum and reads/visually checks PDF18,19,24. Nine additional limited mappings support18 drafts on family-related comprehension, roles and interpersonal vocabulary. The source heading Ikwunibe is retained; no complete translation/kinship taxonomy is claimed. Batch329 checksum matched; PDF16,22,23 read/visually checked for eight additional limited mappings and20 written drafts. Bank layouts/visits and football events in new tasks are fictional, not verified real-world activities or historical matches. Batch330 checksum matched; PDF14,15,24 read/visually checked. Ten new partial mappings support16 written/spoken/practical drafts. Regional dress, fruit naming and broad botanical season are qualified; actual practical delivery and native review pending. Batch331 checksum matched; PDF25 read/visually checked for three new partial word-picture mappings and8 drafts with two actual original SVGs. Legible display, app rendering, access route and observed visual/speech performance remain pending. Batch332 checksum matched; PDF17,20 read/visually checked. Source unit mkpụrụedide remains unresolved/unmapped. Explicit letter formation/spelling and conditional actual-excursion tasks added; the repeated word-definition objective reuses existing drafts without increasing question counts. Batch333 fresh checksum matched; PDF27,28 read and visually checked. Seven new limited numerical-language mappings cover quantities within50 only. Full1–500 range remains unresolved against header fifty; sound objectives and source unit definition remain unmapped. Supplementary Harvard number examples do not settle adoption, dialect, pronunciation or marking."
     },
     {
       "id": "elias-igbo-introduction-327",
@@ -4002,6 +4002,20 @@
         "Selected alphabet/word examples, including aka and distinct dotted/undotted written vowels."
       ],
       "note": "Opened/read selected forms only. Supports explicit letter-card examples and aka gloss; no university exercise copied. Wider alphabet counts, categorical vowel-harmony/phoneme claims and pronunciation equivalents are not adopted as a Primary4 standard. Does not resolve mkpụrụedide. No reference audio retrieved."
+    },
+    {
+      "id": "elias-igbo-number-reference-333",
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "kind": "supplementary_university_language_reference",
+      "source": "https://elias.unix.fas.harvard.edu/index.php/languages/igbo/Beginning/5/Numbers",
+      "retrievedOn": "2026-11-20",
+      "retrievalMethod": "Web parsed text read; direct execution-environment URL returned HTTP403; no full HTML checksum recorded",
+      "sourceSections": [
+        "Lesson note: dialectal variants; grammar examples of25 and50; operation vocabulary"
+      ],
+      "note": "Selected number-name and dialect-variation evidence only. Supplemental university language page, not a Primary4 curriculum, current adoption decision, exhaustive numeral standard or validated pronunciation model. Exercises were not copied. Page contains typos/inconsistencies; no blanket endorsement of its wider claims."
     }
   ],
   "banks": [
@@ -43069,6 +43083,132 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-1-v1",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Counting actual objects",
+      "learningObjective": "Use Igbo numbers to count actual objects within an explicitly limited 1–50 subset.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Mbunuche objective 1; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-2-v1",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Spoken numerical sequence",
+      "learningObjective": "Count aloud in Igbo within an explicitly limited 1–50 subset.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Mbunuche objective 2; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-3-v1",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Writing numbers and their names",
+      "learningObjective": "Write ordinary numerals and corresponding Igbo names within an explicitly limited 1–50 subset.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, Mbunuche objective 3; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-4-v1",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Meaning of addition and subtraction",
+      "learningObjective": "Explain addition and subtraction in intelligible Igbo using concrete quantities within 50.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Mbunuche objective 1; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-5-v1",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Operation words and signs",
+      "learningObjective": "Relate Igbo addition and subtraction expressions to their signs and interpret equality within 50.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Mbunuche objective 2; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-6-v1",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Symbols for groups and sharing",
+      "learningObjective": "Use multiplication and division symbols for equal groups and equal sharing within 50, explaining their meaning in Igbo.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Mbunuche objective 3; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-333-7-v1",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Reasoning with small quantities",
+      "learningObjective": "Solve and explain original addition or subtraction situations within 50 in Igbo.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.15 / PDF p.28, Mbunuche objective 4; related content, skills and activities. Limited subset within50 only; header fifty versus body1–500 conflict remains unresolved."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -43174,6 +43314,7 @@
     "Batch329 adds20 original written Igbo drafts and eight partial author mappings for basic grammar and descriptive/narrative composition.25 of55 numbered objectives now have partial links,30 unmapped. Source composition tables sit beneath an oral/literature theme but explicitly require writing; the source placement is preserved. Fictional bank and school-match routes do not establish actual visits, historical matches, sports practicals, national writing lengths or complete functional coverage. Native review, orthographic/marking calibration, source terminology, pronunciation/range conflicts, school choice/adoption and full class-subject scope remain open.",
     "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open.",
     "Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist.",
-    "Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open."
+    "Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open.",
+    "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model."
   ]
 }

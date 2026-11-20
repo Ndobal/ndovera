@@ -1,0 +1,741 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo limited numerical language and operation reasoning",
+  "questionCount": 13,
+  "note": "Thirteen original structured drafts: eleven written, one live/recorded spoken sequence and one observed object-counting task. Seven partial source mappings within50; unresolved fifty-versus-500 range, source sound notation and unit terminology remain open. All academic/native review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Counting actual objects",
+      "learningObjective": "Use Igbo numbers to count actual objects within an explicitly limited 1–50 subset.",
+      "id": "ndv-333-001",
+      "objectiveId": "nerdc-igbo-primary4-333-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gụọ mkpụrụ mgbakọ onye nkụzi debere n’ihu gị. Metụ nke ọ bụla aka otu ugboro mgbe ị na-agụ ha n’Igbo. Kwuo ole ha dị mgbe ị gụchara.",
+      "answer": "Teacher-only setup: exactly11 counters. Learner counts every counter once in intelligible Igbo and states the total: iri na otu. Actual performance is required; this written key is not observation evidence.",
+      "explanation": "One-to-one counting and naming the resulting quantity are assessed separately. No counter image, learner performance or audio is claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Counts each of the11 counters once without omitting or recounting one."
+        },
+        {
+          "marks": 1,
+          "description": "Uses an intelligible correctly ordered Igbo counting sequence."
+        },
+        {
+          "marks": 1,
+          "description": "States the final quantity as11 in Igbo; illustrative form iri na otu."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "practical",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "requiresObservedPracticalEvidence": true,
+      "teacherSupport": "Before use, a native Igbo examiner checks number forms and instructions. Set exactly11 safe large counters, separated and visible. Observe the individual learner pointing/counting and stating the total; retain an observation record under school policy. Do not substitute the model answer or a hypothetical display for performance.",
+      "deliveryNote": "Requires actual objects and witnessed counting. No live activity occurred during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Counting actual objects",
+      "learningObjective": "Use Igbo numbers to count actual objects within an explicitly limited 1–50 subset.",
+      "id": "ndv-333-002",
+      "objectiveId": "nerdc-igbo-primary4-333-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Akwụkwọ asaa dị n’elu tebụl. E dozigharịrị ha ka ha bụrụ ahịrị abụọ; e tinyeghị akwụkwọ ọzọ, e wepụghịkwa nke ọ bụla. Ha ka dị ole? Kọwaa ihe mere nhazi ọhụrụ ahụ anaghị agbanwe ọnụọgụgụ ha.",
+      "answer": "Ha ka dị asaa. Naanị nhazi ha gbanwere; e tinyeghị akwụkwọ ọzọ, e wepụghịkwa nke ọ bụla.",
+      "explanation": "The learner explains conservation of a counted set under rearrangement, rather than assuming that a longer row contains more objects.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States asaa/seven in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in intelligible Igbo that rearrangement changes positions but neither adds nor removes books."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Spoken numerical sequence",
+      "learningObjective": "Count aloud in Igbo within an explicitly limited 1–50 subset.",
+      "id": "ndv-333-003",
+      "objectiveId": "nerdc-igbo-primary4-333-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Bido n’iri abụọ, gụọ n’olu n’Igbo ruo iri abụọ na ise. Kwụsị mgbe ị ruru ọnụọgụgụ ikpeazụ ahụ.",
+      "answer": "Illustrative sequence: iri abụọ; iri abụọ na otu; iri abụọ na abụọ; iri abụọ na atọ; iri abụọ na anọ; iri abụọ na ise. Equivalent locally checked forms are acceptable.",
+      "explanation": "This is an actual oral sequence task with defined endpoints; written recitation is insufficient. It is a small interval, not evidence of counting1–500.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Starts with20 and continues in the correct order through22, in intelligible Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Continues23,24,25 correctly and stops at25."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "spoken",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "requiresRecordingOrLiveExaminer": true,
+      "deliveryNote": "A native examiner must precheck the intended local forms, instructions and reasonable response conditions, then hear actual individual live/recorded speech. No audio retrieval, fixed speed, accent standard or learner performance is claimed."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Writing numbers and their names",
+      "learningObjective": "Write ordinary numerals and corresponding Igbo names within an explicitly limited 1–50 subset.",
+      "id": "ndv-333-004",
+      "objectiveId": "nerdc-igbo-primary4-333-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Dee ọnụọgụgụ ndị a n’akara ọnụọgụgụ: iri na anọ; iri atọ; iri ise. Dee 22 n’okwu Igbo.",
+      "answer": "14; 30; 50. 22: iri abụọ na abụọ.",
+      "explanation": "This connects ordinary written numerals with number names. The curriculum does not thereby prescribe one exhaustive dialectal naming system.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes14 for iri na anọ."
+        },
+        {
+          "marks": 1,
+          "description": "Writes30 for iri atọ."
+        },
+        {
+          "marks": 1,
+          "description": "Writes50 for iri ise."
+        },
+        {
+          "marks": 1,
+          "description": "Writes an intelligible Igbo name for22; illustrative form iri abụọ na abụọ."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "10+4",
+          "expected": 14,
+          "purpose": "Fourteen name decomposition"
+        },
+        {
+          "expression": "3*10",
+          "expected": 30,
+          "purpose": "Thirty name decomposition"
+        },
+        {
+          "expression": "5*10",
+          "expected": 50,
+          "purpose": "Fifty name decomposition"
+        },
+        {
+          "expression": "2*10+2",
+          "expected": 22,
+          "purpose": "Twenty-two name decomposition"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Ọnụọgụgụ",
+      "subtopic": "Writing numbers and their names",
+      "learningObjective": "Write ordinary numerals and corresponding Igbo names within an explicitly limited 1–50 subset.",
+      "id": "ndv-333-005",
+      "objectiveId": "nerdc-igbo-primary4-333-3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Chidi dere 42 maka okwu “iri abụọ na anọ”. Ọ bụ eziokwu? Dee akara ọnụọgụgụ kwesịrị ekwesị, deekwa 42 n’okwu Igbo iji gosipụta ọdịiche ahụ.",
+      "answer": "Mba. Iri abụọ na anọ bụ24. 42 bụ iri anọ na abụọ.",
+      "explanation": "The learner distinguishes tens from units in written language; reversing the digits changes the named quantity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects42 as the numeral for iri abụọ na anọ and writes24."
+        },
+        {
+          "marks": 1,
+          "description": "Writes an intelligible Igbo name for42: iri anọ na abụọ."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "2*10+4",
+          "expected": 24,
+          "purpose": "Correct interpretation of named quantity"
+        },
+        {
+          "expression": "4*10+2",
+          "expected": 42,
+          "purpose": "Distinct reversed-digit quantity"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Meaning of addition and subtraction",
+      "learningObjective": "Explain addition and subtraction in intelligible Igbo using concrete quantities within 50.",
+      "id": "ndv-333-006",
+      "objectiveId": "nerdc-igbo-primary4-333-4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Jiri ihe atụ pensụl kọwaa mgbakọ na mwepụ n’Igbo. Malite na pensụl ise: gịnị na-eme n’ọnụọgụgụ ha ma e tinye abụọ ọzọ? Gịnị na-eme ma e wepụ abụọ n’ime ise ahụ?",
+      "answer": "Mgbakọ bụ itinye ihe ọnụ:5+2=7, pensụl asaa. Mwepụ bụ iwepụ ụfọdụ n’ihe e nwere:5−2=3, pensụl atọ fọdụrụ.",
+      "explanation": "Both operations start from the same original five. The subtraction is not performed on the result of the addition; the learner must explain the different actions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains in Igbo that addition joins/adds quantities."
+        },
+        {
+          "marks": 1,
+          "description": "Gives5+2=7 and names the total in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in Igbo that subtraction removes from the starting quantity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives5−2=3 and names the remainder in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "5+2",
+          "expected": 7,
+          "purpose": "Addition example from original five"
+        },
+        {
+          "expression": "5-2",
+          "expected": 3,
+          "purpose": "Separate subtraction example from original five"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Operation words and signs",
+      "learningObjective": "Relate Igbo addition and subtraction expressions to their signs and interpret equality within 50.",
+      "id": "ndv-333-007",
+      "objectiveId": "nerdc-igbo-primary4-333-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "E nwere iko iri na abụọ. E wepụrụ iko anọ. Otu nwa dere 12 + 4 = 16 iji kọwaa ihe mere. Kedu akara na nsonaazụ kwesịrị ekwesị? Jiri okwu Igbo kọwaa ihe mere i ji họrọ akara ahụ.",
+      "answer": "12−4=8. E ji akara mwepụ mee ihe n’ihi na e wepụrụ iko anọ; iko asatọ fọdụrụ.",
+      "explanation": "The printed addition statement is arithmetically true but does not model the described removal. This assesses operation-language choice, not merely rejecting any equation containing16.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces+ with−."
+        },
+        {
+          "marks": 1,
+          "description": "Gives the correct equation12−4=8."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the removal meaning in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "12+4",
+          "expected": 16,
+          "purpose": "Distractor equation is true but models the wrong action"
+        },
+        {
+          "expression": "12-4",
+          "expected": 8,
+          "purpose": "Correct removal equation"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Operation words and signs",
+      "learningObjective": "Relate Igbo addition and subtraction expressions to their signs and interpret equality within 50.",
+      "id": "ndv-333-008",
+      "objectiveId": "nerdc-igbo-primary4-333-5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Dee akara kwesịrị ekwesị n’ebe oghere dị: 9 + 6 __ 10 + 5. Kọwaa n’Igbo ihe akara ahụ na-egosi banyere akụkụ abụọ ahụ.",
+      "answer": "9+6=10+5. Akụkụ abụọ ahụ bụ iri na ise; akara= na-egosi na ha ha nhata.",
+      "explanation": "Equality expresses the same value on both sides, even when both sides contain calculations. It does not simply mean that an answer must follow on the right.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Uses the equals sign."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in intelligible Igbo that both sides represent the same quantity,15."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "9+6",
+          "expected": 15,
+          "purpose": "Left side of equality"
+        },
+        {
+          "expression": "10+5",
+          "expected": 15,
+          "purpose": "Right side of equality"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Symbols for groups and sharing",
+      "learningObjective": "Use multiplication and division symbols for equal groups and equal sharing within 50, explaining their meaning in Igbo.",
+      "id": "ndv-333-009",
+      "objectiveId": "nerdc-igbo-primary4-333-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "E nwere efere anọ, iko atọ dị n’efere ọ bụla. Dee mgbakọ a site n’iji akara ×. Gwa anyị n’Igbo ihe 4, 3 na nsonaazụ ya na-anọchi anya. Gịnị mere 4 + 3 anaghị akọwa iko niile?",
+      "answer": "4×3=12: efere anọ, iko atọ n’efere ọ bụla, iko iri na abụọ n’ozuzu. 4+3=7 na-agbakwunye ọnụọgụ efere na iko dị n’otu efere; ọ naghị agụ iko dị n’efere anọ niile.",
+      "explanation": "The multiplication sign models four equal groups. A learner may use3×4 if the interpretation is consistent; the meaningful grouping explanation is essential.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes a valid multiplication equation yielding12."
+        },
+        {
+          "marks": 1,
+          "description": "Explains four groups of three cups in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Names12 cups as the total in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why4+3 counts the wrong quantities."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "4*3",
+          "expected": 12,
+          "purpose": "Four equal groups of three"
+        },
+        {
+          "expression": "4+3",
+          "expected": 7,
+          "purpose": "Incorrect model contrasted with group total"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Symbols for groups and sharing",
+      "learningObjective": "Use multiplication and division symbols for equal groups and equal sharing within 50, explaining their meaning in Igbo.",
+      "id": "ndv-333-010",
+      "objectiveId": "nerdc-igbo-primary4-333-6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Kekọrịta pensụl iri na ise n’etiti ụmụaka atọ ka onye ọ bụla nweta otu ọnụọgụgụ. Dee nke a site n’iji akara ÷. Kọwaa n’Igbo ihe nsonaazụ ahụ pụtara na otú ị ga-esi lelee na nkesa ahụ ziri ezi.",
+      "answer": "15÷3=5. Onye ọ bụla nwetara pensụl ise. 3×5=15, ya mere e kesara pensụl niile n’otu n’otu hà nhata.",
+      "explanation": "The quotient is pencils per child, not the number of children. Equal shares and checking that all fifteen were allocated both matter.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes15÷3=5."
+        },
+        {
+          "marks": 1,
+          "description": "States in Igbo that each child receives five pencils."
+        },
+        {
+          "marks": 1,
+          "description": "Checks that three equal shares of five account for all15."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "15/3",
+          "expected": 5,
+          "purpose": "Equal share per child"
+        },
+        {
+          "expression": "3*5",
+          "expected": 15,
+          "purpose": "All pencils accounted for"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Reasoning with small quantities",
+      "learningObjective": "Solve and explain original addition or subtraction situations within 50 in Igbo.",
+      "id": "ndv-333-011",
+      "objectiveId": "nerdc-igbo-primary4-333-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Ada nyere enyi ya pensụl asatọ; pensụl asaa fọdụrụ ya. Pensụl ole ka o nwere tupu o nye enyi ya ụfọdụ? Dee mgbakọ gị, kọwaakwa n’Igbo ihe mere i ji jiri ya mee ihe.",
+      "answer": "8+7=15. O nwere pensụl iri na ise: pensụl e nyere na pensụl fọdụrụ bụ pensụl niile o nwere na mbụ.",
+      "explanation": "Recovering an unknown starting quantity requires joining the removed and remaining quantities; subtracting8 from7 would not represent this situation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Combines the eight given away with the seven remaining."
+        },
+        {
+          "marks": 1,
+          "description": "Gives15 and names the starting total in Igbo."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in Igbo why both parts reconstruct the original set."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "8+7",
+          "expected": 15,
+          "purpose": "Unknown original total"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Reasoning with small quantities",
+      "learningObjective": "Solve and explain original addition or subtraction situations within 50 in Igbo.",
+      "id": "ndv-333-012",
+      "objectiveId": "nerdc-igbo-primary4-333-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Obi kwuru na 18 − 7 = 12. Lelee okwu ya site n’ịgbakwụnye ọnụọgụgụ o kwuru na nke e wepụrụ. Kọwaa njehie ahụ n’Igbo, deekwa azịza ziri ezi.",
+      "answer": "12+7=19, ọ bụghị18. 18−7=11; 11+7=18. Azịza ziri ezi bụ iri na otu.",
+      "explanation": "An inverse calculation tests the proposed remainder. The explanation must use the check rather than only replace the answer without a reason.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Shows12+7=19 and explains why it does not restore18."
+        },
+        {
+          "marks": 1,
+          "description": "Corrects the subtraction to18−7=11."
+        },
+        {
+          "marks": 1,
+          "description": "Checks11+7=18 and explains the correction in Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "12+7",
+          "expected": 19,
+          "purpose": "Disproves proposed remainder"
+        },
+        {
+          "expression": "18-7",
+          "expected": 11,
+          "purpose": "Correct remainder"
+        },
+        {
+          "expression": "11+7",
+          "expected": 18,
+          "purpose": "Inverse check"
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mgbakọ na mwepụ",
+      "subtopic": "Reasoning with small quantities",
+      "learningObjective": "Solve and explain original addition or subtraction situations within 50 in Igbo.",
+      "id": "ndv-333-013",
+      "objectiveId": "nerdc-igbo-primary4-333-7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "E nwere mkpụrụ mgbakọ isii n’ime igbe. E wepụrụ ha niile. Dee mgbakọ na-egosi ihe mere. Kọwaa n’Igbo ihe 0 pụtara n’akụkọ a.",
+      "answer": "6−6=0. Ọ dịghị mkpụrụ mgbakọ fọdụrụ n’ime igbe.",
+      "explanation": "Removing an entire set leaves none. The learner may explain no items remain without being required to use an unverified single lexical label for zero.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Writes6−6=0."
+        },
+        {
+          "marks": 1,
+          "description": "Explains in intelligible Igbo that no counters remain in the box."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "languageReviewNote": "Independent native Igbo linguistic and academic review pending. Number names are illustrative decimal forms, not a mandatory dialect or pronunciation standard. Accept equivalent intelligible forms after native examiner checking. Underdots matter; no full tone-marking or national marking scheme is established.",
+      "responseMode": "written",
+      "scopeLimitation": "Limited original practice with all quantities at most50. Does not resolve source fifty-versus-500 conflict, establish full1–500 coverage, local adoption, official term placement or actual classroom performance.",
+      "verification": [
+        {
+          "expression": "6-6",
+          "expected": 0,
+          "purpose": "Removing every counter leaves none"
+        }
+      ]
+    }
+  ]
+}
