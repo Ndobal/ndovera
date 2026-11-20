@@ -115,6 +115,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Business Studies / JSS 1 | 1000 | 194 | 194 | 0 | 806 | partial_objective_register |
 | NERDC | Chemistry / SS 2 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Christian Religious Studies / JSS 1 | 1000 | 58 | 58 | 0 | 942 | partial_objective_register |
+| NERDC | Christian Religious Studies / Primary 4 | 1000 | 33 | 33 | 0 | 967 | partial_objective_register |
 | NERDC | Computer Studies / JSS | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Cultural and Creative Arts / JSS 1 | 1000 | 123 | 123 | 0 | 877 | partial_objective_register |
 | NERDC | Digital Technologies / JSS 1 | 1000 | 144 | 144 | 0 | 856 | partial_objective_register |
@@ -222,12 +223,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1459 | 1394 | 0 | 37000 | 35606 |
+| NERDC | 1492 | 1427 | 0 | 38000 | 36573 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 5919, "validDrafts": 4240, "reviewed": 0, "registeredBanks": 203, "target": 185000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 5952, "validDrafts": 4273, "reviewed": 0, "registeredBanks": 204, "target": 186000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -338,3 +339,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open.
 - Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model.
 - Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.
+- Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.

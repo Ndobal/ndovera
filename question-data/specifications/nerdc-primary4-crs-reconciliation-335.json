@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-crs-primary4-revised-2025",
+  "sourceSha256": "e446b1a7c6adae310d520cc4696de4a060a4b9260391ed05e4c3771866e3f3bc",
+  "freshRetrievalBytes": 2149790,
+  "readPdfPages": [
+    1,
+    3,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24
+  ],
+  "visuallyCheckedPdfPages": [
+    1,
+    14,
+    16,
+    18,
+    19
+  ],
+  "retrievalTrail": [
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4",
+      "status": 403
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/web/8.pdf",
+      "status": 404
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/8.pdf",
+      "status": 200
+    }
+  ],
+  "newBank": "NERDC/Christian Religious Studies/Primary 4",
+  "numberedObjectives": 43,
+  "partialAuthorMappings": 29,
+  "newQuestions": 33,
+  "written": 32,
+  "actualArtwork": 1,
+  "academicReviewStatus": "pending",
+  "sourceDiscrepancies": [
+    {
+      "pdfPage": 19,
+      "issue": "John8:1–11 is labelled Mary Magdalene, but that checked passage does not name the woman.",
+      "decision": "No identification of the unnamed woman with Mary Magdalene. Table7 objective2 is only partly mapped through Bartimaeus and Zacchaeus; Mary component remains unresolved."
+    },
+    {
+      "pdfPage": 21,
+      "issue": "Arrest citation Matthew28:47–54 cannot be a valid range in the checked Matthew28 chapter, which ends at20.",
+      "decision": "No arrest/Passion mapping or silent replacement in this batch. Locate and reconcile intended passage before authoring."
+    },
+    {
+      "pdfPage": 18,
+      "issue": "John8:1–11 appears beside the paralytic; the checked Mark2 account is a different narrative.",
+      "decision": "Use Mark2 explicitly for the paralysed man; do not merge identities/accounts."
+    },
+    {
+      "pdfPage": 16,
+      "issue": "Exodus20:1–11 stops before several commands; Deuteronomy5:6–22 is also supplied.",
+      "decision": "Use the checked Deuteronomy range for selected commandments. Do not claim all10 listed or mandate one denominational numbering."
+    },
+    {
+      "pdfPage": 19,
+      "issue": "Mark10:46–50 ends before the healing in verses51–52.",
+      "decision": "Comparison question explicitly cites the checked extended46–52 range; extension disclosed, not silently attributed to truncated source range."
+    },
+    {
+      "pdfPage": 23,
+      "issue": "Holy Spirit list includes John6:12, John14:25 and an incomplete1Corinthians citation.",
+      "decision": "Use clear checked Acts1:8 and John14:26 for narrow tasks; do not infer intended fixes or exhaustive gifts taxonomy."
+    }
+  ],
+  "decisions": [
+    "Official exact class, subject and September2025 edition verified; this is not proof of school/cohort adoption or term placement.",
+    "Original scenarios/model wording and practice rubrics, not copied examination items or past-question labels. Christian interpretations are located within CRS; hypothetical answers are not judgments of a child’s faith or actual conduct.",
+    "Prayer concerns are educational written responses, not required personal disclosure or actual worship. Forgiveness/peace do not require hiding threats or permitting repeated harm.",
+    "One drawing draft requires actual artwork, inspection and agreed access route. No artwork, classroom group work, drama, video, source audio or pupil performance occurred.",
+    "Sources support only partial knowledge/task links.14 source objectives remain unmapped; wider range, full10commandments, unresolved Mary component, teacher-guide framework, actual activities, denominational calibration, adoption and target1000 remain open.",
+    "Every new prompt, model answer, original rubric and conceptual purpose manually inspected; automated validation is not independent academic review."
+  ],
+  "routeOfferingSourceId": "nerdc-primary-route-offering-reference-335"
+}

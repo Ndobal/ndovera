@@ -4046,6 +4046,76 @@
         "2020 Paper2 observation, terminology usage only"
       ],
       "note": "Official historical WAEC observation uses mkpụrụedide while discussing digraphs. This contextual occurrence does not define NERDC table7 intended unit or prove a letter, syllable or morpheme equivalence. No examination question or answer copied into this original practice batch; no current Primary4 adoption or objective mapping based on this historical item."
+    },
+    {
+      "id": "nerdc-crs-primary4-revised-2025",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/8.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 2149790,
+      "pageCount": 24,
+      "sha256": "e446b1a7c6adae310d520cc4696de4a060a4b9260391ed05e4c3771866e3f3bc",
+      "sourceSections": [
+        "Cover/title and copyright PDF1–3",
+        "Overview/contents PDF10–12",
+        "All11 topic tables PDF13–23;43 numbered Performance Objectives",
+        "Rendered visual checks PDF1,14,16,18,19"
+      ],
+      "note": "Full direct PDF freshly downloaded and all body tables read; exact Primary4 subject and revised September2025 edition established. Landing page403 and search-indexed web/8.pdf404; necurrdc/8.pdf succeeds. School/cohort adoption, official term allocation, teacher-guide assessment framework and complete delivery not verified. Source citations contain discrepancies; no silent corrections or full competency claim. See inventory335 and reconciliation335."
+    },
+    {
+      "id": "web-crs-passages-reference-335",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_primary_religious_text",
+      "source": "https://ebible.org/eng-web/",
+      "retrievedOn": "2026-11-20",
+      "retrievalMethod": "Parsed web chapter text read; direct execution-environment Luke15 URL403, so no full HTML checksum claimed.",
+      "sourceSections": [
+        "Luke15:11–24; Mark2:1–12; Mark10:46–52; Luke19:1–10",
+        "Luke6:12–13; John14:16–17,26; John15:12,26; Acts1:8",
+        "Colossians3:8–14; Galatians5:22–23; Romans5:1–5; Matthew5:44–48; Deuteronomy5:6–22",
+        "John8:1–11 and Matthew28 checked for source-reference discrepancies"
+      ],
+      "references": [
+        "https://ebible.org/eng-web/LUK15.htm",
+        "https://ebible.org/eng-web/MRK02.htm",
+        "https://ebible.org/eng-web/MRK10.htm",
+        "https://ebible.org/eng-web/LUK19.htm",
+        "https://ebible.org/eng-web/LUK06.htm",
+        "https://ebible.org/eng-web/JHN14.htm",
+        "https://ebible.org/eng-web/JHN15.htm",
+        "https://ebible.org/eng-web/ACT01.htm",
+        "https://ebible.org/eng-web/COL03.htm",
+        "https://ebible.org/eng-web/GAL05.htm",
+        "https://ebible.org/eng-web/ROM05.htm",
+        "https://ebible.org/eng-web/MAT05.htm",
+        "https://ebible.org/eng-web/DEU05.htm",
+        "https://ebible.org/eng-web/JHN08.htm",
+        "https://ebible.org/eng-web/MAT28.htm"
+      ],
+      "licenseEvidence": "https://ebible.org/eng-web/copyright.htm",
+      "note": "World English Bible Classic public-domain statement read. Selected biblical text supports narrative facts and clearly identified Christian interpretations, not official Primary4 adoption or a mandated translation. All questions/models are original author wording, not presented as a modified WEB edition. Accept equivalent translations/denominational wording after academic review; no source audio, class reading or pupil performance claimed."
+    },
+    {
+      "id": "nerdc-primary-route-offering-reference-335",
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "kind": "official_subject_route_offering",
+      "source": "https://www.nerdc.gov.ng/content_manager/Basic%20and%20Senior%20Secondary%20Education%20Curriculum%20Offerings.pdf",
+      "retrievedOn": "2026-11-20",
+      "pageCount": 3,
+      "retrievalMethod": "Parsed web PDF text read; no local full-file checksum claimed.",
+      "sourceSections": [
+        "PDF1, Primary4–6 subject route table, CRS/IS row"
+      ],
+      "note": "Confirms conditional CRS route for Christian pupils and IS route for Muslim pupils in the subject offering. Does not establish school/cohort adoption, official term allocation or full exact-class objective scope. Other subject rows are not silently turned into complete objective banks."
     }
   ],
   "banks": [
@@ -6818,6 +6888,19 @@
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "applicability": "Christian-pupil CRS route in official Primary4–6 offering; school/cohort adoption and timetable placement unverified. Not a claim that every pupil must study both CRS and Islamic Studies.",
+      "applicabilityReferences": [
+        "nerdc-primary-route-offering-reference-335"
+      ]
     }
   ],
   "objectives": [
@@ -43275,6 +43358,528 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t2-po1-v1",
+      "topic": "We are Children of One Father",
+      "subtopic": "Fatherhood and kinship",
+      "learningObjective": "Explain the CRS idea of God as Father and people as a family, without confusing spiritual kinship with biological parentage.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.14, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t2-po2-v1",
+      "topic": "We are Children of One Father",
+      "subtopic": "Significance of belonging",
+      "learningObjective": "Explain the significance of belonging to God’s family in Christian teaching.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.14, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t2-po3-v1",
+      "topic": "We are Children of One Father",
+      "subtopic": "Family attitudes",
+      "learningObjective": "Describe caring and respectful attitudes towards others in the CRS family theme.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.14, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t2-po4-v1",
+      "topic": "We are Children of One Father",
+      "subtopic": "Value of peace",
+      "learningObjective": "Explain practical reasons for living peacefully with others.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.14, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t2-po5-v1",
+      "topic": "We are Children of One Father",
+      "subtopic": "Peace drawing",
+      "learningObjective": "Create an original drawing that communicates peaceful relationships.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.14, Performance Objectives 5; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t4-po1-v1",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law meaning",
+      "learningObjective": "Explain the meaning of a law or shared rule using a familiar example.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.16, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t4-po2-v1",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law importance",
+      "learningObjective": "Explain how a fair rule helps people live or work together.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.16, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t4-po3-v1",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Commandments",
+      "learningObjective": "State selected commandments accurately without imposing one denominational numbering system.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.16, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t4-po4-v1",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law purpose",
+      "learningObjective": "Explain how biblical law guides relationships with God and other people.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.16, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t4-po5-v1",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Reasons to obey",
+      "learningObjective": "Explain reasons to obey a good rule even when no one is watching.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.16, Performance Objectives 5; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t6-po1-v1",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Sin and forgiveness",
+      "learningObjective": "Explain sin and forgiveness in Christian teaching while distinguishing wrongdoing from an accident.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.18, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t6-po2-v1",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Biblical forgiveness",
+      "learningObjective": "Discuss forgiveness in selected biblical narratives with accurate character and passage distinctions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.18, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t6-po3-v1",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Repentance",
+      "learningObjective": "Explain acknowledgement, repentance and changed behaviour when seeking forgiveness.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.18, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t6-po4-v1",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Value of forgiving",
+      "learningObjective": "Explain the value of seeking and giving forgiveness without endorsing retaliation or continued harm.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.18, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t7-po1-v1",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Ways of love",
+      "learningObjective": "Identify ways Jesus teaches or demonstrates love for people.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.7 / PDF p.19, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t7-po2-v1",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Love in narratives",
+      "learningObjective": "Discuss Jesus’ care for Bartimaeus and Zacchaeus; the source’s Mary Magdalene identification is unresolved.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.7 / PDF p.19, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t7-po3-v1",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Value of love",
+      "learningObjective": "Explain why care for others should extend beyond one’s immediate friends.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.7 / PDF p.19, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t8-po1-v1",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer meaning and importance",
+      "learningObjective": "Explain prayer and its importance within Christian teaching.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.20, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t8-po2-v1",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer occasions",
+      "learningObjective": "Describe a source-supported occasion when Jesus prayed.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.20, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t8-po3-v1",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer reasons",
+      "learningObjective": "Explain a reason Christians learn from Jesus’ prayer before an important decision.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.20, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t8-po4-v1",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer concerns",
+      "learningObjective": "Identify appropriate concerns for prayer beyond personal possessions.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.20, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t10-po1-v1",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life meaning",
+      "learningObjective": "Explain new life in Jesus as a changed way of living in Christian teaching.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.22, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t10-po2-v1",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life evidence",
+      "learningObjective": "Identify concrete conduct that can show a changed way of living.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.22, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t10-po3-v1",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life characteristics",
+      "learningObjective": "Identify qualities associated with new life in Jesus in Colossians3.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.22, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t10-po4-v1",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life benefits",
+      "learningObjective": "Explain a benefit of new life in Christian teaching without promising wealth or freedom from every difficulty.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.22, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t11-po1-v1",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit promise",
+      "learningObjective": "Explain Jesus’ promise of the Holy Spirit using a checked biblical reference.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.23, Performance Objectives 1; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t11-po2-v1",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit gift",
+      "learningObjective": "Describe the Holy Spirit’s enabling gift in Acts1:8 without treating it as a material prize.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.23, Performance Objectives 2; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t11-po3-v1",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit work",
+      "learningObjective": "Identify teaching and remembrance as work promised of the Holy Spirit.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.23, Performance Objectives 3; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "id": "nerdc-crs-primary4-335-t11-po4-v1",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit fruit",
+      "learningObjective": "Identify qualities called the fruit of the Spirit and apply one to a familiar situation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.11 / PDF p.23, Performance Objectives 4; associated content and activities. Partial author mapping only; discrepancies recorded in reconciliation335."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -43382,6 +43987,7 @@
     "Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist.",
     "Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open.",
     "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model.",
-    "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained."
+    "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained.",
+    "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained."
   ]
 }

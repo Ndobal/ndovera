@@ -1,0 +1,1495 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 CRS source-led first bank: peace, law, forgiveness, care, prayer and character",
+  "questionCount": 33,
+  "note": "Thirty-two written and one actual-artwork structured draft across29 partial author mappings from43 inventoried objectives. Original scenarios and biblical questions; no copied examination questions. Source reference discrepancies explicitly retained; school adoption, denominational/rubric review, fuller scope and actual practical delivery pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Fatherhood and kinship",
+      "learningObjective": "Explain the CRS idea of God as Father and people as a family, without confusing spiritual kinship with biological parentage.",
+      "id": "ndv-335-001",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In this CRS topic, people are described as belonging to one family under God. Does this mean that every child has the same biological parents? Explain the idea and one way it should affect treatment of other people.",
+      "answer": "No. The family language expresses shared dignity and a responsibility to care for one another under God; it does not say everyone has the same biological parents. It should encourage respect rather than treating another person as less valuable.",
+      "explanation": "The response distinguishes a religious family image from a literal statement about ancestry.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes spiritual family language from shared biological parents."
+        },
+        {
+          "marks": 1,
+          "description": "Explains shared care or dignity in the CRS context."
+        },
+        {
+          "marks": 1,
+          "description": "Links that idea to respectful treatment of another person."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Significance of belonging",
+      "learningObjective": "Explain the significance of belonging to God’s family in Christian teaching.",
+      "id": "ndv-335-002",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A child says, “Belonging to God’s family means I deserve kindness but never need to show it.” What responsibility is missing from this explanation? Give an example.",
+      "answer": "Belonging also calls for love and care towards others. For example, I can listen patiently when another pupil needs help instead of demanding care only for myself.",
+      "explanation": "The question tests reciprocal responsibility, not a claim that a child earns human dignity by performing well.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains responsibility to show care as well as receive it."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant example of care."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Family attitudes",
+      "learningObjective": "Describe caring and respectful attitudes towards others in the CRS family theme.",
+      "id": "ndv-335-003",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a class project, Uche refuses to work with a pupil from another religion. How should a pupil who has learnt the CRS lesson about one human family respond? Give a respectful action and a reason.",
+      "answer": "Invite the excluded pupil to take part and share the work fairly. Different religion is not a reason to deny someone respect or participation in a shared class activity.",
+      "explanation": "The source’s peace competence explicitly includes people of different religions and cultures; a shared school task does not require shared belief.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests inclusion in the shared activity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a reason based on respect or equal participation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Family attitudes",
+      "learningObjective": "Describe caring and respectful attitudes towards others in the CRS family theme.",
+      "id": "ndv-335-004",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two group members want different titles for a poster. Describe a fair way to decide without insulting either person. Explain how your method shows a caring attitude.",
+      "answer": "Let each explain the title, listen without insults, and agree on criteria or a fair vote. Listening values both people even if only one title is chosen.",
+      "explanation": "Respectful disagreement differs from excluding someone because of identity or pretending all opinions must be identical.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a fair decision process involving both members."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the process respects people despite disagreement."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Value of peace",
+      "learningObjective": "Explain practical reasons for living peacefully with others.",
+      "id": "ndv-335-005",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school garden group spends its meeting shouting about who owns the watering can. Explain two different ways a peaceful agreement would help the group achieve its work.",
+      "answer": "An agreed sharing arrangement leaves more time to water the plants and lets members cooperate instead of damaging trust. Other distinct sensible benefits include avoiding injury or damage.",
+      "explanation": "The answer connects peace to practical outcomes rather than merely repeating that peace is good.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one relevant practical benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct benefit and connects it to the group’s work."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Value of peace",
+      "learningObjective": "Explain practical reasons for living peacefully with others.",
+      "id": "ndv-335-006",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil is repeatedly threatened and is told, “Keeping peace means never telling an adult.” Is that good advice? Explain a peaceful response that also protects the pupil.",
+      "answer": "No. The pupil should move to safety and tell a trusted teacher or caregiver. Getting help can stop harm without revenge; peaceful living does not require hiding threats.",
+      "explanation": "A peace lesson should not confuse silence about harm with reconciliation. No personal disclosure is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects hiding ongoing threats."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests seeking safe adult help without retaliation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that protection and peaceful resolution can go together."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "We are Children of One Father",
+      "subtopic": "Peace drawing",
+      "learningObjective": "Create an original drawing that communicates peaceful relationships.",
+      "id": "ndv-335-007",
+      "objectiveId": "nerdc-crs-primary4-335-t2-po5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Draw an original scene showing people living peacefully together. Show at least two people and a clear action that helps them cooperate. Add a short label explaining the peaceful action.",
+      "answer": "No single picture is required. An acceptable actual drawing might show neighbours sharing a public tap fairly, with a label about taking turns. Assess the submitted artwork and its meaning, not the example alone.",
+      "explanation": "The source includes a drawing objective; a written description of an imaginary drawing does not fulfil it.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actual learner-created artwork shows people interacting."
+        },
+        {
+          "marks": 1,
+          "description": "A visible action communicates cooperation or peaceful resolution."
+        },
+        {
+          "marks": 1,
+          "description": "Label or accessible learner explanation matches the peaceful action."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "requiresObservedPracticalEvidence": true,
+      "requiresOriginalArtwork": true,
+      "deliveryNote": "Require actual learner-created artwork and teacher inspection. Agree suitable drawing materials/access route before use; do not assess artistic polish. No learner artwork or classroom performance was produced during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law meaning",
+      "learningObjective": "Explain the meaning of a law or shared rule using a familiar example.",
+      "id": "ndv-335-008",
+      "objectiveId": "nerdc-crs-primary4-335-t4-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class notice says “Return borrowed books by Friday.” Another says “Blue is my favourite colour.” Which is a rule, and what makes it different from the other statement?",
+      "answer": "The return-by-Friday notice is a rule: it tells borrowers what they are expected to do. The colour statement expresses a personal preference rather than a shared requirement.",
+      "explanation": "The learner distinguishes a rule from a wish or opinion without treating every preference as law.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the book-return notice as the rule."
+        },
+        {
+          "marks": 1,
+          "description": "Explains an expected action versus a personal preference."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law importance",
+      "learningObjective": "Explain how a fair rule helps people live or work together.",
+      "id": "ndv-335-009",
+      "objectiveId": "nerdc-crs-primary4-335-t4-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "At a busy school tap, the rule is to take turns. Explain how applying the same rule to close friends and unfamiliar pupils makes the rule useful.",
+      "answer": "Everyone has a fair chance to get water, and pupils can predict their turn instead of fighting or being pushed aside. Letting friends jump ahead defeats that fairness.",
+      "explanation": "The question examines a rule’s purpose and equal application, not just obedience to a label.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects consistent application to fair access."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how predictable turns reduce conflict or confusion."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Commandments",
+      "learningObjective": "State selected commandments accurately without imposing one denominational numbering system.",
+      "id": "ndv-335-010",
+      "objectiveId": "nerdc-crs-primary4-335-t4-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "State the two commandments about taking another person’s property and giving untrue evidence against a neighbour. Do not give their commandment numbers. Explain which one is broken by falsely blaming a pupil for a missing book.",
+      "answer": "Do not steal; do not give false testimony against your neighbour. Falsely blaming a pupil breaks the command against false testimony.",
+      "explanation": "These selected commandments are stated in Deuteronomy5:19–20. Different Christian traditions number the commandments differently, so numbering is not assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States the command against stealing."
+        },
+        {
+          "marks": 1,
+          "description": "States the command against false testimony."
+        },
+        {
+          "marks": 1,
+          "description": "Applies false testimony to the invented accusation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Deuteronomy 5:19–20"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Law purpose",
+      "learningObjective": "Explain how biblical law guides relationships with God and other people.",
+      "id": "ndv-335-011",
+      "objectiveId": "nerdc-crs-primary4-335-t4-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a CRS discussion, one pupil says biblical law concerns worship only and has nothing to do with neighbours. Use one command about God and one about other people to improve that explanation.",
+      "answer": "Biblical law includes loyalty to God, such as not having other gods, and duties towards people, such as not stealing. It therefore guides both worship and treatment of neighbours.",
+      "explanation": "The two directions of relationship are illustrated without claiming that this response lists every commandment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a relevant command concerning God."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant command concerning other people."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that both kinds of relationship matter."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Deuteronomy 5:7–20"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "God Gives His Law to Us",
+      "subtopic": "Reasons to obey",
+      "learningObjective": "Explain reasons to obey a good rule even when no one is watching.",
+      "id": "ndv-335-012",
+      "objectiveId": "nerdc-crs-primary4-335-t4-po5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Nobody sees Efe find a classmate’s labelled pencil case. Why should Efe return it even if keeping it would not lead to punishment? Explain one reason beyond fear of being caught.",
+      "answer": "It belongs to someone else, and returning it respects the owner and builds honesty and trust. A good action is not valuable only because someone may punish wrongdoing.",
+      "explanation": "This tests an internal reason for obeying a good rule rather than a prediction about detection.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains respect for ownership, honesty or trust."
+        },
+        {
+          "marks": 1,
+          "description": "Makes clear why the absence of an observer does not justify keeping it."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Sin and forgiveness",
+      "learningObjective": "Explain sin and forgiveness in Christian teaching while distinguishing wrongdoing from an accident.",
+      "id": "ndv-335-013",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Timi accidentally spills water and immediately helps clean it. Later he deliberately hides a borrowed ruler and lies about it. Which action clearly shows deliberate wrongdoing? Explain why the accident should be treated differently.",
+      "answer": "Deliberately hiding the ruler and lying is intentional wrongdoing. The spill was accidental; helping clean it is responsible. Intention matters when distinguishing the two situations.",
+      "explanation": "In this introductory CRS discussion, not every mishap is treated as a deliberate moral offence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the deliberate hiding and lying."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the difference between an accident and an intended wrong."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Sin and forgiveness",
+      "learningObjective": "Explain sin and forgiveness in Christian teaching while distinguishing wrongdoing from an accident.",
+      "id": "ndv-335-014",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain forgiveness in a way that does not mean “the wrong action was actually good.” Use a made-up classroom example.",
+      "answer": "Forgiveness means responding to a wrong with mercy and letting go of revenge; it does not make the wrong right. A pupil may forgive an admitted insult while still saying that insults hurt and should stop.",
+      "explanation": "The example separates mercy towards a person from approval of the harmful act.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains forgiveness without approving the wrong."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an example consistent with that distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Biblical forgiveness",
+      "learningObjective": "Discuss forgiveness in selected biblical narratives with accurate character and passage distinctions.",
+      "id": "ndv-335-015",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke15:11–24, what did the younger son decide to do after recognising his wrongdoing, and how did his father receive him? Explain how the two actions contribute to the lesson about forgiveness.",
+      "answer": "The son returned and admitted he had sinned; his father welcomed him with compassion and celebrated his return. The son’s acknowledgement and the father’s welcome illustrate repentance and mercy.",
+      "explanation": "The response uses the return episode, without adding invented dialogue or turning every detail into a condition that all real apologies must copy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes the return and admission of wrongdoing."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the father’s compassionate welcome."
+        },
+        {
+          "marks": 1,
+          "description": "Links the actions to repentance and mercy."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Luke 15:11–24"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Biblical forgiveness",
+      "learningObjective": "Discuss forgiveness in selected biblical narratives with accurate character and passage distinctions.",
+      "id": "ndv-335-016",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Mark2:1–12, distinguish what Jesus first said about the man’s sins from what he later told the man to do with his mat. Why should a summary keep both parts?",
+      "answer": "Jesus first declared that the man’s sins were forgiven. He later told him to get up, take his mat and go home. Keeping both parts shows that the account includes forgiveness and healing rather than only transport through a roof.",
+      "explanation": "The checked Mark account concerns a paralysed man. John8 is not silently substituted as another account of that same person.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the declaration of forgiveness."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies getting up, taking the mat and going home."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the forgiveness theme must remain in the summary."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Mark 2:1–12"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Repentance",
+      "learningObjective": "Explain acknowledgement, repentance and changed behaviour when seeking forgiveness.",
+      "id": "ndv-335-017",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil tears a shared chart on purpose, says “sorry,” but plans to tear the replacement. Describe two changes that would make the apology show repentance rather than empty words.",
+      "answer": "The pupil should honestly admit the damage and stop planning to repeat it, then help repair or replace the chart in an appropriate way. Changed intention and conduct matter as well as saying sorry.",
+      "explanation": "Repair is a practical example of changed behaviour, not a fee that buys God’s forgiveness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes honest acknowledgement and a changed intention."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a concrete change or suitable repair without suggesting forgiveness can be bought."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus’ Power to Forgive Sins",
+      "subtopic": "Value of forgiving",
+      "learningObjective": "Explain the value of seeking and giving forgiveness without endorsing retaliation or continued harm.",
+      "id": "ndv-335-018",
+      "objectiveId": "nerdc-crs-primary4-335-t6-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil has apologised for a cruel nickname. Explain why forgiving the pupil can help a relationship, and why agreeing that the nickname must stop is still appropriate.",
+      "answer": "Forgiveness can end revenge and make reconciliation possible. Agreeing to stop the nickname protects respect and prevents repetition; forgiving does not permit continued harm.",
+      "explanation": "The response connects mercy with responsible boundaries, without requiring the harmed pupil to pretend trust is already restored.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a benefit of forgiveness."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why stopping the harmful behaviour is still necessary."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Ways of love",
+      "learningObjective": "Identify ways Jesus teaches or demonstrates love for people.",
+      "id": "ndv-335-019",
+      "objectiveId": "nerdc-crs-primary4-335-t7-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Matthew5:44 teaches love and prayer even towards people who act unkindly. A pupil who insulted you now needs help collecting fallen exercise books. Give a response that follows this teaching without pretending the insult was right.",
+      "answer": "Help collect the books without insulting the pupil back; later explain calmly that the insult was hurtful and should stop. Kindness does not require agreeing with the wrong.",
+      "explanation": "This applies a checked Christian teaching to an ordinary fictional situation, not a demand to accept danger.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests practical kindness without revenge."
+        },
+        {
+          "marks": 1,
+          "description": "Separates kindness from approval of the insult."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Matthew 5:44–48"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Love in narratives",
+      "learningObjective": "Discuss Jesus’ care for Bartimaeus and Zacchaeus; the source’s Mary Magdalene identification is unresolved.",
+      "id": "ndv-335-020",
+      "objectiveId": "nerdc-crs-primary4-335-t7-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare Jesus’ response to Bartimaeus in Mark10:46–52 with his response to Zacchaeus in Luke19:1–10. Give one different action in each account and one shared feature of care.",
+      "answer": "Jesus stopped, called Bartimaeus and responded to his request for sight. Jesus called Zacchaeus down and chose to stay at his home. In both accounts he gave attention to a person others might dismiss.",
+      "explanation": "These are distinct people and accounts. This partial comparison does not identify the unnamed woman in John8 as Mary Magdalene or claim full coverage of the source objective.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a correct Bartimaeus action."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a different correct Zacchaeus action."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a shared feature of care while keeping the accounts distinct."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Mark 10:46–52",
+        "Luke 19:1–10"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Loves all People",
+      "subtopic": "Value of love",
+      "learningObjective": "Explain why care for others should extend beyond one’s immediate friends.",
+      "id": "ndv-335-021",
+      "objectiveId": "nerdc-crs-primary4-335-t7-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A club helps only members who can repay a favour. Explain why this is a narrow form of care, and suggest one change using the Christian lesson that love reaches beyond close friends.",
+      "answer": "Making repayment the condition excludes people who still need care. The club could offer suitable help according to need rather than only to those who can return a favour.",
+      "explanation": "The question examines the scope of care, not another recall question about a healing narrative.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the exclusion caused by the repayment condition."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a reasonable way to extend care beyond reciprocal favours."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Matthew 5:46–48",
+        "John 15:12"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer meaning and importance",
+      "learningObjective": "Explain prayer and its importance within Christian teaching.",
+      "id": "ndv-335-022",
+      "objectiveId": "nerdc-crs-primary4-335-t8-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain prayer in Christian teaching. Give one example of prayer that expresses thanks rather than asks for a possession, and explain why prayer is more than a shopping list.",
+      "answer": "Prayer is communication with God. A person may thank God for care or kindness received. It can include gratitude, confession and seeking guidance as well as requests.",
+      "explanation": "The model concerns the meaning of prayer and is not a requirement to disclose personal beliefs or perform worship.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains communication with God."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant thanksgiving example."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a purpose beyond requesting possessions."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer occasions",
+      "learningObjective": "Describe a source-supported occasion when Jesus prayed.",
+      "id": "ndv-335-023",
+      "objectiveId": "nerdc-crs-primary4-335-t8-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In Luke6:12–13, place these events in order: Jesus chose twelve apostles; Jesus spent the night in prayer. State what happened first and what followed.",
+      "answer": "Jesus spent the night in prayer first. When day came, he called his disciples and chose twelve apostles.",
+      "explanation": "The checked passage establishes an occasion for prayer; it does not say the choice happened before the night of prayer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the night of prayer first."
+        },
+        {
+          "marks": 1,
+          "description": "Places the choice of apostles afterwards."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Luke 6:12–13"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer reasons",
+      "learningObjective": "Explain a reason Christians learn from Jesus’ prayer before an important decision.",
+      "id": "ndv-335-024",
+      "objectiveId": "nerdc-crs-primary4-335-t8-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After reading Luke6:12–13, a CRS group discusses prayer before an important decision. Explain one reason this is meaningful to Christians and one responsible action they can take as they decide.",
+      "answer": "Christians may pray to seek God’s guidance before making an important decision. They can also consider the choices carefully and listen to relevant advice; prayer is not an excuse to avoid thinking.",
+      "explanation": "Seeking guidance is an interpretation within the CRS lesson, not an invented quotation saying exactly what Jesus prayed that night.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains seeking guidance or expressing dependence on God."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a relevant thoughtful action rather than avoiding responsibility."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Luke 6:12–13"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Prayed to the Father",
+      "subtopic": "Prayer concerns",
+      "learningObjective": "Identify appropriate concerns for prayer beyond personal possessions.",
+      "id": "ndv-335-025",
+      "objectiveId": "nerdc-crs-primary4-335-t8-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class prepares a fictional prayer list for its community. Suggest one concern about people’s wellbeing and one about making wise choices. Explain how these differ from asking only for prizes for oneself.",
+      "answer": "Examples are care for neighbours who are unwell and wisdom for making fair decisions. These consider people’s needs and responsible choices rather than only personal rewards.",
+      "explanation": "The task asks for appropriate concerns, not private medical information, guarantees of healing or an actual prayer performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests an appropriate wellbeing concern."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests an appropriate wisdom or guidance concern."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the wider focus beyond personal prizes."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life meaning",
+      "learningObjective": "Explain new life in Jesus as a changed way of living in Christian teaching.",
+      "id": "ndv-335-026",
+      "objectiveId": "nerdc-crs-primary4-335-t10-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the CRS topic about new life in Jesus, why is wearing a new badge not enough to show a new way of living? Explain using a change in behaviour.",
+      "answer": "A badge is an outward object. New life in the lesson concerns changed attitudes and actions, such as replacing lying with truthful speech and treating others with kindness.",
+      "explanation": "Colossians3 describes changed conduct, not a test based on possessions or appearance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes outward appearance from changed conduct."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant behavioural change."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Colossians 3:8–14"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life evidence",
+      "learningObjective": "Identify concrete conduct that can show a changed way of living.",
+      "id": "ndv-335-027",
+      "objectiveId": "nerdc-crs-primary4-335-t10-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read this fictional account: “Before, Bisi took credit for group work. Now she names everyone who helped and corrects the record when a member is left out.” Identify the evidence of change and explain why it is stronger than merely claiming to be different.",
+      "answer": "Bisi now gives others honest credit and corrects omissions. Those observable actions support the claim of change more strongly than a label with no changed behaviour.",
+      "explanation": "The question assesses evidence in an invented account, not a judgment on a real pupil’s spiritual status.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an actual changed action in the account."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why conduct is evidence beyond a claim."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Colossians 3:9–14"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life characteristics",
+      "learningObjective": "Identify qualities associated with new life in Jesus in Colossians3.",
+      "id": "ndv-335-028",
+      "objectiveId": "nerdc-crs-primary4-335-t10-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Colossians3:12–14 includes kindness, patience and forgiveness. Choose two of these qualities and describe how each could help a team when a member makes a genuine mistake.",
+      "answer": "Kindness can encourage the member rather than humiliate them; patience can allow time to correct the error; forgiveness can prevent the mistake being used for revenge. Any two relevant quality-action links are acceptable.",
+      "explanation": "Different qualities must be connected to actions rather than listed as interchangeable labels.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links one selected quality to a suitable action."
+        },
+        {
+          "marks": 1,
+          "description": "Links a second distinct quality to a suitable action."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Colossians 3:12–14"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "Jesus Gives Us a New Life",
+      "subtopic": "New life benefits",
+      "learningObjective": "Explain a benefit of new life in Christian teaching without promising wealth or freedom from every difficulty.",
+      "id": "ndv-335-029",
+      "objectiveId": "nerdc-crs-primary4-335-t10-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Romans5:1–5 connects Christian faith with peace with God and also mentions difficulties. Does this support a claim that new life means a person will never face trouble or become upset? Explain a more careful conclusion.",
+      "answer": "No. The passage speaks of peace with God while also discussing suffering, perseverance and hope. It does not promise a life with no trouble or feelings of sadness.",
+      "explanation": "The response avoids turning a spiritual benefit into a guarantee of wealth, health or constant happiness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the no-difficulty claim."
+        },
+        {
+          "marks": 1,
+          "description": "Explains peace with God or hope while recognising that difficulties can still occur."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Romans 5:1–5"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit promise",
+      "learningObjective": "Explain Jesus’ promise of the Holy Spirit using a checked biblical reference.",
+      "id": "ndv-335-030",
+      "objectiveId": "nerdc-crs-primary4-335-t11-po1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "According to John15:26, whom did Jesus promise to send from the Father, and what would this helper testify about? Explain without treating the helper as an ordinary parcel.",
+      "answer": "Jesus promised the Counselor or Holy Spirit, described as the Spirit of truth, who would testify about him. This is a promise of spiritual help, not a material parcel.",
+      "explanation": "Counselor, Helper or Comforter wording is accepted without prescribing one translation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the Holy Spirit or Spirit of truth."
+        },
+        {
+          "marks": 1,
+          "description": "Explains testimony about Jesus."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "John 15:26"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit gift",
+      "learningObjective": "Describe the Holy Spirit’s enabling gift in Acts1:8 without treating it as a material prize.",
+      "id": "ndv-335-031",
+      "objectiveId": "nerdc-crs-primary4-335-t11-po2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Acts1:8 links receiving the Holy Spirit with being witnesses to Jesus. Explain the purpose of the power in that verse. Why would “a prize to show off against other people” be a poor explanation?",
+      "answer": "The power enables witness to Jesus, extending beyond one local place. It is for carrying out that calling, not a prize for boasting or claiming personal superiority.",
+      "explanation": "The question uses the specific Acts1:8 purpose and does not claim the source’s incomplete references establish an exhaustive list of spiritual gifts.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains power for witness to Jesus."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes that purpose from boasting or superiority."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Acts 1:8"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit work",
+      "learningObjective": "Identify teaching and remembrance as work promised of the Holy Spirit.",
+      "id": "ndv-335-032",
+      "objectiveId": "nerdc-crs-primary4-335-t11-po3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In John14:26, name the two connected kinds of help promised of the Holy Spirit concerning Jesus’ teaching. Explain how they relate to learning rather than simply receiving a possession.",
+      "answer": "The Holy Spirit would teach and bring Jesus’ words to remembrance. Teaching and remembrance help the disciples understand and recall what Jesus had taught.",
+      "explanation": "The answer keeps the promise tied to its stated teaching context rather than inventing unrelated abilities.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies teaching."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies remembrance of Jesus’ words and explains their learning connection."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "John 14:26"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Christian Religious Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-crs-primary4-revised-2025",
+      "topic": "The Holy Spirit Our Guide",
+      "subtopic": "Spirit fruit",
+      "learningObjective": "Identify qualities called the fruit of the Spirit and apply one to a familiar situation.",
+      "id": "ndv-335-033",
+      "objectiveId": "nerdc-crs-primary4-335-t11-po4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name two qualities called the fruit of the Spirit in Galatians5:22–23. Then explain how self-control could guide a pupil who wants to shout an insult during a game.",
+      "answer": "Examples include love, joy, peace, patience, kindness, goodness, faithfulness, gentleness and self-control. Self-control can help the pupil pause, avoid the insult and express disagreement respectfully. Any two accurate qualities are accepted; faith/faithfulness wording may vary by translation.",
+      "explanation": "Fruit here refers to qualities of character, not fruit from a tree, and the scenario requires a practical application.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names one accurate quality."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second distinct accurate quality."
+        },
+        {
+          "marks": 1,
+          "description": "Applies self-control by avoiding the insult and choosing a respectful response."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentReviewNote": "Original practice in the Christian Religious Studies context; independent subject, age/class suitability and rubric review pending. Accept equivalent explanations and relevant Christian wording. Do not infer a pupil’s faith, moral worth or actual conduct from a hypothetical answer. School/cohort adoption and official term placement unverified.",
+      "contentSourceId": "web-crs-passages-reference-335",
+      "bibleReferences": [
+        "Galatians 5:22–23"
+      ],
+      "contentProvenance": "Original questions, scenarios and author paraphrases informed by checked public-domain biblical text. No copied examination question, prescribed translation or exact-word recitation requirement."
+    }
+  ]
+}
