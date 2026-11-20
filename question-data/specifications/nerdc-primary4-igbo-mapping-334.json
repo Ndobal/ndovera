@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-igbo-primary4-revised-2025",
+  "sourceSha256": "c1d3b41a3f1601cb75f867ab41af46a9c6452a9468aac9803abad5dd3cd77140",
+  "freshRetrievalBytes": 1315243,
+  "readPdfPages": [
+    20,
+    26
+  ],
+  "readAndVisuallyCheckedPdfPages": [
+    26
+  ],
+  "supplementarySources": [
+    "noun-igbo-phonology-reference-334",
+    "waec-igbo-terminology-observation-334"
+  ],
+  "supplementaryRenderedPages": {
+    "noun-igbo-phonology-reference-334": [
+      37,
+      38
+    ]
+  },
+  "authorMappings": [
+    {
+      "inventoryId": "p4-igbo-table13-po1",
+      "objectiveId": "nerdc-igbo-primary4-334-1-v1",
+      "reused": false
+    },
+    {
+      "inventoryId": "p4-igbo-table13-po2",
+      "objectiveId": "nerdc-igbo-primary4-334-2-v1",
+      "reused": false
+    }
+  ],
+  "protocolPath": "stimuli/batch-334/sound-delivery-protocol.json",
+  "newQuestions": 4,
+  "spoken": 4,
+  "uniqueAuthorMappings": 53,
+  "partiallyLinkedSourceObjectives": 54,
+  "uniqueLinkedValidDrafts": 99,
+  "academicReviewStatus": "pending",
+  "terminologySearch": {
+    "date": "2026-11-20",
+    "queries": [
+      "site.nou.edu.ng/coursewarecontent IGB241 mkpụrụ",
+      "mkpụrụedide Igbo",
+      "site.nou.edu.ng mkpụrụedide",
+      "site.edu.ng mkpụrụedide mofim"
+    ],
+    "result": "Two search systems returned no resolving exact-class primary definition. A dictionary search result glosses morpheme; commercial lesson pages use writing-unit language. Neither resolves the NERDC intended term. Official WAEC historical contextual usage was read, but does not define the intended source unit. No equivalence adopted."
+  },
+  "decisions": [
+    "NOUN PDF obtained in full with checksum; PDF35 text distinguishes writing from speech. PDF37–38 selected/a f m/table entries visually checked. This supports only the selected correspondences, not an audible model or every table claim.",
+    "NERDC PDF26 mixed word-level notation retained as unresolved; no universal IPA corrections, complete sound count, tonal or syllabic-nasal analysis asserted. Other sounds and five-sound segmentation are not covered.",
+    "Four distinct purposes: auditory target classification including neither; target position relative to word start; pronunciation transfer into learner-created connected speech; guided monitoring/final production with truthful feedback. No letter-name task passed off as sound evidence.",
+    "The examiner-only word sets are common generic vocabulary, not copied examination questions. Original prompts and practice rubrics all remain drafts.",
+    "Before administration the native examiner must actually validate the model, variants, instructions and rubric. Protocol is unfilled; no model precheck, performance or audio claimed. Stop delivery if that prerequisite cannot be met.",
+    "Unit definition stays unmapped. Historical WAEC contextual usage does not establish a current Primary4 definition or adoption.",
+    "Inventory row sum101 includes the two shared earlier word-definition drafts twice; unique Igbo questions99. Full range/competence, number-range conflict and earlier delivery/adoption gaps remain open."
+  ]
+}

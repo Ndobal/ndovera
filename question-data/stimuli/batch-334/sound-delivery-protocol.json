@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-20",
+  "purpose": "Teacher-only prerequisites for four draft Igbo listening/production tasks; unfilled, not a delivered examination or review certificate.",
+  "status": "not_performed",
+  "prechecked": false,
+  "audioRetrieved": false,
+  "learnerPerformanceObserved": false,
+  "referenceModel": null,
+  "examinerCheck": null,
+  "learnerEvidence": null,
+  "steps": [
+    "A competent native Igbo examiner checks intended local pronunciations of aka, efere, mmiri and the isolated/a f m/sound models. The model must be an actual audible production, not merely written letters.",
+    "Check instructions, child familiarity, hearing/access route, intelligibility, acceptable local variants and rubric before use. These author criteria do not prescribe a national accommodation or grading policy. If the sound contrast/model is unsuitable or ambiguous, do not administer or score; revise and review the draft.",
+    "Use exact task-specific examiner-only words/models. Do not display word lists or keys for001/002. Produce target speech sounds rather than letter names; do not add a vowel to an isolated consonant.",
+    "Hear each individual response and assess only the stated target and criteria. For003 include original connected speech. For004 give truthful feedback, do not invent an error, and hear final production/explanation.",
+    "Any retained evidence follows school consent/privacy policy. This repository stores no learner identity, recording or performance result. An unfilled protocol or model answer cannot establish delivery.",
+    "Native/academic review, model calibration, audio playback/accessibility/app delivery, full sound/word range, notation, source unit definition, school adoption and official term placement remain open."
+  ]
+}

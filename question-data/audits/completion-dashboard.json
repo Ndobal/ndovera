@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 5915,
-    "validDrafts": 4236,
+    "raw": 5919,
+    "validDrafts": 4240,
     "reviewed": 0,
     "registeredBanks": 203,
     "target": 185000,
@@ -2126,6 +2126,12 @@
       "sha256": "8ae2d435e09b77effd5ec4fe3a6dc971fec163df8f40997982d2148bfebfca6b",
       "declared": 13,
       "actual": 13
+    },
+    {
+      "path": "original-multisubject-batch-334.json",
+      "sha256": "38bfa630b2bb5dfbd588361f0ecd6666542e90be16ccb77d516d179c6b0bec42",
+      "declared": 4,
+      "actual": 4
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6294,18 +6300,18 @@
       "specificationId": "nerdc-igbo-primary4-revised-2025",
       "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
       "applicability": "Where Igbo is the offered Nigerian language; school choice/adoption not verified.",
-      "raw": 95,
-      "validDrafts": 95,
+      "raw": 99,
+      "validDrafts": 99,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 95
+        "structured": 99
       },
       "difficulty": {
-        "standard": 95
+        "standard": 99
       },
-      "remaining": 905,
-      "mappedObjectives": 51,
-      "representedObjectives": 51,
+      "remaining": 901,
+      "mappedObjectives": 53,
+      "representedObjectives": 53,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8082,18 +8088,18 @@
     }
   ],
   "errorCounts": {
-    "independent_review_evidence_missing_or_invalid": 1679,
-    "numeric_template_hold": 1256,
     "cognitive_demand_missing_or_invalid": 1679,
+    "independent_review_evidence_missing_or_invalid": 1679,
     "objective_mapping_missing": 1679,
+    "numeric_template_hold": 1256,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
     "class_assignment_unresolved": 15,
     "skill_format_mismatch:mcq_not_a_production_task": 6,
+    "invalid_score": 81,
     "explanation_missing": 81,
-    "marking_guide_requires_positive_marks_and_criteria": 16,
-    "invalid_score": 81
+    "marking_guide_requires_positive_marks_and_criteria": 16
   },
   "mathematicalVerification": {
     "explicitArithmeticClaims": 622,
@@ -48089,6 +48095,30 @@
       "id": "ndv-333-013",
       "file": "original-multisubject-batch-333.json",
       "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-334-001",
+      "file": "original-multisubject-batch-334.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-334-002",
+      "file": "original-multisubject-batch-334.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-334-003",
+      "file": "original-multisubject-batch-334.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-334-004",
+      "file": "original-multisubject-batch-334.json",
+      "index": 3,
       "errors": []
     },
     {
@@ -119759,6 +119789,66 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-334-1-v1",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Auditory identification and position",
+      "learningObjective": "Identify selected speech sounds and their relative positions in heard familiar Igbo words, using a native-examiner-prechecked model.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.13 / PDF p.26, Mbunuche objective1; source sound awareness/content and oral activities. Selected/a f m/ subset only; supplementary NOUN IGB241 PDF35,37–38 distinguishes writing from speech and gives selected correspondences."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "id": "nerdc-igbo-primary4-334-2-v1",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Actual pronunciation and self-monitoring",
+      "learningObjective": "Produce selected speech sounds in familiar Igbo words and monitor actual pronunciation against a native-examiner-prechecked model.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.13 / PDF p.26, Mbunuche objective2; source sound awareness/content and oral activities. Selected/a f m/ subset only; supplementary NOUN IGB241 PDF35,37–38 distinguishes writing from speech and gives selected correspondences."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -119865,6 +119955,7 @@
     "Batch330 adds16 Primary4 Igbo drafts and ten partial author mappings:35 of55 numbered objectives now linked,20 unmapped. Conditional dress demonstration, specimen naming and drawing/modelling require actual evidence. The2009 ICRAF broad ube season is not a current local harvest calendar or the full five-fruit seasonal range. Other local names, crop seasons, dress forms, materials/cohort suitability, native review, orthography/marking, actual delivery, adoption and all earlier sound/number/unit gaps remain open.",
     "Batch331 adds8 original Primary4 Igbo picture-language drafts, two original SVGs and three partial mappings.38 of55 numbered objectives now have partial links,17 unmapped. Actual asset rendering/print delivery, accessible route, native labels, observed speech/pointing and wider visual vocabulary remain open. Text alternatives do not establish the same visual-recognition construct. All previous excursion/unit/sound/number-range, local season/culture, school choice/adoption and academic-review gaps persist.",
     "Batch332 adds8 original Primary4 Igbo drafts under six new author mappings and reuses an existing word-definition mapping for a second identical source objective.45 of55 numbered objectives have partial links through44 unique mappings;10 remain unmapped. Exact-term web searches did not resolve mkpụrụedide and do not prove its meaning/nonexistence. Explicit letter-card tasks do not reinterpret that unit. Actual-excursion tasks require verified attendance, personal vocabulary and firsthand observations under a teacher-only unfilled protocol; fictional preparation is not attendance evidence. Native review, sound/number-range conflicts, full word-formation range, local adoption and actual delivery remain open.",
-    "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model."
+    "Batch333 Primary4 Igbo: inventory52/55 source objectives have partial links through51 author mappings;95 unique drafts passing automated checks, not full competence or target completion. Numbers/arithmetic tasks are explicitly within50, compatible with the overlap of conflicting source ranges; the1–500 requirement remains unresolved/uncovered above50. Actual counting/speech delivery and native linguistic/marking calibration remain pending. Source table7 unit definition and both table13 sound objectives remain unmapped; mixed sound notation has not been normalised or treated as a pronunciation model.",
+    "Batch334 Primary4 Igbo:54/55 numbered source objectives partially linked through53 author mappings,99 unique drafts passing automated checks. Sound tasks use selected/a f m/only and require actual prechecked audible native model plus heard learner speech; no model calibration, audio retrieval or performance occurred. Full phonetic/tonal notation, gb, other source sounds, five-sound segmentation, local variants, accessibility and app delivery remain unresolved. Table7 mkpụrụedide definition remains unmapped; contextual WAEC usage and conflicting search results do not establish the intended NERDC unit. Source fifty-versus-500 conflict, full scope/targets and adoption gaps retained."
   ]
 }

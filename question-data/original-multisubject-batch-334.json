@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 2,
+  "collection": "Primary4 Igbo conditional auditory identification and actual pronunciation",
+  "questionCount": 4,
+  "note": "Four original spoken tasks under two partial sound-objective mappings. Each requires an audible prechecked native model and actual heard performance. No audio retrieved, model precheck, classroom calibration or learner performance claimed. Selected/a f m/only; full source notation and unit definition remain unresolved.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Auditory identification and position",
+      "learningObjective": "Identify selected speech sounds and their relative positions in heard familiar Igbo words, using a native-examiner-prechecked model.",
+      "id": "ndv-334-001",
+      "objectiveId": "nerdc-igbo-primary4-334-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gee ntị n’ụda abụọ onye nkụzi ga-akpọ, e mesịa gee ntị n’okwu ọ bụla. Maka okwu ọ bụla, kwuo ma ị nụrụ ụda mbụ, ụda nke abụọ, ma ọ bụ na ị nụghị nke ọ bụla n’ime ha.",
+      "answer": "Examiner-only order: model/f/first and/m/second, as speech sounds, then say efere; mmiri; aka. Expected classification: efere contains the first target/f/; mmiri contains the second target/m/; aka contains neither target. Learner answers orally in intelligible Igbo, for example nke mbụ; nke abụọ; ọ dịghị nke ọ bụla. No spelling or count of nasals is required.",
+      "explanation": "Auditory target recognition, including rejecting a word with neither target, is different from reading a printed letter. The m response concerns presence only, not the number or syllabicity of nasal segments.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the first target/f/in the actually heard efere."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the second target/m/in the actually heard mmiri."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects both targets for the actually heard aka."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresAudibleStimulus": true,
+      "referenceModelStatus": "not_yet_prechecked_or_delivered",
+      "examinerOnlyWords": [
+        "efere",
+        "mmiri",
+        "aka"
+      ],
+      "examinerOnlyTargetSounds": [
+        "f",
+        "m"
+      ],
+      "teacherSupport": "Precheck all three exact word forms and isolated sound models. Keep words and keys examiner-only. Model/f/, then/m/without letter names or added syllables; then say efere, mmiri, aka individually at natural intelligible pace under the checked protocol. Do not show text, mouth a written answer, replace a task with a spelling exercise or award marks from this key without hearing the learner.",
+      "deliveryProtocolPath": "stimuli/batch-334/sound-delivery-protocol.json",
+      "deliveryNote": "Do not administer or score until a competent native Igbo examiner has checked the exact spoken model, local forms, intelligibility and response conditions using the unfilled protocol. Require actual audible stimulus and individual heard response. No written word list during auditory identification. No reference audio, classroom calibration or learner performance occurred during authoring.",
+      "languageReviewNote": "Independent native linguistic/academic review and rubric calibration remain pending. Accept intelligible locally checked variants; no fixed accent, speed or exhaustive tone convention. Do not confuse sound production with reciting letter names. No whole-word IPA transcription, syllabic-nasal segmentation or phoneme-count claim.",
+      "scopeLimitation": "Selected/a f m/ sound-awareness practice only. Does not establish all source sounds, five-sound segmentation, the/gb/notation, i/ị distinction, tone system, full pronunciation competence, school adoption or official term placement. Written spelling alone cannot evidence these tasks."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Auditory identification and position",
+      "learningObjective": "Identify selected speech sounds and their relative positions in heard familiar Igbo words, using a native-examiner-prechecked model.",
+      "id": "ndv-334-002",
+      "objectiveId": "nerdc-igbo-primary4-334-1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gee ntị n’ụda onye nkụzi ga-egosi gị na n’okwu ọ ga-akpọ. Kwuo ma ụda ahụ bụ nke mbụ ị nụrụ n’okwu ahụ, ma ọ bụ na ụda ọzọ bịara tupu ya. Mee nke a maka ihe atụ abụọ ahụ.",
+      "answer": "Two examiner-only trials: model/a/then say aka: the target is heard first. Model/f/then say efere: another sound precedes the target. Illustrative oral answers: ọ bụ nke mbụ; ụda ọzọ bịara tupu ya. Do not require a complete transcription or numbered phoneme position.",
+      "explanation": "This locates a target relative to the start of a heard word. It does not infer speech position from the number of printed characters or claim a full phonemic analysis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies/a/as the first sound in the actually heard aka."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies/f/in the actually heard efere as preceded by another sound, in intelligible Igbo."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresAudibleStimulus": true,
+      "referenceModelStatus": "not_yet_prechecked_or_delivered",
+      "examinerOnlyWords": [
+        "aka",
+        "efere"
+      ],
+      "examinerOnlyTargetSounds": [
+        "a",
+        "f"
+      ],
+      "teacherSupport": "Check actual local productions of aka and efere and the/a/and/f/models. Give each isolated sound, then the corresponding word, without displaying the words or phonetic symbols. Ask only first versus preceded by another sound; do not request syllable counts, complete IPA or every segment.",
+      "deliveryProtocolPath": "stimuli/batch-334/sound-delivery-protocol.json",
+      "deliveryNote": "Do not administer or score until a competent native Igbo examiner has checked the exact spoken model, local forms, intelligibility and response conditions using the unfilled protocol. Require actual audible stimulus and individual heard response. No written word list during auditory identification. No reference audio, classroom calibration or learner performance occurred during authoring.",
+      "languageReviewNote": "Independent native linguistic/academic review and rubric calibration remain pending. Accept intelligible locally checked variants; no fixed accent, speed or exhaustive tone convention. Do not confuse sound production with reciting letter names. No whole-word IPA transcription, syllabic-nasal segmentation or phoneme-count claim.",
+      "scopeLimitation": "Selected/a f m/ sound-awareness practice only. Does not establish all source sounds, five-sound segmentation, the/gb/notation, i/ị distinction, tone system, full pronunciation competence, school adoption or official term placement. Written spelling alone cannot evidence these tasks."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Actual pronunciation and self-monitoring",
+      "learningObjective": "Produce selected speech sounds in familiar Igbo words and monitor actual pronunciation against a native-examiner-prechecked model.",
+      "id": "ndv-334-003",
+      "objectiveId": "nerdc-igbo-primary4-334-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Onye nkụzi ga-akpọ okwu abụọ n’otu n’otu. Kwughachi nke ọ bụla nke ọma. Jiri okwu ọ bụla mee otu ahịrịokwu nke gị n’olu.",
+      "answer": "Examiner words: efere and mmiri. The learner must actually repeat each intelligibly and use each in a meaningful original Igbo sentence. Illustrative sentences: Efere ahụ dị ọcha. Mmiri dị n’iko. Assess the target/f/in efere and/m/in mmiri against the prechecked native model; these written examples are not audio evidence.",
+      "explanation": "The learner transfers target pronunciation from individual words to connected speech. Meaningful original sentences and actual audible sounds matter; no particular accent or complete tone scheme is imposed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Repeats efere with the target/f/intelligible against the prechecked model."
+        },
+        {
+          "marks": 1,
+          "description": "Uses efere meaningfully in an original spoken Igbo sentence retaining an intelligible target."
+        },
+        {
+          "marks": 1,
+          "description": "Repeats mmiri with the target/m/intelligible against the prechecked model."
+        },
+        {
+          "marks": 1,
+          "description": "Uses mmiri meaningfully in an original spoken Igbo sentence retaining an intelligible target."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresAudibleStimulus": true,
+      "referenceModelStatus": "not_yet_prechecked_or_delivered",
+      "examinerOnlyWords": [
+        "efere",
+        "mmiri"
+      ],
+      "examinerOnlyTargetSounds": [
+        "f",
+        "m"
+      ],
+      "teacherSupport": "Precheck the local word forms and target sounds, then model efere and mmiri one at a time. Hear repetition followed by a learner-created sentence for each. Do not require these illustrative sentences verbatim, score printed work as speech, or count nasal segments. If the intended local form is unsuitable, do not administer until independently recalibrated.",
+      "deliveryProtocolPath": "stimuli/batch-334/sound-delivery-protocol.json",
+      "deliveryNote": "Do not administer or score until a competent native Igbo examiner has checked the exact spoken model, local forms, intelligibility and response conditions using the unfilled protocol. Require actual audible stimulus and individual heard response. No written word list during auditory identification. No reference audio, classroom calibration or learner performance occurred during authoring.",
+      "languageReviewNote": "Independent native linguistic/academic review and rubric calibration remain pending. Accept intelligible locally checked variants; no fixed accent, speed or exhaustive tone convention. Do not confuse sound production with reciting letter names. No whole-word IPA transcription, syllabic-nasal segmentation or phoneme-count claim.",
+      "scopeLimitation": "Selected/a f m/ sound-awareness practice only. Does not establish all source sounds, five-sound segmentation, the/gb/notation, i/ị distinction, tone system, full pronunciation competence, school adoption or official term placement. Written spelling alone cannot evidence these tasks."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Igbo Language",
+      "level": "Primary 4",
+      "specificationId": "nerdc-igbo-primary4-revised-2025",
+      "topic": "Mkpụrụụda na mkpọpụta ha na mkpụrụokwu",
+      "subtopic": "Actual pronunciation and self-monitoring",
+      "learningObjective": "Produce selected speech sounds in familiar Igbo words and monitor actual pronunciation against a native-examiner-prechecked model.",
+      "id": "ndv-334-004",
+      "objectiveId": "nerdc-igbo-primary4-334-2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Gee ntị n’okwu onye nkụzi ga-akpọ. Kpọọ ya n’olu nke gị. Gee ntị na ntụziaka onye nkụzi nyere gị banyere ụda ọ na-elekwasị anya, wee kpọọ okwu ahụ ọzọ. Kwuo n’Igbo ihe ị gbalịrị ime ka mkpọpụta gị doo anya.",
+      "answer": "Examiner word: aka; target/a/. There is no invented universal error to correct. A successful response gives an actual intelligible production, listens to specific truthful examiner feedback, then produces aka again with the target/a/clear against the checked model and explains the focus in Igbo. If the first production was already clear, the examiner says so and the learner may maintain it without claiming a nonexistent correction.",
+      "explanation": "This is guided monitoring and production, not a written description of a pretend recording. A learner need not make an error to succeed; final audible production and a truthful explanation are assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "requiresManualReview": true,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces the target/a/intelligibly in the final actual spoken aka against the checked model."
+        },
+        {
+          "marks": 1,
+          "description": "Follows the specific truthful examiner guidance and gives a relevant intelligible Igbo explanation of the pronunciation focus or maintained clear sound."
+        }
+      ],
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "language": "ig",
+      "responseMode": "spoken",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresAudibleStimulus": true,
+      "referenceModelStatus": "not_yet_prechecked_or_delivered",
+      "examinerOnlyWords": [
+        "aka"
+      ],
+      "examinerOnlyTargetSounds": [
+        "a"
+      ],
+      "teacherSupport": "Precheck aka and/a/. Model the word; hear an initial attempt, then give brief accurate sound-focused feedback based only on what was actually heard. If it was clear, affirm that rather than invent an error. Hear the second production and explanation. Record no fictional before/after results; this task can use live comparison without a recording.",
+      "deliveryProtocolPath": "stimuli/batch-334/sound-delivery-protocol.json",
+      "deliveryNote": "Do not administer or score until a competent native Igbo examiner has checked the exact spoken model, local forms, intelligibility and response conditions using the unfilled protocol. Require actual audible stimulus and individual heard response. No written word list during auditory identification. No reference audio, classroom calibration or learner performance occurred during authoring.",
+      "languageReviewNote": "Independent native linguistic/academic review and rubric calibration remain pending. Accept intelligible locally checked variants; no fixed accent, speed or exhaustive tone convention. Do not confuse sound production with reciting letter names. No whole-word IPA transcription, syllabic-nasal segmentation or phoneme-count claim.",
+      "scopeLimitation": "Selected/a f m/ sound-awareness practice only. Does not establish all source sounds, five-sound segmentation, the/gb/notation, i/ị distinction, tone system, full pronunciation competence, school adoption or official term placement. Written spelling alone cannot evidence these tasks."
+    }
+  ]
+}
