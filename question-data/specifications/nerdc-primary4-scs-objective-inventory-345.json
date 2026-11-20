@@ -1,0 +1,1363 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "scope": "Inventory339 count basis retained:82 statements,79 numbered plus3 unnumbered. Fresh345 PDF39–42 text/renders checked; no all-table recount.79 partial source links through77 unique mappings;3 unmapped. Full scope/depth/adoption/target unestablished.",
+  "topicGroups": 29,
+  "objectiveStatements": 82,
+  "numberedObjectives": 79,
+  "unnumberedObjectives": 3,
+  "objectivesWithPartialDraftMapping": 79,
+  "unmappedObjectiveStatements": 3,
+  "registeredAuthorMappings": 77,
+  "uniqueLinkedValidDrafts": 166,
+  "fullCompetencyCoverageEstablished": false,
+  "countMethod": "Number labels in each logical performance block, ending before content Knowledge, checked against extracted statement text. Whole-block counts sum82. A trial fixed-coordinate crop overlapped adjacent content on several pages and is not treated as an independent successful count.",
+  "statementCountsByPdfPage": [
+    [
+      14,
+      4
+    ],
+    [
+      15,
+      4
+    ],
+    [
+      16,
+      4
+    ],
+    [
+      17,
+      3
+    ],
+    [
+      18,
+      1
+    ],
+    [
+      19,
+      3
+    ],
+    [
+      20,
+      2
+    ],
+    [
+      21,
+      4
+    ],
+    [
+      22,
+      4
+    ],
+    [
+      23,
+      2
+    ],
+    [
+      24,
+      3
+    ],
+    [
+      25,
+      2
+    ],
+    [
+      26,
+      3
+    ],
+    [
+      27,
+      3
+    ],
+    [
+      28,
+      2
+    ],
+    [
+      29,
+      4
+    ],
+    [
+      30,
+      4
+    ],
+    [
+      31,
+      3
+    ],
+    [
+      32,
+      3
+    ],
+    [
+      33,
+      1
+    ],
+    [
+      34,
+      2
+    ],
+    [
+      35,
+      3
+    ],
+    [
+      36,
+      3
+    ],
+    [
+      37,
+      4
+    ],
+    [
+      38,
+      3
+    ],
+    [
+      39,
+      2
+    ],
+    [
+      40,
+      3
+    ],
+    [
+      41,
+      1
+    ],
+    [
+      42,
+      2
+    ]
+  ],
+  "objectives": [
+    {
+      "inventoryId": "p4-scs-p14-o1",
+      "topic": "Leadership",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Leadership qualities",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p14-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p14-o2",
+      "topic": "Leadership",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Leadership benefits",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p14-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p14-o3",
+      "topic": "Leadership",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Group leadership performance",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p14-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p14-o4",
+      "topic": "Leadership",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Poor leadership consequences",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p14-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p15-o1",
+      "topic": "Followership",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Followership qualities",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p15-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p15-o2",
+      "topic": "Followership",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Followership benefits",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p15-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p15-o3",
+      "topic": "Followership",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Poor followership characteristics",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p15-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p15-o4",
+      "topic": "Followership",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Poor followership consequences",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p15-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p16-o1",
+      "topic": "National Values",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Values meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p16-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p16-o2",
+      "topic": "National Values",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Values examples",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p16-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p16-o3",
+      "topic": "National Values",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Citizen roles",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p16-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p16-o4",
+      "topic": "National Values",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Values benefits",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p16-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p17-o1",
+      "topic": "Civic Activities",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Civic activity meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p17-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p17-o2",
+      "topic": "Civic Activities",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Civic examples",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p17-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p17-o3",
+      "topic": "Civic Activities",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Civic participation",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p17-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p18-o1",
+      "topic": "Civic Activity (Volunteerism)",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Volunteer and community benefits",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p18-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p19-o1",
+      "topic": "Community Mobilization",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Mobiliser meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p19-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p19-o2",
+      "topic": "Community Mobilization",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Mobiliser roles",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p19-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p19-o3",
+      "topic": "Community Mobilization",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Mobiliser qualities",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p19-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p20-o1",
+      "topic": "Nation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Nation meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p20-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p20-o2",
+      "topic": "Nation",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Nation characteristics",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "Source lists common language/customs; do not infer diverse nations require identical language or traditions. Needs primary clarification before mapping this classification."
+    },
+    {
+      "inventoryId": "p4-scs-p21-o1",
+      "topic": "Healthy Family Relationships",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Relationship conditions",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p21-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p21-o2",
+      "topic": "Healthy Family Relationships",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Tolerance inclusion respect meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p21-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p21-o3",
+      "topic": "Healthy Family Relationships",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Respectful responses",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p21-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p21-o4",
+      "topic": "Healthy Family Relationships",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Respect demonstration",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p21-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p22-o1",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Family/personal norms",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p22-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p22-o2",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Family/personal effects",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p22-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p22-o3",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Religious/cultural norms",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p22-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p22-o4",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Religious/cultural effects",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p22-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p23-o1",
+      "topic": "People’s Beliefs and Traditions",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Belief/tradition differences",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p23-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p23-o2",
+      "topic": "People’s Beliefs and Traditions",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Understanding differences",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-339-p23-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected original knowledge or conditional performance task only; full range/depth, source audio/video, actual observed delivery, independent rubric review, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p24-o1",
+      "topic": "Meaning and importance of Good Governance",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Governance meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p24-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p24-o2",
+      "topic": "Meaning and importance of Good Governance",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Government levels",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p24-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p24-o3",
+      "topic": "Meaning and importance of Good Governance",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Governance features",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p24-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p25-o1",
+      "topic": "Types of Government",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Government types",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p25-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p25-o2",
+      "topic": "Types of Government",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Government comparison",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p25-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p26-o1",
+      "topic": "Electoral Process",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Electoral meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p26-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p26-o2",
+      "topic": "Electoral Process",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Electoral stages",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p26-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p26-o3",
+      "topic": "Electoral Process",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Electoral threats",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p26-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p27-o1",
+      "topic": "Components of the Electoral Process",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Electoral components",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p27-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p27-o2",
+      "topic": "Components of the Electoral Process",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Legal framework",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p27-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p27-o3",
+      "topic": "Components of the Electoral Process",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Framework importance",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-340-p27-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written knowledge/source interpretation only. No complete procedure, legal advice, constitutional/state-law/judicial/guideline-body review, observed election/video delivery, full depth/target or independent academic approval."
+    },
+    {
+      "inventoryId": "p4-scs-p28-o1",
+      "topic": "Party Systems",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Party-system meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p28-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p28-o2",
+      "topic": "Party Systems",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Party-system types",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p28-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p29-o1",
+      "topic": "Political Parties and Pressure Groups",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Parties versus groups",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p29-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p29-o2",
+      "topic": "Political Parties and Pressure Groups",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Parties/groups functions",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p29-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected comparative concepts/conditional speech only. Overlapping government labels, universal tenure, full traditional/constitutional local roles, country typologies, actual oral delivery, depth/target and independent review remain open. Foreign source rules/examples not applied as Nigerian law."
+    },
+    {
+      "inventoryId": "p4-scs-p29-o3",
+      "topic": "Political Parties and Pressure Groups",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Party names/symbols",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p29-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p29-o4",
+      "topic": "Political Parties and Pressure Groups",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Pressure groups",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p29-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p30-o1",
+      "topic": "Peer behaviours that influence decision Making",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Peer-pressure meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p30-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected classroom concept/conditional fictional role only; full peer-skill range, song/video, actual individual performance, rubric/inclusion calibration, depth/target and independent review remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p30-o2",
+      "topic": "Peer behaviours that influence decision Making",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Peer-pressure demonstration",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p30-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected classroom concept/conditional fictional role only; full peer-skill range, song/video, actual individual performance, rubric/inclusion calibration, depth/target and independent review remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p30-o3",
+      "topic": "Peer behaviours that influence decision Making",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Positive/negative influence",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p30-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected classroom concept/conditional fictional role only; full peer-skill range, song/video, actual individual performance, rubric/inclusion calibration, depth/target and independent review remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p30-o4",
+      "topic": "Peer behaviours that influence decision Making",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Countering pressure",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-341-p30-o4-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected classroom concept/conditional fictional role only; full peer-skill range, song/video, actual individual performance, rubric/inclusion calibration, depth/target and independent review remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p31-o1",
+      "topic": "Responding to Different Forms of Accident",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Accident causes",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p31-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p31-o2",
+      "topic": "Responding to Different Forms of Accident",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "First aid",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p31-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p31-o3",
+      "topic": "Responding to Different Forms of Accident",
+      "pdfPage": 31,
+      "printedPage": 18,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Victim support",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p31-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p32-o1",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Protection entitlement",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p32-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p32-o2",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Protection approaches",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p32-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p32-o3",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "pdfPage": 32,
+      "printedPage": 19,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Protection importance",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p32-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p33-o1",
+      "topic": "Important Phone Numbers and Their Uses",
+      "pdfPage": 33,
+      "printedPage": 20,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Emergency numbers",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-342-p33-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected source-reading, child-protection, first-aid knowledge or conditional artwork/disconnected simulation only. Full party/group range, unlabelled recognition, independent clinical/legal/local-plan/rubric review, actual performance and depth/1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p34-o1",
+      "topic": "Characteristics of Drug Abusers, their Treatment and Rehabilitation",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Drug names",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Verify source wording and current supplementary evidence where needed; actual practical/oral/campaign evidence, full scope, review and target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p34-o2",
+      "topic": "Characteristics of Drug Abusers, their Treatment and Rehabilitation",
+      "pdfPage": 34,
+      "printedPage": 21,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Drug-use characteristics",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No draft mapping yet. Verify source wording and current supplementary evidence where needed; actual practical/oral/campaign evidence, full scope, review and target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p35-o1",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Healthy behaviours",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p35-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p35-o2",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Coping skills",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p35-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p35-o3",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "pdfPage": 35,
+      "printedPage": 22,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual campaign",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p35-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p36-o1",
+      "topic": "Neighbourhood security",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Security meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p36-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p36-o2",
+      "topic": "Neighbourhood security",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Observe/report",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p36-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p36-o3",
+      "topic": "Neighbourhood security",
+      "pdfPage": 36,
+      "printedPage": 23,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Failure consequences",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-343-p36-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written reasoning or conditional classroom performance only; no actual learner evidence. Safety adaptations avoid diagnosis, profiling, pupil patrols and blame. Full range/depth, specialist/rubric review, local safeguarding, delivery, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p37-o1",
+      "topic": "The Value of Denominations of Money",
+      "pdfPage": 37,
+      "printedPage": 24,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Denominations recall",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-recall-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p37-o2",
+      "topic": "The Value of Denominations of Money",
+      "pdfPage": 37,
+      "printedPage": 24,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Denominations identification",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-identify-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p37-o3",
+      "topic": "The Value of Denominations of Money",
+      "pdfPage": 37,
+      "printedPage": 24,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Financial-system meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-meaning-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p37-o4",
+      "topic": "The Value of Denominations of Money",
+      "pdfPage": 37,
+      "printedPage": 24,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Financial operations",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-operations-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 7,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p38-o1",
+      "topic": "Introduction to Financial System",
+      "pdfPage": 38,
+      "printedPage": 25,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Financial-system explanation",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-meaning-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p38-o2",
+      "topic": "Introduction to Financial System",
+      "pdfPage": 38,
+      "printedPage": 25,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Financial history",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-history-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p38-o3",
+      "topic": "Introduction to Financial System",
+      "pdfPage": 38,
+      "printedPage": 25,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Financial operations",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-344-operations-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 7,
+      "limitation": "Selected value-label identification, general concept/history or conditional infographic only. Shared meaning/operation rows reuse one author mapping each; do not count them as extra unique questions. Genuine note/coin recognition, wider financial history/services, documentary/museum delivery, class/rubric review, current full legal scope, adoption, official terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p39-o1",
+      "topic": "Historical Background of Trafficking in Persons",
+      "pdfPage": 39,
+      "printedPage": 26,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Trafficking meaning",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p39-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p39-o2",
+      "topic": "Historical Background of Trafficking in Persons",
+      "pdfPage": 39,
+      "printedPage": 26,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Trafficking history",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p39-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p40-o1",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "pdfPage": 40,
+      "printedPage": 27,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Trafficking causes",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p40-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p40-o2",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "pdfPage": 40,
+      "printedPage": 27,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Trafficking purpose",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p40-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p40-o3",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "pdfPage": 40,
+      "printedPage": 27,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual campaign",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p40-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p41-o1",
+      "topic": "Elements of Trafficking in Persons",
+      "pdfPage": 41,
+      "printedPage": 28,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Trafficking elements",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p41-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p42-o1",
+      "topic": "Consequences of Trafficking in Persons",
+      "pdfPage": 42,
+      "printedPage": 29,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Consequences explanation",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p42-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    },
+    {
+      "inventoryId": "p4-scs-p42-o2",
+      "topic": "Consequences of Trafficking in Persons",
+      "pdfPage": 42,
+      "printedPage": 29,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Consequences identification",
+      "mappedObjectiveIds": [
+        "nerdc-scs-primary4-345-p42-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected non-graphic authored concepts, limited history or conditional classroom campaign only; no real learner performance. Child-exception/non-blame/privacy adaptations explicit; no national legal adjudication, diagnosis or official erratum. Full history/trends/forms/clinical/legal/source range, specialist/class/rubric review, delivery, adoption, terms and1000 target remain open."
+    }
+  ],
+  "supersedes": "nerdc-primary4-scs-objective-inventory-341.json",
+  "linkedDraftRowSum": 177,
+  "sharedMappingPolicy": "Existing p37-o3/p38-o1 share meaning mapping (4 questions);p37-o4/p38-o3 share operations mapping (7 questions). Row sum177 includes11 repeated links; unique question union166. Eight new trafficking mappings are separate."
+}

@@ -1,0 +1,25 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-345-011"
+  ],
+  "preconditions": [
+    "Independent Primary4, safeguarding, trafficking-specialist, inclusion and rubric review before classroom use. Agree a local safeguarding response and an equivalent non-disclosure alternative.",
+    "Only a calm teacher-reviewed classroom message with a willing classmate; no public route, outside audience/contact, real case, names/photos/addresses, personal disclosures, graphic content, fear imagery, or victim/trafficker role-play.",
+    "Do not make pupils investigate, identify suspects, rescue anyone, make a report to an agency or promise secrecy. Any spontaneous concern is handled privately by responsible adults under the school safeguarding process, not treated as assessment evidence.",
+    "No actual contact, reporting, legal/clinical action or inferred prevention outcome. Participation/performance has not occurred."
+  ],
+  "evidenceRequirements": [
+    "Observe the pupil’s own plan, original material and actual heard delivery against each criterion. A written plan or group attendance alone is not performance. Record only minimal non-sensitive assessment evidence."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupChecked": null,
+    "observedWorkOrCommunication": null,
+    "criterionMarks": null
+  },
+  "records": []
+}

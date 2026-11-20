@@ -5,8 +5,8 @@
   "academicReviewComplete": false,
   "countDefinition": "Conservative automated draft candidates; not verified academic correctness. Every similarity group held. No runtime-generated entries counted.",
   "totals": {
-    "raw": 6165,
-    "validDrafts": 4486,
+    "raw": 6187,
+    "validDrafts": 4508,
     "reviewed": 0,
     "registeredBanks": 206,
     "target": 188000,
@@ -2192,6 +2192,12 @@
       "sha256": "f6911c74b6db547327d0d117997d570d0df502b6b42d4137d3e145f30ccd0e0b",
       "declared": 18,
       "actual": 18
+    },
+    {
+      "path": "original-multisubject-batch-345.json",
+      "sha256": "41645f87170d4bb04421779a53dff4a9ea9b39a5591a05ee5084683f77e754bc",
+      "declared": 22,
+      "actual": 22
     },
     {
       "path": "original-practice-batch-001.json",
@@ -6829,19 +6835,19 @@
       "applicabilityReferences": [
         "nerdc-primary-offering-scs-reference-339"
       ],
-      "raw": 144,
-      "validDrafts": 144,
+      "raw": 166,
+      "validDrafts": 166,
       "reviewed": 0,
       "questionTypes": {
-        "structured": 144
+        "structured": 166
       },
       "difficulty": {
-        "standard": 142,
-        "easy": 2
+        "standard": 163,
+        "easy": 3
       },
-      "remaining": 856,
-      "mappedObjectives": 69,
-      "representedObjectives": 69,
+      "remaining": 834,
+      "mappedObjectives": 77,
+      "representedObjectives": 77,
       "coverage": "partial_objective_register",
       "completionStatus": "in_progress"
     },
@@ -8230,10 +8236,10 @@
     }
   ],
   "errorCounts": {
+    "cognitive_demand_missing_or_invalid": 1679,
     "numeric_template_hold": 1256,
     "objective_mapping_missing": 1679,
     "independent_review_evidence_missing_or_invalid": 1679,
-    "cognitive_demand_missing_or_invalid": 1679,
     "identical_prompt_hold": 816,
     "near_duplicate_hold": 307,
     "difficulty_missing_or_invalid": 278,
@@ -49737,6 +49743,138 @@
       "id": "ndv-344-018",
       "file": "original-multisubject-batch-344.json",
       "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-001",
+      "file": "original-multisubject-batch-345.json",
+      "index": 0,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-002",
+      "file": "original-multisubject-batch-345.json",
+      "index": 1,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-003",
+      "file": "original-multisubject-batch-345.json",
+      "index": 2,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-004",
+      "file": "original-multisubject-batch-345.json",
+      "index": 3,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-005",
+      "file": "original-multisubject-batch-345.json",
+      "index": 4,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-006",
+      "file": "original-multisubject-batch-345.json",
+      "index": 5,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-007",
+      "file": "original-multisubject-batch-345.json",
+      "index": 6,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-008",
+      "file": "original-multisubject-batch-345.json",
+      "index": 7,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-009",
+      "file": "original-multisubject-batch-345.json",
+      "index": 8,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-010",
+      "file": "original-multisubject-batch-345.json",
+      "index": 9,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-011",
+      "file": "original-multisubject-batch-345.json",
+      "index": 10,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-012",
+      "file": "original-multisubject-batch-345.json",
+      "index": 11,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-013",
+      "file": "original-multisubject-batch-345.json",
+      "index": 12,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-014",
+      "file": "original-multisubject-batch-345.json",
+      "index": 13,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-015",
+      "file": "original-multisubject-batch-345.json",
+      "index": 14,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-016",
+      "file": "original-multisubject-batch-345.json",
+      "index": 15,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-017",
+      "file": "original-multisubject-batch-345.json",
+      "index": 16,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-018",
+      "file": "original-multisubject-batch-345.json",
+      "index": 17,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-019",
+      "file": "original-multisubject-batch-345.json",
+      "index": 18,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-020",
+      "file": "original-multisubject-batch-345.json",
+      "index": 19,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-021",
+      "file": "original-multisubject-batch-345.json",
+      "index": 20,
+      "errors": []
+    },
+    {
+      "id": "ndv-345-022",
+      "file": "original-multisubject-batch-345.json",
+      "index": 21,
       "errors": []
     },
     {
@@ -125584,6 +125722,247 @@
       "coverageStatus": "represented_not_complete",
       "validationStatus": "automated_checks_pass",
       "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p39-o1-v1",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Meaning and boundaries",
+      "learningObjective": "Explain selected trafficking concepts through exploitative recruitment or holding, distinguishing them from ordinary movement and keeping the child exception explicit.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.26 / PDF p.39, performance objective 1; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p39-o2-v1",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Selected historical background and response",
+      "learningObjective": "Explain a limited relationship between historical exploitation and trafficking and selected 2000/2003/2015 anti-trafficking response milestones without claiming full trends or a complete history.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.26 / PDF p.39, performance objective 2; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p40-o1-v1",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Risk factors and responsibility",
+      "learningObjective": "Explain selected interacting vulnerability and demand factors without treating poverty, education, migration wishes or family background as proof or blame.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.27 / PDF p.40, performance objective 1; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p40-o2-v1",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Exploitative purpose",
+      "learningObjective": "Distinguish selected exploitative purposes from a recruiter’s stated promise or a legitimate ordinary activity using non-graphic fictional cases.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.27 / PDF p.40, performance objective 2; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p40-o3-v1",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Bounded classroom campaign",
+      "learningObjective": "Plan and actually deliver a supportive teacher-reviewed classroom-only anti-trafficking activity that protects privacy and assigns safeguarding to appropriate adults.",
+      "questionTypes": {
+        "structured": 2
+      },
+      "sourceSections": [
+        "Printed p.27 / PDF p.40, performance objective 3; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 2,
+      "validDrafts": 2,
+      "difficulty": {
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 2
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p41-o1-v1",
+      "topic": "Elements of Trafficking in Persons",
+      "subtopic": "Act, means and purpose with child exception",
+      "learningObjective": "Identify selected act/means/purpose examples in adult fictional cases and distinguish the Protocol child exception and risk factors from legal elements.",
+      "questionTypes": {
+        "structured": 4
+      },
+      "sourceSections": [
+        "Printed p.28 / PDF p.41, single unnumbered performance statement, author ordinal1 (not official code); related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 4,
+      "validDrafts": 4,
+      "difficulty": {
+        "standard": 4
+      },
+      "tiers": {
+        "not_specified": 4
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p42-o1-v1",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Explaining selected harms",
+      "learningObjective": "Explain selected possible effects of exploitation on freedom, learning and relationships without claiming inevitable outcomes or medical diagnoses.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.29 / PDF p.42, performance objective 1; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "standard": 3
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-345-p42-o2-v1",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Identifying harms and support",
+      "learningObjective": "Identify selected described harms and distinguish them from supportive responses or unsupported labels, keeping survivors’ dignity and privacy explicit.",
+      "questionTypes": {
+        "structured": 3
+      },
+      "sourceSections": [
+        "Printed p.29 / PDF p.42, performance objective 2; related content/activities/evaluation. Selected authored subset and adaptations in reconciliation345."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null,
+      "questionCount": 3,
+      "validDrafts": 3,
+      "difficulty": {
+        "easy": 1,
+        "standard": 2
+      },
+      "tiers": {
+        "not_specified": 3
+      },
+      "assessmentObjectives": {},
+      "coverageStatus": "represented_not_complete",
+      "validationStatus": "automated_checks_pass",
+      "academicReviewStatus": "pending"
     }
   ],
   "scopeGaps": [
@@ -125701,6 +126080,7 @@
     "Batch341 adds25 original Primary4 SCS comparative/peer-influence drafts(22 written,2 actual spoken,1 observed fictional role) across10 partial mappings;49/82 statements now linked,86 unique drafts passing automated checks;33 unmapped. Fresh class PDF matches hash; PDF25/28/29/30 read/rendered. Royal institutional text checks monarchy/constitutional coexistence; PEO distinguishes two-party dominance from permission and coalition from merger; selected UK Parliament PDF and NDI parsed concepts checked. Foreign rules, current seat/country classifications, historical stereotypes and deterministic coalition claims not adopted. NDI binary403 despite parsed web access; no full checksum claimed. Traditional/local constitutional roles and tenure limits need deeper primary evidence; selected concepts are not complete classification. Party names/symbols and Nigerian pressure-group identities remain unmapped, actual drawings absent. Source drawings/video/full speech, all prior legal/guideline/medical/financial/trafficking/adoption/terms/teacher-guide/1000-target and independent review gaps retained; oral protocol unfilled. Peer-influence tasks use a narrow checked public-school reference; no foreign school policy, diagnosis, deception/medical excuses or older-age risks adopted. Source song/video not retrieved; adult-partner fictional role protocol unfilled, no real peer coercion or pupil performance.",
     "Batch342 adds22 original Primary4 SCS drafts(20 written,2 conditional practical) across9 partial mappings;58/82 statements linked,108 unique drafts passing automated checks;24 unmapped. Fresh official class PDF hash matched. Selected INEC names/symbols(APC/PDP,LP identity), NLC/NBA own roles, NHS burns(review31March2026), SJA bruises(review28April2025), NHRC protection and NCC112 sources checked. Unmodified logo assets have separate third-party rights and visible labels; no claim of unlabelled recognition, exhaustive party/group list, current leadership or endorsement. Source burn text lacks checked cooling sequence and has torch/touch wording; proposed selected supplementation is not an official erratum. Full road-accident/clinical demonstration, local service reach/direct-agency numbers, NAFDAC contacts, current full Child Rights Act/state implementation and clinical/legal/rubric/local-plan review remain open. Foreign999/111/medicines not adopted. No injury/treatment/live call/pupil artwork/performance occurred; protocol unfilled. All earlier legal/guideline/financial/drug/trafficking/adoption/terms/teacher-guide/full-target gaps retained.",
     "Batch343 adds18 original Primary4 Social and Citizenship Studies drafts (16 written,1 conditional classroom campaign,1 conditional spoken tabletop report) across6 new partial mappings on PDF35–36. Inventory343 links64/82 source statements through64 author mappings and126 unique valid drafts passing automated checks;18 statements remain unmapped. Fresh official PDF hash matched, selected text/renders checked; inventory339 count basis retained, no all-table recount. Fresh UNODC/WHO2018 selected sections support interactive general skills and qualify sport/information-only efficacy; this historical supplementary reference is not current Nigerian adoption or a validated complete intervention. Wigan own guidance supplies narrow behaviour/fact/where/when principles, not UK numbers, terrorist/appearance cues, pupil patrols or Nigerian legal/service procedures. Tabletop is simulated observation, not real neighbourhood competence; supportive campaign does not prove prevention. Source35 campaign is absent from evaluation column; source36 mixes drug-campaign content with security and uses potentially harmful practical/consequence wording. No official erratum claimed; adult-led, non-graphic, non-blaming adaptations remain independently unreviewed. UN article/NPF/NICE full web opens returned403; indexed summaries not treated as complete documents or additional content sources. Source drug-characteristic stereotypes, finance/CBN and trafficking evidence, nation classification, clinical/local safeguarding and all earlier depth/delivery/adoption/terms/1000-target gaps remain open. No real substances, private disclosures, pupil performance, public campaign, incident, surveillance, report, clinical action or production import occurred; protocol unfilled.",
-    "Batch344 adds18 original Primary4 SCS drafts (17 written,1 conditional actual infographic) through5 unique author mappings, linking7 source statements fromPDF37/38. Inventory344 gives71/82 partial statement links through69 mappings and144 unique class drafts passing automated checks;11 remain unmapped. Shared meaning (4 questions) and operations (7) links repeat across two tables; inventory row sum155 is not155 unique questions. Fresh official class hash matched; selected text/renders read, inventory339 count basis retained. Original practice value cards only assess displayed denomination labels and size/value reasoning, not genuine banknote/coin or counterfeit recognition. Current CBN banknote list, selected history/gallery anchors and SEC2023 concepts checked; historical CBN2006–2007 general definitions/history are supplementary, not current law/institution counts/curriculum adoption. Full2022 PDF shell403/web size limit and2017 PDF403 recorded, no full retrieval claimed. CBN50 dimensions and republic-related currency-history wording conflict; none assessed, no official erratum. SEC risk-free/tenor/return rankings and derivatives taxonomy not adopted. Selected1958 Act/1959 operations/1973 currency anchors do not establish beginning or whole history of finance. Documentary, museum trip, actual banknotes/coin handling, full services/current legal/regulatory/age suitability, infographic/print/accessibility delivery, adoption/terms/1000 target and independent review remain open. Nation characteristics1, drug names/characteristics2 and trafficking8 remain unmapped. No actual learner performance, financial transaction, account data, loan, investment or production import occurred; protocol unfilled. Preserve all earlier safeguarding, clinical, source omissions and delivery gaps."
+    "Batch344 adds18 original Primary4 SCS drafts (17 written,1 conditional actual infographic) through5 unique author mappings, linking7 source statements fromPDF37/38. Inventory344 gives71/82 partial statement links through69 mappings and144 unique class drafts passing automated checks;11 remain unmapped. Shared meaning (4 questions) and operations (7) links repeat across two tables; inventory row sum155 is not155 unique questions. Fresh official class hash matched; selected text/renders read, inventory339 count basis retained. Original practice value cards only assess displayed denomination labels and size/value reasoning, not genuine banknote/coin or counterfeit recognition. Current CBN banknote list, selected history/gallery anchors and SEC2023 concepts checked; historical CBN2006–2007 general definitions/history are supplementary, not current law/institution counts/curriculum adoption. Full2022 PDF shell403/web size limit and2017 PDF403 recorded, no full retrieval claimed. CBN50 dimensions and republic-related currency-history wording conflict; none assessed, no official erratum. SEC risk-free/tenor/return rankings and derivatives taxonomy not adopted. Selected1958 Act/1959 operations/1973 currency anchors do not establish beginning or whole history of finance. Documentary, museum trip, actual banknotes/coin handling, full services/current legal/regulatory/age suitability, infographic/print/accessibility delivery, adoption/terms/1000 target and independent review remain open. Nation characteristics1, drug names/characteristics2 and trafficking8 remain unmapped. No actual learner performance, financial transaction, account data, loan, investment or production import occurred; protocol unfilled. Preserve all earlier safeguarding, clinical, source omissions and delivery gaps.",
+    "Batch345 adds22 original Primary4 SCS drafts (21 written,1 conditional classroom campaign) across8 partial mappings onPDF39–42. Inventory345 links79/82 source statements through77 mappings, with166 unique class drafts passing automated checks; row sum177 retains11 shared financial links, not extra questions. Fresh exact-class hash matched; selected text/renders read, inventory339 count basis retained. Fresh NAPTIP2023 journalist handbook (38pages) downloaded after web502; selected concepts/history/protection passages read, not a whole-handbook or classroom validation. Fresh UNODC2019 definition and Sherloc framework establish selected adult act/means/purpose and Protocol child exception; old e4j404 and direct OHCHR403 recorded. UNICEF2025 landing highlights read, not linked full paper. Source40 causal wording may blame poverty/family/migration wishes; risks are not proof or blame. Source41 simple three-part list omits child exception; handbook transport sequence is not a universal compulsory order. Source42 disease wording is not diagnosis or grounds for exclusion; clinical/epidemiological claims, graphic content, full consequences/forms and local care not assessed. No official erratum claimed. NAPTIP personnel overview (66pages) retrieved and selected1/51/52 read for reconciliation; conflicting14July/8August2003 establishment days, no verified publication date/current legal consolidation, not used as question content. Only selected response years2000/2003/2015, not whole historical trends or beginning of trafficking; source slavery/modern-slavery shorthand not treated as universally identical legal terms. School-wide/public campaign scope is replaced by a conditional supportive classroom-only subset, with specialist/local safeguarding/rubric review prerequisite. No actual learner campaign, survivor image/identity/story, public contact, private disclosure, investigation, diagnosis, legal ruling or production import; protocol unfilled. Three source statements remain unmapped: nation characteristics1 and drug names/characteristics2. All earlier financial, safeguarding, clinical, full source range/depth, delivery/adoption/terms/1000-target and independent-review gaps remain open."
   ]
 }

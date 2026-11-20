@@ -1,0 +1,998 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 trafficking concepts and respectful protection — batch345",
+  "questionCount": 22,
+  "note": "22 original non-graphic drafts:21 written and1 conditional classroom-only observed campaign. Eight partial author mappings. International child exception, adult-case elements, privacy, non-blame and bounded source-history/medical limits explicit. No real case, learner performance, public campaigning, investigation or clinical/legal approval.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Meaning and boundaries",
+      "learningObjective": "Explain selected trafficking concepts through exploitative recruitment or holding, distinguishing them from ordinary movement and keeping the child exception explicit.",
+      "id": "ndv-345-001",
+      "objectiveId": "nerdc-scs-primary4-345-p39-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain human trafficking in simple terms using the example of someone being recruited or kept for exploitation. Include what makes exploitation harmful. Do not describe a real person.",
+      "answer": "It involves recruiting or keeping a person for exploitation, such as forcing an adult to work for someone else’s benefit without freedom to leave. Trafficking of adults also involves a prohibited means such as deception or force; the Protocol has special protection for children. Exploitation takes unfair advantage of people and denies their freedom or rights.",
+      "explanation": "This introductory meaning is not a full legal formula. The age-specific elements are assessed separately; no child must prove a threat or force before deserving protection.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects an act such as recruitment/holding with an exploitative purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable non-graphic example of exploitation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains harm to freedom/rights rather than ordinary travel alone."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Meaning and boundaries",
+      "learningObjective": "Explain selected trafficking concepts through exploitative recruitment or holding, distinguishing them from ordinary movement and keeping the child exception explicit.",
+      "id": "ndv-345-002",
+      "objectiveId": "nerdc-scs-primary4-345-p39-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult is recruited by deception for forced labour inside one country. A caption says, It cannot be trafficking because no international border was crossed. Explain the error.",
+      "answer": "A border crossing is not required for trafficking. The described recruitment, deception and purpose of forced labour raise the relevant concepts even within one country.",
+      "explanation": "The task uses supplied fictional adult facts, not a real-case conviction or an instruction for pupils to investigate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the requirement for an international border crossing."
+        },
+        {
+          "marks": 1,
+          "description": "Links the supplied recruitment/deception to exploitative purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Meaning and boundaries",
+      "learningObjective": "Explain selected trafficking concepts through exploitative recruitment or holding, distinguishing them from ordinary movement and keeping the child exception explicit.",
+      "id": "ndv-345-003",
+      "objectiveId": "nerdc-scs-primary4-345-p39-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare two fictional journeys: A is a family’s ordinary agreed visit to relatives; B is an adult recruited through a false job promise for forced labour. Why does travel alone not decide whether the trafficking concept applies?",
+      "answer": "Movement by itself does not establish trafficking. A describes an ordinary visit, while B supplies deceptive recruitment for exploitation. The purpose and relevant circumstances matter.",
+      "explanation": "No route, passport, appearance or nationality is used as proof. Pupils are not asked to identify real people.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that travel alone is insufficient."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the exploitative purpose and deception in B as the relevant distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Selected historical background and response",
+      "learningObjective": "Explain a limited relationship between historical exploitation and trafficking and selected 2000/2003/2015 anti-trafficking response milestones without claiming full trends or a complete history.",
+      "id": "ndv-345-004",
+      "objectiveId": "nerdc-scs-primary4-345-p39-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A history board links slavery and slave trading in the past with trafficking today. State one important shared harm and explain why this does not mean every historical and present-day practice has exactly the same form.",
+      "answer": "Both can involve people being controlled and exploited for others’ benefit, denying freedom and dignity. Methods and legal concepts have varied over time; a historical link does not make every practice identical.",
+      "explanation": "This is a selected conceptual historical connection, not a full history of slave trading, a universal modern-slavery definition or a claim that trafficking began at one date.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a shared harm such as denial of freedom through exploitation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that practices/methods or legal concepts can differ over time."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Historical Background of Trafficking in Persons",
+      "subtopic": "Selected historical background and response",
+      "learningObjective": "Explain a limited relationship between historical exploitation and trafficking and selected 2000/2003/2015 anti-trafficking response milestones without claiming full trends or a complete history.",
+      "id": "ndv-345-005",
+      "objectiveId": "nerdc-scs-primary4-345-p39-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Arrange these selected response milestones in order and explain why the first one is not the date when trafficking began: the international trafficking Protocol was adopted in 2000; Nigeria’s 2003 anti-trafficking law established NAPTIP; a replacement anti-trafficking Act followed in 2015.",
+      "answer": "The order is 2000 Protocol adoption, 2003 Nigerian law/agency milestone, then 2015 replacement Act. These are responses to exploitation that already existed; they do not date the beginning of the crime.",
+      "explanation": "Only the checked years are assessed. NAPTIP’s personnel overview gives conflicting exact establishment days; those days, treaty ratification wording, current amendments and full historical trends are not assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places 2000 before 2003 and 2015."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly associates 2003 with the law/agency and 2015 with replacement legislation."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes a response milestone from the beginning of exploitation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Risk factors and responsibility",
+      "learningObjective": "Explain selected interacting vulnerability and demand factors without treating poverty, education, migration wishes or family background as proof or blame.",
+      "id": "ndv-345-006",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional leaflet says, A family has little money, so the family must be involved in trafficking. Explain why this conclusion is wrong and suggest one supportive action adults could arrange.",
+      "answer": "Financial hardship may increase vulnerability but is not proof that a family is involved in trafficking. Adults can help the family access suitable education, essential support or trusted services without blame.",
+      "explanation": "Risk factors describe conditions someone may exploit; they do not prove criminal involvement or transfer responsibility from a perpetrator to a family.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes vulnerability from proof."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects blaming or labelling the family."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests appropriate adult-led support."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unicef-trafficking-protection-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Risk factors and responsibility",
+      "learningObjective": "Explain selected interacting vulnerability and demand factors without treating poverty, education, migration wishes or family background as proof or blame.",
+      "id": "ndv-345-007",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional workplace case, an employer demands labour at almost no cost and a recruiter responds by deceiving adults into work they cannot freely leave. Identify the demand factor and explain how the recruiter’s action contributes to exploitation.",
+      "answer": "The employer’s demand for very cheap labour creates an incentive. The recruiter’s deceptive recruitment and control remove genuine choice for the adults. Low prices alone would not prove trafficking; the supplied exploitative conduct matters.",
+      "explanation": "The task focuses on the actions of those exploiting people, not blaming workers for needing an income or assuming all inexpensive work is forced labour.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the demand for very cheap labour."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the recruiter’s deceptive/control contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids treating low price alone as proof."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Risk factors and responsibility",
+      "learningObjective": "Explain selected interacting vulnerability and demand factors without treating poverty, education, migration wishes or family background as proof or blame.",
+      "id": "ndv-345-008",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A lesson gives two interacting conditions: disrupted schooling and weak access to child-protection support. Explain how an exploiter might take advantage of the lack of support, and why improving schooling alone cannot guarantee that trafficking ends.",
+      "answer": "Lack of trusted support may leave concerns unnoticed or make help harder to obtain. School access can strengthen protection, but several conditions and perpetrators’ actions matter; one improvement is not a guarantee.",
+      "explanation": "The question assesses a general relationship between protection systems and vulnerability, not prediction about a particular child, school or family.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a plausible support gap without blaming the child."
+        },
+        {
+          "marks": 1,
+          "description": "Recognises more than one factor/action can matter."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects a guarantee from schooling alone."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unicef-trafficking-protection-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Exploitative purpose",
+      "learningObjective": "Distinguish selected exploitative purposes from a recruiter’s stated promise or a legitimate ordinary activity using non-graphic fictional cases.",
+      "id": "ndv-345-009",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a non-graphic fictional case about adults, a recruiter promises training but actually plans to keep the recruits in forced labour for another person’s gain. Identify the stated promise and the exploitative purpose. Why are they different?",
+      "answer": "The stated promise is training; the actual exploitative purpose is forced labour for another person’s gain. A promise can disguise the intended exploitation rather than reveal it.",
+      "explanation": "The task uses a stated fictional purpose. It does not tell pupils that every training offer or recruiter is a trafficker.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the training promise."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the forced-labour purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the promise/purpose distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Exploitative purpose",
+      "learningObjective": "Distinguish selected exploitative purposes from a recruiter’s stated promise or a legitimate ordinary activity using non-graphic fictional cases.",
+      "id": "ndv-345-010",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional adult is held in a workplace and made to work without freedom to leave. Another adult freely chooses an ordinary job and may leave under its agreed arrangements. Which description illustrates forced-labour exploitation, and what is the important difference?",
+      "answer": "The first description illustrates forced-labour exploitation because work is imposed and freedom is denied. The second describes voluntary ordinary work under the supplied facts.",
+      "explanation": "This is a limited concept comparison, not a finding about a real employment contract or a complete forced-labour test.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the first description."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the imposed work/lack of freedom distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Bounded classroom campaign",
+      "learningObjective": "Plan and actually deliver a supportive teacher-reviewed classroom-only anti-trafficking activity that protects privacy and assigns safeguarding to appropriate adults.",
+      "id": "ndv-345-011",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After specialist and teacher review, plan and actually deliver a short classroom-only anti-trafficking message with a willing classmate. First write who your classroom audience is and the message you will give; then create an original card and deliver the message. Include dignity for survivors and trusted adult help. Use no real stories, identities, frightening images, public posting or outside contacts. The examiner must observe your own contribution.",
+      "answer": "Observable work includes a simple audience/message plan, an original readable card and actual delivery that explains protection from exploitation, respects survivors and directs concerns privately to a trusted adult. It does not name cases, blame people or promise that one message prevents trafficking.",
+      "explanation": "This is a conditional bounded campaign task, not a completed intervention or a claim that classroom authoring constitutes learner performance. A local safeguarding plan and unfilled protocol are prerequisites.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces an actual audience/message plan."
+        },
+        {
+          "marks": 1,
+          "description": "Produces an original intelligible supportive card."
+        },
+        {
+          "marks": 1,
+          "description": "Actually delivers an accurate protection message with dignity for survivors."
+        },
+        {
+          "marks": 1,
+          "description": "Actually includes trusted adult support while preserving privacy and avoiding guarantees."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred.",
+      "requiresObservedPerformance": true,
+      "requiresRecordingOrLiveExaminer": true,
+      "evidenceProtocol": "stimuli/batch-345/performance-protocol.json",
+      "performanceNote": "An examiner must see the pupil’s own plan/material and observe/hear actual classroom delivery. Written preparation alone is not performance. Unfilled protocol; no actual learner campaign or recording occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Causes and Purpose of Trafficking in Persons",
+      "subtopic": "Bounded classroom campaign",
+      "learningObjective": "Plan and actually deliver a supportive teacher-reviewed classroom-only anti-trafficking activity that protects privacy and assigns safeguarding to appropriate adults.",
+      "id": "ndv-345-012",
+      "objectiveId": "nerdc-scs-primary4-345-p40-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional campaign plan would display a survivor’s name and home address to make the message seem real. Replace that part with a safer approach and explain why your change matters.",
+      "answer": "Use a wholly fictional example or general protection message without identifying details. Public identifiers could expose a survivor to stigma or further risk; awareness does not require exposing a real person.",
+      "explanation": "This applies selected NAPTIP privacy principles to a classroom plan. No real identity, story or disclosure is requested, even if someone offers one.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces identifying details with a fictional/general alternative."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the privacy/safety reason."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Elements of Trafficking in Persons",
+      "subtopic": "Act, means and purpose with child exception",
+      "learningObjective": "Identify selected act/means/purpose examples in adult fictional cases and distinguish the Protocol child exception and risk factors from legal elements.",
+      "id": "ndv-345-013",
+      "objectiveId": "nerdc-scs-primary4-345-p41-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional adult case, a recruiter enlists a worker, uses a false job description, and intends forced labour. Match the three supplied details to act, means and purpose.",
+      "answer": "Act: enlisting/recruiting the worker. Means: deception through the false job description. Purpose: forced-labour exploitation.",
+      "explanation": "The simplified adult example uses supplied facts and the source’s three categories. It does not establish guilt in any real case.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly matches recruitment to act."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly matches deception to means."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly matches forced-labour exploitation to purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Elements of Trafficking in Persons",
+      "subtopic": "Act, means and purpose with child exception",
+      "learningObjective": "Identify selected act/means/purpose examples in adult fictional cases and distinguish the Protocol child exception and risk factors from legal elements.",
+      "id": "ndv-345-014",
+      "objectiveId": "nerdc-scs-primary4-345-p41-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil’s summary of the international Protocol says, For a child recruited for exploitation, trafficking is impossible unless physical force is proved. Correct the summary and state what must still be present.",
+      "answer": "For a person under 18, proof of the listed means such as force or deception is not required under the Protocol. A listed act such as recruitment and a purpose of exploitation must still be present.",
+      "explanation": "The child exception is missing from the class source’s simple three-part list. This checked explanatory adaptation is not an official NERDC erratum, national court ruling or claim that every child’s journey is trafficking.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly removes the requirement to prove physical force/listed means for a child."
+        },
+        {
+          "marks": 1,
+          "description": "Retains a listed act plus exploitative purpose."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Elements of Trafficking in Persons",
+      "subtopic": "Act, means and purpose with child exception",
+      "learningObjective": "Identify selected act/means/purpose examples in adult fictional cases and distinguish the Protocol child exception and risk factors from legal elements.",
+      "id": "ndv-345-015",
+      "objectiveId": "nerdc-scs-primary4-345-p41-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult-case worksheet says that recruitment, transportation, transfer, harbouring and receipt must all occur, in that exact order, before any act element exists. Explain the error and give one example of a listed act.",
+      "answer": "The listed acts are alternatives; all five are not a compulsory ordered sequence. Recruitment is one example of an act, but the other required adult-case elements must also be considered.",
+      "explanation": "An act by itself is not a complete adult trafficking case. This also qualifies the handbook’s overly linear transport-phase presentation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the all-five/in-order requirement."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate listed act."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the distinction between one act element and a complete adult case."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Elements of Trafficking in Persons",
+      "subtopic": "Act, means and purpose with child exception",
+      "learningObjective": "Identify selected act/means/purpose examples in adult fictional cases and distinguish the Protocol child exception and risk factors from legal elements.",
+      "id": "ndv-345-016",
+      "objectiveId": "nerdc-scs-primary4-345-p41-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "On a fictional adult-case sorting board, the labels are Recruitment, Deception, Forced-labour purpose and Family has little money. Which three belong to the act/means/purpose example? Explain why the last label cannot replace any of them.",
+      "answer": "Recruitment is the act, deception the means and forced-labour exploitation the purpose. Limited family income may be a vulnerability factor, but is not proof or a substitute for these elements.",
+      "explanation": "The task distinguishes structural vulnerability from legal concepts without labelling families. No real people are classified.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly selects and assigns the three elements."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the income label is not a substitute or proof."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-trafficking-concepts-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Explaining selected harms",
+      "learningObjective": "Explain selected possible effects of exploitation on freedom, learning and relationships without claiming inevitable outcomes or medical diagnoses.",
+      "id": "ndv-345-017",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional child loses opportunities to attend lessons because an adult is exploiting the child’s work. Explain one educational consequence and how appropriate support could help. Do not predict the child’s future.",
+      "answer": "Missing lessons can interrupt learning and contact with supportive adults. Safe adult-led protection and support to return to learning can help restore opportunities; the story does not determine the child’s future.",
+      "explanation": "This selected possible harm does not mean every survivor has the same educational experience or cannot recover.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains interruption to learning/opportunities."
+        },
+        {
+          "marks": 1,
+          "description": "Links suitable adult support to restoring access without promising an outcome."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unicef-trafficking-protection-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Explaining selected harms",
+      "learningObjective": "Explain selected possible effects of exploitation on freedom, learning and relationships without claiming inevitable outcomes or medical diagnoses.",
+      "id": "ndv-345-018",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional exploitation case, someone is prevented from contacting supportive relatives or friends. Explain how this loss of contact can affect the person and why respectful adult support matters.",
+      "answer": "Loss of contact can leave the person isolated from relationships and help. Respectful support can help the person access safety and appropriate services without being pressured to tell a public story.",
+      "explanation": "This describes a possible social consequence, not a diagnosis, an inevitable emotional response or instructions for a pupil to rescue anyone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a possible isolation/loss-of-support consequence."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a respectful adult-led support response."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Explaining selected harms",
+      "learningObjective": "Explain selected possible effects of exploitation on freedom, learning and relationships without claiming inevitable outcomes or medical diagnoses.",
+      "id": "ndv-345-019",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult in a fictional forced-work case cannot decide when to stop and cannot access the earnings being kept by the exploiter. Explain two distinct harms described in the story.",
+      "answer": "One harm is loss of freedom or control over the person’s work. Another is loss of control/access to earnings, benefiting the exploiter rather than the worker.",
+      "explanation": "The question uses stated fictional harms. It is not a damages calculation, current property-law ruling or assumption about every survivor.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the loss of freedom/control over work."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the loss of access/control over earnings."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Identifying harms and support",
+      "learningObjective": "Identify selected described harms and distinguish them from supportive responses or unsupported labels, keeping survivors’ dignity and privacy explicit.",
+      "id": "ndv-345-020",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Sort these story cards into described harm or supportive response: Lost freedom; Safe access to lessons; Forced separation from supportive people; Respectful help from trained adults.",
+      "answer": "Harms: lost freedom and forced separation from supportive people. Supportive responses: safe access to lessons and respectful help from trained adults.",
+      "explanation": "A harmful experience and a response intended to support recovery are different. No real child or survivor is being evaluated.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies lost freedom and forced separation as harms."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies lesson access and respectful adult help as supportive responses."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unicef-trafficking-protection-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Identifying harms and support",
+      "learningObjective": "Identify selected described harms and distinguish them from supportive responses or unsupported labels, keeping survivors’ dignity and privacy explicit.",
+      "id": "ndv-345-021",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional class note says, Because someone survived trafficking, we know the person has a disease and should be excluded. Identify the unsupported claim and explain a respectful alternative.",
+      "answer": "Surviving trafficking does not establish a medical diagnosis. Do not label or exclude the person on that basis; respect privacy and support access to appropriate care and ordinary opportunities through responsible adults.",
+      "explanation": "The source’s short disease list must not become a universal medical claim or stigma. This task asks for no diagnosis, health disclosure, physical contact or clinical assessment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies that the history alone does not establish a disease/diagnosis."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects exclusion and gives a respectful privacy/support alternative."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unicef-trafficking-protection-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Consequences of Trafficking in Persons",
+      "subtopic": "Identifying harms and support",
+      "learningObjective": "Identify selected described harms and distinguish them from supportive responses or unsupported labels, keeping survivors’ dignity and privacy explicit.",
+      "id": "ndv-345-022",
+      "objectiveId": "nerdc-scs-primary4-345-p42-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional family supporting a survivor must spend extra money on journeys to appropriate support appointments. Identify the effect on the family described in this story. Explain why the cost is not a punishment the survivor deserves.",
+      "answer": "The family faces an additional expense while arranging support. This is a possible indirect financial effect on the family, not a deserved punishment or a reason to blame the survivor.",
+      "explanation": "The selected NAPTIP handbook passage recognises effects on families as well as direct victims. Only the expense supplied by this fictional story is assessed; no diagnosis, universal family burden or actual cost is inferred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the extra support-related expense as a financial effect on the family."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the described expense from deserved punishment/blame of the survivor."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "naptip-reporting-handbook-reference-345",
+      "contentProvenance": "Original non-graphic fictional prompt, model and practice rubric; no copied examination item, source prose, real case, survivor identity or image. Source concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4, child-safeguarding, trafficking-specialist, inclusion and rubric review pending before classroom use. Accept equivalent accurate wording. No legal adjudication, current national-law completeness, diagnosis, personal disclosure, victim/trafficker role-play, investigation, real contact or public campaign. Respect privacy, offer an independently reviewed alternative and route any spontaneous concern through the school safeguarding process. No learner performance occurred."
+    }
+  ]
+}

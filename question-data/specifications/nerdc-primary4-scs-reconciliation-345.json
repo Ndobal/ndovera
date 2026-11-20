@@ -1,0 +1,127 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    39,
+    40,
+    41,
+    42
+  ],
+  "visuallyCheckedPdfPages": [
+    39,
+    40,
+    41,
+    42
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained; no all-table recount in345.",
+  "partialSourceObjectiveLinks": 79,
+  "uniqueAuthorMappings": 77,
+  "uniqueLinkedValidDrafts": 166,
+  "linkedDraftRowSum": 177,
+  "newQuestions": 22,
+  "written": 21,
+  "practical": 1,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "unodc-trafficking-concepts-reference-345",
+      "kind": "intergovernmental_selected_concepts_and_history",
+      "source": "https://www.unodc.org/e4j/en/tip-and-som/module-6/key-issues/crime-of-trafficking-in-persons.html",
+      "urls": [
+        "https://sherloc.unodc.org/cld/en/education/tertiary/tip-and-som/module-6/key-issues/international-legal-framework.html"
+      ],
+      "documentDate": "March 2019 module",
+      "sourceSections": [
+        "Selected definition/act-means-purpose and historical exploitation paragraphs",
+        "International framework selected Protocol adoption2000, article3(c/d) child exception and no-border/no-organised-group requirement"
+      ],
+      "note": "Fresh web text read; tertiary lecturer resource used only to crosscheck selected concepts, not a Primary4 lesson, national legal ruling or current complete Nigerian law. Old e4j links404; Sherloc replacement retrieved. Direct OHCHR Protocol pages403, not claimed fully retrieved. No cases, percentages, ethnic profiles, current trend totals or universal identity between slavery and trafficking adopted. Child trafficking requires a listed act plus exploitative purpose; proof of listed means is not required under the Protocol. Adult cases retain the means element.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "naptip-reporting-handbook-reference-345",
+      "kind": "agency_authored_selected_history_and_protection",
+      "source": "https://naptip.gov.ng/wp-content/uploads/2024/01/NAPTIP-handbook-on-traffiking-in-nigeria-for-jounalists.pdf",
+      "documentDate": "Copyright 2023",
+      "sourceBytes": 25253118,
+      "pageCount": 38,
+      "sha256": "f1fca2dcc6c2945ecad8054c78d1a0a8eb45a0e47a1ae088dfa5e7207cbce2b6",
+      "sourceSections": [
+        "PDF1–2 title/copyright",
+        "PDF8–10 selected history, concepts and risk/purpose passages",
+        "PDF16 privacy, dignity and non-blame; PDF23–24 selected migration/child-work cautions; PDF28 selected harm/support text"
+      ],
+      "note": "Fresh complete PDF downloaded after web502; only listed selected sections read, not whole-handbook review or school adoption. Also read PDF11 for source screening; graphic forms, geographic stereotypes and clinical implications not adopted or shown to pupils. Journalist guidance is adapted as classroom safeguarding principles pending specialist/class review. Do not adopt linear compulsory transport phases, victim-blaming push/pull phrasing, universal relocation/identity promises, prostitution/child-work legal summaries or criminal penalties. Selected2003 agency law/2015 replacement history only, not proof of fully current consolidated law. No source prose/images republished.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "unicef-trafficking-protection-reference-345",
+      "kind": "intergovernmental_selected_child_protection_overview",
+      "source": "https://www.unicef.org/reports/unicefs-action-against-child-trafficking",
+      "documentDate": "July 2025",
+      "sourceSections": [
+        "Landing-page Highlights: interacting vulnerabilities, protection/reintegration and non-discrimination"
+      ],
+      "note": "Fresh landing text read only; linked full3MB white paper not downloaded or claimed read. Narrow support for structural factors, education/protection/reintegration and dignity, not a numerical trend quiz, diagnosis, guaranteed prevention or a calibrated Nigerian Primary4 programme.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    }
+  ],
+  "reconciliationOnlyRetrieval": {
+    "source": "https://lms.naptip.gov.ng/public/uploads/file/28-05-2024/83f7e743df4daeb03a94d3465c69996f.pdf",
+    "sourceBytes": 1517830,
+    "pageCount": 66,
+    "sha256": "219d9c37d7a6bc0f77aa8f860c8a4c8d90baef4846877aec283b8ecb213f98a3",
+    "readPdfPages": [
+      1,
+      51,
+      52
+    ],
+    "limitation": "Personnel training material, no verified publication date or classroom suitability; conflicting exact agency establishment days; not a question content source or full current legal reference."
+  },
+  "inventory": "nerdc-primary4-scs-objective-inventory-345.json",
+  "sourceIssuesAndLimits": "Batch345 adds22 original Primary4 SCS drafts (21 written,1 conditional classroom campaign) across8 partial mappings onPDF39–42. Inventory345 links79/82 source statements through77 mappings, with166 unique class drafts passing automated checks; row sum177 retains11 shared financial links, not extra questions. Fresh exact-class hash matched; selected text/renders read, inventory339 count basis retained. Fresh NAPTIP2023 journalist handbook (38pages) downloaded after web502; selected concepts/history/protection passages read, not a whole-handbook or classroom validation. Fresh UNODC2019 definition and Sherloc framework establish selected adult act/means/purpose and Protocol child exception; old e4j404 and direct OHCHR403 recorded. UNICEF2025 landing highlights read, not linked full paper. Source40 causal wording may blame poverty/family/migration wishes; risks are not proof or blame. Source41 simple three-part list omits child exception; handbook transport sequence is not a universal compulsory order. Source42 disease wording is not diagnosis or grounds for exclusion; clinical/epidemiological claims, graphic content, full consequences/forms and local care not assessed. No official erratum claimed. NAPTIP personnel overview (66pages) retrieved and selected1/51/52 read for reconciliation; conflicting14July/8August2003 establishment days, no verified publication date/current legal consolidation, not used as question content. Only selected response years2000/2003/2015, not whole historical trends or beginning of trafficking; source slavery/modern-slavery shorthand not treated as universally identical legal terms. School-wide/public campaign scope is replaced by a conditional supportive classroom-only subset, with specialist/local safeguarding/rubric review prerequisite. No actual learner campaign, survivor image/identity/story, public contact, private disclosure, investigation, diagnosis, legal ruling or production import; protocol unfilled. Three source statements remain unmapped: nation characteristics1 and drug names/characteristics2. All earlier financial, safeguarding, clinical, full source range/depth, delivery/adoption/terms/1000-target and independent-review gaps remain open.",
+  "manualNoveltyReview": "Global existing prompt/topic search found no earlier trafficking tasks. New purposes separate meaning/border/travel, selected historical response, vulnerability versus proof, exploiter demand, stated versus exploitative purpose, actual campaign/privacy, adult elements/child exception/alternative acts, and described harms versus supportive responses. Global exact/near/numeric checks still required. Before final validation,022 was rewritten to identify a family-level support expense from selected handbookPDF28 instead of repeating earlier learning/isolation and support sorting. This distinguishes direct-worker control/earnings019 from an indirect family expense; no generic claim that all families incur costs.",
+  "performanceProtocol": "stimuli/batch-345/performance-protocol.json",
+  "validationStatus": "automated_checks_passed",
+  "verification": {
+    "testsPassed": 56,
+    "strictNewAuditPassed": true,
+    "added": 22,
+    "corrected": 0,
+    "newHeld": 0,
+    "verifiedTotals": {
+      "raw": 6187,
+      "validDrafts": 4508,
+      "reviewed": 0
+    },
+    "priorQuestionRecordsUnchanged": 6165,
+    "priorFileChecksumsUnchanged": 379,
+    "legacyErrorsAndSimilarityGroupsUnchanged": true,
+    "mathematicalVerificationUnchanged": {
+      "explicitArithmeticClaims": 623,
+      "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
+      "failureCount": 0,
+      "logicTables": 2
+    },
+    "partialSourceObjectiveLinks": 79,
+    "uniqueAuthorMappings": 77,
+    "uniqueLinkedValidDrafts": 166,
+    "linkedDraftRowSum": 177,
+    "manualReview": "All22 prompts/models/explanations/rubrics, class/source/objective compatibility, privacy/non-blame/child exception and conceptual purposes inspected.022 revised before final revalidation to an indirect family support expense; no earlier question corrected. New IDs globally unique; all marking totals and review gates valid; year ordering2000<2003<2015 checked separately from source truth. No new numerical-template/arithmetic claims. Existing11 shared financial links retained; unique valid question union166 independently checked against row sum177. No actual performance or independent academic review."
+  }
+}
