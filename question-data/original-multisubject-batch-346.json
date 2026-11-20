@@ -1,0 +1,1770 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 Pre-vocational Studies concepts and careers — batch346",
+  "questionCount": 40,
+  "note": "40 original drafts:38 written and2 conditional individual spoken explanations.13 partial mappings from44 source statements. New exact-class composite bank; no separate Agriculture/Home Economics bank inferred. No actual soil, cosmetic, food, tool, animal or occupational practical performance; oral protocol unfilled.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Agriculture as production and related activity",
+      "learningObjective": "Explain agriculture through selected plant/animal production examples, distinguishing scale from the nature of the activity.",
+      "id": "ndv-346-001",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain agriculture using one crop example and one animal example. Show what people do in each example.",
+      "answer": "Agriculture includes growing plants and raising animals for useful products. For example, growers plant and care for okra, while poultry keepers raise chickens for products such as eggs.",
+      "explanation": "A suitable explanation includes purposeful production rather than only naming something eaten.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the production/growing/raising idea."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate crop activity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate animal activity."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Agriculture as production and related activity",
+      "learningObjective": "Explain agriculture through selected plant/animal production examples, distinguishing scale from the nature of the activity.",
+      "id": "ndv-346-002",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class display places Growing cassava and Extracting stone from a quarry under the same heading Agriculture. Which entry fits plant production, and what is different about the other activity?",
+      "answer": "Growing cassava fits plant production. Extracting stone obtains a mineral/rock material rather than growing crops or raising animals.",
+      "explanation": "The comparison concerns the supplied activities, not whether quarrying is useful or whether farms ever use stone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies growing cassava as crop production."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes quarry extraction from the stated plant-production activity."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Agriculture as production and related activity",
+      "learningObjective": "Explain agriculture through selected plant/animal production examples, distinguishing scale from the nature of the activity.",
+      "id": "ndv-346-003",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner says that growing vegetables in a small backyard cannot be agriculture because the plot is not a large commercial farm. Explain the mistake.",
+      "answer": "Agriculture is not defined only by a large plot or commercial scale. Purposefully growing vegetables is crop production even in a small backyard.",
+      "explanation": "Size can change how production is organised; it does not by itself remove the activity from agriculture.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects large scale as a necessary condition."
+        },
+        {
+          "marks": 1,
+          "description": "Links the backyard example to purposeful crop production."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Food, materials and livelihoods",
+      "learningObjective": "Explain selected contributions of agriculture to food, raw materials and livelihoods without promising that any enterprise always succeeds.",
+      "id": "ndv-346-004",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A cotton grower supplies a textile business and a maize grower supplies a food seller. Explain two different contributions illustrated by these agricultural activities.",
+      "answer": "Cotton supplies a raw material for making textiles. Maize supplies food or a food ingredient. Agriculture can contribute to both manufactured products and food supply.",
+      "explanation": "These are selected contributions, not a claim that every crop is only used for one purpose.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the cotton/raw-material contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the maize/food contribution."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Food, materials and livelihoods",
+      "learningObjective": "Explain selected contributions of agriculture to food, raw materials and livelihoods without promising that any enterprise always succeeds.",
+      "id": "ndv-346-005",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional produce chain, one adult grows okra, another arranges its sale, and another transports it to buyers. How can agriculture support livelihoods beyond the grower?",
+      "answer": "Producing and moving goods to buyers creates related work in marketing and transport as well as growing. These roles can provide income opportunities.",
+      "explanation": "An opportunity does not guarantee sales, profit or employment for every participant.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names a relevant non-growing role from the chain."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how that role relates to earning a livelihood."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Food, materials and livelihoods",
+      "learningObjective": "Explain selected contributions of agriculture to food, raw materials and livelihoods without promising that any enterprise always succeeds.",
+      "id": "ndv-346-006",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional community has a large vegetable harvest, but transport to buyers is interrupted. Does a large harvest alone guarantee that every household can obtain the vegetables? Explain one reason and one role that delivery or marketing can play.",
+      "answer": "No. Producing vegetables does not by itself ensure they reach people or that every household can obtain them. Delivery and marketing can help connect available produce with users.",
+      "explanation": "This deepens the importance-of-agriculture task by distinguishing production from access. It does not predict prices, diagnose nutrition or claim that one delivery action guarantees food security.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects production alone as a guarantee of household access, with a relevant reason."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant connecting role for delivery or marketing."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Related areas and overlapping scope",
+      "learningObjective": "Identify selected agricultural areas from supplied activities while allowing justified overlap rather than treating branches as mutually exclusive.",
+      "id": "ndv-346-007",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Classify these activities using suitable agricultural areas: raising goats, growing leafy vegetables, and producing fish. Explain why the fish activity can have more than one relevant broad description.",
+      "answer": "Goat raising is animal production/husbandry; vegetables are crop production and horticulture; producing fish is fishery/aquaculture and can also be described broadly as animal production.",
+      "explanation": "The source lists related areas that may overlap; do not demand mutually exclusive categories where an explanation is accurate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies goats appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies vegetables appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies fish and recognises a justified overlap."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Related areas and overlapping scope",
+      "learningObjective": "Identify selected agricultural areas from supplied activities while allowing justified overlap rather than treating branches as mutually exclusive.",
+      "id": "ndv-346-008",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult designs a pump arrangement for farm irrigation, while another studies how a soil supplies nutrients. Name a relevant agricultural area for each activity.",
+      "answer": "Designing farm irrigation equipment relates to agricultural engineering. Studying the soil and its nutrient-supplying role relates to soil science.",
+      "explanation": "Only broad area identification is assessed; pupils are not asked to design, install or operate equipment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches equipment design to agricultural engineering."
+        },
+        {
+          "marks": 1,
+          "description": "Matches soil study to soil science."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Related areas and overlapping scope",
+      "learningObjective": "Identify selected agricultural areas from supplied activities while allowing justified overlap rather than treating branches as mutually exclusive.",
+      "id": "ndv-346-009",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner describes horticulture as growing flowers only. Use vegetables to show why that description is incomplete.",
+      "answer": "Horticulture includes growing vegetables as well as flowers and other suitable plant groups. A vegetable-growing activity therefore fits within its scope too.",
+      "explanation": "This selected source example is not an exhaustive horticultural taxonomy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States that vegetables also fall within horticulture."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why flowers-only is too narrow."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Meaning, importance and scope of Agriculture",
+      "subtopic": "Related areas and overlapping scope",
+      "learningObjective": "Identify selected agricultural areas from supplied activities while allowing justified overlap rather than treating branches as mutually exclusive.",
+      "id": "ndv-346-010",
+      "objectiveId": "nerdc-prevoc-primary4-346-p14-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional agriculture exhibition has only a crop-growing stand. Suggest two different additional areas that would show more of the subject’s scope, and describe what each stand could explain.",
+      "answer": "One stand could explain animal husbandry such as poultry keeping. Another could explain soil science or agricultural engineering, such as the role of soil or the design of farm equipment.",
+      "explanation": "Accept distinct justified areas from the checked class source; no actual animals, tools or machinery are required for this written design task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests and describes one appropriate additional area."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests and describes a second distinct area."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Soil as a natural growth medium",
+      "learningObjective": "Explain soil as a natural medium containing mineral/organic solids, water and air, rather than only loose dirt or fixed proportions.",
+      "id": "ndv-346-011",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give a simple meaning of soil that includes its role for land plants and more than one kind of material it contains.",
+      "answer": "Soil is a natural material near the land surface that can support rooted plants. It includes mineral and organic material, with water and air in spaces between the solids.",
+      "explanation": "This age-appropriate account avoids fixed component percentages or a claim that every soil has an identical mixture.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the natural growth-medium idea."
+        },
+        {
+          "marks": 1,
+          "description": "Includes appropriate solids such as mineral/organic material."
+        },
+        {
+          "marks": 1,
+          "description": "Includes water or air as part of the soil system."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nrcs-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Soil as a natural growth medium",
+      "learningObjective": "Explain soil as a natural medium containing mineral/organic solids, water and air, rather than only loose dirt or fixed proportions.",
+      "id": "ndv-346-012",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A model of soil shows only solid grains packed together, with no spaces. Name two things that can occupy spaces in real soil and explain why the model is incomplete.",
+      "answer": "Water and air can occupy pore spaces. A model showing only packed solids omits those spaces and parts of the real soil system.",
+      "explanation": "No actual sample is opened or handled; this is reasoning about a simple model.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names water and air."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the omission of pore spaces/components."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nrcs-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Roots, nutrients and soil life",
+      "learningObjective": "Explain selected roles of soil in supporting plant roots and nutrient cycling, including the importance of soil organisms.",
+      "id": "ndv-346-013",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A growing plant’s roots spread through soil. Describe two useful roles that soil can provide for the plant.",
+      "answer": "Soil can anchor/support the roots and provide access to water and plant nutrients.",
+      "explanation": "Accept two distinct relevant roles; this does not claim that plants cannot be grown by other methods.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes one appropriate soil role."
+        },
+        {
+          "marks": 1,
+          "description": "Describes a second distinct role."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nrcs-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Roots, nutrients and soil life",
+      "learningObjective": "Explain selected roles of soil in supporting plant roots and nutrient cycling, including the importance of soil organisms.",
+      "id": "ndv-346-014",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner says that all organisms in soil are useless because they are not the crop. Explain one useful role that some soil organisms can play.",
+      "answer": "Some organisms help break down organic material and cycle nutrients that plants can use. Their role can support the soil system even though they are not the crop.",
+      "explanation": "Not every organism has the same function; no organism identification, collection or handling is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes a relevant decomposition/nutrient-cycling role."
+        },
+        {
+          "marks": 1,
+          "description": "Links the role to plants/soil rather than treating all organisms as useless."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Described texture evidence",
+      "learningObjective": "Compare broad sandy/clayey descriptions and recognise that colour alone does not establish loam; this is written reasoning, not actual sample identification.",
+      "id": "ndv-346-015",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A teacher’s written observation cards describe A as strongly gritty and not sticky, and B as very fine and sticky when moist. Using broad classroom labels, which is more consistent with sandy material and which with clayey material? Give the evidence for each.",
+      "answer": "A is more consistent with sandy material because of the strong grittiness and lack of stickiness. B is more consistent with clayey material because of its fine sticky character.",
+      "explanation": "These are supplied descriptions, not verified real sample identifications or the full scientific texture classification.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches A to sandy with the stated evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Matches B to clayey with the stated evidence."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nrcs-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Described texture evidence",
+      "learningObjective": "Compare broad sandy/clayey descriptions and recognise that colour alone does not establish loam; this is written reasoning, not actual sample identification.",
+      "id": "ndv-346-016",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional soil card says, This soil is dark, so its texture must be loam. Explain why colour alone is insufficient, and name the particle groups relevant to texture.",
+      "answer": "Texture concerns the relative amounts of sand, silt and clay, not colour alone. More texture evidence is needed before a loam classification is justified.",
+      "explanation": "The source’s three classroom labels are a selected simplification, not all scientific texture classes. No percentages or universal best-soil claim is assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects colour alone as sufficient texture evidence."
+        },
+        {
+          "marks": 1,
+          "description": "Names sand, silt and clay as the relevant particle groups."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nrcs-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Fertility and limits of inference",
+      "learningObjective": "Explain soil fertility/infertility in relation to adequate nutrient supply for specified plants, keeping other growth conditions and need for evidence explicit.",
+      "id": "ndv-346-017",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain low soil fertility in terms of the needs of a specified crop, rather than simply calling the soil bad.",
+      "answer": "Low fertility means the soil does not supply the needed plant nutrients in adequate amounts or balance for that crop. The explanation should relate to nutrient supply and the crop’s needs.",
+      "explanation": "Fertility is one aspect of growing conditions, not a diagnosis that every difficulty is caused by nutrients.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links fertility to plant nutrient supply."
+        },
+        {
+          "marks": 1,
+          "description": "Includes adequacy/balance for the specified crop."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Fertility and limits of inference",
+      "learningObjective": "Explain soil fertility/infertility in relation to adequate nutrient supply for specified plants, keeping other growth conditions and need for evidence explicit.",
+      "id": "ndv-346-018",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A plant in a fictional story grows poorly. A pupil concludes from this fact alone that the soil is infertile and must receive fertilizer. What is missing from this conclusion?",
+      "answer": "Evidence about nutrient supply and other growing conditions is missing. Poor growth alone does not establish the cause or justify a fertilizer treatment; conditions such as water or light also need appropriate checking.",
+      "explanation": "This is a limit-of-inference task, not a crop treatment recommendation or a request to test/handle fertilizer.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that poor growth alone does not prove infertility."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the need for nutrient/other-condition evidence before a treatment decision."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Selected nutrient/topsoil losses",
+      "learningObjective": "Explain selected erosion, overgrazing, leaching and burning pathways without conducting activities, prescribing treatment or claiming inevitable outcomes.",
+      "id": "ndv-346-019",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A story describes rainwater carrying surface soil off an uncovered slope. Identify the process and explain one way it can reduce the soil’s productive value.",
+      "answer": "The process is soil erosion. Removal of surface soil can remove organic matter and nutrients or leave poorer material exposed.",
+      "explanation": "Only the supplied story is assessed; no rain simulation, slope visit or measured loss is claimed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies erosion."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a relevant consequence of losing surface soil."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Selected nutrient/topsoil losses",
+      "learningObjective": "Explain selected erosion, overgrazing, leaching and burning pathways without conducting activities, prescribing treatment or claiming inevitable outcomes.",
+      "id": "ndv-346-020",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional grazing area, repeated excessive grazing leaves very little protective plant cover. Explain how that can increase the risk of soil loss when rain or wind occurs.",
+      "answer": "With less protective cover, the soil surface is more exposed. Rain or wind can then remove soil more easily than where suitable cover protects it.",
+      "explanation": "The source lists overgrazing; the supplementary cover/erosion principles support the explained pathway. This does not claim every grazing activity has the same effect.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links excessive grazing to reduced protective cover."
+        },
+        {
+          "marks": 1,
+          "description": "Links exposure to greater erosion risk."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Selected nutrient/topsoil losses",
+      "learningObjective": "Explain selected erosion, overgrazing, leaching and burning pathways without conducting activities, prescribing treatment or claiming inevitable outcomes.",
+      "id": "ndv-346-021",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two written cases describe nutrient loss: A has soil particles carried off the surface; B has dissolved nutrients carried downward with water. Name the process illustrated by each and explain the difference in what moves.",
+      "answer": "A illustrates erosion, with soil particles moving. B illustrates leaching, with materials dissolved in water moving through the soil.",
+      "explanation": "The leaching term is crosschecked against USGS; this is a conceptual contrast, not a chemical or water experiment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies erosion and particle movement in A."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies leaching and dissolved-material movement in B."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "usgs-leaching-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Soil Classification and Enrichment",
+      "subtopic": "Selected nutrient/topsoil losses",
+      "learningObjective": "Explain selected erosion, overgrazing, leaching and burning pathways without conducting activities, prescribing treatment or claiming inevitable outcomes.",
+      "id": "ndv-346-022",
+      "objectiveId": "nerdc-prevoc-primary4-346-p15-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional poster says, Burning vegetation always improves soil forever. Give two reasons why this is an unreliable claim.",
+      "answer": "Burning can reduce organic matter and protective plant cover, leaving soil more exposed to erosion. Its effects are not a guaranteed permanent improvement.",
+      "explanation": "No fire, ash handling or burning demonstration is proposed. This selected risk explanation is not a universal statement that every fire has identical effects.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a possible loss of organic matter/cover."
+        },
+        {
+          "marks": 1,
+          "description": "Explains exposure to erosion or rejects the permanent guarantee with a relevant reason."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-soil-concepts-reference-346",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Vocational Skills in Agriculture",
+      "subtopic": "Work across agricultural activities",
+      "learningObjective": "Explain selected crop, animal and produce-marketing opportunities through supplied fictional roles and an actually heard short explanation.",
+      "id": "ndv-346-023",
+      "objectiveId": "nerdc-prevoc-primary4-346-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional agricultural business needs someone to plan vegetable planting, someone to care for poultry, and someone to arrange produce sales. Name the opportunity represented by each responsibility.",
+      "answer": "The responsibilities illustrate crop production/management, animal husbandry/poultry production, and agricultural produce marketing.",
+      "explanation": "This is identification of opportunities, not an instruction for pupils to undertake adult work.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies crop production/management."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies animal husbandry/poultry production."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies produce marketing."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Vocational Skills in Agriculture",
+      "subtopic": "Work across agricultural activities",
+      "learningObjective": "Explain selected crop, animal and produce-marketing opportunities through supplied fictional roles and an actually heard short explanation.",
+      "id": "ndv-346-024",
+      "objectiveId": "nerdc-prevoc-primary4-346-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A person enjoys keeping accurate order records and matching harvested produce with buyers. Explain an agricultural opportunity that fits the described responsibility and how it supports production reaching people.",
+      "answer": "Produce marketing or a related sales-coordination role fits. It helps connect available produce with buyers so that production can reach users.",
+      "explanation": "The task concerns a fictional responsibility; interest does not guarantee employment or profit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies an appropriate marketing-related role."
+        },
+        {
+          "marks": 1,
+          "description": "Explains its connection between produce and buyers."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Vocational Skills in Agriculture",
+      "subtopic": "Work across agricultural activities",
+      "learningObjective": "Explain selected crop, animal and produce-marketing opportunities through supplied fictional roles and an actually heard short explanation.",
+      "id": "ndv-346-025",
+      "objectiveId": "nerdc-prevoc-primary4-346-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional farm expands from crop growing to raising rabbits. What additional area of agricultural work is involved, and how does the nature of the work differ from crop growing?",
+      "answer": "Animal husbandry/rabbit production is added. It involves caring for animals rather than only growing plants.",
+      "explanation": "No handling, feeding, health procedure or visit involving real animals is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies animal husbandry/rabbit production."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the plant/animal responsibility distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Vocational Skills in Agriculture",
+      "subtopic": "Work across agricultural activities",
+      "learningObjective": "Explain selected crop, animal and produce-marketing opportunities through supplied fictional roles and an actually heard short explanation.",
+      "id": "ndv-346-026",
+      "objectiveId": "nerdc-prevoc-primary4-346-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Actually give the examiner a short spoken explanation of one agricultural opportunity from crop production, animal husbandry or produce marketing. State the work involved and how it relates to useful products or their sale. Speak about a fictional adult role, not your family’s private work.",
+      "answer": "An actually heard response names a suitable opportunity, accurately describes its responsibility and links the work to production or marketing. For example, a crop grower plans and cares for vegetables that can be supplied to users.",
+      "explanation": "A written answer alone is not spoken performance. This is explanation of a role, not demonstrated agricultural work or a worker interview.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually names an appropriate opportunity in a heard response."
+        },
+        {
+          "marks": 1,
+          "description": "Actually explains an accurate responsibility."
+        },
+        {
+          "marks": 1,
+          "description": "Actually links that responsibility to useful production/marketing."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used.",
+      "requiresRecordingOrLiveExaminer": true,
+      "evidenceProtocol": "stimuli/batch-346/performance-protocol.json",
+      "performanceNote": "Examiner must actually hear the pupil’s own explanation under the unfilled protocol; writing/preparation alone is not spoken performance. No learner performance or recording occurred. Do not impose an accent or speed standard."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Vocational Skills in Agriculture",
+      "subtopic": "Work across agricultural activities",
+      "learningObjective": "Explain selected crop, animal and produce-marketing opportunities through supplied fictional roles and an actually heard short explanation.",
+      "id": "ndv-346-027",
+      "objectiveId": "nerdc-prevoc-primary4-346-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A career guide says, If you are interested in agriculture, your only possible work is growing crops. Improve the guide with two other source-supported kinds of opportunity.",
+      "answer": "Animal husbandry such as poultry or rabbit production and produce marketing are other opportunities. Agriculture includes related kinds of work beyond growing crops.",
+      "explanation": "Accept distinct accurate examples within the checked class scope; no exhaustive job list or hiring entitlement is implied.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one appropriate non-crop opportunity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct non-crop opportunity."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Home Economics as applied resource use",
+      "learningObjective": "Explain Home Economics as practical knowledge/skills for managing resources and wellbeing in everyday household life, beyond cooking or gender stereotypes.",
+      "id": "ndv-346-028",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain Home Economics using the idea of applying knowledge and skills to household resources and everyday wellbeing. Give one suitable example.",
+      "answer": "Home Economics concerns practical knowledge and skills for managing household/family resources and supporting everyday living. Planning care of clothing or organising shared household resources is one example.",
+      "explanation": "The explanation is a selected age-appropriate account, not a complete professional definition or a clinical claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains applied knowledge/skills in household/family life."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the idea to resources/wellbeing."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable example."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Home Economics as applied resource use",
+      "learningObjective": "Explain Home Economics as practical knowledge/skills for managing resources and wellbeing in everyday household life, beyond cooking or gender stereotypes.",
+      "id": "ndv-346-029",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A learner says that Home Economics means cooking and nothing else. Use clothing and home management to improve the explanation.",
+      "answer": "Cooking/food work is one part. Clothing and textiles and home management are also areas, so Home Economics has a broader scope than cooking alone.",
+      "explanation": "No cooking, sewing or equipment use is required in this written task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the clothing/textiles contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the home-management contribution."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Home Economics as applied resource use",
+      "learningObjective": "Explain Home Economics as practical knowledge/skills for managing resources and wellbeing in everyday household life, beyond cooking or gender stereotypes.",
+      "id": "ndv-346-030",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional class rule allows only girls to study Home Economics. Explain why the rule is a poor way to think about the subject’s purpose.",
+      "answer": "Knowledge of household resources, clothing, food and family wellbeing can be useful to learners of any gender. The purpose is useful knowledge and skills, not a restriction to girls.",
+      "explanation": "This task challenges a fictional stereotype without asking pupils about private family roles.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects the skills to general everyday usefulness."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the gender restriction with a relevant reason."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Related household study areas",
+      "learningObjective": "Identify selected Home Economics areas and explain overlaps among clothing, food, family resources and household organisation using supplied cases.",
+      "id": "ndv-346-031",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Match these lesson activities with suitable Home Economics areas: studying fabrics, considering food nutrients, and planning use of shared household resources.",
+      "answer": "Studying fabrics relates to clothing and textiles; considering nutrients relates to food and nutrition; planning resources relates to family resource/home management.",
+      "explanation": "Only study-area classification is assessed; no nutrition prescription or household financial disclosure is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches fabrics appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Matches nutrients appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Matches resource planning appropriately."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Related household study areas",
+      "learningObjective": "Identify selected Home Economics areas and explain overlaps among clothing, food, family resources and household organisation using supplied cases.",
+      "id": "ndv-346-032",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional school celebration involves planning a room layout and planning food service. Why might more than one Home Economics area be relevant? Name two suitable areas.",
+      "answer": "Event/home management can help organise the room and activity, while food/nutrition or food-service study relates to food planning. Areas can contribute together to one event.",
+      "explanation": "This is a written scope example, not a live event, food handling or an assertion that subject areas never overlap.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names an appropriate organisation/event area."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate food-related area."
+        },
+        {
+          "marks": 1,
+          "description": "Explains their combined contribution."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Related household study areas",
+      "learningObjective": "Identify selected Home Economics areas and explain overlaps among clothing, food, family resources and household organisation using supplied cases.",
+      "id": "ndv-346-033",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class chart includes Family and child development and Housing/interior design. Describe one different question each area might study.",
+      "answer": "Family/child development might study how supportive family relationships help children develop. Housing/interior design might study how spaces can be arranged for household needs.",
+      "explanation": "Accept suitable general examples. No personal disclosures, building design approval or psychological diagnosis is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate family/child-development study question."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate housing/interior study question."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Individual, family and community value",
+      "learningObjective": "Explain selected benefits of Home Economics for individuals, families and communities without prescribing unsafe practical work or guaranteed incomes.",
+      "id": "ndv-346-034",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional learner often loses school materials in an untidy personal space. Explain one possible benefit of learning to organise that space and why this is relevant to Home Economics.",
+      "answer": "Organisation can make materials easier to find and support useful use of time/resources. Home management applies knowledge to everyday living spaces and needs.",
+      "explanation": "This is a possible benefit, not an assessment of a real pupil’s home or an actual organisation-performance task.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a relevant benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the benefit to home/resource management."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Individual, family and community value",
+      "learningObjective": "Explain selected benefits of Home Economics for individuals, families and communities without prescribing unsafe practical work or guaranteed incomes.",
+      "id": "ndv-346-035",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A family in a story learns to recognise when clothing needs appropriate care before replacing it. Explain how this knowledge can benefit the family’s resources without requiring a child to use a needle or iron.",
+      "answer": "Appropriate care can help clothing remain usable and may avoid unnecessary replacement. This can support careful use of household resources.",
+      "explanation": "No practical mending, hot ironing or guarantee about the life of any garment is assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains continued usability as a possible benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Connects avoiding unnecessary replacement to resources."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Concept of Home Economics",
+      "subtopic": "Individual, family and community value",
+      "learningObjective": "Explain selected benefits of Home Economics for individuals, families and communities without prescribing unsafe practical work or guaranteed incomes.",
+      "id": "ndv-346-036",
+      "objectiveId": "nerdc-prevoc-primary4-346-p19-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A local clothing business needs people who understand fabrics and garment care. Explain one way learning Home Economics can contribute beyond an individual household, while avoiding a promise of automatic employment.",
+      "answer": "Knowledge of clothing/textiles can support work and services needed by the community. It may help prepare learners for relevant opportunities, but learning the subject alone does not guarantee a job.",
+      "explanation": "This is an introductory contribution, not a claim of professional qualification or a forecast of income.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a relevant community/work contribution."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the employment claim appropriately limited."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Job/Career Opportunities in Home Economics",
+      "subtopic": "Selected career roles",
+      "learningObjective": "Identify selected Home Economics career roles from supplied responsibilities and an actually heard explanation without performing the work or imposing gender/credential assumptions.",
+      "id": "ndv-346-037",
+      "objectiveId": "nerdc-prevoc-primary4-346-p23-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional salon roles are described: A organises bookings and supplies; B shapes and styles clients’ hair. Name a suitable role for each, using the responsibilities given.",
+      "answer": "A is a salon manager/coordinator; B is a hair stylist/hairdresser. The supplied responsibilities distinguish organisation from the styling work.",
+      "explanation": "Job titles and duties can overlap in practice. Accept equivalent accurate role names; no chemical application, cutting or client service is performed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the organising responsibility appropriately."
+        },
+        {
+          "marks": 1,
+          "description": "Matches the styling responsibility appropriately."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Job/Career Opportunities in Home Economics",
+      "subtopic": "Selected career roles",
+      "learningObjective": "Identify selected Home Economics career roles from supplied responsibilities and an actually heard explanation without performing the work or imposing gender/credential assumptions.",
+      "id": "ndv-346-038",
+      "objectiveId": "nerdc-prevoc-primary4-346-p23-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional garment business needs someone to prepare cutting patterns and someone to assemble garments from them. Identify two suitable career roles and explain the task distinction.",
+      "answer": "A pattern maker prepares the patterns; a garment maker/tailor assembles garments using suitable patterns and construction skills.",
+      "explanation": "This is identification of responsibilities, not a cutting/sewing task or universal licensing rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a pattern-making role."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a garment-making/tailoring role and distinguishes the responsibility."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Job/Career Opportunities in Home Economics",
+      "subtopic": "Selected career roles",
+      "learningObjective": "Identify selected Home Economics career roles from supplied responsibilities and an actually heard explanation without performing the work or imposing gender/credential assumptions.",
+      "id": "ndv-346-039",
+      "objectiveId": "nerdc-prevoc-primary4-346-p23-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional bakery employs an adult who makes pastries and another who organises daily staffing and supplies. Identify a suitable Home Economics-related career role for each.",
+      "answer": "A pastry chef/baker fits the pastry-making role. A bakery manager fits the organisation of staffing and supplies.",
+      "explanation": "The source names related careers. The fictional responsibilities, not a claimed universal job boundary, determine acceptable answers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches pastry production to an appropriate role."
+        },
+        {
+          "marks": 1,
+          "description": "Matches organisation to bakery management."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Job/Career Opportunities in Home Economics",
+      "subtopic": "Selected career roles",
+      "learningObjective": "Identify selected Home Economics career roles from supplied responsibilities and an actually heard explanation without performing the work or imposing gender/credential assumptions.",
+      "id": "ndv-346-040",
+      "objectiveId": "nerdc-prevoc-primary4-346-p23-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Actually present a short spoken career explanation to the examiner: choose two different Home Economics-related roles from garment making, hair styling, confectionery or home management. Name each role and explain one responsibility of each. Use fictional examples and no real client or family information.",
+      "answer": "An actually heard response identifies two suitable roles and explains their different responsibilities, such as a pattern maker preparing patterns and a salon manager organising bookings/supplies.",
+      "explanation": "This assesses an individual oral explanation, not occupational performance, a real interview or a professional qualification.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually names two appropriate distinct roles in a heard response."
+        },
+        {
+          "marks": 1,
+          "description": "Actually explains a suitable responsibility for the first."
+        },
+        {
+          "marks": 1,
+          "description": "Actually explains a suitable responsibility for the second."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, answer/model and practice rubric; no copied examination item, source prose, real worker interview or pupil data. Concepts attributed in registry/reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, soil/agricultural and occupational terminology, inclusion and rubric review pending. Selected conceptual/conditional oral subset, not actual field identification, practical competence, clinical/cosmetic advice, current crop prescription, credential/licensing guarantee, school adoption or official terms. Accept equivalent accurate wording; career access is not limited by gender. No real soil, chemicals, animals, food, hot/sharp/powered tools or practical work used.",
+      "requiresRecordingOrLiveExaminer": true,
+      "evidenceProtocol": "stimuli/batch-346/performance-protocol.json",
+      "performanceNote": "Examiner must actually hear the pupil’s own explanation under the unfilled protocol; writing/preparation alone is not spoken performance. No learner performance or recording occurred. Do not impose an accent or speed standard."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-346-026",
+    "ndv-346-040"
+  ],
+  "preconditions": [
+    "Independent Primary4 subject, occupational terminology, soil-concept, inclusion and rubric calibration before use.",
+    "Calm individual live explanation or appropriately authorised recording; no required accent/speed standard. Provide independently reviewed access arrangements.",
+    "Use fictional adult roles only, no private family/client/work data, real workplace visit or pupil employment. No soil/organism/chemical/food/animal, cutting/heating, tools/equipment or occupational procedure."
+  ],
+  "evidenceRequirements": [
+    "Actually hear each pupil’s own role explanation and assess the relevant criteria. A written plan/model, group attendance or a claim that the pupil could speak is not performance."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupChecked": null,
+    "heardResponse": null,
+    "criterionMarks": null
+  },
+  "records": []
+}
