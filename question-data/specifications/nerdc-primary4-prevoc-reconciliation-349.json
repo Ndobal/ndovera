@@ -1,0 +1,155 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-prevoc-primary4-revised-2025",
+  "sourceUrl": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/15.pdf",
+  "sourceSha256": "de0782bd928a5cc6fb01c4f3dfc2eda96943c342ce9257f5e78e067b6d99f4d1",
+  "freshRetrievalBytes": 2188329,
+  "pageCount": 26,
+  "readTextPdfPages": [
+    1,
+    3,
+    20,
+    22
+  ],
+  "visuallyCheckedPdfPages": [
+    20,
+    22
+  ],
+  "inventoryCountBasis": "Retained346/347/348 full12-table count44(42 numbered,2 single unnumbered); selected table recheck, not new complete recount.",
+  "freshPrimaryReferences": [
+    {
+      "id": "who-healthy-diet-reference-349",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+      "documentDate": "26 January2026",
+      "selectedScope": "Selected adequacy/balance/moderation/diversity, safety, individual-needs and carbohydrate/protein/fat functions.",
+      "limits": "No adult intake/percent/gram targets, clinical dietary prescription, school meal policy or Nigerian adoption inferred."
+    },
+    {
+      "id": "fao-family-nutrition-concepts-349",
+      "url": "https://www.fao.org/4/y5740e/y5740e04.htm",
+      "documentDate": "2004",
+      "selectedScope": "Topic1 selected food/nutrient definitions, Box5 functions and different food groups/examples; front matter y5740e00.htm confirms2004.",
+      "limits": "Older general concepts only, crosschecked against WHO2026 for applicable functions. Not current adopted curriculum/clinical guidance; no eight-cup water target, old palm/coconut heart-risk statements, blanket trans-fat food lists, vitamin-A equivalence, food-iron rankings or infant-feeding guidance adopted. No source art/prose copied."
+    },
+    {
+      "id": "nih-iron-concepts-349",
+      "url": "https://ods.od.nih.gov/factsheets/Iron-Consumer/",
+      "documentDate": null,
+      "selectedScope": "Selected mineral/haemoglobin role, foods, deficiency anaemia and possible weakness/tiredness passages.",
+      "limits": "No intake table, supplement/treatment, U.S. prevalence, patient diagnosis or claim all anaemia is low iron. Shared-sign reasoning is author inference, not a diagnostic test."
+    },
+    {
+      "id": "nih-vitamin-c-concepts-349",
+      "url": "https://ods.od.nih.gov/factsheets/VitaminC-Consumer/",
+      "documentDate": null,
+      "selectedScope": "Selected vitamin C role and prolonged deficiency/scurvy, gums/wound-healing/tiredness associations.",
+      "limits": "No dose/threshold, supplement, disease treatment, geographical prevalence or diagnosis; only one vitamin deficiency subset, not every nutrient."
+    },
+    {
+      "id": "niams-skin-functions-reference-349",
+      "url": "https://www.niams.nih.gov/health-topics/educational-resources/health-lesson-learning-about-skin",
+      "documentDate": null,
+      "selectedScope": "Selected skin covering/protective, touch and temperature functions; page describes U.S. grades4–6 audience.",
+      "limits": "Foreign grade audience is not Nigerian class equivalence/adoption. No source illustration, clinical examination, wound/sunburn treatment or sunscreen application assessed."
+    },
+    {
+      "id": "cdc-hygiene-reference-349",
+      "url": "https://www.cdc.gov/hygiene/about/index.html",
+      "documentDate": "3 June2025",
+      "selectedScope": "Selected definition and personal-hygiene examples.",
+      "limits": "No judgement from appearance/scent or lack of resources, no actual body-care/product use or full grooming competency."
+    },
+    {
+      "id": "cdc-handwashing-reference-349",
+      "url": "https://www.cdc.gov/clean-hands/about/",
+      "documentDate": "16 February2024",
+      "selectedScope": "Selected handwashing materials, key times, surfaces, rinse and drying sequence.",
+      "limits": "Written routine only; no sanitizer formulation, personal treatment, timed observed performance or actual facilities checked."
+    },
+    {
+      "id": "cdc-child-oral-health-reference-349",
+      "url": "https://www.cdc.gov/oral-health/prevention/oral-health-tips-for-children.html",
+      "documentDate": "15 May2024",
+      "selectedScope": "Selected children: brush twice daily with fluoride toothpaste; help until good brushing skills.",
+      "limits": "No concentration/dose, infant/preschool equivalence, water-fluoridation assumption, U.S. prevalence, clinical procedure or actual brushing."
+    },
+    {
+      "id": "fda-cosmetic-allergens-reference-349",
+      "url": "https://www.fda.gov/cosmetics/cosmetic-ingredients/allergens-cosmetics",
+      "documentDate": null,
+      "selectedScope": "Selected cosmetic allergy introduction, fragrance/preservative/dye ingredient categories and possible itchy skin rash.",
+      "limits": "U.S./EU legal definitions, allergen list, reporting channel and emergency numbers not transferred to Nigeria; no testing, exact allergen identification or clinical diagnosis."
+    },
+    {
+      "id": "fda-cosmetic-safety-reference-349",
+      "url": "https://www.fda.gov/cosmetics/resources-consumers-cosmetics/using-cosmetics-safely",
+      "documentDate": null,
+      "selectedScope": "Selected natural-origin safety-claim limitation, product-label information and stop-use/healthcare-help concepts.",
+      "limits": "No actual cosmetic application, patch test, eye makeup/hair dye, U.S. approval/expiry law, dosing or medical treatment; responsible adult/local professional help used without foreign contact details."
+    },
+    {
+      "id": "who-anaemia-reference-349",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/anaemia",
+      "documentDate": "10 February2025",
+      "selectedScope": "Selected overview, non-specific symptoms and multiple-cause passages.",
+      "limits": "Corroborates that iron-deficiency anaemia is not all anaemia and tiredness is non-specific. No population estimates, clinical threshold, individual diagnosis, treatment/prevention regimen or family blame adopted."
+    }
+  ],
+  "historicalReconciliationOnly": {
+    "url": "https://www.fao.org/nutrition/education/dietary-guidelines/regions/nigeria/en/",
+    "readScope": "FAO profile says publication2001 and lists broad variety/context; no linked Nigerian guideline PDF retrieved, current school/cohort adoption or new national revision verified. Not used to prescribe portions or declare current official specification."
+  },
+  "newQuestions": 32,
+  "responseModes": {
+    "written": 32
+  },
+  "newAuthorMappings": 12,
+  "registeredAuthorMappings": 43,
+  "partiallyMappedSourceStatements": 41,
+  "unmappedSourceStatements": 3,
+  "uniqueBankDrafts": 109,
+  "reviewed": 0,
+  "originalContent": "Original fictional examples, prompts, models and practice rubrics. No copied source/exam prose or art, symptoms/people photos, actual product/item, pupil/patient data or personal disclosure.",
+  "sourceReconciliation": [
+    "Source20o4 says describe care; evaluation5 says demonstrate. Written drafts map the performance wording only; no demonstration inferred.",
+    "Source22o6 says disease/symptoms of each nutrient. Only scurvy/vitamin C and iron-deficiency anaemia partial examples; no exhaustive one-to-one nutrient/disease taxonomy or diagnosis.",
+    "WHO2026 children/adults needs differ; no adult intake table/percent/gram target adopted. FAO2004 old water target, fat statements and infancy material not adopted.",
+    "NIAMS U.S. grades4–6 audience is not evidence of Nigerian class equivalence. CDC infant/preschool dosage and U.S. laws/contact/reporting from FDA not adopted."
+  ],
+  "actualDelivery": "No body care, cosmetic application, food tasting/handling, clinical assessment, object/model/resource check or pupil performance occurred; prior protocols remain unfilled.",
+  "manualInspection": {
+    "status": "author_inspected_all32_prompts_models_rubrics_and_mappings_independent_review_pending",
+    "findings": "All32 checked for conceptual accuracy and novelty. Mixed-source and processed foods kept distinct from nutrient categories; names alone never certify menu adequacy. Selected deficiency overlap is not a diagnosis; WHO2025 multiple-cause/non-specific-sign corroboration added for019/020. Body-care004 versus evaluation-demonstration mismatch explicitly retained. No symptom/pupil/product observation, clinical treatment, adult numeric targets or actual care/cosmetic use.",
+    "novelty": "Distinct food/component, origin/processing, multiple-nutrient, nutrient-function, adequate-diet evidence, selected deficiency, skin/material/routine and cosmetic-claim reasoning. No numerical variants or cosmetic rewording used to pad counts. Written category or routine recall is not chart/practical competency."
+  },
+  "remainingGaps": "Batch349 adds32 original written Primary4 Pre-vocational nutrition/grooming concept drafts across12 new partial mappings. Fresh26-page exact September2025 official PDF2188329bytes/hash matches348; selected1/3/20/22 text and20/22 renders checked. Inventory349 retains346 full44-statement count(42 numbered,2 unnumbered), not a new all-table recount;41 source statements now partially linked through43 author mappings to109 unique bank drafts,3 unmapped. Selected WHO26Jan2026 healthy-diet and10Feb2025 anaemia, FAO2004 concepts, NIH/NIAMS, CDC and FDA primary passages checked; old FAO Nigeria2001 profile is historical context only, not current adoption. No adult numerical diet targets, one-nutrient-only foods, menu certification from names, infant/preschool-to-Primary4 equivalence, U.S./EU law, foreign contact numbers, supplement/treatment advice, body/skin appearance judgement or universal natural-product safety. Source22 demand for deficiency disease/symptoms of each nutrient is not treated as one-to-one exhaustive taxonomy; only selected scurvy/vitamin C and iron-deficiency anaemia associations, not symptom-based diagnosis. Other nutrient ranges/diseases and clinical/specialist/rubric calibration remain unmet. Source20 body-care performance asks describe, while evaluation asks demonstrate; this batch only written description, no actual body-care competency. Actual cosmetics application(source20o6), soil enrichment(source15o6) and agricultural tool maintenance(source17o3) remain unmapped. Full body-part/function/care range, food classification taxonomies, real items/charts/videos, teachers’ guide, actual oral/practical delivery, model/local checks, school/cohort adoption, terms and1000 target remain open. Prior protocols unfilled; all other banks and legacy holds retained; no independent academic approval.",
+  "validation": {
+    "status": "automated_checks_passed_academic_review_pending",
+    "testsPassed": 56,
+    "commands": [
+      "python -m unittest discover -s question-data/tests -v",
+      "python question-data/tools/audit.py --write --strict-new",
+      "git diff --check"
+    ],
+    "totals": {
+      "raw": 6296,
+      "validDrafts": 4617,
+      "reviewed": 0
+    },
+    "newQuestionsPassing": 32,
+    "priorQuestionAuditRecordsUnchanged": 6264,
+    "priorFileChecksumsUnchanged": 383,
+    "priorExceptionCountsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaims": 623,
+    "arithmeticFailures": 0,
+    "newArithmeticClaims": 0,
+    "globalIdsClassObjectiveSourceAndMarkingTotalsChecked": true,
+    "supportingSourceIdsRegistered": true,
+    "partialSourceStatements": 41,
+    "authorMappings": 43,
+    "bankValidDrafts": 109,
+    "sourceStatementsUnmapped": 3,
+    "parentCommit": "e1715b3f95a0c3d6174cefd87e2bc56c2b937c5e",
+    "remoteCommitVerification": "Verified parent recorded; resulting commit independently verified after protected ref update, avoiding a self-referential commit hash."
+  }
+}

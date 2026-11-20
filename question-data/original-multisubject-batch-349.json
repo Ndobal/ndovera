@@ -1,0 +1,1445 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 Pre-vocational nutrition and grooming concepts — batch349",
+  "questionCount": 32,
+  "note": "32 individually authored written drafts across12 new partial mappings. No real food/product/body inspection, eating, clinical diagnosis, hygiene/cosmetic application or pupil performance. All academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Food and nourishment",
+      "learningObjective": "Explain food as providing nutrients needed by the body, distinguishing a food item from a named nutrient; selected written concepts only.",
+      "id": "ndv-349-001",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain what makes something a food in a nutrition lesson. Include two ways nutrients from food support the body.",
+      "answer": "Food supplies nutrients. These help provide energy and materials needed for growth, repair and normal body functions.",
+      "explanation": "Food is explained through nourishment rather than price, taste or a particular cuisine.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links food to supplying nutrients. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives energy as one use. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives growth, repair or another correct body-function use. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Food and nourishment",
+      "learningObjective": "Explain food as providing nutrients needed by the body, distinguishing a food item from a named nutrient; selected written concepts only.",
+      "id": "ndv-349-002",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "On a classroom board, “yam” and “starch” are both labelled “whole food items”. Correct the labels and explain the relationship between the two words.",
+      "answer": "Yam is a food item. Starch is a carbohydrate nutrient found in yam; a food can contain nutrients without being the same thing as a nutrient name.",
+      "explanation": "This distinguishes the edible item from a component it supplies.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies yam as the food item. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains starch as a nutrient/component rather than the whole food. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected food origins",
+      "learningObjective": "Classify selected named ingredients as plant or animal sources and distinguish source from processing; author-selected non-exhaustive grouping.",
+      "id": "ndv-349-003",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Group maize, cowpeas, chicken eggs and fish by plant or animal origin. State the rule used for the grouping.",
+      "answer": "Plant: maize and cowpeas. Animal: chicken eggs and fish. The rule is the living source from which the named food comes.",
+      "explanation": "This is an author-selected origin grouping, not an exhaustive classification of all foods or nutrients.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly groups both plant foods. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly groups both animal foods. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "States the origin rule. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected food origins",
+      "learningObjective": "Classify selected named ingredients as plant or animal sources and distinguish source from processing; author-selected non-exhaustive grouping.",
+      "id": "ndv-349-004",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A rice-and-fish dish contains rice, fish, tomatoes and vegetable oil. Explain why calling all its ingredients “animal foods” is inaccurate. Name one ingredient from each origin group.",
+      "answer": "It mixes origins: fish is animal-source, while rice, tomatoes and vegetable oil are plant-source. Cooking them together does not change their origins.",
+      "explanation": "Classify the specified ingredients; no single origin label fits every mixed dish.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives fish as an animal-source ingredient. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a correct plant-source ingredient. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the mixed origin rather than changing origin through cooking. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected food origins",
+      "learningObjective": "Classify selected named ingredients as plant or animal sources and distinguish source from processing; author-selected non-exhaustive grouping.",
+      "id": "ndv-349-005",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional food card says a paste is made only by grinding cowpeas and adding water. A pupil says grinding makes the cowpea ingredient an animal product. Correct the claim and distinguish processing from origin.",
+      "answer": "Grinding changes the form of the cowpeas; they still come from a plant. A preparation method does not turn their biological source into an animal.",
+      "explanation": "The supplied recipe is a paper example, not a preparation task or a complete recipe for a named dish.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Retains the cowpea ingredient’s plant origin. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes change of form from change of source. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Food and nutrient categories",
+      "learningObjective": "Identify selected carbohydrates, proteins, fats, vitamins and minerals, recognising that one food can supply several nutrients; no exclusive single-nutrient food labels.",
+      "id": "ndv-349-006",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "From the words “rice, protein, vitamin C, cowpeas, iron”, identify the three nutrient names. Which of those nutrient names refers to a mineral?",
+      "answer": "Protein, vitamin C and iron are nutrient names; iron is a mineral. Rice and cowpeas are foods that supply nutrients.",
+      "explanation": "Names of foods and names of nutrients belong to different classification levels.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects protein. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Selects vitamin C. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Selects iron and identifies it as a mineral. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nih-iron-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Food and nutrient categories",
+      "learningObjective": "Identify selected carbohydrates, proteins, fats, vitamins and minerals, recognising that one food can supply several nutrients; no exclusive single-nutrient food labels.",
+      "id": "ndv-349-007",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An original information card says, “Cowpeas supply protein, dietary fibre and some vitamins and minerals.” Explain why changing the caption to “Cowpeas contain protein only” loses important information.",
+      "answer": "The new caption wrongly excludes the other nutrient components on the card. A food can supply several nutrients, even when it is commonly discussed as a protein source.",
+      "explanation": "A useful main-source label is not an exclusive chemical composition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the protein-only claim. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Uses at least one other listed component to explain why. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Food and nutrient categories",
+      "learningObjective": "Identify selected carbohydrates, proteins, fats, vitamins and minerals, recognising that one food can supply several nutrients; no exclusive single-nutrient food labels.",
+      "id": "ndv-349-008",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Sort these nutrient names into the two supplied groups: carbohydrates, protein, fats, vitamin C and iron. Group A contains carbohydrate/protein/fat nutrients; Group B contains vitamins/minerals needed in smaller quantities. Does “smaller quantities” mean the body can do without Group B?",
+      "answer": "A: carbohydrates, protein and fats. B: vitamin C and iron. No; vitamins and minerals remain necessary even though required in smaller amounts.",
+      "explanation": "Amount needed and importance are different ideas; no daily quantity is prescribed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Groups the three A nutrients correctly. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Groups vitamin C and iron in B. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that smaller needs do not mean optional nutrients. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected nutrient functions",
+      "learningObjective": "Explain selected energy, growth/repair, fat and water functions without assigning one sole function to every nutrient or prescribing intake.",
+      "id": "ndv-349-009",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says carbohydrate energy is useful only while playing football. Give one active use and one use while the body is resting that challenge the claim.",
+      "answer": "Carbohydrates provide energy for movement such as running, and the resting body still uses energy for functions such as breathing and keeping warm.",
+      "explanation": "Being still does not stop the body’s energy needs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an appropriate active use of energy. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives an appropriate resting body-function use. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected nutrient functions",
+      "learningObjective": "Explain selected energy, growth/repair, fat and water functions without assigning one sole function to every nutrient or prescribing intake.",
+      "id": "ndv-349-010",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A growth chart caption says protein helps build and repair body tissues. Explain the two roles separately, without promising that eating one food will make a person taller.",
+      "answer": "Building supplies material as body tissues grow; repair supplies material to maintain or replace damaged/worn tissues. Growth depends on more than one food or nutrient.",
+      "explanation": "A nutrient role does not guarantee an individual height outcome.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains building/growth of tissue. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains maintenance/repair as a distinct role. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected nutrient functions",
+      "learningObjective": "Explain selected energy, growth/repair, fat and water functions without assigning one sole function to every nutrient or prescribing intake.",
+      "id": "ndv-349-011",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Someone proposes removing every source of fat from a child’s paper menu because “fat has no useful function”. Explain one useful role of dietary fat and why the statement is wrong. Do not prescribe amounts.",
+      "answer": "Fat is a nutrient needed for normal cell function and supplies energy; some fatty acids must come from food. Therefore it has useful roles, although kinds and amounts of fats matter.",
+      "explanation": "This rejects a total-fat ban without importing adult percentage targets into a pupil’s diet.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a correct useful fat function. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that useful nutritional roles make the no-function claim false. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected nutrient functions",
+      "learningObjective": "Explain selected energy, growth/repair, fat and water functions without assigning one sole function to every nutrient or prescribing intake.",
+      "id": "ndv-349-012",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Water does not supply energy in the way starch does. Does this mean water has no role in the body? Explain using two body fluids that contain water.",
+      "answer": "No. Water is needed for body processes and forms part of fluids such as tears, sweat and urine.",
+      "explanation": "Supplying energy is not the only way a substance is important to the body.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the no-role claim. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Names two suitable body fluids containing water. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fao-family-nutrition-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Adequacy and variety",
+      "learningObjective": "Explain selected variety, amounts/needs and safety considerations in an adequate diet, without certifying a menu from names alone or applying adult numerical intake targets to pupils.",
+      "id": "ndv-349-013",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two paper lunch ideas are compared: plain rice alone; rice with cowpeas and a vegetable side. Which idea offers a wider variety of food types? Explain why the food names alone still cannot prove that the whole diet is adequate.",
+      "answer": "Rice with cowpeas and vegetables offers more variety. Adequacy also depends on suitable amounts, other meals, individual needs and food safety; no portions or full diet were supplied.",
+      "explanation": "Greater variety is one useful consideration, not automatic certification of a menu.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the more varied idea. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Links the choice to different food types. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a missing consideration that prevents a complete adequacy conclusion. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Adequacy and variety",
+      "learningObjective": "Explain selected variety, amounts/needs and safety considerations in an adequate diet, without certifying a menu from names alone or applying adult numerical intake targets to pupils.",
+      "id": "ndv-349-014",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil eats one orange as a snack and says this single food proves that the entire day’s diet supplies everything needed. Explain the gap in the reasoning.",
+      "answer": "An orange can contribute nutrients, but one snack does not describe the range and amounts of all foods eaten during the day or the person’s needs.",
+      "explanation": "A helpful food is not evidence of a complete adequate diet.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes one food/snack from the full day’s diet. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Mentions variety, amounts or needs that remain unknown. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Adequacy and variety",
+      "learningObjective": "Explain selected variety, amounts/needs and safety considerations in an adequate diet, without certifying a menu from names alone or applying adult numerical intake targets to pupils.",
+      "id": "ndv-349-015",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult and a younger pupil are given identical written food-quantity targets without checking anything about them. Explain two reasons why one fixed target should not automatically be used for both.",
+      "answer": "Needs may differ with age/growth and level of activity; other individual health circumstances also matter. A suitable diet must fit the person.",
+      "explanation": "No adult numerical target or child-specific prescription is adopted.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies age/growth as a relevant difference. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies activity or another distinct individual-needs difference. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Adequacy and variety",
+      "learningObjective": "Explain selected variety, amounts/needs and safety considerations in an adequate diet, without certifying a menu from names alone or applying adult numerical intake targets to pupils.",
+      "id": "ndv-349-016",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For a fictional class menu project, an expensive imported fruit is unavailable. The group has locally available seasonal fruit and vegetables. Must an adequate diet depend on the unavailable expensive item? Explain a sensible planning approach.",
+      "answer": "No particular expensive brand or imported food is compulsory. Consider a suitable variety of available foods that together meet needs, with safe preparation and individual requirements considered.",
+      "explanation": "Cost or foreign origin alone does not establish nutritional adequacy. This is not an instruction to buy or eat a particular food.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the need for that single expensive item. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes appropriate variety/needs-based planning with available alternatives. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Adequacy and variety",
+      "learningObjective": "Explain selected variety, amounts/needs and safety considerations in an adequate diet, without certifying a menu from names alone or applying adult numerical intake targets to pupils.",
+      "id": "ndv-349-017",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A paper meal plan lists several food groups, but a note says one ingredient is unsafe to eat. A pupil says variety cancels out that problem. Explain why the plan still needs changing.",
+      "answer": "A healthy diet must also be safe. Variety cannot remove a contamination or other food-safety problem; the unsafe ingredient must not be served as proposed.",
+      "explanation": "A nutrient list and safety are different requirements; no actual food is handled or inspected.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that safety remains necessary. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects serving the unsafe ingredient merely because the list is varied. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "who-healthy-diet-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected deficiency concepts",
+      "learningObjective": "Identify scurvy/vitamin C and iron-deficiency anaemia with selected possible signs, distinguishing educational associations from diagnosing people; other nutrient deficiency diseases remain uncovered.",
+      "id": "ndv-349-018",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name the deficiency disease associated with very low vitamin C over a prolonged period. Give two possible signs discussed in nutrition lessons, without using them to diagnose a person.",
+      "answer": "Scurvy; possible signs include sore/swollen or bleeding gums and poor wound healing. Tiredness is another possible sign.",
+      "explanation": "These are educational associations, not a test for deciding the cause of a real person’s symptoms.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names scurvy. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives one appropriate possible sign. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct appropriate possible sign. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nih-vitamin-c-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected deficiency concepts",
+      "learningObjective": "Identify scurvy/vitamin C and iron-deficiency anaemia with selected possible signs, distinguishing educational associations from diagnosing people; other nutrient deficiency diseases remain uncovered.",
+      "id": "ndv-349-019",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Complete this class concept link in words: too little available iron over time can lead to ___; its possible signs include ___. State why the words “iron-deficiency” should remain in the disease name rather than saying all anaemia has that cause.",
+      "answer": "Iron-deficiency anaemia; possible signs include weakness or tiredness. The specific name identifies the iron-related form; anaemia can have other causes, so not every case is automatically due to iron deficiency.",
+      "explanation": "The concept does not establish the cause of any real person’s anaemia, and it gives no supplement/treatment advice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names iron-deficiency anaemia. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable possible sign. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Keeps the cause-specific distinction rather than treating all anaemia as low iron. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nih-iron-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open.",
+      "supportingSourceIds": [
+        "nih-iron-concepts-349",
+        "who-anaemia-reference-349"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Food Classification and Functions",
+      "subtopic": "Selected deficiency concepts",
+      "learningObjective": "Identify scurvy/vitamin C and iron-deficiency anaemia with selected possible signs, distinguishing educational associations from diagnosing people; other nutrient deficiency diseases remain uncovered.",
+      "id": "ndv-349-020",
+      "objectiveId": "nerdc-prevoc-primary4-349-p22-o6-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two supplied lesson notes list tiredness as a possible sign: one discusses scurvy and the other iron-deficiency anaemia. Does tiredness by itself identify which of these conditions a fictional person has? Explain what the shared sign shows about using symptom lists.",
+      "answer": "No. The same possible sign appears in both notes, and tiredness can have other causes. A symptom list alone cannot establish a diagnosis.",
+      "explanation": "The inference follows from the supplied overlap; pupils are not asked to inspect, label or treat anyone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects a unique diagnosis from tiredness alone. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the overlapping/non-specific nature of the sign. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nih-iron-concepts-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open.",
+      "supportingSourceIds": [
+        "nih-iron-concepts-349",
+        "nih-vitamin-c-concepts-349",
+        "who-anaemia-reference-349"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Written body-part categories",
+      "learningObjective": "Identify selected external body parts from a written list, distinct from body-care materials; no chart, actual-body or full-part identification assessed.",
+      "id": "ndv-349-021",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A written grooming list contains skin, hair, fingernails, soap and a towel. Identify the three body parts and separate them from the two care materials.",
+      "answer": "Body parts: skin, hair and fingernails. Care materials: soap and a towel.",
+      "explanation": "This is written category recognition, not a chart or examination of a pupil’s body.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies skin. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies hair and fingernails. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Separates soap and towel as care materials. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-hygiene-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Selected skin functions",
+      "learningObjective": "Explain selected protective and touch-sensing functions of skin; not a complete account of all body parts or clinical assessment.",
+      "id": "ndv-349-022",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain two functions of skin that show it is more than a surface for decoration.",
+      "answer": "Skin covers/protects the body and helps sense touch such as texture or pressure. It also helps regulate body temperature.",
+      "explanation": "Only selected functions are requested; different people may experience sensation differently.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a protective/covering function. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives touch-sensing or temperature-regulation as a distinct function. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "niams-skin-functions-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Selected skin functions",
+      "learningObjective": "Explain selected protective and touch-sensing functions of skin; not a complete account of all body parts or clinical assessment.",
+      "id": "ndv-349-023",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom chart places “feeling the texture of cloth” under the function of soap. Correct that placement and distinguish the role of skin from the role of soap in this example.",
+      "answer": "Sensing texture is a skin function; soap is a cleaning material, not a body organ that senses texture.",
+      "explanation": "The task distinguishes a body function from the purpose of a product without asking a pupil to touch or apply anything.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Assigns texture sensing to skin. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes soap as a cleaning material rather than a sensing body part. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "niams-skin-functions-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Selected hygiene materials",
+      "learningObjective": "Identify selected handwashing and tooth-care materials from written examples; actual product/model suitability and use remain unassessed.",
+      "id": "ndv-349-024",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For a written handwashing plan, choose the relevant supplies from clean running water, soap, a clean drying towel, perfume and chalk. Explain the role of one selected supply.",
+      "answer": "Clean running water, soap and a clean drying towel are relevant. For example, soap helps loosen/remove dirt and germs, water rinses, and the clean towel dries hands.",
+      "explanation": "A pleasant scent is not a substitute for the resources needed to wash and dry hands. No products are used.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects water and soap. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Selects a clean drying towel. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains one appropriate selected supply’s role. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-handwashing-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Selected hygiene materials",
+      "learningObjective": "Identify selected handwashing and tooth-care materials from written examples; actual product/model suitability and use remain unassessed.",
+      "id": "ndv-349-025",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A tooth-care list has a toothbrush and a tube labelled fluoride toothpaste. Another label wrongly calls both items perfume. Correct the item categories and state their intended care area.",
+      "answer": "The toothbrush is a brushing tool; fluoride toothpaste is the tooth-cleaning product used with it. Both belong to tooth/mouth care rather than perfume for scent.",
+      "explanation": "The list does not prescribe a brand, concentration, quantity or actual brushing performance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes the toothbrush tool from toothpaste product. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Assigns both to tooth/mouth care. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-child-oral-health-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Written body-care routines",
+      "learningObjective": "Describe selected handwashing and tooth-care routines in writing, without claiming actual performance or care of every body part.",
+      "id": "ndv-349-026",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Put these paper handwashing stages in a sensible order: rinse; wet hands and apply soap; dry with a clean towel; lather and scrub all hand surfaces. Explain why simply wetting the palms skips an important part.",
+      "answer": "Wet and apply soap; lather and scrub surfaces, including backs, between fingers and under nails; rinse; dry with a clean towel. Wetting palms alone omits cleaning the other areas and the scrubbing stage.",
+      "explanation": "This is a written sequence, not an observed demonstration or proof that actual facilities are available.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Orders wet/apply soap before lather/scrub. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Orders rinse before clean drying after scrubbing. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a missing surface or scrubbing action in palms-only wetting. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-handwashing-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Written body-care routines",
+      "learningObjective": "Describe selected handwashing and tooth-care routines in writing, without claiming actual performance or care of every body part.",
+      "id": "ndv-349-027",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Write a short tooth-care reminder for a fictional pupil. Include how often the checked general routine recommends brushing, the type of toothpaste, and who can help if the pupil needs assistance. Do not give a dosage or perform the routine.",
+      "answer": "Brush twice a day with fluoride toothpaste; a parent/caregiver or suitable adult can help when assistance is needed. Specific individual care questions belong with a dental professional.",
+      "explanation": "Written recall of a routine is not observed brushing competence or a substitute for individual dental advice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States twice-daily brushing. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Specifies fluoride toothpaste. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Includes appropriate adult help for a pupil who needs assistance. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-child-oral-health-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Reasons for regular care",
+      "learningObjective": "Explain selected health/comfort reasons for recurring personal care and event-based handwashing, without judging people by appearance, scent or access to resources.",
+      "id": "ndv-349-028",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says handwashing after using the toilet is unnecessary because hands were washed early that morning. Explain why a recurring care habit may be needed again during the day.",
+      "answer": "Hands can pick up germs again after the earlier wash. Handwashing after toilet use addresses that later exposure; morning washing does not give lasting protection for the whole day.",
+      "explanation": "Daily care is not restricted to a single clock-time event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains that hands can become contaminated again. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Connects washing to the later toilet-use occasion. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-handwashing-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Reasons for regular care",
+      "learningObjective": "Explain selected health/comfort reasons for recurring personal care and event-based handwashing, without judging people by appearance, scent or access to resources.",
+      "id": "ndv-349-029",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class discussion treats a pleasant perfume smell as proof that someone has good hygiene and treats an unscented person as unclean. Explain both the hygiene error and the unfair judgement.",
+      "answer": "Scent does not show whether appropriate cleaning has occurred or germs have been removed. People may avoid scents or have different access/needs; hygiene should not be judged by perfume use or appearance.",
+      "explanation": "Regular care aims at cleanliness, comfort and health, not a required smell or social ranking.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why scent alone is not evidence of appropriate cleaning. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects judgement of a person’s cleanliness from perfume use/non-use. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-hygiene-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Cosmetic reaction concepts",
+      "learningObjective": "Discuss selected possible fragrance-related skin reactions and limits of safety claims; no diagnosis, patch testing, ingredient dosing or actual cosmetic application.",
+      "id": "ndv-349-030",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional lotion contains fragrance. Explain one possible skin reaction that some people may have and why “may affect some people” is more accurate than “must affect everyone”.",
+      "answer": "Some fragrance ingredients can cause an allergic skin reaction such as an itchy rash in susceptible people. Responses vary, so the ingredient does not mean every person will react.",
+      "explanation": "This is selected ingredient-category knowledge, not identifying an allergen in a real pupil or declaring an entire product class unsafe.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a suitable possible skin reaction. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains variation in susceptibility rather than a universal reaction. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fda-cosmetic-allergens-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Cosmetic reaction concepts",
+      "learningObjective": "Discuss selected possible fragrance-related skin reactions and limits of safety claims; no diagnosis, patch testing, ingredient dosing or actual cosmetic application.",
+      "id": "ndv-349-031",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An advertisement says a cosmetic is guaranteed harmless because every ingredient is described as “natural”. Explain why that promise is too strong without trying the product or testing it on skin.",
+      "answer": "Natural origin does not by itself guarantee safety or rule out irritation/allergy. Actual ingredients, directions and an individual’s sensitivities matter; the claim alone cannot establish suitability.",
+      "explanation": "No patch test, ingredient-mixing, product endorsement or Nigerian legal-definition question is included.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects natural origin as a guarantee. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains irritation/allergy or individual-sensitivity uncertainty. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fda-cosmetic-safety-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Personal Grooming and Use of Basic Cosmetics",
+      "subtopic": "Cosmetic reaction concepts",
+      "learningObjective": "Discuss selected possible fragrance-related skin reactions and limits of safety claims; no diagnosis, patch testing, ingredient dosing or actual cosmetic application.",
+      "id": "ndv-349-032",
+      "objectiveId": "nerdc-prevoc-primary4-349-p20-o7-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional story, a child reports itchy skin after using a new scented product. Another child claims to know the exact chemical responsible and offers a different cosmetic as treatment. Explain why those conclusions are unsupported and identify an appropriate adult-help step.",
+      "answer": "Timing alone does not identify the exact chemical or diagnosis, and another cosmetic is not an established treatment. Stop using the suspect product and tell a caregiver/responsible adult so appropriate professional advice can be obtained.",
+      "explanation": "The case is fictional and non-diagnostic; no substance is tested, applied, prescribed or used as a remedy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects identifying an exact chemical from timing alone. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects treating with another cosmetic without proper assessment. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Stops further use and seeks responsible adult/professional help. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "fda-cosmetic-safety-reference-349",
+      "contentProvenance": "Original fictional prompt, examples, model and practice rubric. No copied examination item, source prose/illustration, authentic patient/pupil data, symptom photograph or past-paper claim. Concepts attributed in registry/reconciliation349.",
+      "contentReviewNote": "Independent Primary4 subject, nutrition/health terminology, safeguarding/inclusion and rubric review pending. Written educational concepts only; no clinical diagnosis, supplement or treatment advice, personal dietary assessment, actual eating/food handling, hygiene/cosmetic application, chemical exposure or completed pupil performance. No food or product is universally suitable; individual needs/access/allergies matter. No adult intake cutoff, foreign law, school/cohort adoption or official term inferred. Full range/depth and 1000 target remain open."
+    }
+  ]
+}
