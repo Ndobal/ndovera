@@ -1,0 +1,27 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-342-002",
+    "ndv-342-022"
+  ],
+  "preconditions": [
+    "Independent Primary4/rubric/accessibility review; medical/local response knowledge separately reviewed before classroom use.",
+    "Artwork is a neutral teacher-assigned source study, no political preference, affiliation, advocacy or real campaign. Preserve source-asset attribution and rights.",
+    "Phone simulation uses paper or a completely disconnected device checked by the teacher; never make a live test call, create smoke or stage an injury.",
+    "No first-aid procedure on a pupil, clinical diagnosis, hot water, real ice application, public disclosure or actual complaint/contact."
+  ],
+  "evidenceRequirements": [
+    "Record actual individual artwork or simulated words/actions against the relevant criteria; a plan alone is not performance.",
+    "Check readable source-image rendering before artwork delivery; no image decoding/redrawing occurred during source acquisition."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupChecked": null,
+    "observedWorkOrCommunication": null,
+    "criterionMarks": null
+  },
+  "records": []
+}

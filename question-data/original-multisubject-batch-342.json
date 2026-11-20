@@ -1,0 +1,1039 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary4 source identities, first-aid knowledge and protection practice — batch342",
+  "questionCount": 22,
+  "note": "22 original drafts:20 written and2 conditional practical tasks (artwork/disconnected phone). Nine partial mappings; selected first-aid principles require independent clinical/class review and adult-led care, not treatment on pupils. Two unmodified external logo references have separate rights. Protocol unfilled; full competency/adoption/terms/target and review remain open.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian party names and symbols",
+      "learningObjective": "Identify selected verified Nigerian party names and symbols from supplied labelled source references, with no claim of exhaustive or unlabelled recognition.",
+      "id": "ndv-342-001",
+      "objectiveId": "nerdc-scs-primary4-342-p29-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using source reference cards A and B, record each party’s full name and acronym, then name the central object pictured on each symbol. Read the actual cards; their printed labels are available.",
+      "answer": "A: All Progressives Congress, APC, a broom held in a hand. B: Peoples Democratic Party, PDP, an umbrella.",
+      "explanation": "This is one integrated labelled-source identification task, not a claim of unaided recall or a reworded item for every logo.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 6,
+      "maxMarks": 6,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correct full name for A."
+        },
+        {
+          "marks": 1,
+          "description": "Correct acronym APC."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies A’s broom/hand-held broom."
+        },
+        {
+          "marks": 1,
+          "description": "Correct full name for B."
+        },
+        {
+          "marks": 1,
+          "description": "Correct acronym PDP."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies B’s umbrella."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "inec-party-identities-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "stimulusId": "ndv-342-party-cards",
+      "stimulusManifest": "stimuli/batch-342/source-assets.json",
+      "stimulusReferenceSheet": "stimuli/batch-342/reference-cards.md",
+      "stimulusAssets": [
+        "stimuli/batch-342/apc-source.jpg",
+        "stimuli/batch-342/pdp-source.png"
+      ],
+      "requiresVisualStimulus": true,
+      "deliveryNote": "Show the two readable unmodified source images from the reference sheet. Labels are visible; this is source-reading/observation, not a hidden-answer test. Do not substitute alt text for a visual/artwork criterion; render/print adapter and accessibility review remain pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian party names and symbols",
+      "learningObjective": "Identify selected verified Nigerian party names and symbols from supplied labelled source references, with no claim of exhaustive or unlabelled recognition.",
+      "id": "ndv-342-002",
+      "objectiveId": "nerdc-scs-primary4-342-p29-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "For a classroom artwork exercise, the teacher assigns card B to you without asking your political preference. Actually draw and colour a recognisable study of its central symbol and add the party’s full name. The examiner must see your own completed work.",
+      "answer": "Observable work shows a recognisable umbrella, the source red/white/green colour arrangement, coherent visible construction and the caption Peoples Democratic Party.",
+      "explanation": "A source-study artwork task is not political advocacy. Accept age-appropriate execution; no exact tracing or professional logo standard required. No artwork was produced by a pupil during authoring.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces an actual recognisable umbrella study."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the principal source colour arrangement recognisably."
+        },
+        {
+          "marks": 1,
+          "description": "Constructs an intelligible symbol rather than only writing an intention to draw."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the correct full party name."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "inec-party-identities-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "stimulusId": "ndv-342-party-cards",
+      "stimulusManifest": "stimuli/batch-342/source-assets.json",
+      "stimulusReferenceSheet": "stimuli/batch-342/reference-cards.md",
+      "stimulusAssets": [
+        "stimuli/batch-342/apc-source.jpg",
+        "stimuli/batch-342/pdp-source.png"
+      ],
+      "requiresVisualStimulus": true,
+      "deliveryNote": "Show the two readable unmodified source images from the reference sheet. Labels are visible; this is source-reading/observation, not a hidden-answer test. Do not substitute alt text for a visual/artwork criterion; render/print adapter and accessibility review remain pending.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-342/performance-protocol.json",
+      "performanceNote": "Requires actual individual artwork or disconnected simulated communication observed by an examiner; written preparation alone is not performance. Protocol unfilled; no pupil performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian advocacy identities",
+      "learningObjective": "Identify selected Nigerian labour and professional organisations as authored examples of policy-influence groups, using their own stated roles.",
+      "id": "ndv-342-003",
+      "objectiveId": "nerdc-scs-primary4-342-p29-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two checked Nigerian organisations state different areas of advocacy: workers’ and pensioners’ interests, and lawyers’ professional concerns together with rule-of-law and human-rights work. Name the Nigeria Labour Congress and Nigerian Bar Association with their acronyms, matching each to the relevant area.",
+      "answer": "Nigeria Labour Congress (NLC) matches the workers/pensioners example. Nigerian Bar Association (NBA) matches the legal-profession/rule-of-law example.",
+      "explanation": "These are selected author-proposed Nigerian examples supported by organisations’ own stated roles, not an exhaustive official NERDC list.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correct NLC full name."
+        },
+        {
+          "marks": 1,
+          "description": "Correct NLC acronym and role match."
+        },
+        {
+          "marks": 1,
+          "description": "Correct NBA full name."
+        },
+        {
+          "marks": 1,
+          "description": "Correct NBA acronym and role match."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nlc-aims-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "supplementarySourceIds": [
+        "nba-identity-reference-342"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian advocacy identities",
+      "learningObjective": "Identify selected Nigerian labour and professional organisations as authored examples of policy-influence groups, using their own stated roles.",
+      "id": "ndv-342-004",
+      "objectiveId": "nerdc-scs-primary4-342-p29-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The Nigeria Labour Congress and the Labour Party both use the word “Labour”. A pupil treats them as one organisation. Correct the identification using their full names/acronyms and the different source evidence for their roles.",
+      "answer": "Nigeria Labour Congress (NLC) is the labour organisation whose aims include workers’ interests and policy influence. Labour Party (LP) is listed by INEC as a political party. The shared word does not make them the same organisation.",
+      "explanation": "No claim that labour organisations lack all political relationships is made; the task distinguishes two actual identities without party preference.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies Nigeria Labour Congress/NLC correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies Labour Party/LP correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Uses stated organisational role versus INEC party listing to distinguish them."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nlc-aims-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "supplementarySourceIds": [
+        "inec-party-identities-reference-342"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected accident causes",
+      "learningObjective": "Distinguish selected burns, scalds and bruise-producing injury mechanisms and identify simple hazards without diagnosing a real person.",
+      "id": "ndv-342-005",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In two fictional descriptions, skin is injured by contact with a hot iron and by spilled hot water. Which description illustrates a dry-heat burn and which a scald? Explain the difference in cause.",
+      "answer": "The hot iron illustrates a dry-heat burn; spilled hot water illustrates a scald. A scald involves hot liquid or steam rather than the dry hot object in the first case.",
+      "explanation": "These supplied fictional mechanisms are classification examples, not a diagnosis or a reason to touch hot objects.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches the iron to a dry-heat burn."
+        },
+        {
+          "marks": 1,
+          "description": "Matches hot water to a scald and explains the cause distinction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhs-burns-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected accident causes",
+      "learningObjective": "Distinguish selected burns, scalds and bruise-producing injury mechanisms and identify simple hazards without diagnosing a real person.",
+      "id": "ndv-342-006",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional account already describes an injury as a bruise after a knock. Explain the basic change beneath the skin that the checked first-aid source describes, and why colour change need not appear immediately.",
+      "answer": "The injury can cause blood to leak into skin or tissues beneath it. The visible bruise may take time to appear even if the area is already tender.",
+      "explanation": "No learner is asked to diagnose unexplained marks, examine a person or identify a cause from appearance alone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains leakage of blood beneath/into the skin or tissues after injury."
+        },
+        {
+          "marks": 1,
+          "description": "States that visible bruising may not appear straight away."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sja-bruises-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected accident causes",
+      "learningObjective": "Distinguish selected burns, scalds and bruise-producing injury mechanisms and identify simple hazards without diagnosing a real person.",
+      "id": "ndv-342-007",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional classroom scene shows a cup of very hot water close to a desk edge and a puddle across the walking space. Identify a different accident risk linked to each hazard and describe one preventive change for each.",
+      "answer": "The cup could spill and scald someone; an adult can place it safely away from the edge and children. The puddle could lead to a slip or fall; keep people clear and have the spill dealt with promptly by a responsible adult.",
+      "explanation": "This is hazard reasoning in a fictional scene, not an instruction to handle hot water or clean a hazardous spill.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Links the hot liquid to a scald risk."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a suitable adult-led change reducing that risk."
+        },
+        {
+          "marks": 1,
+          "description": "Links the puddle to slipping/falling and gives a suitable safe response."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhs-burns-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "supplementarySourceIds": [
+        "nerdc-scs-primary4-revised-2025"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected first-aid knowledge",
+      "learningObjective": "Explain selected checked burn/scald and bruise first-aid principles as classroom knowledge for adult-led care, keeping full road-accident and clinical performance scope open.",
+      "id": "ndv-342-008",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A draft classroom poster says to cover a fresh minor heat burn straight away but omits cooling. According to the checked NHS guidance, what important immediate step should the poster add before covering? State the method and duration; actual care must be adult-led.",
+      "answer": "Cool the burn or scald under cool running water for 20 minutes, starting as soon as possible. Covering follows cooling in the selected guidance.",
+      "explanation": "Selected written first-aid knowledge only; not a full clinical assessment, a real treatment assignment or an official NERDC erratum.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies cool running water."
+        },
+        {
+          "marks": 1,
+          "description": "States 20 minutes."
+        },
+        {
+          "marks": 1,
+          "description": "Places cooling before covering."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhs-burns-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected first-aid knowledge",
+      "learningObjective": "Explain selected checked burn/scald and bruise first-aid principles as classroom knowledge for adult-led care, keeping full road-accident and clinical performance scope open.",
+      "id": "ndv-342-009",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional adult-led burn-care discussion, a learner suggests pulling away material that has stuck to the injured skin. What correction is supported by the checked guidance?",
+      "answer": "Do not remove clothing or other material stuck to the affected area. Get appropriate adult/medical help instead of pulling it away.",
+      "explanation": "The task concerns a selected caution; no learner should inspect or treat a real burn.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Clearly rejects removing stuck material."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the need for appropriate adult/medical help rather than pulling."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhs-burns-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected first-aid knowledge",
+      "learningObjective": "Explain selected checked burn/scald and bruise first-aid principles as classroom knowledge for adult-led care, keeping full road-accident and clinical performance scope open.",
+      "id": "ndv-342-010",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classroom card about an already identified bruise shows bare ice placed directly on skin and suggests leaving it there for a long time. Correct the selected cold-pack advice using the checked St John Ambulance guidance.",
+      "answer": "Use something cold such as an ice pack wrapped in a cloth, rather than bare ice against the skin, for no more than 20 minutes. Actual care is for a responsible adult/first aider.",
+      "explanation": "Selected adult-led knowledge, not medicine advice, proof that every injury is a simple bruise or a real cooling exercise.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Provides a cloth barrier for the cold pack."
+        },
+        {
+          "marks": 1,
+          "description": "States the maximum 20-minute period."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sja-bruises-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected first-aid knowledge",
+      "learningObjective": "Explain selected checked burn/scald and bruise first-aid principles as classroom knowledge for adult-led care, keeping full road-accident and clinical performance scope open.",
+      "id": "ndv-342-011",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional burn-care kit contains butter, sticky plasters and cling film. Identify two unsuitable choices for covering a fresh burn or scald, and explain how the checked guidance describes using cling film after cooling.",
+      "answer": "Butter and sticky plasters are unsuitable. After cooling, cling film may be laid over the affected area, rather than wrapped around it.",
+      "explanation": "This selected comparison does not cover all injuries or replace clinical judgement. No medicines, real dressing or foreign emergency contacts are assigned.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects butter and sticky plasters."
+        },
+        {
+          "marks": 1,
+          "description": "Describes laying cling film over after cooling rather than wrapping around."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhs-burns-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Respectful response to injured people",
+      "learningObjective": "Describe supportive, calm and respectful attitudes towards an injured person while seeking appropriate adult help.",
+      "id": "ndv-342-012",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An injured fictional pupil is surrounded by classmates who want to photograph the injury. Describe two supportive responses that show respect while adult help is sought.",
+      "answer": "Give the pupil space and avoid photographing or sharing the injury. Reassure the pupil calmly and ask a responsible adult for help.",
+      "explanation": "This assesses dignity and attitude, not emergency clinical technique; no real injury or photograph is used.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Describes preserving space/privacy without photographing or sharing."
+        },
+        {
+          "marks": 1,
+          "description": "Describes calm support and seeking responsible adult help."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Respectful response to injured people",
+      "learningObjective": "Describe supportive, calm and respectful attitudes towards an injured person while seeking appropriate adult help.",
+      "id": "ndv-342-013",
+      "objectiveId": "nerdc-scs-primary4-342-p31-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil did not see how a fictional accident happened. Explain why honestly saying “I did not see that part” is more helpful than inventing a story, and name a calm way to pass on what is actually known.",
+      "answer": "An invented story can mislead the adult helping. The pupil can calmly state the known facts and clearly separate them from what was not seen.",
+      "explanation": "No actual investigation, pupil disclosure or diagnosis is requested.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains how guessing can mislead help."
+        },
+        {
+          "marks": 1,
+          "description": "Describes calm, accurate reporting with uncertainty acknowledged."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Protection is not a reward",
+      "learningObjective": "Explain that children’s need and entitlement to protection are not removed by differences in school performance or background.",
+      "id": "ndv-342-014",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Someone claims that protection from harm should be a prize reserved for children with the highest marks. Explain why this conflicts with the lesson’s protection principle.",
+      "answer": "Children need protection and care regardless of academic marks. Protection concerns their welfare and dignity, rather than being a reward for achievement.",
+      "explanation": "A general child-protection principle, not a case-specific statutory ruling or state-adoption claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects conditioning protection on high marks."
+        },
+        {
+          "marks": 1,
+          "description": "Explains welfare/dignity or protection for all children."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Protection is not a reward",
+      "learningObjective": "Explain that children’s need and entitlement to protection are not removed by differences in school performance or background.",
+      "id": "ndv-342-015",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A new fictional pupil speaks a different home language and is left out when adults explain how to seek help. Explain why the pupil should still receive understandable protection information.",
+      "answer": "The pupil has the same need for protection and should be able to understand how to get help. A language difference should lead to suitable communication support, not exclusion.",
+      "explanation": "No personal language or experience is required; the response is an authored inclusion application.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Affirms the pupil’s need/entitlement to protection."
+        },
+        {
+          "marks": 1,
+          "description": "Links understandable communication to access to help."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Selected ways of protecting rights",
+      "learningObjective": "Describe selected adult-led reporting, support and safeguarding arrangements using fictional school examples.",
+      "id": "ndv-342-016",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional school gives pupils a clear, private route to tell a designated trusted adult about a protection concern. Explain how this arrangement can help without requiring a child to announce private details to the whole class.",
+      "answer": "It helps the concern reach a responsible adult who can seek appropriate support or referral. A private route avoids unnecessary public exposure of the child’s information.",
+      "explanation": "No learner should disclose a real concern for this answer. The fictional route is not claimed as this school’s actual policy or a promise of absolute secrecy.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains reaching a responsible adult/support route."
+        },
+        {
+          "marks": 1,
+          "description": "Explains avoiding unnecessary public disclosure."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Selected ways of protecting rights",
+      "learningObjective": "Describe selected adult-led reporting, support and safeguarding arrangements using fictional school examples.",
+      "id": "ndv-342-017",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A protection plan says only “Children must solve their own problems”. Suggest two adult-led arrangements that would make it more useful.",
+      "answer": "Identify responsible adults who receive concerns and make clear how they obtain appropriate help or referral when needed.",
+      "explanation": "Adult responsibilities are not transferred to children. No actual contact, legal complaint or referral takes place.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a clear responsible-adult reporting/support role."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies an arrangement for appropriate further help/referral."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Importance of protection",
+      "learningObjective": "Explain how protection supports children’s welfare, dignity and access to learning using selected examples.",
+      "id": "ndv-342-018",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain two different benefits of protecting a child from harm: one for the child’s immediate welfare and one for participation in learning.",
+      "answer": "Protection supports safety and dignity. It can also help the child attend, take part and learn without harm blocking those opportunities.",
+      "explanation": "The response describes purposes, not a guaranteed outcome in every situation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a welfare/safety/dignity benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a distinct participation/learning benefit."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Importance of protection",
+      "learningObjective": "Explain how protection supports children’s welfare, dignity and access to learning using selected examples.",
+      "id": "ndv-342-019",
+      "objectiveId": "nerdc-scs-primary4-342-p32-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A school displays a child-protection poster, but pupils do not know whom to approach and staff ignore concerns. Explain why the poster alone does not show that children are effectively protected.",
+      "answer": "A poster can provide information, but effective protection also needs accessible, responsible action when concerns arise. The described lack of a usable support route and response leaves a gap.",
+      "explanation": "This is a fictional evaluation of arrangements, not an allegation about a real school.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes information/display from effective action."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the missing support/response with the protection gap."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nhrc-child-protection-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Important Phone Numbers and Their Uses",
+      "subtopic": "Nigeria112 knowledge and simulation",
+      "learningObjective": "Recall the checked 112 emergency number and its selected uses, distinguishing real emergency calls from an actually observed disconnected classroom simulation.",
+      "id": "ndv-342-020",
+      "objectiveId": "nerdc-scs-primary4-342-p33-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "According to the checked NCC national-numbering reference, which three-digit emergency number is used in Nigeria? Name two kinds of emergency response included in that reference. Do not make a call.",
+      "answer": "112. The reference includes police, ambulance, fire, road safety, security/civil defence and emergency-management responses; any two fit.",
+      "explanation": "Only this national number and selected uses are mapped; local direct lines, NAFDAC-specific contacts and operational reach are not all established.",
+      "difficulty": "standard",
+      "cognitiveDemand": "remember",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives 112 correctly."
+        },
+        {
+          "marks": 1,
+          "description": "Names one listed response service."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second different listed response service."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "ncc-emergency112-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Important Phone Numbers and Their Uses",
+      "subtopic": "Nigeria112 knowledge and simulation",
+      "learningObjective": "Recall the checked 112 emergency number and its selected uses, distinguishing real emergency calls from an actually observed disconnected classroom simulation.",
+      "id": "ndv-342-021",
+      "objectiveId": "nerdc-scs-primary4-342-p33-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class wants to practise emergency communication. Someone suggests making a real 112 call just to test the lesson. Explain a better practice method and why a real non-emergency test call is unsuitable.",
+      "answer": "Use a paper phone or a completely disconnected role-play setup. Non-emergency calls misuse a line intended for genuine emergencies and can burden the service.",
+      "explanation": "NCC identifies misuse/hoax calls as a limitation. No live connection or operational service test is authorised.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes a disconnected/paper simulation."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a non-emergency real test call is inappropriate."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "ncc-emergency112-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Important Phone Numbers and Their Uses",
+      "subtopic": "Nigeria112 knowledge and simulation",
+      "learningObjective": "Recall the checked 112 emergency number and its selected uses, distinguishing real emergency calls from an actually observed disconnected classroom simulation.",
+      "id": "ndv-342-022",
+      "objectiveId": "nerdc-scs-primary4-342-p33-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using only a paper phone or a device verified by the teacher as completely disconnected, act out telling an adult operator about this fictional emergency: smoke at a school store, seen from a safe place. State 112, give the supplied fictional location “Practice School, Gate B” and describe what is known without guessing. Answer the examiner’s pretend clarification. Never connect a call or approach smoke.",
+      "answer": "Observable communication states 112, gives the supplied location, calmly reports the known smoke and responds honestly to the pretend question, saying when something is not known.",
+      "explanation": "Actual disconnected communication is required; no real smoke, injury, call or learner performance occurred during authoring. The invented location is explicitly a classroom prop.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States 112 and communicates the supplied location accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the known fictional event calmly without going towards it."
+        },
+        {
+          "marks": 1,
+          "description": "Responds honestly to the examiner, acknowledging unknown details."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "ncc-emergency112-reference-342",
+      "contentProvenance": "Original prompt, fictional cases, model and practice rubric; no copied examination item. Original-content licence applies to authored text/rubrics; attributed external logo assets retain their separate rights.",
+      "contentReviewNote": "Independent Primary4 subject, clinical/legal/local-response where applicable, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge or conditional performance, not full competence, current local legal/service coverage, school adoption or official terms. No actual injury, treatment, live emergency call, public campaign, political preference or private disclosure requested.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-342/performance-protocol.json",
+      "performanceNote": "Requires actual individual artwork or disconnected simulated communication observed by an examiner; written preparation alone is not performance. Protocol unfilled; no pupil performance occurred."
+    }
+  ]
+}

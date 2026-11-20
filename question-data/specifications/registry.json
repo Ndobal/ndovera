@@ -4407,6 +4407,110 @@
         "Selected plan-ahead, clear response and trusted-adult support strategies"
       ],
       "note": "Fairfax County Public Schools author guidance read as supplementary concept support, not Nigerian class adoption, medical diagnosis, a guaranteed outcome or transferred US policy. No deception/medical excuses, older-age risk activities, counselling procedure or webpage images adopted. Fictional classroom examples only; no pupil disclosure or real negative pressure assigned."
+    },
+    {
+      "id": "inec-party-identities-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_selected_party_identity_reference",
+      "source": "https://www.inecnigeria.org/parties",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Live register and selected APC/PDP/LP name/acronym profiles",
+        "APC and PDP linked original symbol files, downloaded and visually checked"
+      ],
+      "note": "Selected identity evidence only, not a fixed total-party quiz, leadership/contact/ideology assessment or endorsement. Historical2019 report and older list not treated as current. Logos retained unmodified as third-party source references, rights in asset manifest; original-content declaration covers authored questions/rubrics only.",
+      "urls": [
+        "https://www.inecnigeria.org/parties/all-progressives-congress-apc",
+        "https://www.inecnigeria.org/parties/peoples-democratic-party-pdp",
+        "https://www.inecnigeria.org/parties/labour-party-lp"
+      ]
+    },
+    {
+      "id": "nlc-aims-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "organisation_authored_aims",
+      "source": "https://www.nlcng.org/aims-and-objectives-of-nlc/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Selected fundamental aims and policy/legislation influence paragraph"
+      ],
+      "note": "NLC’s own stated workers/pensioners and policy-influence role supports an author-proposed example, not a NERDC named list, endorsement or exclusive description of all activities. No membership totals, current officeholders or claim that NLC is Labour Party. Larger policyPDF web open failed size limit; not used as full current evidence."
+    },
+    {
+      "id": "nba-identity-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "organisation_authored_identity",
+      "source": "https://blog.nigerianbar.org.ng/about/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Selected association identity, rule-of-law/human-rights and law-reform objectives"
+      ],
+      "note": "Professional organisation’s own description supports a narrow authored example of advocacy, not an official NERDC named list, legal representation for a real case, government authority or endorsement. No leadership, membership totals or proposed third-party constitution adopted."
+    },
+    {
+      "id": "nhs-burns-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_current_public_health_guidance",
+      "source": "https://www.nhs.uk/conditions/burns-and-scalds/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Causes; immediate cooling, stuck clothing and loose cover steps",
+        "Selected no-butter/oils/creams and no-sticky-dressing cautions"
+      ],
+      "note": "Page last reviewed31March2026. Selected knowledge only, not a full clinical course or Nigerian service pathway. Foreign999/111, medicines/doses, healing forecasts and treatment on real people not adopted. Independent clinical/Primary4 rubric and local-response calibration pending.",
+      "pageLastReviewed": "2026-03-31"
+    },
+    {
+      "id": "sja-bruises-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_clinically_reviewed_first_aid",
+      "source": "https://www.sja.org.uk/first-aid-advice/bruise/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Bruise mechanism; wrapped cold-pack principle and maximum20minutes"
+      ],
+      "note": "Clinically reviewed28April2025 by source. Selected adult-led knowledge only, no medication/doses, real-person diagnosis, treatment or full road-accident procedure. Earlier tested obsolete advice URL was inaccessible; current linked bruise page read.",
+      "pageLastReviewed": "2025-04-28"
+    },
+    {
+      "id": "nhrc-child-protection-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_child_protection_overview",
+      "source": "https://nigeriarights.gov.ng/focus-areas/child-rights.html",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Child protection/welfare objectives; advocacy, investigation/referral strategies"
+      ],
+      "note": "Selected child-protection principles only. No use of older24-state adoption count, no assertion of full current Child Rights Act/state-law consolidation, automatic local outcome, case-specific legal advice or pupil disclosure."
+    },
+    {
+      "id": "ncc-emergency112-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_emergency_number_reference",
+      "source": "https://ncc.gov.ng/media/836/view",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Two-page national-numbering presentation:112 and response services",
+        "Special Duties charter selected112 genuine-emergency-only, accurate information and misuse limitations"
+      ],
+      "note": "112 is the selected national-only emergency number in these checked official sources. Not a full direct-agency/local directory or guarantee of network reach, dispatch or response time. UK999/111 not substituted. No real test call; staff must verify local response plan before classroom delivery.",
+      "urls": [
+        "https://www.ncc.gov.ng/about/servicom-charter/departmental-charters/special-duties-department-service-charter?page=0"
+      ]
     }
   ],
   "banks": [
@@ -45784,6 +45888,168 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p29-o3-v1",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian party names and symbols",
+      "learningObjective": "Identify selected verified Nigerian party names and symbols from supplied labelled source references, with no claim of exhaustive or unlabelled recognition.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, Performance Objective 3; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p29-o4-v1",
+      "topic": "Political Parties and Pressure Groups",
+      "subtopic": "Selected Nigerian advocacy identities",
+      "learningObjective": "Identify selected Nigerian labour and professional organisations as authored examples of policy-influence groups, using their own stated roles.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.16 / PDF p.29, Performance Objective 4; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p31-o1-v1",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected accident causes",
+      "learningObjective": "Distinguish selected burns, scalds and bruise-producing injury mechanisms and identify simple hazards without diagnosing a real person.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.18 / PDF p.31, Performance Objective 1; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p31-o2-v1",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Selected first-aid knowledge",
+      "learningObjective": "Explain selected checked burn/scald and bruise first-aid principles as classroom knowledge for adult-led care, keeping full road-accident and clinical performance scope open.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.18 / PDF p.31, Performance Objective 2; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p31-o3-v1",
+      "topic": "Responding to Different Forms of Accident",
+      "subtopic": "Respectful response to injured people",
+      "learningObjective": "Describe supportive, calm and respectful attitudes towards an injured person while seeking appropriate adult help.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.18 / PDF p.31, Performance Objective 3; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p32-o1-v1",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Protection is not a reward",
+      "learningObjective": "Explain that children’s need and entitlement to protection are not removed by differences in school performance or background.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.19 / PDF p.32, Performance Objective 1; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p32-o2-v1",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Selected ways of protecting rights",
+      "learningObjective": "Describe selected adult-led reporting, support and safeguarding arrangements using fictional school examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.19 / PDF p.32, Performance Objective 2; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p32-o3-v1",
+      "topic": "Finding Help: Protection and Right to Protection",
+      "subtopic": "Importance of protection",
+      "learningObjective": "Explain how protection supports children’s welfare, dignity and access to learning using selected examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.19 / PDF p.32, Performance Objective 3; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-342-p33-o1-v1",
+      "topic": "Important Phone Numbers and Their Uses",
+      "subtopic": "Nigeria112 knowledge and simulation",
+      "learningObjective": "Recall the checked 112 emergency number and its selected uses, distinguishing real emergency calls from an actually observed disconnected classroom simulation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.20 / PDF p.33, single unnumbered performance statement; related content/activities/evaluation. Selected authored subset; external provenance and source limits in reconciliation342."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -45898,6 +46164,7 @@
     "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.",
     "Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open.",
     "Batch340 adds21 original written Primary4 SCS governance/electoral drafts across9 partial mappings:39/82 source statements now partially linked,61 unique drafts passing automated checks;43 statements unmapped. Fresh class PDF matches339 hash. NASS gazette Electoral Act2026 selected passages checked, section154 repeals2022; section151 permits guidance subject to Act. INEC2026 guidelines full41-page image PDF retrieved, cover/PDF3 only read, not full operational body. FMJ Constitution download explicitly first3 alterations, not full current consolidation; current Constitution/state laws/judicial decisions remain unresolved. Types-of-government overlaps/no-end-tenure wording, party-system definitions, actual current party symbols/pressure groups and drawings remain unmapped. Source stage bullets are not a complete mandatory linear timetable; no all-party fresh registration or electronic-transmission simplification taught. All earlier medical/financial/trafficking/adoption/terms/teacher-guide/actual-performance/full-target gaps retained.",
-    "Batch341 adds25 original Primary4 SCS comparative/peer-influence drafts(22 written,2 actual spoken,1 observed fictional role) across10 partial mappings;49/82 statements now linked,86 unique drafts passing automated checks;33 unmapped. Fresh class PDF matches hash; PDF25/28/29/30 read/rendered. Royal institutional text checks monarchy/constitutional coexistence; PEO distinguishes two-party dominance from permission and coalition from merger; selected UK Parliament PDF and NDI parsed concepts checked. Foreign rules, current seat/country classifications, historical stereotypes and deterministic coalition claims not adopted. NDI binary403 despite parsed web access; no full checksum claimed. Traditional/local constitutional roles and tenure limits need deeper primary evidence; selected concepts are not complete classification. Party names/symbols and Nigerian pressure-group identities remain unmapped, actual drawings absent. Source drawings/video/full speech, all prior legal/guideline/medical/financial/trafficking/adoption/terms/teacher-guide/1000-target and independent review gaps retained; oral protocol unfilled. Peer-influence tasks use a narrow checked public-school reference; no foreign school policy, diagnosis, deception/medical excuses or older-age risks adopted. Source song/video not retrieved; adult-partner fictional role protocol unfilled, no real peer coercion or pupil performance."
+    "Batch341 adds25 original Primary4 SCS comparative/peer-influence drafts(22 written,2 actual spoken,1 observed fictional role) across10 partial mappings;49/82 statements now linked,86 unique drafts passing automated checks;33 unmapped. Fresh class PDF matches hash; PDF25/28/29/30 read/rendered. Royal institutional text checks monarchy/constitutional coexistence; PEO distinguishes two-party dominance from permission and coalition from merger; selected UK Parliament PDF and NDI parsed concepts checked. Foreign rules, current seat/country classifications, historical stereotypes and deterministic coalition claims not adopted. NDI binary403 despite parsed web access; no full checksum claimed. Traditional/local constitutional roles and tenure limits need deeper primary evidence; selected concepts are not complete classification. Party names/symbols and Nigerian pressure-group identities remain unmapped, actual drawings absent. Source drawings/video/full speech, all prior legal/guideline/medical/financial/trafficking/adoption/terms/teacher-guide/1000-target and independent review gaps retained; oral protocol unfilled. Peer-influence tasks use a narrow checked public-school reference; no foreign school policy, diagnosis, deception/medical excuses or older-age risks adopted. Source song/video not retrieved; adult-partner fictional role protocol unfilled, no real peer coercion or pupil performance.",
+    "Batch342 adds22 original Primary4 SCS drafts(20 written,2 conditional practical) across9 partial mappings;58/82 statements linked,108 unique drafts passing automated checks;24 unmapped. Fresh official class PDF hash matched. Selected INEC names/symbols(APC/PDP,LP identity), NLC/NBA own roles, NHS burns(review31March2026), SJA bruises(review28April2025), NHRC protection and NCC112 sources checked. Unmodified logo assets have separate third-party rights and visible labels; no claim of unlabelled recognition, exhaustive party/group list, current leadership or endorsement. Source burn text lacks checked cooling sequence and has torch/touch wording; proposed selected supplementation is not an official erratum. Full road-accident/clinical demonstration, local service reach/direct-agency numbers, NAFDAC contacts, current full Child Rights Act/state implementation and clinical/legal/rubric/local-plan review remain open. Foreign999/111/medicines not adopted. No injury/treatment/live call/pupil artwork/performance occurred; protocol unfilled. All earlier legal/guideline/financial/drug/trafficking/adoption/terms/teacher-guide/full-target gaps retained."
   ]
 }

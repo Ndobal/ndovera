@@ -1,0 +1,149 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    29,
+    31,
+    32,
+    33
+  ],
+  "visuallyCheckedPdfPages": [
+    29,
+    31
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained; no all-table count/OCR repeated342.",
+  "partialAuthorMappings": 58,
+  "newQuestions": 22,
+  "written": 20,
+  "practical": 2,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "inec-party-identities-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_selected_party_identity_reference",
+      "source": "https://www.inecnigeria.org/parties",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Live register and selected APC/PDP/LP name/acronym profiles",
+        "APC and PDP linked original symbol files, downloaded and visually checked"
+      ],
+      "note": "Selected identity evidence only, not a fixed total-party quiz, leadership/contact/ideology assessment or endorsement. Historical2019 report and older list not treated as current. Logos retained unmodified as third-party source references, rights in asset manifest; original-content declaration covers authored questions/rubrics only.",
+      "urls": [
+        "https://www.inecnigeria.org/parties/all-progressives-congress-apc",
+        "https://www.inecnigeria.org/parties/peoples-democratic-party-pdp",
+        "https://www.inecnigeria.org/parties/labour-party-lp"
+      ]
+    },
+    {
+      "id": "nlc-aims-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "organisation_authored_aims",
+      "source": "https://www.nlcng.org/aims-and-objectives-of-nlc/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Selected fundamental aims and policy/legislation influence paragraph"
+      ],
+      "note": "NLC’s own stated workers/pensioners and policy-influence role supports an author-proposed example, not a NERDC named list, endorsement or exclusive description of all activities. No membership totals, current officeholders or claim that NLC is Labour Party. Larger policyPDF web open failed size limit; not used as full current evidence."
+    },
+    {
+      "id": "nba-identity-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "organisation_authored_identity",
+      "source": "https://blog.nigerianbar.org.ng/about/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Selected association identity, rule-of-law/human-rights and law-reform objectives"
+      ],
+      "note": "Professional organisation’s own description supports a narrow authored example of advocacy, not an official NERDC named list, legal representation for a real case, government authority or endorsement. No leadership, membership totals or proposed third-party constitution adopted."
+    },
+    {
+      "id": "nhs-burns-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_current_public_health_guidance",
+      "source": "https://www.nhs.uk/conditions/burns-and-scalds/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Causes; immediate cooling, stuck clothing and loose cover steps",
+        "Selected no-butter/oils/creams and no-sticky-dressing cautions"
+      ],
+      "note": "Page last reviewed31March2026. Selected knowledge only, not a full clinical course or Nigerian service pathway. Foreign999/111, medicines/doses, healing forecasts and treatment on real people not adopted. Independent clinical/Primary4 rubric and local-response calibration pending.",
+      "pageLastReviewed": "2026-03-31"
+    },
+    {
+      "id": "sja-bruises-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_clinically_reviewed_first_aid",
+      "source": "https://www.sja.org.uk/first-aid-advice/bruise/",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Bruise mechanism; wrapped cold-pack principle and maximum20minutes"
+      ],
+      "note": "Clinically reviewed28April2025 by source. Selected adult-led knowledge only, no medication/doses, real-person diagnosis, treatment or full road-accident procedure. Earlier tested obsolete advice URL was inaccessible; current linked bruise page read.",
+      "pageLastReviewed": "2025-04-28"
+    },
+    {
+      "id": "nhrc-child-protection-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_child_protection_overview",
+      "source": "https://nigeriarights.gov.ng/focus-areas/child-rights.html",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Child protection/welfare objectives; advocacy, investigation/referral strategies"
+      ],
+      "note": "Selected child-protection principles only. No use of older24-state adoption count, no assertion of full current Child Rights Act/state-law consolidation, automatic local outcome, case-specific legal advice or pupil disclosure."
+    },
+    {
+      "id": "ncc-emergency112-reference-342",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_emergency_number_reference",
+      "source": "https://ncc.gov.ng/media/836/view",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Two-page national-numbering presentation:112 and response services",
+        "Special Duties charter selected112 genuine-emergency-only, accurate information and misuse limitations"
+      ],
+      "note": "112 is the selected national-only emergency number in these checked official sources. Not a full direct-agency/local directory or guarantee of network reach, dispatch or response time. UK999/111 not substituted. No real test call; staff must verify local response plan before classroom delivery.",
+      "urls": [
+        "https://www.ncc.gov.ng/about/servicom-charter/departmental-charters/special-duties-department-service-charter?page=0"
+      ]
+    }
+  ],
+  "assetManifest": "stimuli/batch-342/source-assets.json",
+  "retrievalLimits": [
+    "NLC bare-domain/TUC bare-domain web opens inaccessible; www.nlcng.org and its aims page accessible. No TUC identity task built from an unread image statement.",
+    "NLC29MB policy PDF web open exceeded limit, not treated as fully read. Older2015 policy and2019 election report not silently treated as current registers.",
+    "Initial old SJA advice path inaccessible; current /first-aid-advice/bruise/ page read.",
+    "NHRC older24-state adoption count and contact-number variants not assessed; current full local statutory implementation remains unverified."
+  ],
+  "decisions": [
+    "Fresh source confirms exact class/edition; no school/cohort adoption, official terms, age or full target inferred.",
+    "INEC current selected profiles and linked images read/downloaded; byte hashes and visual descriptions checked. Full labels retained. Question text/rubrics are original, external logos are not. No logo was altered; no partisan endorsement, hidden-label test or fixed total-party count claimed.",
+    "NLC and NBA are author-proposed examples based on their own policy/rights roles; source curriculum gives no named list. NLC is not conflated with Labour Party. Full organisational range/current officeholders/membership figures not assessed.",
+    "Written burn/scald knowledge uses current NHS cooling before cover, stuck-material and selected unsuitable-cover cautions. Wrapped bruise cold-pack limit checked against SJA. No medicines, real treatment, exact referral thresholds, full road trauma or foreign999/111 transferred. Independent clinical and class calibration pending; no official NERDC erratum claimed.",
+    "Protection examples are general child-focused subset of all-people objectives. No actual child disclosure, absolute confidentiality promise, case decision or complete statutory/state-adoption claim.",
+    "NCC112 source and genuine-emergency-only guidance checked; only disconnected simulation allowed. No actual call/dispatch/network test or guaranteed local response asserted. Full direct-agency list remains open.",
+    "Prompt searches for burn/scald/bruise/emergency/child-protection and organisation keywords inspected. Earlier208-002 JSS1 PHE simulated first-aider handover was then read in full. New112 task adds checked Nigerian number/use, an explicitly disconnected operator simulation and an uncertainty response, rather than a scraped-arm first-aider report. New written uncertainty task tests why invented details mislead, not a second handover checklist. Other search matches concerned produce bruising/plastic burning. Every new source-reading/artwork/identity/hazard/care/protection/communication purpose and model/rubric manually inspected; no cosmetic numerical templates.",
+    "Every new prompt/model/rubric and source/asset mapping inspected. All22 remain drafts;20 written,2 conditional practical. No learner artwork, real injury, first aid, smoke, call, emergency, party membership, political preference/contact or production import occurred. Protocol unfilled; all independent academic review pending."
+  ]
+}

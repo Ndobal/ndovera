@@ -1,0 +1,33 @@
+{
+  "sourceId": "inec-party-identities-reference-342",
+  "retrievedOn": "2026-11-20",
+  "assets": [
+    {
+      "card": "A",
+      "path": "stimuli/batch-342/apc-source.jpg",
+      "sourceUrl": "https://www.inecnigeria.org/_nuxt/all-progressives-congress-apc_logo.CSXCWB6p.jpg",
+      "partyName": "All Progressives Congress",
+      "acronym": "APC",
+      "description": "Hand holding a broom; green/white/light-blue panels with red footer and APC lettering.",
+      "bytes": 23815,
+      "sha256": "a68e066ae070e7aa89ffdfd43d44e762424629290708129ac8992bcf21507c08",
+      "alteration": "none; original bytes preserved",
+      "labelsVisible": true,
+      "rights": "Third-party political logo/copyright/trademark retained. Included only as an attributed educational reference; not original artwork, party endorsement or a licence for unrestricted reuse."
+    },
+    {
+      "card": "B",
+      "path": "stimuli/batch-342/pdp-source.png",
+      "sourceUrl": "https://www.inecnigeria.org/_nuxt/peoples-democratic-party-pdp_logo.D7bjcnnk.png",
+      "partyName": "Peoples Democratic Party",
+      "acronym": "PDP",
+      "description": "Umbrella with red/white/green design, PDP lettering and surrounding party name.",
+      "bytes": 53552,
+      "sha256": "4bbb5f5fe456b7c8b897b2b2fbd57b31d78c0c10598af0ed747eca584c5e1ccf",
+      "alteration": "none; original bytes preserved",
+      "labelsVisible": true,
+      "rights": "Third-party political logo/copyright/trademark retained. Included only as an attributed educational reference; not original artwork, party endorsement or a licence for unrestricted reuse."
+    }
+  ],
+  "scope": "Two selected current source images only, not all party symbols. Authored questions/rubrics original; labels remain visible, so tasks do not claim unlabelled symbol recognition."
+}
