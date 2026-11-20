@@ -1,0 +1,27 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-343-008",
+    "ndv-343-013"
+  ],
+  "preconditions": [
+    "Independent Primary4, prevention/safeguarding, inclusion and rubric review before classroom use. Agree local trusted-adult/safeguarding arrangements.",
+    "Campaign stays in the classroom with a teacher-approved supportive message and one willing peer. No public posting, personal disclosures, frightening images, real substances/medicine, diagnosis or treatment. No prevention outcome is inferred.",
+    "Tabletop uses only paper objects at a desk, introduced clearly as fiction. No realistic alarm/drill, staged threat, real stranger, surveillance, patrol, live call or actual reporting to an agency.",
+    "Provide appropriate access arrangements; assess the intended skill with an independently reviewed equivalent if needed. Do not score a written plan as observed or spoken performance."
+  ],
+  "evidenceRequirements": [
+    "Observe each pupil’s own campaign artifact, delivery and interactive help-seeking contribution. Group attendance alone does not earn individual marks.",
+    "For013 follow tabletop-script.md, then hear the pupil’s own report. Record observed facts/uncertainty against criteria; do not pre-fill a claim of real-world observation."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupChecked": null,
+    "observedWorkOrCommunication": null,
+    "criterionMarks": null
+  },
+  "records": []
+}

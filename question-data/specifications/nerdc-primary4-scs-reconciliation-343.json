@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    35,
+    36
+  ],
+  "visuallyCheckedPdfPages": [
+    35,
+    36
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained; no all-table recount in343.",
+  "partialAuthorMappings": 64,
+  "newQuestions": 18,
+  "written": 16,
+  "practical": 1,
+  "spoken": 1,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "unodc-who-prevention-reference-343",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_intergovernmental_prevention_standards",
+      "source": "https://www.unodc.org/documents/prevention/UNODC-WHO_2018_prevention_standards_E.pdf",
+      "documentDate": "2018",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 804065,
+      "pageCount": 60,
+      "sha256": "0489e41a23dc29c6866031a70f51bac3185cb65981a8c0d776ad4ed707a7a446",
+      "sourceSections": [
+        "PDF1/3 title,PDF4 copyright/date/licence; PDF24 middle childhood; PDF26–27 personal/social skills; PDF47 sports/leisure evidence limitations"
+      ],
+      "note": "Fresh complete PDF downloaded; only selected sections read, not a full standards review. Supports interactive general skills and cautions against information/fear-only or sport-alone efficacy claims. Historical2018 supplementary guidance, not proof of current Nigerian adoption, a complete intervention, diagnosis, treatment, or a measured effect of these drills. Source developmental categories are not an exact Primary4 age mapping. Source factual concepts crosschecked; no source programme/exercise, table, artwork or prose republished, no endorsement. Original authored questions/rubrics retain original-content declaration."
+    },
+    {
+      "id": "wigan-reporting-principles-reference-343",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "supplementary_local_government_reporting_guidance",
+      "source": "https://www.wigan.gov.uk/Resident/Crime-Emergencies/Counter-terrorism/Suspicious-behaviour.aspx",
+      "retrievedOn": "2026-11-20",
+      "sourceSections": [
+        "Behaviour rather than appearance; reporting what/where/when and observed information"
+      ],
+      "note": "Live selected text retrieved. Narrow conceptual crosscheck only: adult UK counter-terrorism guidance is not a Nigerian Primary4 security procedure. Do not transfer UK999, suspect lists, terrorism scenarios, face/concealment cues, investigation, public contact or a duty for pupils to patrol. Safe adult-led tabletop adaptation is author-proposed and independently unreviewed. No legal accusation or reporting service coverage established."
+    }
+  ],
+  "inventory": "nerdc-primary4-scs-objective-inventory-343.json",
+  "sourceIssuesAndLimits": "Batch343 adds18 original Primary4 Social and Citizenship Studies drafts (16 written,1 conditional classroom campaign,1 conditional spoken tabletop report) across6 new partial mappings on PDF35–36. Inventory343 links64/82 source statements through64 author mappings and126 unique valid drafts passing automated checks;18 statements remain unmapped. Fresh official PDF hash matched, selected text/renders checked; inventory339 count basis retained, no all-table recount. Fresh UNODC/WHO2018 selected sections support interactive general skills and qualify sport/information-only efficacy; this historical supplementary reference is not current Nigerian adoption or a validated complete intervention. Wigan own guidance supplies narrow behaviour/fact/where/when principles, not UK numbers, terrorist/appearance cues, pupil patrols or Nigerian legal/service procedures. Tabletop is simulated observation, not real neighbourhood competence; supportive campaign does not prove prevention. Source35 campaign is absent from evaluation column; source36 mixes drug-campaign content with security and uses potentially harmful practical/consequence wording. No official erratum claimed; adult-led, non-graphic, non-blaming adaptations remain independently unreviewed. UN article/NPF/NICE full web opens returned403; indexed summaries not treated as complete documents or additional content sources. Source drug-characteristic stereotypes, finance/CBN and trafficking evidence, nation classification, clinical/local safeguarding and all earlier depth/delivery/adoption/terms/1000-target gaps remain open. No real substances, private disclosures, pupil performance, public campaign, incident, surveillance, report, clinical action or production import occurred; protocol unfilled.",
+  "manualNoveltyReview": "Existing SCS339–342 mappings and prior drug/suspicious/coping/patrol prompt matches checked before authoring. New purposes distinguish wellbeing access, respectful discipline, unsupported efficacy claims, actual campaign, inclusive security meaning, model observation/fact reports and non-blaming consequence reasoning. Global exact/near/numeric checks still required.",
+  "performanceProtocol": "stimuli/batch-343/performance-protocol.json",
+  "validationStatus": "automated_checks_passed",
+  "verification": {
+    "testsPassed": 56,
+    "strictNewAuditPassed": true,
+    "added": 18,
+    "corrected": 0,
+    "newHeld": 0,
+    "verifiedTotals": {
+      "raw": 6147,
+      "validDrafts": 4468,
+      "reviewed": 0
+    },
+    "priorQuestionRecordsUnchanged": 6129,
+    "priorFileChecksumsUnchanged": 377,
+    "legacyErrorsAndSimilarityGroupsUnchanged": true,
+    "arithmeticVerificationUnchanged": {
+      "explicitArithmeticClaims": 622,
+      "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
+      "failureCount": 0,
+      "logicTables": 2
+    },
+    "partialSourceObjectiveLinks": 64,
+    "uniqueLinkedValidDrafts": 126,
+    "manualReview": "All18 prompts, models, explanations, criterion totals, source/class/objective correspondence and conceptual novelty inspected.016 tightened to missing observed movements rather than a generic broken-lock hazard before the passing final audit. No numerical template or arithmetic claims added. All protocols unfilled; no independent review or real performance claimed."
+  }
+}

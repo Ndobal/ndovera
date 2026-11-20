@@ -1,0 +1,866 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 wellbeing and safe reporting practice — batch 343",
+  "questionCount": 18,
+  "note": "18 original drafts:16 written,1 conditional observed campaign and1 conditional spoken tabletop report. Six new partial mappings; no real pupil performance, campaign, substances, surveillance, incident or report. Original practice rubrics, not an official marking scheme or proven prevention intervention.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Healthy behaviours",
+      "learningObjective": "Identify selected constructive physical, mental and social wellbeing behaviours without claiming that they guarantee prevention or diagnose drug use.",
+      "id": "ndv-343-001",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A class wants three different ideas for a wellbeing board: one involving safe movement, one involving a calm constructive activity, and one involving supportive friendship. Give one suitable example for each heading.",
+      "answer": "Safe movement: a teacher-approved adapted movement game. Calm constructive activity: drawing quietly when worried. Supportive friendship: listening kindly to a classmate and including them.",
+      "explanation": "These examples illustrate selected wellbeing behaviours. Their benefits may overlap; the headings are not separate diagnoses or a guarantee that someone will never misuse drugs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives a feasible safe movement example."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a constructive calming activity."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a supportive social behaviour."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Healthy behaviours",
+      "learningObjective": "Identify selected constructive physical, mental and social wellbeing behaviours without claiming that they guarantee prevention or diagnose drug use.",
+      "id": "ndv-343-002",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A wellbeing club accepts only children who can run fast. Sade suggests a seated passing game with turns that everyone can join. Explain two ways her change could support wellbeing and one reason the original rule needs changing.",
+      "answer": "The game provides an accessible opportunity for movement and cooperative play. Sharing turns can support relationships. The speed rule excludes pupils with different abilities even though they can participate in other ways.",
+      "explanation": "Participation can be adapted. No exercise prescription or universal mental-health outcome is inferred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects the adapted activity to a suitable physical opportunity."
+        },
+        {
+          "marks": 1,
+          "description": "Connects cooperation or inclusion to social wellbeing."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why speed alone is an unfair access rule."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Healthy behaviours",
+      "learningObjective": "Identify selected constructive physical, mental and social wellbeing behaviours without claiming that they guarantee prevention or diagnose drug use.",
+      "id": "ndv-343-003",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After an argument, a story’s characters can either practise a calm joint drawing activity or spread insults about each other. Choose the constructive option and explain how both the activity and their way of speaking could help.",
+      "answer": "Choose the joint drawing activity. It gives them a constructive focus while they settle, and respectful speech helps them discuss the disagreement without more insults.",
+      "explanation": "This is an everyday fictional disagreement; it is not treatment for a mental-health condition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses the constructive activity."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a calming or constructive purpose."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how respectful communication supports the relationship."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Supportive coping skills",
+      "learningObjective": "Explain selected decision-making, friendship and help-seeking skills for everyday difficulties, using respectful rather than shaming responses.",
+      "id": "ndv-343-004",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Timi cannot finish a group model and feels upset. Write a three-step coping plan that includes thinking about the problem, a manageable next action and a source of help.",
+      "answer": "Pause and identify the part that is difficult; try one small part of the model; ask the teacher or a supportive classmate for help if still stuck.",
+      "explanation": "Problem-solving and appropriate support offer practical choices without shaming the learner or promising that every worry disappears.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies or thinks through the problem."
+        },
+        {
+          "marks": 1,
+          "description": "Chooses a feasible manageable action."
+        },
+        {
+          "marks": 1,
+          "description": "Names appropriate support."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-who-prevention-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Supportive coping skills",
+      "learningObjective": "Explain selected decision-making, friendship and help-seeking skills for everyday difficulties, using respectful rather than shaming responses.",
+      "id": "ndv-343-005",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "One friend listens when Bisi says an activity makes her uncomfortable. Another keeps mocking her until she agrees. Which behaviour supports a healthy friendship? Explain why, then suggest what Bisi could do if the mocking continues.",
+      "answer": "Listening and respecting Bisi’s boundary supports friendship because it allows her to choose without pressure. She can move to a supportive group and tell a trusted adult if the mocking continues.",
+      "explanation": "Judge the behaviour, not a person’s worth or permanent label. This task applies a coping response rather than diagnosing either child.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects the respectful listening behaviour."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the value of respecting a boundary or choice."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests safe support or removal from continued pressure."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Supportive coping skills",
+      "learningObjective": "Explain selected decision-making, friendship and help-seeking skills for everyday difficulties, using respectful rather than shaming responses.",
+      "id": "ndv-343-006",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A club’s discipline rule says, If you interrupt, everyone must call you a bad child. Replace it with one clear fair rule, a respectful response to interruption and a reason your version is better.",
+      "answer": "Rule: take turns to speak. Response: remind the pupil of the turn and let them try again. This corrects the action without humiliating the pupil.",
+      "explanation": "Discipline can guide behaviour through clear expectations and respectful correction; humiliation is not assessed as healthy coping.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States an understandable fair rule."
+        },
+        {
+          "marks": 1,
+          "description": "Provides a respectful corrective response."
+        },
+        {
+          "marks": 1,
+          "description": "Explains guidance without humiliation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Supportive coping skills",
+      "learningObjective": "Explain selected decision-making, friendship and help-seeking skills for everyday difficulties, using respectful rather than shaming responses.",
+      "id": "ndv-343-007",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional leaflet claims, Joining our football game means you can never have a drug problem. What is wrong with the promise? Write a more careful wellbeing message and name a personal or social skill that a club could practise as well as playing.",
+      "answer": "The promise is a guarantee that the leaflet cannot establish. A careful message is that an inclusive game can be a constructive activity, while people may still need support. The club could practise problem-solving or respectful communication.",
+      "explanation": "UNODC/WHO distinguishes general wellbeing activities from demonstrated prevention: sport alone is not an established guarantee. This question tests reasoning about a claim, not diagnosis or a full programme.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the unsupported guarantee."
+        },
+        {
+          "marks": 1,
+          "description": "Offers a limited constructive message without promising prevention."
+        },
+        {
+          "marks": 1,
+          "description": "Names a relevant personal or social skill."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-who-prevention-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Bounded classroom prevention campaign",
+      "learningObjective": "Carry out an actually observed classroom-only prevention message activity using supportive general skills and assess its limited evidence, without claiming a complete intervention.",
+      "id": "ndv-343-008",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "With the teacher’s approval, actually create and deliver a short classroom-only wellbeing message discouraging drug misuse. Include a constructive coping action and how to seek trusted adult support. Invite one classmate to practise a simple respectful help-seeking sentence with you. Use no real substances, frightening images, personal stories or public posting. The examiner must observe your own contribution.",
+      "answer": "Observable example: a pupil creates a readable message, explains that asking for help and making considered choices can support wellbeing, demonstrates I need help with this problem, please with a classmate, and directs worries privately to a trusted adult. No claim that the message cures or guarantees prevention.",
+      "explanation": "This is a small actual classroom campaign activity, conditional on specialist/teacher review and delivery. It is not a complete prevention intervention or evidence of changed health outcomes.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Produces an actual intelligible supportive message discouraging drug misuse."
+        },
+        {
+          "marks": 1,
+          "description": "Actually communicates a constructive coping action."
+        },
+        {
+          "marks": 1,
+          "description": "Actually includes the respectful interactive help-seeking practice."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies trusted adult support without naming real cases or making guarantees."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "unodc-who-prevention-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-343/performance-protocol.json",
+      "performanceNote": "Actual individual classroom work and delivery must be observed under the unfilled protocol. A written plan is not performance; no pupil performance occurred during authoring."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Prevention of Drug Abuse- Life Coping Skills",
+      "subtopic": "Bounded classroom prevention campaign",
+      "learningObjective": "Carry out an actually observed classroom-only prevention message activity using supportive general skills and assess its limited evidence, without claiming a complete intervention.",
+      "id": "ndv-343-009",
+      "objectiveId": "nerdc-scs-primary4-343-p35-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After a classroom campaign, the teacher records only that pupils saw a poster. A report says, This proves no pupil will misuse drugs. Explain why the record does not prove the conclusion and suggest one thing the teacher could check about learning instead.",
+      "answer": "Seeing a poster records exposure, not future behaviour or prevention. The teacher could check whether pupils can explain or demonstrate a respectful help-seeking skill.",
+      "explanation": "A learning check and a health-outcome claim are different. Checking a skill still does not establish a programme’s effectiveness.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why poster exposure does not prove the future guarantee."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests a relevant observable learning check without claiming prevention."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "unodc-who-prevention-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Meaning and shared responsibility",
+      "learningObjective": "Explain neighbourhood security as cooperative protection of people and shared places with adult-led responsibilities, rather than pupil patrols or appearance-based suspicion.",
+      "id": "ndv-343-010",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional estate has adults agreeing how to care for shared entrances, notice hazards during ordinary activities and pass concerns to responsible adults. Explain neighbourhood security in this example and state one responsibility that must not be given to Primary 4 pupils.",
+      "answer": "It means people cooperating to help protect people and places where they live. Pupils must not be assigned patrols, confrontations or investigations.",
+      "explanation": "Protection involves responsible adult arrangements; this task does not establish any local group’s legal powers.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains cooperative protection."
+        },
+        {
+          "marks": 1,
+          "description": "Links protection to people or shared places in the neighbourhood."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects a pupil patrol, confrontation or investigation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Meaning and shared responsibility",
+      "learningObjective": "Explain neighbourhood security as cooperative protection of people and shared places with adult-led responsibilities, rather than pupil patrols or appearance-based suspicion.",
+      "id": "ndv-343-011",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "The security plan for a school street says, Only expensive houses need protection. Explain why this is a poor meaning of neighbourhood security and give two kinds of people or shared places that should be considered.",
+      "answer": "Neighbourhood security concerns people and shared community life, not only costly property. Children walking with their carers and the shared entrance used by residents are relevant examples.",
+      "explanation": "The task assesses inclusive purpose, not a pupil’s duty to watch others or a universal security design.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects property price as the sole basis for protection."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate person/group whose safety matters."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate shared place or another distinct group."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Fact-based reporting in simulation",
+      "learningObjective": "Observe a bounded fictional tabletop event and communicate selected facts and uncertainty to a trusted adult, distinguishing this from actual neighbourhood surveillance.",
+      "id": "ndv-343-012",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "From a safe classroom window in a fictional story, a pupil sees someone repeatedly pulling a locked store door at 10 o’clock. The pupil does not know the person’s job or permission. Write a short report to the teacher that gives the observed action, location and time, and makes the uncertainty clear. Do not add a name or a claim of guilt.",
+      "answer": "Teacher, at 10 o’clock I saw someone repeatedly pulling the locked store door. I do not know whether they have permission. Please check safely.",
+      "explanation": "A concrete observed action can be passed to an adult for checking. Suspicion does not prove a crime; the pupil must not approach or gather more evidence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reports the observed door-pulling action accurately."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the store location."
+        },
+        {
+          "marks": 1,
+          "description": "Includes the supplied time."
+        },
+        {
+          "marks": 1,
+          "description": "States uncertainty rather than inventing identity or guilt."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "wigan-reporting-principles-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Fact-based reporting in simulation",
+      "learningObjective": "Observe a bounded fictional tabletop event and communicate selected facts and uncertainty to a trusted adult, distinguishing this from actual neighbourhood surveillance.",
+      "id": "ndv-343-013",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Watch the teacher’s paper-figure tabletop sequence from the supplied batch-343 script once. Then actually give the teacher a brief spoken report of what you observed, where it happened in the model, and what you do not know. Describe the model event only; this is not a real incident.",
+      "answer": "An actual heard report describes the figure moving to the model store door and pulling its paper handle twice, locates it at STORE, and says the figure’s permission or reason is unknown. The pupil asks the teacher to check; no guilt is claimed.",
+      "explanation": "This requires observed simulation and individual communication. It only partially maps the source observation/reporting objective; a tabletop event is not evidence of real neighbourhood surveillance or competence in danger.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually reports the observed repeated model handle action."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly locates the action at the model store."
+        },
+        {
+          "marks": 1,
+          "description": "States a genuine uncertainty about permission/reason without accusing."
+        },
+        {
+          "marks": 1,
+          "description": "Actually addresses the trusted adult clearly rather than merely writing a plan."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "wigan-reporting-principles-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign.",
+      "requiresRecordingOrLiveExaminer": true,
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-343/performance-protocol.json",
+      "stimulusReferenceSheet": "stimuli/batch-343/tabletop-script.md",
+      "performanceNote": "Use the supplied new tabletop script; the examiner must observe the simulation and hear the pupil’s own report. This is simulated observation, not real neighbourhood performance. Protocol unfilled; no pupil performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Fact-based reporting in simulation",
+      "learningObjective": "Observe a bounded fictional tabletop event and communicate selected facts and uncertainty to a trusted adult, distinguishing this from actual neighbourhood surveillance.",
+      "id": "ndv-343-014",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two notes reach a teacher: A says, A visitor speaks a different language, so that proves danger. B says, Someone is repeatedly pulling a locked gate; I do not know why. Which note gives an action worth an adult’s safe check? Explain the defect in the other note and why even the better note is not proof of wrongdoing.",
+      "answer": "B gives a concrete action for an adult to check. A treats language difference as evidence of danger, which it is not. B leaves permission and reason unknown, so an innocent explanation remains possible.",
+      "explanation": "The narrow supplementary reporting principle focuses on actions rather than appearance or identity. No pupil is asked to identify, follow or question anyone.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects B for its concrete action."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects language difference as proof of danger."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the observed action still does not establish guilt."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "wigan-reporting-principles-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Fact-based reporting in simulation",
+      "learningObjective": "Observe a bounded fictional tabletop event and communicate selected facts and uncertainty to a trusted adult, distinguishing this from actual neighbourhood surveillance.",
+      "id": "ndv-343-015",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A story’s pupil has already told a trusted adult about a worrying gate movement. A friend says, Follow the person to find out their name and take a photo. Give a safer next step and explain two problems with the friend’s suggestion.",
+      "answer": "Stay with the trusted adult in a safe place and let adults decide how to check. Following may expose the pupil to danger; collecting a photo or identity is an investigation the pupil does not need to undertake.",
+      "explanation": "This is a protective author adaptation for children, not an instruction to collect public intelligence or use adult counter-terrorism procedures.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses staying safely with adult support."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the risk of following or approaching."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects the need for pupils to gather identity/photo evidence."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "wigan-reporting-principles-reference-343",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Possible consequences and limits",
+      "learningObjective": "Explain how missing or delayed information can limit adult response, without making harm inevitable or blaming children or victims.",
+      "id": "ndv-343-016",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional neighbourhood, an adult resident sees repeated attempts to open a locked community store, but the information never reaches its caretaker. Explain how this missing observation could limit the caretaker’s response. State why the story does not establish that theft happened.",
+      "answer": "The caretaker may not know that the door activity needs checking, so an opportunity to check permission or protect the store is missed. The observer does not know the person’s reason or permission, and the story supplies no evidence that anything was stolen.",
+      "explanation": "This assesses a possible consequence of missing information about observed movements, not inevitable harm. It assigns no duty to pupils to watch, approach or investigate.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects missing information to the caretaker’s lack of awareness."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a missed opportunity for an appropriate adult check or protective response."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes an unexplained action from proof that theft occurred."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Possible consequences and limits",
+      "learningObjective": "Explain how missing or delayed information can limit adult response, without making harm inevitable or blaming children or victims.",
+      "id": "ndv-343-017",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult reads a report that a pupil was frightened and could not describe a worrying event clearly. The adult says, Then anything bad that happens is the pupil’s fault. Explain why that conclusion is unfair and what helpful response the adult could give.",
+      "answer": "A frightened pupil is not responsible for another person’s harmful actions, and incomplete information does not establish blame. The adult can reassure the pupil, listen without pressure and use appropriate adult safeguarding arrangements.",
+      "explanation": "Limits on information can affect response, but they do not create a pupil duty to patrol, take risks or prevent harm. This is a fictional reasoning task, not a request for personal disclosures.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects blaming the frightened pupil for another person’s actions."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that incomplete observation does not establish blame."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests reassuring, appropriate adult-led support."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Neighbourhood security",
+      "subtopic": "Possible consequences and limits",
+      "learningObjective": "Explain how missing or delayed information can limit adult response, without making harm inevitable or blaming children or victims.",
+      "id": "ndv-343-018",
+      "objectiveId": "nerdc-scs-primary4-343-p36-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Compare these fictional records: in X a concern reaches an adult while the gate is still open; in Y the same concern arrives after the gate has been closed. State one way timing could change the adult’s options and one reason an early report still cannot guarantee safety.",
+      "answer": "In X the adult may have an opportunity to check and secure the open gate promptly; that immediate option may no longer be relevant in Y. An early report supplies information, but the adult’s understanding, available help and what actually happened still matter.",
+      "explanation": "This assesses a bounded consequence of timing. It does not make prompt reporting a guarantee or suggest that pupils should delay safety to obtain details.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains one plausible difference in adult response options."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that information alone does not guarantee safety."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original fictional prompt, model and practice rubric; no copied examination item. Supplementary source concepts are attributed in the registry and reconciliation.",
+      "contentReviewNote": "Independent Primary4 subject, safeguarding, prevention-specialist, inclusion and rubric review pending. Accept equivalent accurate wording. Selected knowledge/conditional performance, not diagnosis, treatment, full competence, proven prevention, school adoption or official terms. No real drugs, danger, patrol, suspects, private disclosures, live reports or public campaign."
+    }
+  ]
+}
