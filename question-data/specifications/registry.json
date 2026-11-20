@@ -5106,6 +5106,113 @@
       "subject": "Physical and Health Education",
       "level": "Primary 4",
       "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "aha-redcross-protection-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines",
+      "sourceSections": [
+        "Selected sections4.4 hand hygiene/PPE and4.5 provider safety; no whole1253-line guideline read."
+      ],
+      "note": "Knowledge only. No delay-of-lifesaving-care interpretation transferred into pupil instructions; no clinical interventions, sanitizer amounts/formulation, donning/doffing steps or child first-aider clearance.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20",
+      "documentDate": "2024"
+    },
+    {
+      "id": "aha-redcross-kit-table-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines/tables-and-figures/major-concepts/minimum-contents-for-american-red-cross-first-aid-kit",
+      "sourceSections": [
+        "Selected item names and pad/dressing-securement categories in Table2."
+      ],
+      "note": "U.S./occupational quantities/sizes/ANSI compliance and adult aspirin, ointments, tourniquets, glucose, sharps/forceps not adopted. Selected non-medication names are not a complete kit prescription or pupil-use permission.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20",
+      "documentDate": "2024"
+    },
+    {
+      "id": "hse-first-aid-stock-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.hse.gov.uk/simple-health-safety/firstaid/what-to-put-in-your-first-aid-kit.htm",
+      "sourceSections": [
+        "Selected needs-based suggested contents and expiry/replacement paragraphs."
+      ],
+      "note": "UK workplace guidance, not Nigerian school law/kit standard. No real sterile pack inspection, expiry validation or actual disposal/stocking performed.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "nci-drug-definition-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/drug",
+      "sourceSections": [
+        "Selected medical-drug purposes and broader brain/body effect concept."
+      ],
+      "note": "General definition only; not drug approval, prescribing, diagnosis, moral judgement or a complete psychoactive classification.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cdc-medicine-safety-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.cdc.gov/medication-safety/php/toolkit/index.html",
+      "sourceSections": [
+        "Selected medicine-is-not-candy/never-take-alone and responsible-caregiver messages."
+      ],
+      "note": "No U.S. emergency number, incidence statistic, physical pill handling, actual storage/childproofing, poisoning treatment or medicine decision adopted.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20",
+      "documentDate": "18 July2025"
+    },
+    {
+      "id": "nlm-alcohol-classification-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://medlineplus.gov/alcohol.html",
+      "sourceSections": [
+        "Selected alcohol central-nervous-system depressant and judgment/coordination summary."
+      ],
+      "note": "No adult moderate-drinking targets, legal-age rule, substance use, pregnancy guidance or diagnosis. Not a safe-consumption recommendation for any pupil.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "nlm-caffeine-classification-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.ncbi.nlm.nih.gov/mesh/68002110",
+      "sourceSections": [
+        "NLM MeSH D002110 descriptor: caffeine CNS stimulant and pharmacologic-action classification."
+      ],
+      "note": "No dosage, energy-drink endorsement, branded/street-name list, preparation or claim that stimulant means safe/appropriate for children.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "australian-drug-groups-reference-351",
+      "kind": "supplementary_primary_reference",
+      "source": "https://www.health.gov.au/topics/drugs/about-drugs/types-of-drugs",
+      "sourceSections": [
+        "Selected introduction and drug-category definitions: more than one grouping; stimulant/depressant meanings and overlapping categories."
+      ],
+      "note": "Foreign public-health definitions only, not Australian/Nigerian drug law or legal ages. No detailed drug catalogue, dose/route, street terminology, child-use recommendation or exact-one exhaustive taxonomy adopted.",
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
     }
   ],
   "banks": [
@@ -48059,6 +48166,78 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-351-p27-o1-v1",
+      "topic": "First aid and safety education",
+      "subtopic": "Selected written supply identification",
+      "learningObjective": "Name selected non-medication first-aid supplies and distinguish their limited roles from stock/expiry/clinical-use decisions; no real kit or item inspected.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, performance objective 1 and related content. Selected written subset; reconciliation351 retains clinical, taxonomy, real-item and full-range gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-351-p27-o2-v1",
+      "topic": "First aid and safety education",
+      "subtopic": "Protective-barrier concepts",
+      "learningObjective": "Describe selected protective-barrier purposes, hand-hygiene and training limits from first-aid guidance; no PPE fitting, clinical care or practical demonstration.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.14 / PDF p.27, performance objective 2 and related content. Selected written subset; reconciliation351 retains clinical, taxonomy, real-item and full-range gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-351-p30-o1-v1",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Drug/alcohol education concepts",
+      "learningObjective": "Explain selected medicinal-drug and alcohol concepts and the protective purpose of education, without medicine decisions, personal disclosure or actual substances.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, performance objective 1 and related content. Selected written subset; reconciliation351 retains clinical, taxonomy, real-item and full-range gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "id": "nerdc-phe-primary4-351-p30-o2-v1",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Limited stimulant/depressant classification",
+      "learningObjective": "Classify caffeine as a stimulant and alcohol as a depressant from checked concepts, distinguishing pharmacological grouping from mood/safety and from an exhaustive taxonomy of medicines.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.17 / PDF p.30, performance objective 2 and related content. Selected written subset; reconciliation351 retains clinical, taxonomy, real-item and full-range gaps."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -48182,6 +48361,7 @@
     "Batch347 adds30 original written Primary4 Pre-vocational Studies drafts across13 new partial mappings after fresh26-page official September2025 PDF retrieval (2188329 bytes; hash matches346). Inventory347 inherits the44-statement count (42 numbered,2 unnumbered) from346;26 statements now have partial draft links,18 remain unmapped;70 unique bank drafts. Clothing labels/agents, tool functions and selected safety reasoning crosschecked against selected live ACI/GINETEX/GARDENA/RHS primary references. Written descriptions and original fictional text tags only: no care symbols, manufacturer artwork, real-object/image recognition, machinery operation, actual pupil laundry/tool handling/maintenance or practical competency. GARDENA title/specification dimensions differ and are not assessed. No full manual or child-suitability clearance obtained; generic wash/oil/repair wording not generalised. Source18 evaluation1 names tool identification while performance1 requires safety measures; performance block controls mapping. Actual soil enrichment, agricultural tool care, clothing care, Home Economics handling/maintenance remain unmapped; cosmetic/bodycare7 and nutrition6 remain unmapped pending specialist scope/safety evidence. Earlier2 conditional oral tasks remain unfilled. Full depth/range, actual resources, teachers’ guide, delivery, exact-school/cohort adoption, official terms,1000 target and independent review remain unmet. All prior banks and legacy holds retained.",
     "Batch348 adds7 original Primary4 Pre-vocational Studies drafts:4 diagram-dependent written and3 conditional observed folding/spoon-handling/spoon-drying/storage tasks. Original generic five-object SVG supplied with examiner key, hashes and rendering inspection. Picture recognition is a limited two-garden/three-household subset, not real-object/brand/full-tool recognition. Fresh26-page exact September2025 official PDF hash matches347; selected1/3/17/21/24/25 text and17/21/24/25 renders checked;44-statement inventory count inherited346/347, not recounted in full. Inventory348 has29 partially linked source statements through31 author mappings and77 unique bank drafts;15 remain unmapped. New3 actual-performance mappings are conditional draft task designs, not pupil competence: protocol has no records, actual resource/model/context checks and independent class/safety/rubric/accessibility calibration still pending. Garment task only folding/storage; spoon handling only empty unbreakable cold bowl; care only clean-water drying/storage with a compatible smooth rounded spoon/soft cloth. No chemicals, food, heat, sharp/powered tools, washing/ironing/mending, sanitation, oiling or repair. Selected fresh ACI/GARDENA/RHS text and Robert Welch manufacturer drying guidance checked; no full manuals, copied photos/video, universal rust/material claims, brand clearance or school adoption inferred. Actual agricultural enrichment/tool maintenance, cosmetic/bodycare7 and nutrition6 remain unmapped; wider practical range, source charts/videos/teachers’ guide, delivery/adoption/terms/1000 target and independent review remain unmet. Prior spoken protocols unfilled and all legacy holds preserved.",
     "Batch349 adds32 original written Primary4 Pre-vocational nutrition/grooming concept drafts across12 new partial mappings. Fresh26-page exact September2025 official PDF2188329bytes/hash matches348; selected1/3/20/22 text and20/22 renders checked. Inventory349 retains346 full44-statement count(42 numbered,2 unnumbered), not a new all-table recount;41 source statements now partially linked through43 author mappings to109 unique bank drafts,3 unmapped. Selected WHO26Jan2026 healthy-diet and10Feb2025 anaemia, FAO2004 concepts, NIH/NIAMS, CDC and FDA primary passages checked; old FAO Nigeria2001 profile is historical context only, not current adoption. No adult numerical diet targets, one-nutrient-only foods, menu certification from names, infant/preschool-to-Primary4 equivalence, U.S./EU law, foreign contact numbers, supplement/treatment advice, body/skin appearance judgement or universal natural-product safety. Source22 demand for deficiency disease/symptoms of each nutrient is not treated as one-to-one exhaustive taxonomy; only selected scurvy/vitamin C and iron-deficiency anaemia associations, not symptom-based diagnosis. Other nutrient ranges/diseases and clinical/specialist/rubric calibration remain unmet. Source20 body-care performance asks describe, while evaluation asks demonstrate; this batch only written description, no actual body-care competency. Actual cosmetics application(source20o6), soil enrichment(source15o6) and agricultural tool maintenance(source17o3) remain unmapped. Full body-part/function/care range, food classification taxonomies, real items/charts/videos, teachers’ guide, actual oral/practical delivery, model/local checks, school/cohort adoption, terms and1000 target remain open. Prior protocols unfilled; all other banks and legacy holds retained; no independent academic approval.",
-    "Batch350 opens one provisional1000-target Primary4 Physical and Health Education bank with37 original written drafts and15 partial mappings. Fresh31-page official exact-class file5493113bytes/hash matches339 cover-only evidence; title/copyright/introduction/delivery/overview/contents and all17 table texts read. Full inventory35 statements(28 numbered,7 single unnumbered),15 partially linked,20 unmapped. Source14/15 features are examples; no every-jump/travel equivalence or all-limb-still definition inferred. Source17 includes unsuitable jumping/throwing relay cues; source18/19/21 copied relay headers and19 conflicting500/10000 versus3000/5000 distances remain unresolved. Source22 Tennis topic is headed table tennis and0=lave; selected ITF2026 tennis score labels/methods checked, no official erratum or full gameplay claim. ITF local212-byte PDF blank; read parsed web47-page selected rules instead. World Athletics2026 full file downloaded, selected relay text only read; old overview zone length conflicts recorded and not assessed. Source25 jump-ball versus jump-pass and dunking/slamming require age/equipment/coaching review; no such action authored. Source27 clinical instructions/resources include spirits, iodine, scissors and razor blade; no first-aid mapping or actual injury/treatment/material use. Source30 stimulant/depressant-only taxonomy needs primary pharmacology/safeguarding clarification; unmapped, no real drugs/alcohol. Selected SCSA movement glossary, WHO/CDC benefits/safety and current federation rules support limited written concepts, not foreign-class adoption, exact age/intensity/sleep targets, medical or venue/equipment clearance, actual movement/race/racket/team/practical skill, source videos/teacher-guide framework or academic approval. School/cohort adoption, official terms, full range/depth and1000 target remain open. All prior banks, legacy holds and unfilled protocols preserved."
+    "Batch350 opens one provisional1000-target Primary4 Physical and Health Education bank with37 original written drafts and15 partial mappings. Fresh31-page official exact-class file5493113bytes/hash matches339 cover-only evidence; title/copyright/introduction/delivery/overview/contents and all17 table texts read. Full inventory35 statements(28 numbered,7 single unnumbered),15 partially linked,20 unmapped. Source14/15 features are examples; no every-jump/travel equivalence or all-limb-still definition inferred. Source17 includes unsuitable jumping/throwing relay cues; source18/19/21 copied relay headers and19 conflicting500/10000 versus3000/5000 distances remain unresolved. Source22 Tennis topic is headed table tennis and0=lave; selected ITF2026 tennis score labels/methods checked, no official erratum or full gameplay claim. ITF local212-byte PDF blank; read parsed web47-page selected rules instead. World Athletics2026 full file downloaded, selected relay text only read; old overview zone length conflicts recorded and not assessed. Source25 jump-ball versus jump-pass and dunking/slamming require age/equipment/coaching review; no such action authored. Source27 clinical instructions/resources include spirits, iodine, scissors and razor blade; no first-aid mapping or actual injury/treatment/material use. Source30 stimulant/depressant-only taxonomy needs primary pharmacology/safeguarding clarification; unmapped, no real drugs/alcohol. Selected SCSA movement glossary, WHO/CDC benefits/safety and current federation rules support limited written concepts, not foreign-class adoption, exact age/intensity/sleep targets, medical or venue/equipment clearance, actual movement/race/racket/team/practical skill, source videos/teacher-guide framework or academic approval. School/cohort adoption, official terms, full range/depth and1000 target remain open. All prior banks, legacy holds and unfilled protocols preserved.",
+    "Batch351 adds16 original written Primary4 PHE drafts through4 new partial mappings:source27 supplies/protection and30 drug-education meaning/selected classification. Fresh31-page official September2025 PDF5493113bytes/hash matches350; selected27/30 text and renders checked,2/3 title/copyright renders rechecked. Inventory351 retains350 full35-statement count(28 numbered,7 unnumbered),19 source statements partially linked through19 author mappings to53 unique bank drafts,16 unmapped. Selected AHA/RedCross2024 hand-hygiene/PPE and kit-table, HSE suggested stock/expiry, NCI/CDC/NLM and Australian government primary passages checked. Names and written roles do not certify a real kit, sterile pack, PPE, fitting/removal, clinical competence or Nigerian legal standard. U.S./UK adult kit quantities, aspirin/ointment/tourniquet/sharps, sanitizer recipes, foreign contacts/statistics/laws and clinical interventions not adopted. Source27 razor/spirit/iodine resource list is not a pupil-use instruction; description-of-care and actual injury-care statements remain unmapped. Source30 two-group framing is only a selected stimulant/depressant subset, not all drugs/medicines or an exactly-one taxonomy; caffeine/alcohol examples and effect-versus-mood/safety distinction checked, no consumption/doses/brands, personal/family disclosure or medicine decision. Archived NIDA indexed card reassuring caffeine wording not accepted as current child-safety evidence. Remaining practical sports/movement/first-aid statements, complete taxonomy/material/protection ranges, local referral/specialist/class/rubric calibration, actual items/media/teachers’ guide/resources/adoption/terms and1000 target remain unmet. All prior source conflicts, bank totals, legacy holds and unfilled protocols retained; no pupil performance, independent academic approval or production import."
   ]
 }

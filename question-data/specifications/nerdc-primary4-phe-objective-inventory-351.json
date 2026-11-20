@@ -1,0 +1,581 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-phe-primary4-revised-2025",
+  "sourceSha256": "443d3b89874c57644b41f89a9fd2e3d9b833e229a7d397b46dcf8b40c3f0381a",
+  "scope": "Inherited35-statement source inventory:19 partial author mappings support53 unique automated-valid written drafts;16 source statements unmapped. No full physical/clinical/taxonomic competency.",
+  "topicGroups": 17,
+  "objectiveStatements": 35,
+  "numberedObjectives": 28,
+  "unnumberedObjectives": 7,
+  "objectivesWithPartialDraftMapping": 19,
+  "unmappedObjectiveStatements": 16,
+  "registeredAuthorMappings": 19,
+  "uniqueLinkedValidDrafts": 53,
+  "fullCompetencyCoverageEstablished": false,
+  "countMethod": "All17 complete performance blocks between Pupils should and Knowledge extracted/read; numbered labels match contiguous1..N. Seven single unnumbered statements onPDF19/20/21/23/24/25/26 given author ordinal1, not invented official codes. Content/activities/evaluation numbering not counted. Selected table renders14/15/16/17/19/22/27/28/29/30 checked; no every-table independent OCR claim. Batch351 retains350 full count; selected text27/30 and rendered2/3/27/30 rechecked, not a new complete-table recount.",
+  "statementCountsByPdfPage": [
+    [
+      14,
+      3
+    ],
+    [
+      15,
+      3
+    ],
+    [
+      16,
+      2
+    ],
+    [
+      17,
+      3
+    ],
+    [
+      18,
+      3
+    ],
+    [
+      19,
+      1
+    ],
+    [
+      20,
+      1
+    ],
+    [
+      21,
+      1
+    ],
+    [
+      22,
+      2
+    ],
+    [
+      23,
+      1
+    ],
+    [
+      24,
+      1
+    ],
+    [
+      25,
+      1
+    ],
+    [
+      26,
+      1
+    ],
+    [
+      27,
+      4
+    ],
+    [
+      28,
+      3
+    ],
+    [
+      29,
+      3
+    ],
+    [
+      30,
+      2
+    ]
+  ],
+  "objectives": [
+    {
+      "inventoryId": "p4-phe-p14-o1",
+      "topic": "Moving our body parts I",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Locomotor meaning",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p14-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p14-o2",
+      "topic": "Moving our body parts I",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Locomotor examples/features",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p14-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p14-o3",
+      "topic": "Moving our body parts I",
+      "pdfPage": 14,
+      "printedPage": 1,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual travelling movements",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p15-o1",
+      "topic": "Moving our body parts II",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Non-locomotor meaning",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p15-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p15-o2",
+      "topic": "Moving our body parts II",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Non-locomotor examples/features",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p15-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p15-o3",
+      "topic": "Moving our body parts II",
+      "pdfPage": 15,
+      "printedPage": 2,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual non-travelling movements",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p16-o1",
+      "topic": "Personal health",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Exercise/rest/sleep meanings",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p16-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p16-o2",
+      "topic": "Personal health",
+      "pdfPage": 16,
+      "printedPage": 3,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Exercise/rest/sleep benefits",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p16-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p17-o1",
+      "topic": "Relay races",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Relay types and actual specified relays",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p17-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 1,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p17-o2",
+      "topic": "Relay races",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Relay skills description",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p17-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p17-o3",
+      "topic": "Relay races",
+      "pdfPage": 17,
+      "printedPage": 4,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual relay performance",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p18-o1",
+      "topic": "Middle distance races",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual middle-distance running",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p18-o2",
+      "topic": "Middle distance races",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Applying middle-distance techniques",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p18-o3",
+      "topic": "Middle distance races",
+      "pdfPage": 18,
+      "printedPage": 5,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Actual specified race distances",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p19-o1",
+      "topic": "Long distance races",
+      "pdfPage": 19,
+      "printedPage": 6,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual long-distance running",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p20-o1",
+      "topic": "Long jump",
+      "pdfPage": 20,
+      "printedPage": 7,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual long-jump skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p21-o1",
+      "topic": "High jump",
+      "pdfPage": 21,
+      "printedPage": 8,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual high-jump skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p22-o1",
+      "topic": "Tennis",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual tennis skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p22-o2",
+      "topic": "Tennis",
+      "pdfPage": 22,
+      "printedPage": 9,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Tennis point scoring",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p22-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p23-o1",
+      "topic": "Table tennis",
+      "pdfPage": 23,
+      "printedPage": 10,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual table-tennis skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p24-o1",
+      "topic": "Soccer",
+      "pdfPage": 24,
+      "printedPage": 11,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual soccer skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p25-o1",
+      "topic": "Basketball",
+      "pdfPage": 25,
+      "printedPage": 12,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual basketball skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p26-o1",
+      "topic": "Volleyball",
+      "pdfPage": 26,
+      "printedPage": 13,
+      "sourcePerformanceObjectiveNumber": null,
+      "authorOrdinal": 1,
+      "shortLabel": "Actual volleyball skills",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p27-o1",
+      "topic": "First aid and safety education",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "First-aid materials",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-351-p27-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written supply/barrier or drug-education/classification concepts only. No real material/clinical/PPE/drug use, complete taxonomy/range, personal disclosure or actual performance. Foreign standards/doses not adopted; source27 clinical/sharp/spirit resource and30 exhaustive-binary interpretation unresolved. Independent specialist/Primary4/rubric review, resources/adoption/terms and full target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p27-o2",
+      "topic": "First aid and safety education",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Protective-device uses",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-351-p27-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written supply/barrier or drug-education/classification concepts only. No real material/clinical/PPE/drug use, complete taxonomy/range, personal disclosure or actual performance. Foreign standards/doses not adopted; source27 clinical/sharp/spirit resource and30 exhaustive-binary interpretation unresolved. Independent specialist/Primary4/rubric review, resources/adoption/terms and full target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p27-o3",
+      "topic": "First aid and safety education",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Describing minor-injury care",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p27-o4",
+      "topic": "First aid and safety education",
+      "pdfPage": 27,
+      "printedPage": 14,
+      "sourcePerformanceObjectiveNumber": 4,
+      "authorOrdinal": 4,
+      "shortLabel": "Actual minor-injury care",
+      "mappedObjectiveIds": [],
+      "mappingStatus": "unmapped",
+      "linkedValidDrafts": 0,
+      "limitation": "No mapping yet. Actual physical skills, equipment/model/cohort suitability, specialist/clinical/drug-source evidence and classroom calibration are not inferred from topic headings or written plans."
+    },
+    {
+      "inventoryId": "p4-phe-p28-o1",
+      "topic": "Safety precautions in games and sports",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Safety precaution meaning",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p28-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p28-o2",
+      "topic": "Safety precautions in games and sports",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Safety precaution benefits",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p28-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p28-o3",
+      "topic": "Safety precautions in games and sports",
+      "pdfPage": 28,
+      "printedPage": 15,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Sports safety equipment",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p28-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p29-o1",
+      "topic": "Recreation and leisure",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Recreation/leisure meanings",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p29-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 2,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p29-o2",
+      "topic": "Recreation and leisure",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Indoor/outdoor differences",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p29-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p29-o3",
+      "topic": "Recreation and leisure",
+      "pdfPage": 29,
+      "printedPage": 16,
+      "sourcePerformanceObjectiveNumber": 3,
+      "authorOrdinal": 3,
+      "shortLabel": "Recreation/leisure benefits",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-350-p29-o3-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 3,
+      "limitation": "Selected written concepts only. Source17o1 combined actual-running part remains unmet; current rule clarification is supplementary author interpretation, not an official NERDC erratum. Full range/depth, actual skills/media/equipment, independent class/sports/health/rubric review, adoption/terms and target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p30-o1",
+      "topic": "Drug and alcohol education",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 1,
+      "authorOrdinal": 1,
+      "shortLabel": "Drug/alcohol education meaning",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-351-p30-o1-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written supply/barrier or drug-education/classification concepts only. No real material/clinical/PPE/drug use, complete taxonomy/range, personal disclosure or actual performance. Foreign standards/doses not adopted; source27 clinical/sharp/spirit resource and30 exhaustive-binary interpretation unresolved. Independent specialist/Primary4/rubric review, resources/adoption/terms and full target remain open."
+    },
+    {
+      "inventoryId": "p4-phe-p30-o2",
+      "topic": "Drug and alcohol education",
+      "pdfPage": 30,
+      "printedPage": 17,
+      "sourcePerformanceObjectiveNumber": 2,
+      "authorOrdinal": 2,
+      "shortLabel": "Drug classification",
+      "mappedObjectiveIds": [
+        "nerdc-phe-primary4-351-p30-o2-v1"
+      ],
+      "mappingStatus": "partial_draft_mapping_pending_academic_review",
+      "linkedValidDrafts": 4,
+      "limitation": "Selected written supply/barrier or drug-education/classification concepts only. No real material/clinical/PPE/drug use, complete taxonomy/range, personal disclosure or actual performance. Foreign standards/doses not adopted; source27 clinical/sharp/spirit resource and30 exhaustive-binary interpretation unresolved. Independent specialist/Primary4/rubric review, resources/adoption/terms and full target remain open."
+    }
+  ]
+}

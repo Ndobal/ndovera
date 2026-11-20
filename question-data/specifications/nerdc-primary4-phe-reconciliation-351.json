@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-phe-primary4-revised-2025",
+  "sourceUrl": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/7.pdf",
+  "sourceSha256": "443d3b89874c57644b41f89a9fd2e3d9b833e229a7d397b46dcf8b40c3f0381a",
+  "freshRetrievalBytes": 5493113,
+  "pageCount": 31,
+  "readTextPdfPages": [
+    2,
+    3,
+    27,
+    30
+  ],
+  "visuallyCheckedPdfPages": [
+    2,
+    3,
+    27,
+    30
+  ],
+  "inventoryCountBasis": "Retained350 full17-table count35(28 numbered,7 single unnumbered); only selected tables rechecked.",
+  "freshPrimaryReferences": [
+    {
+      "id": "aha-redcross-protection-reference-351",
+      "url": "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines",
+      "documentDate": "2024",
+      "selectedScope": "Selected sections4.4 hand hygiene/PPE and4.5 provider safety; no whole1253-line guideline read.",
+      "limits": "Knowledge only. No delay-of-lifesaving-care interpretation transferred into pupil instructions; no clinical interventions, sanitizer amounts/formulation, donning/doffing steps or child first-aider clearance."
+    },
+    {
+      "id": "aha-redcross-kit-table-reference-351",
+      "url": "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines/tables-and-figures/major-concepts/minimum-contents-for-american-red-cross-first-aid-kit",
+      "documentDate": "2024",
+      "selectedScope": "Selected item names and pad/dressing-securement categories in Table2.",
+      "limits": "U.S./occupational quantities/sizes/ANSI compliance and adult aspirin, ointments, tourniquets, glucose, sharps/forceps not adopted. Selected non-medication names are not a complete kit prescription or pupil-use permission."
+    },
+    {
+      "id": "hse-first-aid-stock-reference-351",
+      "url": "https://www.hse.gov.uk/simple-health-safety/firstaid/what-to-put-in-your-first-aid-kit.htm",
+      "documentDate": null,
+      "selectedScope": "Selected needs-based suggested contents and expiry/replacement paragraphs.",
+      "limits": "UK workplace guidance, not Nigerian school law/kit standard. No real sterile pack inspection, expiry validation or actual disposal/stocking performed."
+    },
+    {
+      "id": "nci-drug-definition-reference-351",
+      "url": "https://www.cancer.gov/publications/dictionaries/cancer-terms/def/drug",
+      "documentDate": null,
+      "selectedScope": "Selected medical-drug purposes and broader brain/body effect concept.",
+      "limits": "General definition only; not drug approval, prescribing, diagnosis, moral judgement or a complete psychoactive classification."
+    },
+    {
+      "id": "cdc-medicine-safety-reference-351",
+      "url": "https://www.cdc.gov/medication-safety/php/toolkit/index.html",
+      "documentDate": "18 July2025",
+      "selectedScope": "Selected medicine-is-not-candy/never-take-alone and responsible-caregiver messages.",
+      "limits": "No U.S. emergency number, incidence statistic, physical pill handling, actual storage/childproofing, poisoning treatment or medicine decision adopted."
+    },
+    {
+      "id": "nlm-alcohol-classification-reference-351",
+      "url": "https://medlineplus.gov/alcohol.html",
+      "documentDate": null,
+      "selectedScope": "Selected alcohol central-nervous-system depressant and judgment/coordination summary.",
+      "limits": "No adult moderate-drinking targets, legal-age rule, substance use, pregnancy guidance or diagnosis. Not a safe-consumption recommendation for any pupil."
+    },
+    {
+      "id": "nlm-caffeine-classification-reference-351",
+      "url": "https://www.ncbi.nlm.nih.gov/mesh/68002110",
+      "documentDate": null,
+      "selectedScope": "NLM MeSH D002110 descriptor: caffeine CNS stimulant and pharmacologic-action classification.",
+      "limits": "No dosage, energy-drink endorsement, branded/street-name list, preparation or claim that stimulant means safe/appropriate for children."
+    },
+    {
+      "id": "australian-drug-groups-reference-351",
+      "url": "https://www.health.gov.au/topics/drugs/about-drugs/types-of-drugs",
+      "documentDate": null,
+      "selectedScope": "Selected introduction and drug-category definitions: more than one grouping; stimulant/depressant meanings and overlapping categories.",
+      "limits": "Foreign public-health definitions only, not Australian/Nigerian drug law or legal ages. No detailed drug catalogue, dose/route, street terminology, child-use recommendation or exact-one exhaustive taxonomy adopted."
+    }
+  ],
+  "excludedEvidence": [
+    {
+      "url": "https://archives.nida.nih.gov/sites/default/files/cardsmod6_23.pdf",
+      "observedScope": "Search-indexed archived card snippets only, not PDF downloaded or full read.",
+      "decision": "Old reassuring caffeine wording is not accepted as current safe-use evidence for Primary4 pupils."
+    },
+    {
+      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/anatomy-of-a-first-aid-kit.html",
+      "observedScope": "Search-indexed family-of-four list only.",
+      "decision": "Not adopted as a whole child/school kit or pupil medication/sharp-item instruction."
+    }
+  ],
+  "newQuestions": 16,
+  "responseModes": {
+    "written": 16
+  },
+  "newAuthorMappings": 4,
+  "registeredAuthorMappings": 19,
+  "partiallyMappedSourceStatements": 19,
+  "unmappedSourceStatements": 16,
+  "uniqueBankDrafts": 53,
+  "reviewed": 0,
+  "originalContent": "Original fictional paper prompts/models/rubrics; no copied source/exam prose or art, actual medicine/PPE/kit/injury, patient/pupil data or performance.",
+  "sourceConflictsAndLimits": "Batch351 adds16 original written Primary4 PHE drafts through4 new partial mappings:source27 supplies/protection and30 drug-education meaning/selected classification. Fresh31-page official September2025 PDF5493113bytes/hash matches350; selected27/30 text and renders checked,2/3 title/copyright renders rechecked. Inventory351 retains350 full35-statement count(28 numbered,7 unnumbered),19 source statements partially linked through19 author mappings to53 unique bank drafts,16 unmapped. Selected AHA/RedCross2024 hand-hygiene/PPE and kit-table, HSE suggested stock/expiry, NCI/CDC/NLM and Australian government primary passages checked. Names and written roles do not certify a real kit, sterile pack, PPE, fitting/removal, clinical competence or Nigerian legal standard. U.S./UK adult kit quantities, aspirin/ointment/tourniquet/sharps, sanitizer recipes, foreign contacts/statistics/laws and clinical interventions not adopted. Source27 razor/spirit/iodine resource list is not a pupil-use instruction; description-of-care and actual injury-care statements remain unmapped. Source30 two-group framing is only a selected stimulant/depressant subset, not all drugs/medicines or an exactly-one taxonomy; caffeine/alcohol examples and effect-versus-mood/safety distinction checked, no consumption/doses/brands, personal/family disclosure or medicine decision. Archived NIDA indexed card reassuring caffeine wording not accepted as current child-safety evidence. Remaining practical sports/movement/first-aid statements, complete taxonomy/material/protection ranges, local referral/specialist/class/rubric calibration, actual items/media/teachers’ guide/resources/adoption/terms and1000 target remain unmet. All prior source conflicts, bank totals, legacy holds and unfilled protocols retained; no pupil performance, independent academic approval or production import.",
+  "manualInspection": {
+    "status": "author_inspected_all16_prompts_models_rubrics_and_source_mappings_independent_review_pending",
+    "findings": "Non-medication naming, dressing-versus-securement, expiry/needs, barrier/hand-hygiene/area/training, legitimate medical purposes/alcohol/educational privacy/unknown-item help, selected substance grouping/mood/endorsement/non-exhaustive chart decisions inspected. No numerical-template series or cosmetic rewording of sports safety; first-aid tasks address distinct contamination and clinical-use boundaries.",
+    "boundaries": "No handling, examining or using any actual kit, sterile pack, PPE, medicine, drug or alcohol; no treatment or pupil/household disclosure. U.S./UK adult kit tables and foreign contact/legal/age/dose claims not applied to a Nigerian pupil. Author inspection is not academic or clinical approval."
+  },
+  "validation": {
+    "status": "automated_checks_passed_academic_review_pending",
+    "testsPassed": 56,
+    "commands": [
+      "python -m unittest discover -s question-data/tests -v",
+      "python question-data/tools/audit.py --write --strict-new",
+      "git diff --check"
+    ],
+    "newQuestionsPassing": 16,
+    "priorQuestionAuditRecordsUnchanged": 6333,
+    "priorFileChecksumsUnchanged": 385,
+    "otherBankTotalsUnchanged": true,
+    "priorExceptionCountsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaims": 625,
+    "newArithmeticClaims": 0,
+    "arithmeticFailures": 0,
+    "globalIdsClassObjectiveSourceSupportingSourcesAndMarkingTotalsChecked": true,
+    "inventoryAndCoverageChecked": true,
+    "partialSourceStatements": 19,
+    "unmappedSourceStatements": 16,
+    "bankValidDrafts": 53,
+    "totals": {
+      "raw": 6349,
+      "validDrafts": 4670,
+      "reviewed": 0
+    },
+    "parentCommit": "25edb1036edf414e222b445e589c959d7386d051",
+    "remoteCommitVerification": "Verified parent recorded; resulting commit independently checked after protected ref update, avoiding self-referential hash."
+  }
+}

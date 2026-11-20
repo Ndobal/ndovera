@@ -1,0 +1,727 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 PHE first-aid and drug-education concepts — batch351",
+  "questionCount": 16,
+  "note": "16 original written drafts across4 new partial mappings. No actual first-aid treatment, PPE/material/medicine inspection or use, clinical exercise, substance consumption, pupil performance or private disclosure. All academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Selected written supply identification",
+      "learningObjective": "Name selected non-medication first-aid supplies and distinguish their limited roles from stock/expiry/clinical-use decisions; no real kit or item inspected.",
+      "id": "ndv-351-001",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name five non-medication supplies that may appear on a first-aid kit list. Choose items for covering, securing or protection, rather than naming a medicine or a chemical to apply.",
+      "answer": "Examples are sterile dressing pads, adhesive plasters, roller bandages, medical adhesive tape and disposable examination gloves.",
+      "explanation": "These are selected supply names, not a complete or compulsory kit list for a Nigerian school or permission to use them.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names two suitable non-medication supplies. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Names two further distinct suitable supplies. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Names a fifth distinct suitable supply. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-kit-table-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Selected written supply identification",
+      "learningObjective": "Name selected non-medication first-aid supplies and distinguish their limited roles from stock/expiry/clinical-use decisions; no real kit or item inspected.",
+      "id": "ndv-351-002",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A paper list puts a sterile dressing pad and a roller bandage under exactly the same role. Distinguish their usual roles without placing either item on a person.",
+      "answer": "A dressing pad is used to cover/protect a wound surface; a roller bandage can secure a dressing. Naming their roles does not demonstrate correct treatment or application.",
+      "explanation": "The conceptual distinction is supported by the kit-table categories; no pressure, wrapping or clinical procedure is taught.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the dressing pad’s covering/protecting role. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the bandage’s securing role as distinct. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-kit-table-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Selected written supply identification",
+      "learningObjective": "Name selected non-medication first-aid supplies and distinguish their limited roles from stock/expiry/clinical-use decisions; no real kit or item inspected.",
+      "id": "ndv-351-003",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional stock record lists “sterile dressing pads: expiry date passed”. A pupil says the pads must still be suitable because the packet has the right name. What should a responsible adult check or arrange, and why is the name alone insufficient?",
+      "answer": "The adult should check the stock information and arrange appropriate replacement/disposal of expired items. An item name does not establish that its present condition and expiry meet requirements.",
+      "explanation": "Only a paper stock record is considered; pupils neither inspect real sterile packs nor decide that an item is clinically safe.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Requires responsible stock checking/replacement of expired items. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why the name alone cannot establish suitability. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "hse-first-aid-stock-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Selected written supply identification",
+      "learningObjective": "Name selected non-medication first-aid supplies and distinguish their limited roles from stock/expiry/clinical-use decisions; no real kit or item inspected.",
+      "id": "ndv-351-004",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two first-aid lists have different contents because they were prepared for different settings. Must one universal list fit every setting? Explain how a responsible adult should use the setting’s needs when planning supplies.",
+      "answer": "No. Supplies should reflect the assessed first-aid needs and appropriate local arrangements; a list for one setting is not automatically the complete list for another.",
+      "explanation": "The reference is UK workplace guidance used only for the needs-assessment principle, not Nigerian law or a child’s authority to stock a clinical kit.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects a universal complete list for every setting. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Links planning to assessed needs and responsible local arrangements. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "hse-first-aid-stock-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Protective-barrier concepts",
+      "learningObjective": "Describe selected protective-barrier purposes, hand-hygiene and training limits from first-aid guidance; no PPE fitting, clinical care or practical demonstration.",
+      "id": "ndv-351-005",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a first-aid lesson, disposable examination gloves are called a protective barrier. Explain what they help reduce contact with and why that is different from healing an injury.",
+      "answer": "They can reduce direct contact with bodily fluids or contamination. They do not themselves heal a wound or replace appropriate care.",
+      "explanation": "A barrier’s purpose is explained without pupil glove use, bodily fluids or an actual injury.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains reduced direct contact/exposure. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes protection from healing/treatment. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-protection-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Protective-barrier concepts",
+      "learningObjective": "Describe selected protective-barrier purposes, hand-hygiene and training limits from first-aid guidance; no PPE fitting, clinical care or practical demonstration.",
+      "id": "ndv-351-006",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional first-aider’s written plan says gloves make hand hygiene unnecessary. Explain why the plan should still include appropriate hand hygiene as well as suitable protective equipment.",
+      "answer": "Gloves and hand hygiene are separate parts of reducing contamination risk. Hand cleaning is still needed around care and equipment handling; the glove barrier does not make hands automatically clean.",
+      "explanation": "This tests the relationship between measures, not a handwashing or glove-removal demonstration.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects gloves as a substitute for hand hygiene. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the complementary contamination-risk roles. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-protection-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Protective-barrier concepts",
+      "learningObjective": "Describe selected protective-barrier purposes, hand-hygiene and training limits from first-aid guidance; no PPE fitting, clinical care or practical demonstration.",
+      "id": "ndv-351-007",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A paper protective-equipment chart lists gloves and eye protection for a trained responder facing a relevant splash hazard. Compare which areas they protect and explain why the choice must fit the hazard.",
+      "answer": "Gloves cover the hands, while suitable eye protection shields the eyes. Protection must address the possible exposure; protecting hands alone does not protect every part of the responder.",
+      "explanation": "No particular device, fit or complete PPE set is certified; no splash or treatment is simulated.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes hand and eye protection. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Connects selection to the exposure/hazard rather than assuming one item covers all areas. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-protection-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "First aid and safety education",
+      "subtopic": "Protective-barrier concepts",
+      "learningObjective": "Describe selected protective-barrier purposes, hand-hygiene and training limits from first-aid guidance; no PPE fitting, clinical care or practical demonstration.",
+      "id": "ndv-351-008",
+      "objectiveId": "nerdc-phe-primary4-351-p27-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Why should first-aid training teach how protective equipment is put on, removed and disposed of, instead of merely giving a learner a list of equipment names? Do not describe a procedure or demonstrate it.",
+      "answer": "Knowing a name does not ensure correct use. Incorrect handling or removal can undermine the intended barrier and spread contamination, so practical instruction and assessment are separate needs.",
+      "explanation": "The reference includes safe PPE handling in first-aid education; this written answer does not satisfy that training or practical skill.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes knowing names from correct practical use. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a contamination/barrier concern requiring training. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "aha-redcross-protection-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Drug/alcohol education concepts",
+      "learningObjective": "Explain selected medicinal-drug and alcohol concepts and the protective purpose of education, without medicine decisions, personal disclosure or actual substances.",
+      "id": "ndv-351-009",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a medicine lesson, explain two legitimate purposes for which a drug may be used under appropriate care. Why is “drug” not simply another word for “something always bad”?",
+      "answer": "Drugs may be used to prevent or treat disease, diagnose a condition or relieve symptoms. Appropriate medical uses exist, although medicines can cause harm if unsuitable or misused.",
+      "explanation": "The medical meaning is distinguished from a moral label; no personal medicine choice or treatment is recommended.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives one legitimate medical purpose. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a second distinct purpose. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects an always-bad definition without claiming all use is harmless. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nci-drug-definition-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Drug/alcohol education concepts",
+      "learningObjective": "Explain selected medicinal-drug and alcohol concepts and the protective purpose of education, without medicine decisions, personal disclosure or actual substances.",
+      "id": "ndv-351-010",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional display lists alcohol separately from drugs and claims alcohol cannot affect brain function because it is found in drinks. Correct the claim using the checked meaning of alcohol.",
+      "answer": "Alcohol is a drug that can slow brain activity and affect functions such as judgment and coordination. Being in a drink does not remove those effects.",
+      "explanation": "This concerns alcohol as a substance, not beverage brands, tasting, legal ages or a safe amount for children.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies alcohol as a drug. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that a drink form does not remove its effects on brain/body function. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nlm-alcohol-classification-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Drug/alcohol education concepts",
+      "learningObjective": "Explain selected medicinal-drug and alcohol concepts and the protective purpose of education, without medicine decisions, personal disclosure or actual substances.",
+      "id": "ndv-351-011",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "What is a useful purpose of drug and alcohol education for pupils? Explain why a lesson can teach knowledge and help-seeking without asking anyone to try a substance or disclose family use.",
+      "answer": "It can build accurate understanding of effects/risks and support asking a responsible adult for help with unsafe or uncertain situations. Learning does not require trying substances or revealing private family information.",
+      "explanation": "This interprets the source’s education/protective-choice focus, not a real disclosure exercise or an evaluation of a named family.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Gives an accurate knowledge/protective purpose. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Includes appropriate help-seeking rather than trying substances. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Separates learning from private personal/family disclosure. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-phe-primary4-revised-2025",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Drug/alcohol education concepts",
+      "learningObjective": "Explain selected medicinal-drug and alcohol concepts and the protective purpose of education, without medicine decisions, personal disclosure or actual substances.",
+      "id": "ndv-351-012",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional story, a child finds an unidentified pill-shaped item. Another child suggests tasting it to decide whether it is medicine or a sweet. State a safer decision and explain why appearance is not enough.",
+      "answer": "Do not taste or take it, and tell a responsible adult. Medicines can resemble sweets, so shape/colour is not a reliable way for a child to decide what it is.",
+      "explanation": "The item exists only in a story; there is no real pill, identification exercise, handling, disposal or poisoning-treatment instruction.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects tasting/taking the unidentified item. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Seeks responsible adult help. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that medicines and sweets can look alike. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cdc-medicine-safety-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Limited stimulant/depressant classification",
+      "learningObjective": "Classify caffeine as a stimulant and alcohol as a depressant from checked concepts, distinguishing pharmacological grouping from mood/safety and from an exhaustive taxonomy of medicines.",
+      "id": "ndv-351-013",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Classify the named substances caffeine and alcohol using the selected headings stimulant and depressant. Explain the main nervous-system distinction behind those headings.",
+      "answer": "Caffeine is classified as a stimulant; alcohol as a depressant. The headings describe speeding up versus slowing down central nervous-system activity in the selected examples.",
+      "explanation": "This is a limited educational classification, not a complete account of every effect, dose or drug category. No substance is consumed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Classifies caffeine as a stimulant. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Classifies alcohol as a depressant. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Explains the speed-up/slow-down distinction. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "australian-drug-groups-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open.",
+      "supportingSourceIds": [
+        "nlm-caffeine-classification-reference-351",
+        "nlm-alcohol-classification-reference-351"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Limited stimulant/depressant classification",
+      "learningObjective": "Classify caffeine as a stimulant and alcohol as a depressant from checked concepts, distinguishing pharmacological grouping from mood/safety and from an exhaustive taxonomy of medicines.",
+      "id": "ndv-351-014",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says the term depressant must mean a substance always makes every person feel sad. Explain why this is not the meaning used when alcohol is classified as a depressant.",
+      "answer": "Here the term refers to slowing central nervous-system activity, not a promise of one emotion in every person. Mood alone is not the classification rule.",
+      "explanation": "The source explicitly distinguishes depressant action from necessarily feeling depressed; this is not a mental-health diagnosis.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the nervous-system meaning. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects one universal emotion as the definition/classification rule. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "australian-drug-groups-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open.",
+      "supportingSourceIds": [
+        "nlm-alcohol-classification-reference-351"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Limited stimulant/depressant classification",
+      "learningObjective": "Classify caffeine as a stimulant and alcohol as a depressant from checked concepts, distinguishing pharmacological grouping from mood/safety and from an exhaustive taxonomy of medicines.",
+      "id": "ndv-351-015",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A caffeine fact card calls it a stimulant. An advertisement changes that into “therefore every pupil should use caffeine to study”. Does the classification prove the advertisement’s recommendation? Explain without proposing a quantity or product.",
+      "answer": "No. A pharmacological category describes an effect; it does not establish suitability, safety or a need for every pupil to use the substance.",
+      "explanation": "The task separates classification from endorsement, without energy-drink brands, consumption, dosage or a clinical recommendation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the inference that every pupil should use it. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes effect classification from individual suitability/safety. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nlm-caffeine-classification-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Physical and Health Education",
+      "level": "Primary 4",
+      "specificationId": "nerdc-phe-primary4-revised-2025",
+      "topic": "Drug and alcohol education",
+      "subtopic": "Limited stimulant/depressant classification",
+      "learningObjective": "Classify caffeine as a stimulant and alcohol as a depressant from checked concepts, distinguishing pharmacological grouping from mood/safety and from an exhaustive taxonomy of medicines.",
+      "id": "ndv-351-016",
+      "objectiveId": "nerdc-phe-primary4-351-p30-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A two-column lesson chart contains only stimulant and depressant examples. A pupil says this proves that every medicine must fit exactly one of the two columns. Explain why the chart cannot support that claim, and what to do with a medicine whose effects are not supplied.",
+      "answer": "The chart is a selected subset, not an exhaustive or always-exclusive classification of all drugs. Without relevant information, do not guess the medicine’s class or change its use; seek appropriate information through a responsible adult or qualified professional.",
+      "explanation": "The primary reference recognises more grouping approaches and overlapping effects; no additional real substances, medicine decisions or complete pharmacology taxonomy are assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the two-column chart as incomplete/non-exhaustive. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Rejects automatic exactly-one classification. Accept equivalent accurate age-appropriate wording."
+        },
+        {
+          "marks": 1,
+          "description": "Avoids guessing/changing use and seeks appropriate information. Accept equivalent accurate age-appropriate wording."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "australian-drug-groups-reference-351",
+      "contentProvenance": "Original fictional paper scenario, model answer and practice rubric; no copied exam/source prose or illustration, patient/pupil data, actual materials/substances or historical-paper claim. Selected concepts attributed in registry and reconciliation351.",
+      "contentReviewNote": "Independent Primary4 PHE, clinical/pharmacology terminology, safeguarding/inclusion and rubric review pending. Written educational knowledge only; no first-aid treatment, PPE use, real kit/package inspection, medicine identification/tasting/sharing, caffeine/alcohol consumption, medication/dose advice, clinical diagnosis, pupil performance or personal disclosure. Foreign law, contact numbers, adult quantities/doses and school/cohort adoption not inferred. Full clinical/taxonomic ranges, resources/delivery and1000 target remain open."
+    }
+  ]
+}
