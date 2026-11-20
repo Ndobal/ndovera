@@ -1,0 +1,39 @@
+name: Question-bank validation
+on:
+  push:
+    branches:
+      - "question-bank/**"
+    paths:
+      - "question-data/**"
+      - ".github/workflows/question-bank-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run validator tests
+        run: python -m unittest discover -s question-data/tests -v
+      - name: Strict-new audit and report generation
+        run: python question-data/tools/audit.py --write --strict-new
+      - name: Diff whitespace check
+        run: git diff --check
+      - name: Commit regenerated audit reports on isolated candidate branch
+        if: startsWith(github.ref_name, 'question-bank/validation-')
+        run: |
+          if ! git diff --quiet -- question-data/audits/completion-dashboard.md question-data/audits/completion-dashboard.csv question-data/audits/completion-dashboard.json question-data/audits/syllabus-coverage.csv; then
+            git config user.name "Ndovera Question Bank CI"
+            git config user.email "noreply@ndovera.local"
+            git add question-data/audits/completion-dashboard.md question-data/audits/completion-dashboard.csv question-data/audits/completion-dashboard.json question-data/audits/syllabus-coverage.csv
+            git commit -m "Regenerate question-bank audit reports after validation"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
