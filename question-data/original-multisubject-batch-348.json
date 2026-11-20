@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 Pre-vocational Studies visual recognition and restricted practical tasks — batch348",
+  "questionCount": 7,
+  "note": "Four diagram-dependent written drafts and three conditional actual-performance drafts. All protocols unfilled; no pupil performance or actual resource checks occurred. Small resource/practical batch, not a quota-driven expansion. All academic review pending.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Schematic tool recognition",
+      "learningObjective": "Identify a hand trowel and watering can from original labelled line drawings using visible features; no real-object, brand or full-category recognition claimed.",
+      "id": "ndv-348-001",
+      "objectiveId": "nerdc-prevoc-primary4-348-p17-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Look at drawings A and B on the supplied object sheet. Name each garden tool and give one visible feature that helped you identify each.",
+      "answer": "A is a hand trowel: its small tapered scoop/blade joins a short handle. B is a watering can: it has a container, carrying handle and projecting spout ending in a perforated rose.",
+      "explanation": "Identification uses the actual supplied drawing, not an already named word card. This is only a two-tool schematic subset.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names A as a hand trowel or accurate equivalent. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a visible A feature supporting that name. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Names B as a watering can. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies a visible B feature supporting that name. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresVisualStimulus": true,
+      "stimulusAssets": [
+        "stimuli/batch-348/object-diagrams.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-348/reference-cards.md",
+      "deliveryNote": "Show the pupil-facing diagram sheet at readable size without the examiner key. For001/002 do not read object names aloud. No identical visual-recognition claim for an adapted textual alternative; record and review adaptations. App/print/accessibility calibration pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Home Economics Tools and Equipment",
+      "subtopic": "Schematic household-tool recognition",
+      "learningObjective": "Identify selected Home Economics utensils/equipment from original labelled drawings, with picture recognition distinct from actual tool handling.",
+      "id": "ndv-348-002",
+      "objectiveId": "nerdc-prevoc-primary4-348-p24-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Study the three household-tool drawings C, D and E. Name each one. Which of these drawings belongs with laundry equipment rather than cooking utensils?",
+      "answer": "C is a spoon; D is a cooking pot; E is an iron. E belongs with laundry equipment.",
+      "explanation": "The drawing supports selected picture recognition; it does not show safe handling, material, temperature or working condition.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names C as a spoon. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Names D as a cooking pot. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Names E as an iron. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Places E with laundry equipment. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresVisualStimulus": true,
+      "stimulusAssets": [
+        "stimuli/batch-348/object-diagrams.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-348/reference-cards.md",
+      "deliveryNote": "Show the pupil-facing diagram sheet at readable size without the examiner key. For001/002 do not read object names aloud. No identical visual-recognition claim for an adapted textual alternative; record and review adaptations. App/print/accessibility calibration pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Agricultural Tools and Equipment",
+      "subtopic": "Tool and task matching",
+      "learningObjective": "Explain selected hand-trowel and watering-can uses without claiming practical operation or crop-specific prescriptions.",
+      "id": "ndv-348-003",
+      "objectiveId": "nerdc-prevoc-primary4-347-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Use the picture sheet to choose one letter for each adult gardener’s job: move soil to make a small planting hole in a pot; supply water near a plant. Explain how the pictured part of each selected tool suits its job. Do not operate a tool.",
+      "answer": "A suits making the small planting hole because its scoop/blade moves soil. B suits supplying water because its container and spout allow pouring it near the plant.",
+      "explanation": "This integrates picture-feature and function matching. No amount of water, gardening operation or crop prescription is assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects A for the small hole. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Connects its blade/scoop with moving soil. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Selects B for supplying water. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Connects its container/spout with pouring. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "gardena-trowel-reference-347",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresVisualStimulus": true,
+      "stimulusAssets": [
+        "stimuli/batch-348/object-diagrams.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-348/reference-cards.md",
+      "deliveryNote": "Show the pupil-facing diagram sheet at readable size without the examiner key. For001/002 do not read object names aloud. No identical visual-recognition claim for an adapted textual alternative; record and review adaptations. App/print/accessibility calibration pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Precautions before handling",
+      "learningObjective": "Outline selected safe decisions about damaged tools, unsuitable equipment and obstructions; no practical handling.",
+      "id": "ndv-348-004",
+      "objectiveId": "nerdc-prevoc-primary4-347-p25-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A caption under drawing E says, “This item is cool and safe for a pupil to touch.” Does the picture alone prove that caption? Explain one fact the picture cannot establish and state what should happen before any real classroom handling is considered.",
+      "answer": "No. A line drawing cannot establish the actual iron’s temperature, electrical state or condition. A responsible teacher must check the real item, correct instructions and suitability; the pupil must not test it by touching it.",
+      "explanation": "A recognisable object image is not evidence of its current physical safety. The practical tasks in this batch do not include an iron.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the safety conclusion from a drawing alone. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Names an actual-state fact the picture cannot establish. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Requires responsible adult suitability checks, without pupil touch-testing. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresVisualStimulus": true,
+      "stimulusAssets": [
+        "stimuli/batch-348/object-diagrams.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-348/reference-cards.md",
+      "deliveryNote": "Show the pupil-facing diagram sheet at readable size without the examiner key. For001/002 do not read object names aloud. No identical visual-recognition claim for an adapted textual alternative; record and review adaptations. App/print/accessibility calibration pending."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Care of Personal Clothing",
+      "subtopic": "Observed folding and storage",
+      "learningObjective": "Actually fold and store a teacher-checked clean fully dry garment on a clean safe surface under an unfilled observed-performance protocol; no washing, ironing or mending assessed.",
+      "id": "ndv-348-005",
+      "objectiveId": "nerdc-prevoc-primary4-348-p21-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Only after your teacher has completed the garment setup checks: use the clean, fully dry garment supplied. On the clean work surface, lay it out, fold it into a manageable shape, and place it neatly in the marked clean dry storage space. Your teacher must watch your own actions; writing the steps is not this task.",
+      "answer": "Observed model: the pupil lays the garment out without putting it on the floor, aligns/folds it into a manageable shape without unnecessary crumpling, and places it in the designated clean dry storage area. Equivalent suitable folds are acceptable.",
+      "explanation": "The actual folding/storage actions are the assessed care subset. The garment is already clean and dry; this does not establish washing, ironing, mending or general laundry competence.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually lays out the garment on the provided clean surface while keeping it off the floor. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually folds it into a manageable shape suitable for the marked storage. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually places the folded garment neatly in the designated clean dry area. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "aci-laundry-reference-347",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-348/performance-protocol.json",
+      "deliveryNote": "Actual teacher-checked objects and direct observation required. Do not substitute pictures, a written plan, verbal promises or a group result. Blocked/inaccessible/unsafe setup is not a pupil failure; withhold task and record an accommodation/review need. No completed evidence exists."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Observed rounded-spoon handling",
+      "learningObjective": "Actually pick up, control and put down a teacher-checked smooth rounded spoon over an empty unbreakable cold bowl; no food, liquid, heat, sharp or powered tool used.",
+      "id": "ndv-348-006",
+      "objectiveId": "nerdc-prevoc-primary4-348-p25-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "After the teacher’s spoon-handling checks, pick up the smooth rounded spoon supplied, hold its handle, lower its bowl into the empty unbreakable cold bowl, make one controlled stirring movement, and put the spoon on the marked tray. Nothing is to be eaten, poured, heated or switched on. The teacher must observe you doing this.",
+      "answer": "Observed model: the pupil grasps and controls the spoon by its handle, moves its bowl inside the empty bowl without swinging it towards anyone, and puts it down in the marked tray. Hand choice and a suitable adapted grip may vary.",
+      "explanation": "This is an actual simple utensil-handling task with an empty bowl, not cooking competence, stirring real food or proof of suitability for knives/electric equipment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually picks up and retains a controlled handle grip, allowing a suitable adaptation. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually makes the controlled movement inside the empty bowl without swinging towards people. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually puts the spoon down in the marked tray rather than dropping or throwing it. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "nerdc-prevoc-primary4-revised-2025",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-348/performance-protocol.json",
+      "deliveryNote": "Actual teacher-checked objects and direct observation required. Do not substitute pictures, a written plan, verbal promises or a group result. Blocked/inaccessible/unsafe setup is not a pupil failure; withhold task and record an accommodation/review need. No completed evidence exists."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-prevoc-primary4-revised-2025",
+      "topic": "Safety in Handling Home Economics Tools and Equipment",
+      "subtopic": "Observed limited utensil care",
+      "learningObjective": "Actually dry a teacher-checked clean rounded spoon bearing only clean cool water and store it appropriately; no food-soil cleaning, sanitation, chemical treatment or repair assessed.",
+      "id": "ndv-348-007",
+      "objectiveId": "nerdc-prevoc-primary4-348-p25-o5-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "When your teacher has checked the care setup, you will receive a clean rounded spoon with only a little clean cool water on it, a suitable clean soft dry cloth and a marked clean dry storage tray. Dry the spoon gently, check whether any visible water remains, and place it in the tray. The teacher must observe your own care actions. Do not add a cleaning product or repair anything.",
+      "answer": "Observed model: the pupil uses the supplied soft dry cloth gently over the spoon, checks its bowl and handle for remaining visible water and dries any remaining droplets, then places it in the clean dry tray. This is limited drying/storage care only.",
+      "explanation": "The teacher prepares the clean-water-only spoon and verifies the actual material’s care directions. The task does not assess removal of food dirt, disinfection, sterility, chemical polishing, repair or all-tool maintenance.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually dries the spoon gently with the supplied suitable cloth. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually checks for visible water and removes any remaining droplets before storing. Accept equivalent accurate wording or an equally effective permitted physical method."
+        },
+        {
+          "marks": 1,
+          "description": "Actually stores it in the designated clean dry tray. Accept equivalent accurate wording or an equally effective permitted physical method."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "robertwelch-cutlery-care-reference-348",
+      "contentProvenance": "Original generic line artwork, assessment prompt, model and practice rubric; no copied source image, manufacturer model, care symbol or examination item. Source concepts attributed; no pupil performance or real-object inspection during authoring.",
+      "contentReviewNote": "Independent Primary4 terminology, inclusion/accessibility, object/context suitability and rubric review pending. Schematic recognition is not actual-object recognition. Conditional practical tasks are authored assessments, not completed performance evidence; model checks and observation are mandatory before delivery. No field, food, cosmetic, sharp/hot/powered tool operation, chemical use, repairs or source-video delivery. Full scope/depth/adoption/terms and target remain unmet.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-348/performance-protocol.json",
+      "deliveryNote": "Actual teacher-checked objects and direct observation required. Do not substitute pictures, a written plan, verbal promises or a group result. Blocked/inaccessible/unsafe setup is not a pupil failure; withhold task and record an accommodation/review need. No completed evidence exists."
+    }
+  ]
+}

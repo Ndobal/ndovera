@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+<title id="title">Object diagrams A to E</title><desc id="desc">Five original black line object diagrams in separately lettered panels. Names and marking key are supplied separately to the examiner. Not to scale; no operating instructions.</desc>
+<rect width="1000" height="690" fill="#ffffff"/>
+<g fill="none" stroke="#16253a" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+<rect x="20" y="70" width="300" height="280" rx="8"/><rect x="350" y="70" width="300" height="280" rx="8"/><rect x="680" y="70" width="300" height="280" rx="8"/>
+<rect x="170" y="385" width="300" height="280" rx="8"/><rect x="530" y="385" width="300" height="280" rx="8"/>
+<!-- A: original generic short handle, shaft and tapered concave soil blade -->
+<rect x="150" y="123" width="40" height="88" rx="13"/><circle cx="170" cy="140" r="5"/><path d="M164 211 L164 232 L127 246 Q126 287 170 327 Q214 287 213 246 L176 232 L176 211"/><path d="M170 243 L170 309"/>
+<!-- B: original can with filling opening, loop handle, projecting spout and perforated rose -->
+<path d="M442 191 Q490 180 538 191 L534 298 Q489 315 447 298 Z"/><ellipse cx="490" cy="191" rx="48" ry="11"/>
+<path d="M450 205 C386 168 382 279 445 267 M447 217 C409 191 407 258 445 253"/>
+<path d="M535 249 L590 193 L603 201 L537 280"/><path d="M580 184 L599 172 L621 209 L602 220 Z"/>
+<circle cx="600" cy="187" r="1.5"/><circle cx="606" cy="197" r="1.5"/><circle cx="612" cy="207" r="1.5"/>
+<!-- C: original rounded spoon bowl and handle -->
+<path d="M823 223 L817 309 Q817 326 831 326 Q845 326 845 309 L839 223 C867 212 875 171 863 145 C852 121 810 121 799 145 C787 171 795 212 823 223 Z"/><path d="M814 151 Q830 138 847 151 M807 166 Q803 196 820 207"/>
+<!-- D: original pot with rim, curved base and two side handles -->
+<ellipse cx="320" cy="485" rx="85" ry="20"/><path d="M235 485 L243 591 Q320 621 397 591 L405 485"/><path d="M236 510 L207 510 Q189 510 189 528 Q189 545 210 545 L240 545 M404 510 L433 510 Q451 510 451 528 Q451 545 430 545 L400 545"/><path d="M253 492 Q320 508 387 492"/>
+<!-- E: original side-view iron, raised handle and soleplate; cord is generic and unconnected -->
+<path d="M566 600 Q581 561 642 539 L729 539 Q758 559 772 600 Z"/><path d="M566 600 L773 600 L773 613 L566 613 Z"/><path d="M643 539 L651 493 Q654 482 666 482 L716 482 Q729 482 730 496 L729 539 M660 532 L666 501 L712 501 L713 532 Z"/><path d="M733 549 Q792 528 793 571 Q793 595 808 589"/>
+</g>
+<g fill="#16253a" font-family="sans-serif" font-weight="bold"><text x="30" y="43" font-size="25">Object diagrams — A to E</text><text x="40" y="105" font-size="26">A</text><text x="370" y="105" font-size="26">B</text><text x="700" y="105" font-size="26">C</text><text x="190" y="422" font-size="26">D</text><text x="550" y="422" font-size="26">E</text></g>
+</svg>

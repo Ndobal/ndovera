@@ -1,0 +1,36 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-348-005",
+    "ndv-348-006",
+    "ndv-348-007"
+  ],
+  "scope": "Original conditional assessment design only; no classroom, model inspection or pupil performance completed. Not an operating manual or universal permission.",
+  "preconditions": [
+    "Independent Primary4 subject, safety, inclusion/accessibility and rubric review before delivery. Responsible teacher checks local policy, pupil needs and suitable adaptation; no speed or hand-preference requirement.",
+    "Use an uncluttered stable clean work surface and direct adult observation. Stop for discomfort, uncertainty, damage, unsuitable material or unsafe setup. Withhold and record setup/accessibility issues rather than scoring them as pupil failure.",
+    "005: teacher supplies a clean, fully dry, lightweight ordinary foldable garment with no pins, broken fasteners, sharp decoration, entanglement features or sensitive personal association. Check actual care instructions and suitability for folding. Clean dry marked storage space and reachable work area; no washing/ironing/mending or garment worn by the pupil required.",
+    "006: teacher checks actual spoon is smooth, rounded, undamaged, appropriate size/weight and comfortable grip; no fork/knife/sharp part, heat, food, liquid or power. Use empty unbreakable cold bowl and marked stable tray. Adult demonstrates only the permitted controlled motion, without coaching during marked attempt.",
+    "007: teacher checks an actual smooth plain rounded spoon and its material/model care directions permit gentle soft-cloth drying; use clean soft dry lint-free cloth and a clean dry tray. Adult supplies spoon already clean and bearing only a few clean cool-water droplets over a tray. No food soil, biological material, cleaning chemical, abrasive, polish, oil or repairs. Adult handles water preparation and spills; pupil has no water source/container to pour. Spoon is not used for eating.",
+    "Keep diagrams/answers and actual practical resources separate. The SVG or a paper plan cannot substitute for the individual physical actions. A wet or unsuitable garment cannot be substituted. A setup failure stops delivery."
+  ],
+  "evidenceRequirements": [
+    "Examiner directly observes each pupil’s own complete task and records each criterion separately. Verbal plans, promises, a group result, teacher actions or a picture alone do not earn physical-performance marks.",
+    "For007 record the spoon’s compatible material/model directions and actual pre/post condition; evidence is only drying/storage, not cleanliness certification or full maintenance. For005 record garment condition and selected care check, not personal clothing details.",
+    "Use minimal non-sensitive local evidence records; no recording/photo required. Record adaptations and assistance, and distinguish unattempted, setup-blocked and independently observed work. Authoring supplies no completed record and no academic approval."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "independentReviewAndLocalDeliveryCleared": null,
+    "actualMaterialModelAndCareDirectionsChecked": null,
+    "setupChecked": null,
+    "pupilAccommodationOrAssistance": null,
+    "observedIndividualActions": null,
+    "criterionMarks": null,
+    "setupBlockedOrStopReason": null
+  },
+  "records": []
+}

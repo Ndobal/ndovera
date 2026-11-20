@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-20",
+  "assets": [
+    {
+      "path": "stimuli/batch-348/object-diagrams.svg",
+      "kind": "original_generic_schematic",
+      "license": "original-content",
+      "sha256": "c0a4ea2d07e2c2a5cccb571a4fe81f3c75aa5d7b36d324119b35a13314ed550b",
+      "limitation": "No authentic manufacturer image, completed model check, real-object recognition or pupil-performance evidence. Generic diagrams are not to scale and are not operating instructions."
+    },
+    {
+      "path": "stimuli/batch-348/reference-cards.md",
+      "kind": "original_delivery_resource",
+      "license": "original-content",
+      "sha256": "fd929ef1386cc3aecd09d9c5914a324128809047d96dc0c7adf1c7852d90b711",
+      "limitation": "No authentic manufacturer image, completed model check, real-object recognition or pupil-performance evidence. Generic diagrams are not to scale and are not operating instructions."
+    },
+    {
+      "path": "stimuli/batch-348/performance-protocol.json",
+      "kind": "original_delivery_resource",
+      "license": "original-content",
+      "sha256": "ed4331d574c3138ed7fa3013df6285c83d2efa4f67b67d58f39ebc339c89b1a9",
+      "limitation": "No authentic manufacturer image, completed model check, real-object recognition or pupil-performance evidence. Generic diagrams are not to scale and are not operating instructions."
+    }
+  ],
+  "referenceIds": [
+    "nerdc-prevoc-primary4-revised-2025",
+    "gardena-trowel-reference-347",
+    "rhs-watering-reference-347",
+    "aci-laundry-reference-347",
+    "robertwelch-cutlery-care-reference-348"
+  ],
+  "visualInspection": "Original SVG parsed and rendered through PyMuPDF; author inspected full1200px preview. A blade/short handle, B container/handle/spout/rose, C rounded spoon, D pot/two handles and E iron/soleplate/raised handle remain in distinct lettered panels; no clipping or object-name answer labels visible. Dark strokes/text on explicit white background. Independent recognition/accessibility calibration pending.",
+  "externalImageReuse": false
+}

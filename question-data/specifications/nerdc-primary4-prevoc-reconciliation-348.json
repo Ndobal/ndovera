@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-prevoc-primary4-revised-2025",
+  "sourceUrl": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/15.pdf",
+  "sourceSha256": "de0782bd928a5cc6fb01c4f3dfc2eda96943c342ce9257f5e78e067b6d99f4d1",
+  "freshRetrievalBytes": 2188329,
+  "pageCount": 26,
+  "readTextPdfPages": [
+    1,
+    3,
+    17,
+    21,
+    24,
+    25
+  ],
+  "visuallyCheckedPdfPages": [
+    17,
+    21,
+    24,
+    25
+  ],
+  "inventoryCountBasis": "Retained346/347 full12-table count44,42 numbered plus2 unnumbered; selected table recheck only.",
+  "freshSupplementaryReferenceChecks": [
+    {
+      "id": "aci-laundry-reference-347",
+      "url": "https://www.cleaninginstitute.org/cleaning-tips/clothes/laundry-basics",
+      "selectedScope": "Step6 fully dry folding/storage; updatedMarch10,2026. No washing/dosing/machine instructions adopted."
+    },
+    {
+      "id": "gardena-trowel-reference-347",
+      "url": "https://www.gardena.com/int/products/soil-ground/garden-tools/comfort-hand-trowel/967096701.html",
+      "selectedScope": "Basic trowel planting/transplanting function; page title8cm/specification8.5cm conflict retained, dimensions excluded. No photo copied or full manual obtained."
+    },
+    {
+      "id": "rhs-watering-reference-347",
+      "url": "https://www.rhs.org.uk/garden-jobs/garden-watering-methods",
+      "selectedScope": "Watering-can precision/spout function, not UK watering quantities/schedules."
+    },
+    {
+      "id": "robertwelch-cutlery-care-reference-348",
+      "kind": "supplementary_primary_manufacturer_reference",
+      "source": "https://www.robertwelch.com/pages/cutlery-product-care",
+      "sourceSections": [
+        "Selected stainless-steel cutlery hand-care paragraphs: gentle non-abrasive cloth and thorough drying."
+      ],
+      "note": "Selected live manufacturer text, not a universal manual or child-suitability approval. Actual spoon material/model must have compatible directions checked before delivery. No source photo/video used. No dishwasher temperatures, proprietary cleaners, abrasive treatments, wood-handle oiling, silver dip, knife care or claims that stainless steel cannot rust adopted. Those sections/claims are not class instructions.",
+      "exam": "NERDC",
+      "subject": "Pre-vocational Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    }
+  ],
+  "newQuestions": 7,
+  "responseModes": {
+    "written": 4,
+    "practical": 3
+  },
+  "newAuthorMappings": 5,
+  "registeredAuthorMappings": 31,
+  "partiallyMappedSourceStatements": 29,
+  "unmappedSourceStatements": 15,
+  "uniqueBankDrafts": 77,
+  "reviewed": 0,
+  "assetManifest": "stimuli/batch-348/source-assets.json",
+  "originalArtwork": "Original five-object SVG not copied/traced from external pictures; no manufacturer name/model or care symbol shown. Names only in examiner key/model answers.",
+  "performanceProtocol": "stimuli/batch-348/performance-protocol.json",
+  "performanceRecords": 0,
+  "actualResourceChecksCompleted": false,
+  "sourceLimits": [
+    "No school/cohort adoption or official terms established. Agriculture/Home Economics remain one composite subject.",
+    "Source25 repair/wash wording not generalised; no powered/sharp equipment or chemicals in practical tasks.",
+    "Robert Welch manufacturer page is not child-suitability approval and its categorical stainless-steel-cannot-rust wording is not adopted. Actual object/material directions remain a delivery precondition.",
+    "005 is folding/storage only,006 empty-bowl handling,007 clean-water drying/storage. These are actual-action assessment designs but no evidence of completed action.",
+    "SVG image recognition is not real-object recognition, diagnosis of object safety, authentic model identification, comprehensive tool categories or independently calibrated accessibility delivery."
+  ],
+  "manualInspection": {
+    "status": "author_inspected_all_questions_models_rubrics_and_rendered_assets_independent_review_pending",
+    "questionsInspected": 7,
+    "visualInspection": "Original SVG parsed and rendered through PyMuPDF; author inspected full1200px preview. A blade/short handle, B container/handle/spout/rose, C rounded spoon, D pot/two handles and E iron/soleplate/raised handle remain in distinct lettered panels; no clipping or object-name answer labels visible. Dark strokes/text on explicit white background. Independent recognition/accessibility calibration pending.",
+    "novelty": "001/002 selected actual schematic recognition;003 visual-feature/function integration;004 image-to-current-safety inference limit;005 actual garment folding/storage;006 actual spoon control;007 actual clean-water drying/storage. Different task modes and outputs, no numerical variants or text-template padding. Prior347 text-description knowledge does not establish the new picture or actual-action constructs.",
+    "boundary": "All actual resource/model/local checks remain prerequisites, not authoring evidence. Three practical task designs do not indicate any completed pupil work or full source competence."
+  },
+  "remainingGaps": "Batch348 adds7 original Primary4 Pre-vocational Studies drafts:4 diagram-dependent written and3 conditional observed folding/spoon-handling/spoon-drying/storage tasks. Original generic five-object SVG supplied with examiner key, hashes and rendering inspection. Picture recognition is a limited two-garden/three-household subset, not real-object/brand/full-tool recognition. Fresh26-page exact September2025 official PDF hash matches347; selected1/3/17/21/24/25 text and17/21/24/25 renders checked;44-statement inventory count inherited346/347, not recounted in full. Inventory348 has29 partially linked source statements through31 author mappings and77 unique bank drafts;15 remain unmapped. New3 actual-performance mappings are conditional draft task designs, not pupil competence: protocol has no records, actual resource/model/context checks and independent class/safety/rubric/accessibility calibration still pending. Garment task only folding/storage; spoon handling only empty unbreakable cold bowl; care only clean-water drying/storage with a compatible smooth rounded spoon/soft cloth. No chemicals, food, heat, sharp/powered tools, washing/ironing/mending, sanitation, oiling or repair. Selected fresh ACI/GARDENA/RHS text and Robert Welch manufacturer drying guidance checked; no full manuals, copied photos/video, universal rust/material claims, brand clearance or school adoption inferred. Actual agricultural enrichment/tool maintenance, cosmetic/bodycare7 and nutrition6 remain unmapped; wider practical range, source charts/videos/teachers’ guide, delivery/adoption/terms/1000 target and independent review remain unmet. Prior spoken protocols unfilled and all legacy holds preserved.",
+  "validation": {
+    "status": "automated_checks_passed_academic_review_pending",
+    "testsPassed": 56,
+    "commands": [
+      "python -m unittest discover -s question-data/tests -v",
+      "python question-data/tools/audit.py --write --strict-new",
+      "git diff --check"
+    ],
+    "newQuestionsPassing": 7,
+    "priorQuestionAuditRecordsUnchanged": 6257,
+    "priorFileChecksumsUnchanged": 382,
+    "priorExceptionCountsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaims": 623,
+    "arithmeticFailures": 0,
+    "newArithmeticClaims": 0,
+    "sourceCompatibilityAndMarkingTotalsChecked": true,
+    "assetsAndEmptyPerformanceProtocolChecked": true,
+    "partialSourceStatements": 29,
+    "authorMappings": 31,
+    "bankValidDrafts": 77,
+    "totals": {
+      "raw": 6264,
+      "validDrafts": 4585,
+      "reviewed": 0
+    },
+    "parentCommit": "93eb45911accfde49e141a18daa4c4b32ae1c46f",
+    "remoteCommitVerification": "Parent recorded here; resulting protected-update commit is independently verified after update, avoiding self-referential commit hash."
+  }
+}
