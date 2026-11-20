@@ -1,0 +1,122 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readTextPdfPages": [
+    1,
+    3,
+    37,
+    38
+  ],
+  "visuallyCheckedPdfPages": [
+    37,
+    38
+  ],
+  "objectiveStatements": 82,
+  "countBasis": "Inventory339 retained; no all-table recount in344.",
+  "partialSourceObjectiveLinks": 71,
+  "uniqueAuthorMappings": 69,
+  "uniqueLinkedValidDrafts": 144,
+  "linkedDraftRowSum": 155,
+  "newQuestions": 18,
+  "written": 17,
+  "practical": 1,
+  "academicReviewStatus": "pending",
+  "supplementarySources": [
+    {
+      "id": "cbn-denominations-reference-344",
+      "kind": "official_selected_currency_reference",
+      "source": "https://www.cbn.gov.ng/currency/legaltender.html",
+      "sourceSections": [
+        "Selected banknote denomination list; checked linked20/50 note pages for source consistency only"
+      ],
+      "note": "Live web text checked20November2026. Eight listed banknote values5/10/20/50/100/200/500/1000 used only as selected denomination evidence; no full coin/current local circulation list, design eligibility, counterfeit authentication or security-feature procedure inferred. Original value-card shapes do not depict real banknotes. Linked50 dimensions conflict with security-features overview (130x78 versus130x72); not assessed.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cbn-financial-concepts-reference-344",
+      "kind": "official_historical_supplementary_concepts",
+      "source": "https://www.cbn.gov.ng/OUT/PUBLICATIONS/REPORTS/RSD/2009/CBN%20BRIEFS%202006-2007%20EDITION.PDF",
+      "documentDate": "2006–2007 edition",
+      "pageCount": 121,
+      "sourceSections": [
+        "PDF1 title; PDF8–10 selected CBN history/currency passages; PDF18 general definition and interrelationships; PDF23–24 selected deposit/finance and capital-market concepts"
+      ],
+      "note": "Web PDF text retrieved; only selected passages read, not full121-page review. Historical supplementary general definitions/history only; not a current curriculum adoption or current regulatory architecture, bank count, insurance limit, capital requirement, listed institution identity, market structure or legal advice. Current class source independently establishes selected topic scope.2022 PDF shell403/web size limit78567043;2017 PDF full web403; indexed fragments not treated as full retrieval or content sources.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "sec-capital-concepts-reference-344",
+      "kind": "regulator_authored_selected_investor_education",
+      "source": "https://sec.gov.ng/our-mandate/development/investor-education/investment-basics/instruments-traded-in-the-capital-market/",
+      "documentDate": "2023-11-13",
+      "sourceSections": [
+        "Article introduction; selected debt and equity concepts and non-guaranteed dividends"
+      ],
+      "note": "Live article read20November2026. Selected simple educational concepts, not personal investment advice, a recommendation to buy, a complete current legal specification or child account eligibility. Do not adopt article risk-free language, universal3–25-year tenor, rights/preferences/derivatives taxonomy, return rankings, legal/payment guarantees or all institutional claims. No actual financial transaction requested.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cbn-history-reference-344",
+      "kind": "official_selected_institutional_and_currency_history",
+      "source": "https://www.cbn.gov.ng/AboutCBN/history.html",
+      "urls": [
+        "https://www.cbn.gov.ng/currency/gallery.html",
+        "https://www.cbn.gov.ng/currency/historycur.html"
+      ],
+      "sourceSections": [
+        "CBN1958 Act versus1July1959 full operations",
+        "Currency gallery1973 decimal naira/kobo and selected historical banknote values"
+      ],
+      "note": "Selected checked anchors only, crosschecked with historical CBN Briefs. Historycur and gallery disagree on republic-related note changes (1962 wording versus republic1963/notes1965); historycur contains questionable dimensions and metric/decimal wording. WACB withdrawal wording also needs fuller primary reconciliation. None of those contested claims assessed, no official erratum claimed. Currency change is not the beginning or whole history of financial services. CBN history page legal framework not treated as full current law.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    }
+  ],
+  "inventory": "nerdc-primary4-scs-objective-inventory-344.json",
+  "sourceIssuesAndLimits": "Batch344 adds18 original Primary4 SCS drafts (17 written,1 conditional actual infographic) through5 unique author mappings, linking7 source statements fromPDF37/38. Inventory344 gives71/82 partial statement links through69 mappings and144 unique class drafts passing automated checks;11 remain unmapped. Shared meaning (4 questions) and operations (7) links repeat across two tables; inventory row sum155 is not155 unique questions. Fresh official class hash matched; selected text/renders read, inventory339 count basis retained. Original practice value cards only assess displayed denomination labels and size/value reasoning, not genuine banknote/coin or counterfeit recognition. Current CBN banknote list, selected history/gallery anchors and SEC2023 concepts checked; historical CBN2006–2007 general definitions/history are supplementary, not current law/institution counts/curriculum adoption. Full2022 PDF shell403/web size limit and2017 PDF403 recorded, no full retrieval claimed. CBN50 dimensions and republic-related currency-history wording conflict; none assessed, no official erratum. SEC risk-free/tenor/return rankings and derivatives taxonomy not adopted. Selected1958 Act/1959 operations/1973 currency anchors do not establish beginning or whole history of finance. Documentary, museum trip, actual banknotes/coin handling, full services/current legal/regulatory/age suitability, infographic/print/accessibility delivery, adoption/terms/1000 target and independent review remain open. Nation characteristics1, drug names/characteristics2 and trafficking8 remain unmapped. No actual learner performance, financial transaction, account data, loan, investment or production import occurred; protocol unfilled. Preserve all earlier safeguarding, clinical, source omissions and delivery gaps.",
+  "manualNoveltyReview": "Earlier173 money,220 money/commerce and223 consumer-finance prompts read to distinguish this batch’s denomination/aggregate, connected-system classification, new-issue funding, debt/equity, non-guaranteed dividend, actual infographic and limited chronology purposes. No cosmetic numerical variants or cross-examination copies intended; global similarity gate still required.",
+  "performanceProtocol": "stimuli/batch-344/performance-protocol.json",
+  "validationStatus": "automated_checks_passed",
+  "assetInspection": "Original value-card SVG parsed and rendered with MuPDF; rendered PNG visually checked for labels, values, size contrast and readable layout. This is an author-side render, not app/print/classroom delivery. SVG hash in asset manifest matches.",
+  "verification": {
+    "testsPassed": 56,
+    "strictNewAuditPassed": true,
+    "added": 18,
+    "corrected": 0,
+    "newHeld": 0,
+    "verifiedTotals": {
+      "raw": 6165,
+      "validDrafts": 4486,
+      "reviewed": 0
+    },
+    "priorQuestionRecordsUnchanged": 6147,
+    "priorFileChecksumsUnchanged": 378,
+    "legacyErrorsAndSimilarityGroupsUnchanged": true,
+    "arithmeticClaimsAdded": 1,
+    "mathematicalVerification": {
+      "explicitArithmeticClaims": 623,
+      "scope": "Exact arithmetic claims, complete binary-gate truth tables and parseable legacy determinants, linear definite integrals and selected cubic derivatives. Not all word problems, programs or solutions can be machine verified.",
+      "failureCount": 0,
+      "logicTables": 2
+    },
+    "partialSourceObjectiveLinks": 71,
+    "uniqueAuthorMappings": 69,
+    "uniqueLinkedValidDrafts": 144,
+    "linkedDraftRowSum": 155,
+    "manualReview": "All18 prompts, models, explanations, marking criteria, source/class/objective compatibility and conceptual purposes inspected. Globally unique new IDs; XML and asset hash valid, MuPDF SVG render visually checked. All17 written plus1 conditional practical; unfilled protocol. Five mappings share two pairs of source statements; unique valid question union144 checked independently from row sum155. No independent academic review, actual classroom delivery or financial transaction claimed."
+  }
+}

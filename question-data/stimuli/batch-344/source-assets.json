@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-20",
+  "assets": [
+    {
+      "path": "stimuli/batch-344/value-cards.svg",
+      "kind": "original_practice_value_labels_not_currency",
+      "license": "original-content",
+      "sha256": "06c289cce6f659ed13c4e32c2f7c5873720856bfc00e432ef735a07608263152",
+      "factualReference": "cbn-denominations-reference-344",
+      "limitation": "Only displayed label values; not physical note design, size, legal tender status authentication or a complete note/coin recognition set."
+    }
+  ]
+}

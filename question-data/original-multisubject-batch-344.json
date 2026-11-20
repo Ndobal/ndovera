@@ -1,0 +1,864 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary 4 money and financial-system practice — batch 344",
+  "questionCount": 18,
+  "note": "18 original drafts:17 written,1 conditional observed infographic. Five unique partial author mappings link seven overlapping source statements; duplicated inventory links do not create additional questions. Original value cards are not currency or banknote authentication. No pupil performance or actual transaction occurred.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Selected banknote values and totals",
+      "learningObjective": "Recall selected checked Nigerian banknote denominations and distinguish a denomination from a total made with several notes.",
+      "id": "ndv-344-001",
+      "objectiveId": "nerdc-scs-primary4-344-recall-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Name three different Nigerian banknote denominations from the checked CBN list. Include the naira unit in each answer.",
+      "answer": "For example, ₦5, ₦100 and ₦500. Other distinct values in the checked list ₦5, ₦10, ₦20, ₦50, ₦100, ₦200, ₦500 and ₦1000 are acceptable.",
+      "explanation": "A denomination is the stated value of one note, not how many notes are held. This selected note-value task does not establish coin recognition or local circulation.",
+      "difficulty": "easy",
+      "cognitiveDemand": "remember",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names one valid banknote value with its unit."
+        },
+        {
+          "marks": 1,
+          "description": "Names a second different valid banknote value with its unit."
+        },
+        {
+          "marks": 1,
+          "description": "Names a third different valid banknote value with its unit."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-denominations-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Selected banknote values and totals",
+      "learningObjective": "Recall selected checked Nigerian banknote denominations and distinguish a denomination from a total made with several notes.",
+      "id": "ndv-344-002",
+      "objectiveId": "nerdc-scs-primary4-344-recall-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional display uses three notes of denomination ₦20. A label says, The total is ₦60, so ₦60 must be a Nigerian banknote denomination. Calculate the total and explain the error in the label.",
+      "answer": "The total is ₦60. It is made from three ₦20 notes; a combined total does not create a ₦60 denomination, and ₦60 is absent from the checked CBN banknote list.",
+      "explanation": "An amount can be represented by several notes even when no one note has that value. No real money is handled.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Calculates the total as ₦60."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes the combined total from one note’s denomination."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly notes that ₦60 is not in the checked banknote list."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-denominations-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording.",
+      "verification": [
+        {
+          "kind": "arithmetic",
+          "expression": "3*20",
+          "expected": "60",
+          "answerValue": "60",
+          "purpose": "Total value of the three fictional ₦20 notes, not proof that a ₦60 note exists."
+        }
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Original value-card identification",
+      "learningObjective": "Read selected denomination values on original practice cards while distinguishing value from card size; this is not authentic banknote recognition.",
+      "id": "ndv-344-003",
+      "objectiveId": "nerdc-scs-primary4-344-identify-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Using the original value-card sheet, give the letters of the cards showing one hundred naira and two hundred naira. Write the numeral value beside each letter.",
+      "answer": "C: ₦100; D: ₦200.",
+      "explanation": "This is reading denomination labels on practice cards. It does not authenticate currency or test recognition of a real banknote design.",
+      "difficulty": "easy",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Matches C to ₦100/one hundred naira."
+        },
+        {
+          "marks": 1,
+          "description": "Matches D to ₦200/two hundred naira."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-denominations-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording.",
+      "stimulusId": "ndv-344-value-cards",
+      "stimulusAssets": [
+        "stimuli/batch-344/value-cards.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-344/value-cards.md",
+      "requiresVisualStimulus": true,
+      "deliveryNote": "Show the readable original labelled value-card sheet. These are simple denomination labels, explicitly not currency or authentic banknote pictures. Render/print/accessibility delivery requires checking; size is arbitrary. No actual learner use has occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Original value-card identification",
+      "learningObjective": "Read selected denomination values on original practice cards while distinguishing value from card size; this is not authentic banknote recognition.",
+      "id": "ndv-344-004",
+      "objectiveId": "nerdc-scs-primary4-344-identify-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "On the supplied value-card sheet, B is a large rectangle and E is a small rectangle. Do they represent different denomination values? Give the value on each and explain what decides your answer.",
+      "answer": "Both represent ₦50. The written denomination, not the size of the practice rectangle, determines their represented value.",
+      "explanation": "Card dimensions were chosen for a conceptual comparison and are not banknote dimensions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Reads both B and E as ₦50."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that equal denomination labels give the same represented value despite different card sizes."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-denominations-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording.",
+      "stimulusId": "ndv-344-value-cards",
+      "stimulusAssets": [
+        "stimuli/batch-344/value-cards.svg"
+      ],
+      "stimulusReferenceSheet": "stimuli/batch-344/value-cards.md",
+      "requiresVisualStimulus": true,
+      "deliveryNote": "Show the readable original labelled value-card sheet. These are simple denomination labels, explicitly not currency or authentic banknote pictures. Render/print/accessibility delivery requires checking; size is arbitrary. No actual learner use has occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Connected institutions, activities and rules",
+      "learningObjective": "Explain a financial system through selected connections among institutions, markets, financial services and rules, rather than banknotes alone.",
+      "id": "ndv-344-005",
+      "objectiveId": "nerdc-scs-primary4-344-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain a financial system to a Primary 4 class using the idea of parts working together. Include one kind of institution and one activity those parts can support.",
+      "answer": "It is a connected arrangement of institutions, markets, services and rules that helps people manage and move funds. A bank is one institution; receiving savings or providing finance is an example of an activity.",
+      "explanation": "An age-appropriate explanation need not reproduce a technical definition. A bank is one part, not the entire system.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains connected parts rather than only physical money."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate financial institution."
+        },
+        {
+          "marks": 1,
+          "description": "Names a suitable financial activity."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Connected institutions, activities and rules",
+      "learningObjective": "Explain a financial system through selected connections among institutions, markets, financial services and rules, rather than banknotes alone.",
+      "id": "ndv-344-006",
+      "objectiveId": "nerdc-scs-primary4-344-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Sort these fictional lesson cards into institution, activity and rule: A bank; Receiving a deposit; An agreed requirement to keep accurate transaction records. Explain one link between the three.",
+      "answer": "Institution: a bank. Activity: receiving a deposit. Rule: keeping accurate transaction records. The institution carries out the activity under arrangements that require records of it.",
+      "explanation": "The record requirement is supplied for the fictional case; no particular current Nigerian statute or mandatory account procedure is asserted.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Correctly classifies the bank."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classifies receiving a deposit."
+        },
+        {
+          "marks": 1,
+          "description": "Correctly classifies the supplied record requirement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a coherent relationship between the three."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Connected institutions, activities and rules",
+      "learningObjective": "Explain a financial system through selected connections among institutions, markets, financial services and rules, rather than banknotes alone.",
+      "id": "ndv-344-007",
+      "objectiveId": "nerdc-scs-primary4-344-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says, A financial system is only a pile of naira notes. Use a bank and a capital market as examples to improve this explanation.",
+      "answer": "Notes are one form of money, but the system includes arrangements and organisations that provide services. Banks can receive savings or provide finance, and capital markets help channel funds through securities for longer-term needs.",
+      "explanation": "The source class content explicitly names banking and capital-market operations. This is a broad introductory comparison, not an exhaustive institutional map.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains why physical notes alone are incomplete."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a suitable banking service example."
+        },
+        {
+          "marks": 1,
+          "description": "Uses a suitable capital-market funding example."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Connected institutions, activities and rules",
+      "learningObjective": "Explain a financial system through selected connections among institutions, markets, financial services and rules, rather than banknotes alone.",
+      "id": "ndv-344-008",
+      "objectiveId": "nerdc-scs-primary4-344-meaning-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional diagram, separate boxes say Savers, Bank and Borrowers, but no lines join them. What important idea is missing? Describe two labelled connections that would help explain the financial system.",
+      "answer": "The diagram omits relationships. One connection can show savers placing deposits with a bank; another can show the bank providing finance to borrowers who must repay as agreed.",
+      "explanation": "This simplified model illustrates interrelationships. It does not claim that every deposit is lent out, that a named deposit funds a particular loan, or that these three boxes exhaust the system.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies missing connections/interactions."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the saver–bank deposit connection."
+        },
+        {
+          "marks": 1,
+          "description": "Describes the bank–borrower finance connection."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-009",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional bank lesson, an adult puts money into an existing account and later takes some of that account’s money out. Name the two operations and explain the direction in which the account balance changes, ignoring fees and interest.",
+      "answer": "Putting money into the account is a deposit and increases its balance. Taking money out is a withdrawal and decreases its balance.",
+      "explanation": "This uses a supplied simplified account, not real account-opening instructions or a claim about every product.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Names deposit and its increasing balance direction."
+        },
+        {
+          "marks": 1,
+          "description": "Names withdrawal and its decreasing balance direction."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-010",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two story cards describe an adult receiving funds. On A the funds are a gift; on B a lender provides a loan that the adult agrees to repay. Which card shows borrowing, and what important obligation distinguishes it from the gift?",
+      "answer": "B shows borrowing. The borrower must repay according to the agreement; the described gift has no repayment requirement.",
+      "explanation": "This tests the supplied relationship. No loan is recommended, and interest, eligibility and a full legal contract are outside the question.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Selects B as borrowing."
+        },
+        {
+          "marks": 1,
+          "description": "States the repayment obligation."
+        },
+        {
+          "marks": 1,
+          "description": "Contrasts the described gift’s lack of that repayment obligation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-011",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A story describes a company raising funds for a long-term project by issuing securities to investors. Another pupil calls this a vegetable-market operation because both use the word market. Identify the relevant financial operation and explain why that comparison is misleading.",
+      "answer": "The company is raising funds through the capital market. The objects and purpose are financial securities and longer-term funding, rather than vegetables sold for consumption.",
+      "explanation": "The example is not a suggestion to invest and does not claim that all long-term finance comes from one route.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a capital-market funding operation."
+        },
+        {
+          "marks": 1,
+          "description": "Connects it to securities or longer-term funds."
+        },
+        {
+          "marks": 1,
+          "description": "Distinguishes it from the physical-goods example."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sec-capital-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-012",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional company issues ordinary shares to raise funds. An investor buys some of those newly issued shares. What does the investor obtain, and how can this transaction help the company’s project?",
+      "answer": "The investor obtains a part-ownership interest in the company. The new issue raises funds that the company can use for its project.",
+      "explanation": "The question specifies a new issue; it does not incorrectly assume every later investor-to-investor trade sends fresh funds to the company. No return or management control is guaranteed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the part-ownership interest."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that this new issue can raise funds for the company."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sec-capital-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-013",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional company offers a bond described as a borrowing agreement with repayment terms. A pupil says that buying this bond must make its buyer an owner of the company. Explain the mistake using the relationship described.",
+      "answer": "The described bond makes the company a borrower and the buyer a lender/creditor. That debt relationship does not itself give the buyer an ownership share in the company.",
+      "explanation": "This is a simple debt/equity distinction, not legal advice or an assurance that a bond is risk-free or will be repaid.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a borrower–lender relationship."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the described debt does not itself create company ownership."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sec-capital-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-014",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An imaginary club’s finance poster says, Ordinary shares guarantee a dividend every month. Correct the claim and state one reason the word guarantee is misleading.",
+      "answer": "Ordinary shares do not guarantee a monthly dividend. A company may or may not declare a dividend, so ownership alone does not promise that payment or schedule.",
+      "explanation": "This selected SEC concept qualifies the payment claim without predicting investment outcomes or recommending a product.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Replaces the monthly guarantee with a qualified accurate statement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that a dividend may not be declared."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "sec-capital-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "id": "ndv-344-015",
+      "objectiveId": "nerdc-scs-primary4-344-operations-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Actually create a simple classroom infographic showing three selected financial operations: placing savings in a bank, borrowing with an obligation to repay, and raising longer-term project funds through a capital market. Use labelled shapes or pictures and arrows, with brief captions. The examiner must see your own completed work. Use fictional examples and no account details or real transactions.",
+      "answer": "Observable work has three intelligible parts, labelled deposit/saving, borrowing with repayment, and capital-market funding for a longer-term project. Captions/arrows explain at least one relationship rather than only decorating the page.",
+      "explanation": "The source expressly includes creating infographics. This conditional task assesses actual original classroom work under an unfilled protocol, not a plan alone, complete market competence or financial advice.",
+      "difficulty": "standard",
+      "cognitiveDemand": "create",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually depicts a suitable bank savings/deposit operation."
+        },
+        {
+          "marks": 1,
+          "description": "Actually depicts borrowing and an obligation to repay."
+        },
+        {
+          "marks": 1,
+          "description": "Actually depicts a capital-market funding operation for a longer-term project."
+        },
+        {
+          "marks": 1,
+          "description": "Uses intelligible labels/captions/arrows to explain a relationship."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "cbn-financial-concepts-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording.",
+      "requiresObservedPerformance": true,
+      "evidenceProtocol": "stimuli/batch-344/performance-protocol.json",
+      "performanceNote": "Examiner must see the pupil’s actual infographic and own contribution, not just a written plan or group attendance. Protocol unfilled; no pupil performance occurred."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected dated banking and currency milestones",
+      "learningObjective": "Give a limited account of checked CBN1958/1959 and decimal-currency1973 milestones while distinguishing institutional history, currency change and full financial-system history.",
+      "id": "ndv-344-016",
+      "objectiveId": "nerdc-scs-primary4-344-history-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Put these selected milestones in time order and write a short account connecting them: introduction of decimal naira/kobo in 1973; the Central Bank Act of 1958; CBN full operations beginning on 1 July 1959. Do not say that these three events are the whole history of finance in Nigeria.",
+      "answer": "First came the 1958 Act, then CBN full operations began on 1 July 1959, and decimal naira/kobo was introduced in 1973. The law/operations concern an institution; 1973 concerns the currency units used. These are selected milestones, not the whole financial-system history.",
+      "explanation": "The anchors are crosschecked against CBN’s own history/gallery and historical Briefs. Dates for contested republic-related note changes and current legal requirements are not assessed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 4,
+      "maxMarks": 4,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Places the 1958 Act first."
+        },
+        {
+          "marks": 1,
+          "description": "Places full operations on 1 July 1959 next."
+        },
+        {
+          "marks": 1,
+          "description": "Places the 1973 currency change last."
+        },
+        {
+          "marks": 1,
+          "description": "Explains that the institutional and currency milestones concern different aspects."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-history-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected dated banking and currency milestones",
+      "learningObjective": "Give a limited account of checked CBN1958/1959 and decimal-currency1973 milestones while distinguishing institutional history, currency change and full financial-system history.",
+      "id": "ndv-344-017",
+      "objectiveId": "nerdc-scs-primary4-344-history-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A historical display says that 50 kobo and ₦1 banknotes were among the notes introduced in 1973. A pupil copies that list as a complete list of today’s banknote denominations. Explain why the copy is unreliable and name one listed current banknote value that is absent from that historical pair.",
+      "answer": "The display describes one historical issue, not a complete present-day list. A value such as ₦100, ₦200, ₦500 or ₦1000 is in the checked current CBN list and absent from the pair.",
+      "explanation": "Do not infer a historical note’s present legal status from this task; no such status is established. Current value evidence is the separately registered CBN Legal Tender page.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes the dated historical issue from a current complete list."
+        },
+        {
+          "marks": 1,
+          "description": "Names an appropriate checked present list value absent from the pair."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-history-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected dated banking and currency milestones",
+      "learningObjective": "Give a limited account of checked CBN1958/1959 and decimal-currency1973 milestones while distinguishing institutional history, currency change and full financial-system history.",
+      "id": "ndv-344-018",
+      "objectiveId": "nerdc-scs-primary4-344-history-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two captions are proposed for a class history board: A, Nigeria’s financial system began only when the naira was introduced in 1973; B, The 1973 currency change was one milestone in a longer history that included CBN operations from 1959. Choose the better caption and explain the problem with the other.",
+      "answer": "B is better. A treats one change of currency as the beginning of all financial arrangements, even though the checked earlier 1959 CBN milestone already shows an institution operating before 1973.",
+      "explanation": "This is a limited chronology inference, not a claim that the system began in 1959. Earlier arrangements, wider banking/capital-market history and a complete documentary remain outside these drills.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Chooses B."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why a currency change is not the beginning of all financial arrangements."
+        },
+        {
+          "marks": 1,
+          "description": "Uses the earlier 1959 milestone as evidence without saying all finance began then."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "cbn-history-reference-344",
+      "contentProvenance": "Original fictional prompt, model, practice rubric and any supplied value-card artwork. Factual concepts crosschecked against attributed primary references; no copied examination item, banknote image or source prose.",
+      "contentReviewNote": "Independent Primary4 subject, financial-concept, inclusion and rubric review pending. Selected educational scope, not actual banking/investment/borrowing, personal advice, account eligibility, a current legal/regulatory specification, full historical/functional competence, school adoption or official terms. Accept equivalent accurate age-appropriate wording."
+    }
+  ]
+}

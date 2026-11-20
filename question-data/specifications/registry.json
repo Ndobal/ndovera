@@ -4541,6 +4541,66 @@
         "Behaviour rather than appearance; reporting what/where/when and observed information"
       ],
       "note": "Live selected text retrieved. Narrow conceptual crosscheck only: adult UK counter-terrorism guidance is not a Nigerian Primary4 security procedure. Do not transfer UK999, suspect lists, terrorism scenarios, face/concealment cues, investigation, public contact or a duty for pupils to patrol. Safe adult-led tabletop adaptation is author-proposed and independently unreviewed. No legal accusation or reporting service coverage established."
+    },
+    {
+      "id": "cbn-denominations-reference-344",
+      "kind": "official_selected_currency_reference",
+      "source": "https://www.cbn.gov.ng/currency/legaltender.html",
+      "sourceSections": [
+        "Selected banknote denomination list; checked linked20/50 note pages for source consistency only"
+      ],
+      "note": "Live web text checked20November2026. Eight listed banknote values5/10/20/50/100/200/500/1000 used only as selected denomination evidence; no full coin/current local circulation list, design eligibility, counterfeit authentication or security-feature procedure inferred. Original value-card shapes do not depict real banknotes. Linked50 dimensions conflict with security-features overview (130x78 versus130x72); not assessed.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cbn-financial-concepts-reference-344",
+      "kind": "official_historical_supplementary_concepts",
+      "source": "https://www.cbn.gov.ng/OUT/PUBLICATIONS/REPORTS/RSD/2009/CBN%20BRIEFS%202006-2007%20EDITION.PDF",
+      "documentDate": "2006–2007 edition",
+      "pageCount": 121,
+      "sourceSections": [
+        "PDF1 title; PDF8–10 selected CBN history/currency passages; PDF18 general definition and interrelationships; PDF23–24 selected deposit/finance and capital-market concepts"
+      ],
+      "note": "Web PDF text retrieved; only selected passages read, not full121-page review. Historical supplementary general definitions/history only; not a current curriculum adoption or current regulatory architecture, bank count, insurance limit, capital requirement, listed institution identity, market structure or legal advice. Current class source independently establishes selected topic scope.2022 PDF shell403/web size limit78567043;2017 PDF full web403; indexed fragments not treated as full retrieval or content sources.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "sec-capital-concepts-reference-344",
+      "kind": "regulator_authored_selected_investor_education",
+      "source": "https://sec.gov.ng/our-mandate/development/investor-education/investment-basics/instruments-traded-in-the-capital-market/",
+      "documentDate": "2023-11-13",
+      "sourceSections": [
+        "Article introduction; selected debt and equity concepts and non-guaranteed dividends"
+      ],
+      "note": "Live article read20November2026. Selected simple educational concepts, not personal investment advice, a recommendation to buy, a complete current legal specification or child account eligibility. Do not adopt article risk-free language, universal3–25-year tenor, rights/preferences/derivatives taxonomy, return rankings, legal/payment guarantees or all institutional claims. No actual financial transaction requested.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
+    },
+    {
+      "id": "cbn-history-reference-344",
+      "kind": "official_selected_institutional_and_currency_history",
+      "source": "https://www.cbn.gov.ng/AboutCBN/history.html",
+      "urls": [
+        "https://www.cbn.gov.ng/currency/gallery.html",
+        "https://www.cbn.gov.ng/currency/historycur.html"
+      ],
+      "sourceSections": [
+        "CBN1958 Act versus1July1959 full operations",
+        "Currency gallery1973 decimal naira/kobo and selected historical banknote values"
+      ],
+      "note": "Selected checked anchors only, crosschecked with historical CBN Briefs. Historycur and gallery disagree on republic-related note changes (1962 wording versus republic1963/notes1965); historycur contains questionable dimensions and metric/decimal wording. WACB withdrawal wording also needs fuller primary reconciliation. None of those contested claims assessed, no official erratum claimed. Currency change is not the beginning or whole history of financial services. CBN history page legal framework not treated as full current law.",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "retrievedOn": "2026-11-20"
     }
   ],
   "banks": [
@@ -46188,6 +46248,98 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-344-recall-v1",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Selected banknote values and totals",
+      "learningObjective": "Recall selected checked Nigerian banknote denominations and distinguish a denomination from a total made with several notes.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.24 / PDF p.37, performance objective 1; related content/activities/evaluation."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-344-identify-v1",
+      "topic": "The Value of Denominations of Money",
+      "subtopic": "Original value-card identification",
+      "learningObjective": "Read selected denomination values on original practice cards while distinguishing value from card size; this is not authentic banknote recognition.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.24 / PDF p.37, performance objective 2; related content/activities/evaluation."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-344-meaning-v1",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Connected institutions, activities and rules",
+      "learningObjective": "Explain a financial system through selected connections among institutions, markets, financial services and rules, rather than banknotes alone.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.24 / PDF p.37, performance objective 3; related content/activities/evaluation.",
+        "Printed p.25 / PDF p.38, performance objective 1; related content/activities/evaluation."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-344-operations-v1",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected banking and capital-market operations",
+      "learningObjective": "Describe selected saving, borrowing and capital-market operations using simple fictional examples and an actually produced infographic, without real transactions or guaranteed returns.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.24 / PDF p.37, performance objective 4; related content/activities/evaluation.",
+        "Printed p.25 / PDF p.38, performance objective 3; related content/activities/evaluation."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-344-history-v1",
+      "topic": "Introduction to Financial System",
+      "subtopic": "Selected dated banking and currency milestones",
+      "learningObjective": "Give a limited account of checked CBN1958/1959 and decimal-currency1973 milestones while distinguishing institutional history, currency change and full financial-system history.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.25 / PDF p.38, performance objective 2; related content/activities/evaluation."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -46304,6 +46456,7 @@
     "Batch340 adds21 original written Primary4 SCS governance/electoral drafts across9 partial mappings:39/82 source statements now partially linked,61 unique drafts passing automated checks;43 statements unmapped. Fresh class PDF matches339 hash. NASS gazette Electoral Act2026 selected passages checked, section154 repeals2022; section151 permits guidance subject to Act. INEC2026 guidelines full41-page image PDF retrieved, cover/PDF3 only read, not full operational body. FMJ Constitution download explicitly first3 alterations, not full current consolidation; current Constitution/state laws/judicial decisions remain unresolved. Types-of-government overlaps/no-end-tenure wording, party-system definitions, actual current party symbols/pressure groups and drawings remain unmapped. Source stage bullets are not a complete mandatory linear timetable; no all-party fresh registration or electronic-transmission simplification taught. All earlier medical/financial/trafficking/adoption/terms/teacher-guide/actual-performance/full-target gaps retained.",
     "Batch341 adds25 original Primary4 SCS comparative/peer-influence drafts(22 written,2 actual spoken,1 observed fictional role) across10 partial mappings;49/82 statements now linked,86 unique drafts passing automated checks;33 unmapped. Fresh class PDF matches hash; PDF25/28/29/30 read/rendered. Royal institutional text checks monarchy/constitutional coexistence; PEO distinguishes two-party dominance from permission and coalition from merger; selected UK Parliament PDF and NDI parsed concepts checked. Foreign rules, current seat/country classifications, historical stereotypes and deterministic coalition claims not adopted. NDI binary403 despite parsed web access; no full checksum claimed. Traditional/local constitutional roles and tenure limits need deeper primary evidence; selected concepts are not complete classification. Party names/symbols and Nigerian pressure-group identities remain unmapped, actual drawings absent. Source drawings/video/full speech, all prior legal/guideline/medical/financial/trafficking/adoption/terms/teacher-guide/1000-target and independent review gaps retained; oral protocol unfilled. Peer-influence tasks use a narrow checked public-school reference; no foreign school policy, diagnosis, deception/medical excuses or older-age risks adopted. Source song/video not retrieved; adult-partner fictional role protocol unfilled, no real peer coercion or pupil performance.",
     "Batch342 adds22 original Primary4 SCS drafts(20 written,2 conditional practical) across9 partial mappings;58/82 statements linked,108 unique drafts passing automated checks;24 unmapped. Fresh official class PDF hash matched. Selected INEC names/symbols(APC/PDP,LP identity), NLC/NBA own roles, NHS burns(review31March2026), SJA bruises(review28April2025), NHRC protection and NCC112 sources checked. Unmodified logo assets have separate third-party rights and visible labels; no claim of unlabelled recognition, exhaustive party/group list, current leadership or endorsement. Source burn text lacks checked cooling sequence and has torch/touch wording; proposed selected supplementation is not an official erratum. Full road-accident/clinical demonstration, local service reach/direct-agency numbers, NAFDAC contacts, current full Child Rights Act/state implementation and clinical/legal/rubric/local-plan review remain open. Foreign999/111/medicines not adopted. No injury/treatment/live call/pupil artwork/performance occurred; protocol unfilled. All earlier legal/guideline/financial/drug/trafficking/adoption/terms/teacher-guide/full-target gaps retained.",
-    "Batch343 adds18 original Primary4 Social and Citizenship Studies drafts (16 written,1 conditional classroom campaign,1 conditional spoken tabletop report) across6 new partial mappings on PDF35–36. Inventory343 links64/82 source statements through64 author mappings and126 unique valid drafts passing automated checks;18 statements remain unmapped. Fresh official PDF hash matched, selected text/renders checked; inventory339 count basis retained, no all-table recount. Fresh UNODC/WHO2018 selected sections support interactive general skills and qualify sport/information-only efficacy; this historical supplementary reference is not current Nigerian adoption or a validated complete intervention. Wigan own guidance supplies narrow behaviour/fact/where/when principles, not UK numbers, terrorist/appearance cues, pupil patrols or Nigerian legal/service procedures. Tabletop is simulated observation, not real neighbourhood competence; supportive campaign does not prove prevention. Source35 campaign is absent from evaluation column; source36 mixes drug-campaign content with security and uses potentially harmful practical/consequence wording. No official erratum claimed; adult-led, non-graphic, non-blaming adaptations remain independently unreviewed. UN article/NPF/NICE full web opens returned403; indexed summaries not treated as complete documents or additional content sources. Source drug-characteristic stereotypes, finance/CBN and trafficking evidence, nation classification, clinical/local safeguarding and all earlier depth/delivery/adoption/terms/1000-target gaps remain open. No real substances, private disclosures, pupil performance, public campaign, incident, surveillance, report, clinical action or production import occurred; protocol unfilled."
+    "Batch343 adds18 original Primary4 Social and Citizenship Studies drafts (16 written,1 conditional classroom campaign,1 conditional spoken tabletop report) across6 new partial mappings on PDF35–36. Inventory343 links64/82 source statements through64 author mappings and126 unique valid drafts passing automated checks;18 statements remain unmapped. Fresh official PDF hash matched, selected text/renders checked; inventory339 count basis retained, no all-table recount. Fresh UNODC/WHO2018 selected sections support interactive general skills and qualify sport/information-only efficacy; this historical supplementary reference is not current Nigerian adoption or a validated complete intervention. Wigan own guidance supplies narrow behaviour/fact/where/when principles, not UK numbers, terrorist/appearance cues, pupil patrols or Nigerian legal/service procedures. Tabletop is simulated observation, not real neighbourhood competence; supportive campaign does not prove prevention. Source35 campaign is absent from evaluation column; source36 mixes drug-campaign content with security and uses potentially harmful practical/consequence wording. No official erratum claimed; adult-led, non-graphic, non-blaming adaptations remain independently unreviewed. UN article/NPF/NICE full web opens returned403; indexed summaries not treated as complete documents or additional content sources. Source drug-characteristic stereotypes, finance/CBN and trafficking evidence, nation classification, clinical/local safeguarding and all earlier depth/delivery/adoption/terms/1000-target gaps remain open. No real substances, private disclosures, pupil performance, public campaign, incident, surveillance, report, clinical action or production import occurred; protocol unfilled.",
+    "Batch344 adds18 original Primary4 SCS drafts (17 written,1 conditional actual infographic) through5 unique author mappings, linking7 source statements fromPDF37/38. Inventory344 gives71/82 partial statement links through69 mappings and144 unique class drafts passing automated checks;11 remain unmapped. Shared meaning (4 questions) and operations (7) links repeat across two tables; inventory row sum155 is not155 unique questions. Fresh official class hash matched; selected text/renders read, inventory339 count basis retained. Original practice value cards only assess displayed denomination labels and size/value reasoning, not genuine banknote/coin or counterfeit recognition. Current CBN banknote list, selected history/gallery anchors and SEC2023 concepts checked; historical CBN2006–2007 general definitions/history are supplementary, not current law/institution counts/curriculum adoption. Full2022 PDF shell403/web size limit and2017 PDF403 recorded, no full retrieval claimed. CBN50 dimensions and republic-related currency-history wording conflict; none assessed, no official erratum. SEC risk-free/tenor/return rankings and derivatives taxonomy not adopted. Selected1958 Act/1959 operations/1973 currency anchors do not establish beginning or whole history of finance. Documentary, museum trip, actual banknotes/coin handling, full services/current legal/regulatory/age suitability, infographic/print/accessibility delivery, adoption/terms/1000 target and independent review remain open. Nation characteristics1, drug names/characteristics2 and trafficking8 remain unmapped. No actual learner performance, financial transaction, account data, loan, investment or production import occurred; protocol unfilled. Preserve all earlier safeguarding, clinical, source omissions and delivery gaps."
   ]
 }

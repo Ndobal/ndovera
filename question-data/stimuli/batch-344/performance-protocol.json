@@ -1,0 +1,24 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "questionIds": [
+    "ndv-344-015"
+  ],
+  "preconditions": [
+    "Independent Primary4 financial-concept, inclusion and rubric review before classroom delivery.",
+    "Use paper or an offline drawing tool only, fictional labels and no private account information; no account opening, actual money transfer, borrowing or investment.",
+    "Original shapes and captions, not copied logos or currency reproductions; classroom infographic is not personal advice or an official financial-system chart."
+  ],
+  "evidenceRequirements": [
+    "Examiner must see the pupil’s actual infographic and identify the pupil’s own contribution against each criterion. A plan or group attendance alone is not performance."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "setupChecked": null,
+    "observedWorkOrCommunication": null,
+    "criterionMarks": null
+  },
+  "records": []
+}
