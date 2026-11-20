@@ -1,0 +1,1760 @@
+{
+  "schemaVersion": 2,
+  "collection": "Original NERDC Primary4 Social and Citizenship Studies practice — batch339",
+  "questionCount": 40,
+  "note": "40 original drafts:36 written,3 observed practical tasks and1 actual spoken task.30 partial author mappings of82 source objective statements. No performance has occurred; protocols unfilled and all independent academic review pending. Full scope/adoption/terms/1000 target unresolved.",
+  "questions": [
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Leadership",
+      "subtopic": "Leadership qualities",
+      "learningObjective": "Distinguish good and poor leadership qualities using reasons from a school-group situation.",
+      "id": "ndv-339-001",
+      "objectiveId": "nerdc-scs-primary4-339-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two group leaders allocate coloured paper. One asks what each pupil needs and shares it fairly; the other keeps the best pieces for friends. Name a leadership quality shown by each and explain the difference.",
+      "answer": "The first shows fairness and consideration; the second shows favouritism. One considers the whole group, while the other gives friends an unfair advantage.",
+      "explanation": "The judgement rests on described choices, not popularity.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies fairness/consideration in the first action."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies favouritism and explains the unequal treatment."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Leadership",
+      "subtopic": "Leadership qualities",
+      "learningObjective": "Distinguish good and poor leadership qualities using reasons from a school-group situation.",
+      "id": "ndv-339-002",
+      "objectiveId": "nerdc-scs-primary4-339-p14-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A team leader’s first arrangement fails. The leader admits the mistake and invites another suggestion. Explain two good leadership qualities shown.",
+      "answer": "Admitting the mistake shows honesty or accountability. Inviting another suggestion shows willingness to listen and cooperate.",
+      "explanation": "This assesses response to error rather than fair distribution.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains honesty/accountability from the admission."
+        },
+        {
+          "marks": 1,
+          "description": "Explains listening/cooperation from seeking suggestions."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Leadership",
+      "subtopic": "Leadership benefits",
+      "learningObjective": "Explain a benefit of good leadership and connect it to a group outcome.",
+      "id": "ndv-339-003",
+      "objectiveId": "nerdc-scs-primary4-339-p14-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Before a class display is assembled, its leader explains the goal and checks that everyone understands their part. Describe one likely benefit and how the leader’s action produces it.",
+      "answer": "Members can coordinate their work with less confusion because each knows the shared goal and their own part.",
+      "explanation": "Credit the cause-and-effect explanation, not a guarantee that every task will succeed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies a relevant benefit such as coordination or less confusion."
+        },
+        {
+          "marks": 1,
+          "description": "Connects the benefit to clear goals and understood roles."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Leadership",
+      "subtopic": "Group leadership performance",
+      "learningObjective": "Demonstrate fair, cooperative leadership during an actually observed small-group task.",
+      "id": "ndv-339-004",
+      "objectiveId": "nerdc-scs-primary4-339-p14-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Lead an actual small group in arranging reusable paper shapes into a display on a desk. Ask for ideas, agree fair roles and check the group’s progress. The examiner must observe your own leadership; do not submit a written plan instead.",
+      "answer": "Observable evidence: the learner invites ideas, agrees fair roles with the group and checks progress respectfully during the task.",
+      "explanation": "Original low-risk performance task; use teacher-provided paper only. The model describes evidence, not an event that has occurred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually invites and listens to another member’s idea."
+        },
+        {
+          "marks": 1,
+          "description": "Agrees roles fairly rather than excluding members."
+        },
+        {
+          "marks": 1,
+          "description": "Actually checks progress and offers respectful help."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested.",
+      "deliveryNote": "Requires actual individual performance heard/seen by a live examiner or consented recording under the unfilled batch339 protocol. Preparation or a written answer earns no performance credit. No performance occurred during authoring.",
+      "evidenceProtocol": "stimuli/batch-339/performance-protocol.json",
+      "requiresObservedPerformance": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Leadership",
+      "subtopic": "Poor leadership consequences",
+      "learningObjective": "Explain how poor leadership can harm a group’s work or trust.",
+      "id": "ndv-339-005",
+      "objectiveId": "nerdc-scs-primary4-339-p14-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A captain blames others for every mistake and refuses to listen when materials go missing. Explain two different ways this can harm the group.",
+      "answer": "Members may lose trust or stop sharing information. The missing-material problem may remain unsolved because useful explanations are ignored.",
+      "explanation": "Consequences must be linked to the conduct, without claiming that punishment or failure is inevitable.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains damage to trust or willingness to communicate."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a separate practical effect on solving the problem."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Followership",
+      "subtopic": "Followership qualities",
+      "learningObjective": "Explain responsible followership as thoughtful cooperation in a shared task.",
+      "id": "ndv-339-006",
+      "objectiveId": "nerdc-scs-primary4-339-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil notices that the group’s agreed task has been misunderstood. Explain how the pupil can be a responsible follower while helping the leader correct the misunderstanding.",
+      "answer": "The pupil can politely explain the difficulty, ask for clarification and then cooperate with the corrected plan.",
+      "explanation": "Responsible followership includes thought and communication, not silent acceptance of every error.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests respectful clarification or constructive feedback."
+        },
+        {
+          "marks": 1,
+          "description": "Explains cooperating with a clarified shared task."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Followership",
+      "subtopic": "Followership qualities",
+      "learningObjective": "Explain responsible followership as thoughtful cooperation in a shared task.",
+      "id": "ndv-339-007",
+      "objectiveId": "nerdc-scs-primary4-339-p15-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Someone says, “A good follower never asks questions.” Give a better description and one example of a useful question in a group task.",
+      "answer": "A good follower cooperates responsibly and asks respectfully when something is unclear. For example: “Which part should I finish first so it fits the group’s plan?”",
+      "explanation": "The example is about understanding a shared task, not challenging a person for its own sake.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Corrects the claim by including thoughtful, respectful cooperation."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a relevant clarifying question."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Followership",
+      "subtopic": "Followership benefits",
+      "learningObjective": "Explain how responsible followership benefits group work.",
+      "id": "ndv-339-008",
+      "objectiveId": "nerdc-scs-primary4-339-p15-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Members of a project team keep their agreed promises and tell the leader early when they need help. Explain how this benefits both planning and teamwork.",
+      "answer": "Early information allows the plan to be adjusted, and reliable cooperation helps members trust and support each other.",
+      "explanation": "This assesses benefits of followership rather than leader qualities.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects early information with adjusting the plan."
+        },
+        {
+          "marks": 1,
+          "description": "Connects reliability with trust/cooperation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Followership",
+      "subtopic": "Poor followership characteristics",
+      "learningObjective": "Identify poor followership behaviours in a described shared task.",
+      "id": "ndv-339-009",
+      "objectiveId": "nerdc-scs-primary4-339-p15-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a group task, one pupil hides the shared instructions and another refuses to let anyone finish speaking. Identify the poor followership behaviour in each action.",
+      "answer": "Hiding instructions obstructs others or withholds useful information. Interrupting prevents respectful listening and cooperation.",
+      "explanation": "Behaviour is identified from specific actions, without labelling the children permanently bad.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies obstruction/withholding information."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies interruption or failure to listen respectfully."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Followership",
+      "subtopic": "Poor followership consequences",
+      "learningObjective": "Explain consequences of poor followership for the group and its work.",
+      "id": "ndv-339-010",
+      "objectiveId": "nerdc-scs-primary4-339-p15-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A team member agrees to bring a drawing but stays silent after losing it. At assembly time the team discovers the gap. Explain the effect of the silence and a better action the member could have taken.",
+      "answer": "Silence prevents the team from arranging a replacement in time and may weaken trust. The member should have reported the loss promptly and helped agree a replacement.",
+      "explanation": "The assessed consequence concerns followership and responsibility, not the artistic quality of the drawing.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a consequence of the late discovery."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests prompt honest communication linked to a remedy."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Values meaning",
+      "learningObjective": "Explain national values as shared principles that guide responsible living together.",
+      "id": "ndv-339-011",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A poster lists respect, honesty and responsibility under the heading “National values”. Explain what the heading means; do not merely repeat the three words.",
+      "answer": "National values are shared principles that guide how people live and act responsibly together in their country.",
+      "explanation": "This is an authored simple explanation, not a complete legal list or a prescribed quotation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains principles or standards guiding behaviour."
+        },
+        {
+          "marks": 1,
+          "description": "Connects them to shared life in the country."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Values examples",
+      "learningObjective": "Explain selected national values using concrete examples.",
+      "id": "ndv-339-012",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two pupils speak different home languages. During a joint activity each makes an effort to understand the other instead of laughing at unfamiliar words. Explain the national values their actions illustrate.",
+      "answer": "They show respect for diversity and tolerance by treating language differences with consideration. Their efforts to understand each other also show cooperation.",
+      "explanation": "A shared activity does not require families to abandon their own languages.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains respect/tolerance in relation to the language difference."
+        },
+        {
+          "marks": 1,
+          "description": "Explains cooperation through efforts to understand."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Values examples",
+      "learningObjective": "Explain selected national values using concrete examples.",
+      "id": "ndv-339-013",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil returns a borrowed game on the agreed day even though keeping it longer would be enjoyable. Explain how this illustrates self-discipline and social responsibility.",
+      "answer": "Self-discipline means managing the wish to keep playing in order to keep the agreement. Returning the game also respects the next person’s access to a shared resource.",
+      "explanation": "The two values are applied to different features of the action.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains managing one’s own wishes to honour the agreement."
+        },
+        {
+          "marks": 1,
+          "description": "Explains responsibility to other users."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Citizen roles",
+      "learningObjective": "Describe ways citizens can uphold selected national values in everyday conduct.",
+      "id": "ndv-339-014",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A classmate makes a mocking comment about another pupil’s community. Suggest a constructive action that upholds respect for diversity without mocking the classmate in return.",
+      "answer": "Calmly explain that communities deserve respectful treatment, support the pupil being mocked and seek the teacher’s help if the conduct continues.",
+      "explanation": "No learner must disclose their own community or experience of mistreatment.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests a respectful challenge or support for the affected pupil."
+        },
+        {
+          "marks": 1,
+          "description": "Explains how the response upholds dignity/diversity without retaliation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Citizen roles",
+      "learningObjective": "Describe ways citizens can uphold selected national values in everyday conduct.",
+      "id": "ndv-339-015",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Your class promises to care for a shared noticeboard. State two different everyday actions that would help uphold social responsibility under that promise.",
+      "answer": "Keep materials attached properly without damaging the board, and report a loose or damaged part to the teacher so it can be dealt with appropriately.",
+      "explanation": "Accept other feasible actions; this written response is not evidence that the actions were performed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "States a concrete action preventing damage or keeping shared use orderly."
+        },
+        {
+          "marks": 1,
+          "description": "States a separate action reporting a problem or enabling care."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Values benefits",
+      "learningObjective": "Explain benefits of upholding national values for a diverse community.",
+      "id": "ndv-339-016",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain how cooperation and respect for human dignity can each help a community whose members have different customs.",
+      "answer": "Cooperation helps people work on shared needs. Respect for dignity helps each person be treated as valuable, so differences do not become a reason for humiliation or exclusion.",
+      "explanation": "Benefits are reasoned examples; differences need not disappear for people to work together.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains a benefit of cooperation on shared needs."
+        },
+        {
+          "marks": 1,
+          "description": "Explains dignity as a basis for inclusion or respectful treatment."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activities",
+      "subtopic": "Civic activity meaning",
+      "learningObjective": "Explain civic activity through its contribution to shared community life.",
+      "id": "ndv-339-017",
+      "objectiveId": "nerdc-scs-primary4-339-p17-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A group repairs the labels on a shared classroom cupboard with the teacher’s permission so everyone can find materials. Explain why the activity can be described as civic rather than only a private benefit.",
+      "answer": "It contributes to the care and use of a shared resource and benefits people beyond one participant.",
+      "explanation": "The fictional repair is a simple example of civic care, not a claim of actual participation.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects the activity to a shared resource or responsibility."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a benefit to the wider class."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activities",
+      "subtopic": "Civic examples",
+      "learningObjective": "Explain selected civic activities, distinguishing examples from misuse of common resources.",
+      "id": "ndv-339-018",
+      "objectiveId": "nerdc-scs-primary4-339-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "An adult volunteers at a community event and another person scratches names into a public bench. Explain which action contributes to civic life and why the other does not.",
+      "answer": "Volunteering contributes time or effort to a shared purpose. Scratching names damages a resource that other people should be able to use.",
+      "explanation": "This is a comparison of actions, not an instruction to attend an event.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the shared contribution in volunteering."
+        },
+        {
+          "marks": 1,
+          "description": "Explains why damage undermines care for public property."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activities",
+      "subtopic": "Civic examples",
+      "learningObjective": "Explain selected civic activities, distinguishing examples from misuse of common resources.",
+      "id": "ndv-339-019",
+      "objectiveId": "nerdc-scs-primary4-339-p17-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil says that knowing the word “volunteering” proves that the pupil has taken part in a civic activity. Explain what is missing from this claim and give a suitable example of actual participation.",
+      "answer": "Knowing a word is knowledge, not evidence of doing an activity. Actually helping with an agreed supervised classroom service, such as maintaining shared materials, would be participation.",
+      "explanation": "No real voting, tax payment, donation, public cleaning or unsupervised visit is assigned.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Distinguishes knowing from actually doing."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a feasible age-appropriate example of doing."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activities",
+      "subtopic": "Civic participation",
+      "learningObjective": "Participate in an actual supervised age-appropriate action caring for shared classroom property.",
+      "id": "ndv-339-020",
+      "objectiveId": "nerdc-scs-primary4-339-p17-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "With the teacher’s permission, actually help care for a shared classroom noticeboard: straighten loose paper notices using the teacher’s supplied reusable clips and leave the area ready for the next user. The examiner observes your contribution. Do not climb or use pins, tools or damaged fixtures.",
+      "answer": "Evidence is the learner’s observed authorised contribution and care for the shared display, followed by an orderly handover.",
+      "explanation": "Use only a reachable intact display and safe reusable clips; substitute an accessible desktop display if needed. No performance occurred during authoring.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually carries out an authorised useful part of the task."
+        },
+        {
+          "marks": 1,
+          "description": "Handles the supplied materials with care for shared use."
+        },
+        {
+          "marks": 1,
+          "description": "Leaves the work area orderly and ready for the next user."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested.",
+      "deliveryNote": "Requires actual individual performance heard/seen by a live examiner or consented recording under the unfilled batch339 protocol. Preparation or a written answer earns no performance credit. No performance occurred during authoring.",
+      "evidenceProtocol": "stimuli/batch-339/performance-protocol.json",
+      "requiresObservedPerformance": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activity (Volunteerism)",
+      "subtopic": "Volunteer and community benefits",
+      "learningObjective": "Explain distinct benefits of volunteer service to the volunteer and the community without promising a reward.",
+      "id": "ndv-339-021",
+      "objectiveId": "nerdc-scs-primary4-339-p18-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "At an organised school service activity, pupils practise making clear notices while the school gains useful signs. Explain one benefit to the volunteers and one different benefit to the community.",
+      "answer": "Volunteers can learn a communication skill or gain confidence. The school community gains clear signs that help users find their way.",
+      "explanation": "The task separates beneficiaries; it does not claim the activity has occurred.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies learning/confidence as a volunteer benefit."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies useful signs/help for users as a community benefit."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Civic Activity (Volunteerism)",
+      "subtopic": "Volunteer and community benefits",
+      "learningObjective": "Explain distinct benefits of volunteer service to the volunteer and the community without promising a reward.",
+      "id": "ndv-339-022",
+      "objectiveId": "nerdc-scs-primary4-339-p18-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A leaflet promises, “Every volunteer is guaranteed a paid job.” Correct the promise and explain a realistic benefit of volunteering that does not depend on getting a job.",
+      "answer": "A paid job is not guaranteed. Volunteering may help someone learn skills, grow in confidence or feel part of a community while contributing to others.",
+      "explanation": "Source examples describe possible benefits, not contracts or guaranteed rewards.",
+      "difficulty": "standard",
+      "cognitiveDemand": "evaluate",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Rejects the guaranteed-job claim."
+        },
+        {
+          "marks": 1,
+          "description": "Explains a realistic benefit independent of employment."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser meaning",
+      "learningObjective": "Describe a community mobiliser’s purpose of bringing people together around a common goal.",
+      "id": "ndv-339-023",
+      "objectiveId": "nerdc-scs-primary4-339-p19-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A resident brings neighbours together to agree a common goal and organise their contributions to a community project. Describe the resident’s role using the term “community mobiliser”.",
+      "answer": "A community mobiliser helps people come together and organise their efforts towards a shared community goal.",
+      "explanation": "The role is about collective participation, not simply holding a title.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains bringing people together."
+        },
+        {
+          "marks": 1,
+          "description": "Explains organising efforts towards a common goal."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser roles",
+      "learningObjective": "Identify selected roles of a community mobiliser in organising a shared activity.",
+      "id": "ndv-339-024",
+      "objectiveId": "nerdc-scs-primary4-339-p19-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Before a community activity, a mobiliser asks residents what is needed, explains the agreed purpose and invites contributions. Identify two organising roles shown and explain each briefly.",
+      "answer": "The mobiliser gathers people’s views to understand needs and communicates the purpose so residents can decide how to contribute.",
+      "explanation": "No real contact with residents or collection of money is required.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains gathering views/identifying needs."
+        },
+        {
+          "marks": 1,
+          "description": "Explains communicating the purpose/inviting contributions."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser roles",
+      "learningObjective": "Identify selected roles of a community mobiliser in organising a shared activity.",
+      "id": "ndv-339-025",
+      "objectiveId": "nerdc-scs-primary4-339-p19-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A mobiliser has announced a meeting but has not told participants its place or purpose. What two pieces of communication should be added, and why do they matter?",
+      "answer": "State where the meeting will be held and what common issue it will address. People need the place to attend and the purpose to prepare or decide how to contribute.",
+      "explanation": "This focuses on practical coordination rather than merely naming the role.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Adds the place and explains its use."
+        },
+        {
+          "marks": 1,
+          "description": "Adds the purpose and explains its use."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser qualities",
+      "learningObjective": "Explain qualities that help a community mobiliser work respectfully with others.",
+      "id": "ndv-339-026",
+      "objectiveId": "nerdc-scs-primary4-339-p19-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A mobiliser hears a view that differs from the first suggestion. Explain two qualities that would help the mobiliser keep participation respectful and useful.",
+      "answer": "Patience helps the person listen without interrupting. Fair-mindedness or openness helps the group consider different views instead of rejecting them because of who spoke.",
+      "explanation": "Accept other distinct relevant qualities supported by actions.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains patience/listening with a concrete action."
+        },
+        {
+          "marks": 1,
+          "description": "Explains fairness/openness with a concrete action."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Nation",
+      "subtopic": "Nation meaning",
+      "learningObjective": "Explain the selected idea of a nation as people sharing a sense of belonging and common public life.",
+      "id": "ndv-339-027",
+      "objectiveId": "nerdc-scs-primary4-339-p20-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In the selected lesson on nation, people share a sense of belonging and wish to live together under a common government. Explain why a nation involves more than a temporary queue of strangers.",
+      "answer": "A nation involves a continuing sense of belonging and shared public life under common government. People in a temporary queue need not share that lasting connection.",
+      "explanation": "Only the source’s selected meaning is mapped. Its common-language/customs list is not treated as a rule excluding diverse nations.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains continuing belonging or unity."
+        },
+        {
+          "marks": 1,
+          "description": "Connects common public life/government with the contrast to a temporary queue."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Relationship conditions",
+      "learningObjective": "Identify conditions that support healthy family relationships using fictional examples.",
+      "id": "ndv-339-028",
+      "objectiveId": "nerdc-scs-primary4-339-p21-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In a fictional family meeting, everyone has a chance to speak and differences are discussed politely. Identify two conditions for a healthy relationship shown by this description.",
+      "answer": "Inclusion is shown by giving everyone a chance to speak. Respect or tolerance is shown by discussing differences politely.",
+      "explanation": "Fictional evidence is used; learners need not describe their own households.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies inclusion and links it to a chance to speak."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies respect/tolerance and links it to polite discussion."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Tolerance inclusion respect meaning",
+      "learningObjective": "Explain tolerance, inclusion and respect as related but different ideas.",
+      "id": "ndv-339-029",
+      "objectiveId": "nerdc-scs-primary4-339-p21-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Explain the difference between tolerance, inclusion and respect using a family discussion as your example.",
+      "answer": "Tolerance allows people to have different views without hostility. Inclusion gives each person a chance to take part. Respect means treating each person with consideration and listening politely.",
+      "explanation": "Tolerance does not require agreement with every idea or acceptance of harm.",
+      "difficulty": "standard",
+      "cognitiveDemand": "understand",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains tolerance of differing views."
+        },
+        {
+          "marks": 1,
+          "description": "Explains inclusion as an opportunity to participate."
+        },
+        {
+          "marks": 1,
+          "description": "Explains respect as considerate treatment."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Respectful responses",
+      "learningObjective": "Describe ways of showing tolerance, inclusion and respect in a fictional family situation.",
+      "id": "ndv-339-030",
+      "objectiveId": "nerdc-scs-primary4-339-p21-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "During a fictional family game-planning discussion, one person needs longer to explain an idea. Describe a way to include that person while still helping the discussion move forward.",
+      "answer": "Allow time without interruption, ask if the person would like help explaining and check the idea before moving on.",
+      "explanation": "The response illustrates inclusion; no assumptions about a person’s ability or diagnosis are needed.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Suggests time/support without silencing or taking over."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests checking/acknowledging the person’s idea before proceeding."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Respectful responses",
+      "learningObjective": "Describe ways of showing tolerance, inclusion and respect in a fictional family situation.",
+      "id": "ndv-339-031",
+      "objectiveId": "nerdc-scs-primary4-339-p21-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two members of a fictional household prefer different activities for a shared free period. Suggest a respectful way to agree a plan without insisting that one person always gives way.",
+      "answer": "Listen to both preferences and agree a fair arrangement, such as taking turns or choosing an activity both accept.",
+      "explanation": "Accept different feasible solutions supported by respect and inclusion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Includes listening to both people."
+        },
+        {
+          "marks": 1,
+          "description": "Proposes a fair workable arrangement rather than permanent one-sided surrender."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Respect demonstration",
+      "learningObjective": "Demonstrate respectful listening and inclusion during an actually observed fictional family-meeting role.",
+      "id": "ndv-339-032",
+      "objectiveId": "nerdc-scs-primary4-339-p21-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "In an actual supervised role activity, take part in a fictional family meeting to choose a game. Invite a quieter member’s idea, listen without interruption and respond respectfully to a different preference. Use fictional roles only; do not discuss your own household.",
+      "answer": "Observed evidence includes an invitation to contribute, actual listening and a respectful response that allows differing preferences.",
+      "explanation": "This assesses individual demonstrated conduct in a simulation, not the quality of the learner’s real family relationships. No performance has occurred during authoring.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Actually invites another member to contribute."
+        },
+        {
+          "marks": 1,
+          "description": "Actually listens without interrupting."
+        },
+        {
+          "marks": 1,
+          "description": "Responds respectfully to a differing preference."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "practical",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested.",
+      "deliveryNote": "Requires actual individual performance heard/seen by a live examiner or consented recording under the unfilled batch339 protocol. Preparation or a written answer earns no performance credit. No performance occurred during authoring.",
+      "evidenceProtocol": "stimuli/batch-339/performance-protocol.json",
+      "requiresObservedPerformance": true
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Family/personal norms",
+      "learningObjective": "Identify personal and family values or norms that can influence relationships.",
+      "id": "ndv-339-033",
+      "objectiveId": "nerdc-scs-primary4-339-p22-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A fictional household agrees to tell one another before borrowing possessions. One member also personally values being punctual. Identify the family norm and the personal value, and explain the difference.",
+      "answer": "The shared borrowing agreement is the family norm. Punctuality is the stated personal value. A shared expectation and a person’s guiding principle can both affect relationships.",
+      "explanation": "A value and a norm can be related; this supplied example is not a universal family rule.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the shared borrowing norm."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies punctuality and distinguishes personal from shared guidance."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Family/personal effects",
+      "learningObjective": "Explain effects of selected personal or family norms on relationships.",
+      "id": "ndv-339-034",
+      "objectiveId": "nerdc-scs-primary4-339-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional households follow different visiting customs. In one, visitors arrange a time; in the other, familiar visitors often arrive without notice. Explain how an unspoken difference could lead to misunderstanding and how to reduce it.",
+      "answer": "An unexpected visit might seem inconsiderate to one household while seeming ordinary to the other. Explaining preferences and agreeing a suitable time can reduce misunderstanding.",
+      "explanation": "No custom is labelled universally superior; the example assesses effects on relationships.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains the different interpretation caused by the norm."
+        },
+        {
+          "marks": 1,
+          "description": "Suggests respectful communication or agreement."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Family/personal effects",
+      "learningObjective": "Explain effects of selected personal or family norms on relationships.",
+      "id": "ndv-339-035",
+      "objectiveId": "nerdc-scs-primary4-339-p22-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A person promises to return a cousin’s drawing but delays repeatedly without an explanation. Explain how the personal habit affects the relationship, even if the drawing is eventually returned.",
+      "answer": "Repeated unexplained delay can weaken trust because the cousin cannot rely on the promise. Returning it later does not by itself remove the uncertainty created.",
+      "explanation": "The focus is the relational effect of a habit, rather than ownership or a legal claim.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Explains weakened trust or reliability."
+        },
+        {
+          "marks": 1,
+          "description": "Links the effect to repeated unexplained delay despite eventual return."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Religious/cultural norms",
+      "learningObjective": "Identify religious or cultural values and norms in a supplied fictional description without generalising to every community.",
+      "id": "ndv-339-036",
+      "objectiveId": "nerdc-scs-primary4-339-p22-o3-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Read this fictional account: “In this family’s tradition, guests are welcomed with a greeting. During a religious gathering, members keep a quiet period for reflection.” Identify one cultural norm and one religious norm in the supplied account.",
+      "answer": "Welcoming guests with the customary greeting is the cultural norm described. Keeping the quiet reflection period at the religious gathering is the religious norm described.",
+      "explanation": "These are fictional descriptions; they are not claims about every family, culture or religion.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the greeting as the supplied cultural norm."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies quiet reflection as the supplied religious norm."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Religious/cultural effects",
+      "learningObjective": "Explain how differing religious or cultural norms can affect a relationship and how respectful communication can help.",
+      "id": "ndv-339-037",
+      "objectiveId": "nerdc-scs-primary4-339-p22-o4-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A visitor talks during the quiet reflection period described in a fictional religious gathering because the custom was not explained. Describe a respectful response and how it could protect the relationship.",
+      "answer": "Explain the quiet period kindly and help the visitor understand what is expected, without mocking them. Clear, considerate communication can prevent an unfamiliar custom from becoming a personal conflict.",
+      "explanation": "Learning a custom does not require a person to adopt another religion or disclose their beliefs.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Proposes kind explanation without humiliation."
+        },
+        {
+          "marks": 1,
+          "description": "Connects understanding the norm with avoiding conflict or protecting trust."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "People’s Beliefs and Traditions",
+      "subtopic": "Belief/tradition differences",
+      "learningObjective": "Explain selected differences and similarities in supplied fictional beliefs or traditions without stereotyping.",
+      "id": "ndv-339-038",
+      "objectiveId": "nerdc-scs-primary4-339-p23-o1-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Two fictional communities use different greetings for guests but both intend to make guests welcome. Explain one difference and one similarity in their traditions without claiming that every member acts identically.",
+      "answer": "The form of greeting differs. The shared purpose is welcoming guests. The description does not establish that every person always follows the custom.",
+      "explanation": "Supplied fictional evidence supports comparison without ranking cultures.",
+      "difficulty": "standard",
+      "cognitiveDemand": "analyse",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Identifies the different form of greeting."
+        },
+        {
+          "marks": 1,
+          "description": "Identifies the shared welcoming purpose without a universal stereotype."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "People’s Beliefs and Traditions",
+      "subtopic": "Understanding differences",
+      "learningObjective": "Explain how understanding cultural differences can promote fairness, unity and good neighbourliness.",
+      "id": "ndv-339-039",
+      "objectiveId": "nerdc-scs-primary4-339-p23-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "A pupil learns that a neighbour’s unfamiliar celebration is important to that neighbour. Explain how understanding this difference could support good neighbourliness, even if the pupil does not join the celebration.",
+      "answer": "Understanding can encourage considerate questions and respectful treatment instead of ridicule. Neighbours can remain friendly and fair while observing different traditions.",
+      "explanation": "No actual attendance, religious practice or disclosure is assigned.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 2,
+      "maxMarks": 2,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Connects understanding with a concrete respectful response."
+        },
+        {
+          "marks": 1,
+          "description": "Explains friendly/fair relations without requiring identical participation."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "written",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested."
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "topic": "National Values",
+      "subtopic": "Values examples",
+      "learningObjective": "Explain selected national values using concrete examples.",
+      "id": "ndv-339-040",
+      "objectiveId": "nerdc-scs-primary4-339-p16-o2-v1",
+      "examType": "original-practice",
+      "curriculum": "NERDC",
+      "type": "structured",
+      "prompt": "Give an actual short spoken explanation to an examiner of one national value from this lesson and an original everyday example that shows it. Explain why the example fits. A written script alone is not the response.",
+      "answer": "A possible heard response explains cooperation and describes classmates sharing ideas to finish a common display, then connects their joint effort to the value. Other accurate values and examples are acceptable.",
+      "explanation": "Actual oral explanation develops the source’s individual presentation activity. No recording or learner speech has been produced during authoring.",
+      "difficulty": "standard",
+      "cognitiveDemand": "apply",
+      "score": 3,
+      "maxMarks": 3,
+      "markingGuide": [
+        {
+          "marks": 1,
+          "description": "Audibly explains a relevant value in the learner’s own words."
+        },
+        {
+          "marks": 1,
+          "description": "Gives a specific fitting everyday example."
+        },
+        {
+          "marks": 1,
+          "description": "Audibly explains the link between the example and the value."
+        }
+      ],
+      "requiresManualReview": true,
+      "source": "original",
+      "status": "draft",
+      "license": "original-content",
+      "academicReview": {
+        "status": "pending",
+        "reviewer": null
+      },
+      "responseMode": "spoken",
+      "contentSourceId": "nerdc-scs-primary4-revised-2025",
+      "contentProvenance": "Original wording, fictional situations, models and practice rubrics; not a copied examination question or historical past question.",
+      "contentReviewNote": "Independent Primary4 subject, inclusion and rubric review pending. Accept equivalent accurate explanations. Authored situations illustrate selected source objectives; no official exhaustive definitions, terms or school adoption inferred. Written plans do not prove observed conduct, participation or speech. No pupil personal disclosure or real political, financial or medical action requested.",
+      "deliveryNote": "Requires actual individual performance heard/seen by a live examiner or consented recording under the unfilled batch339 protocol. Preparation or a written answer earns no performance credit. No performance occurred during authoring.",
+      "evidenceProtocol": "stimuli/batch-339/performance-protocol.json",
+      "requiresRecordingOrLiveExaminer": true
+    }
+  ]
+}

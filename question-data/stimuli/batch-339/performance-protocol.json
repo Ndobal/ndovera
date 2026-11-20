@@ -1,0 +1,32 @@
+{
+  "status": "not_performed",
+  "academicReviewStatus": "pending",
+  "purpose": "Unfilled delivery and evidence protocol for batch339 performance drafts; no pupil data or performance supplied.",
+  "questionIds": [
+    "ndv-339-004",
+    "ndv-339-020",
+    "ndv-339-032",
+    "ndv-339-040"
+  ],
+  "preconditions": [
+    "Independent class/subject/rubric calibration and teacher permission before delivery.",
+    "Accessible desk-level safe paper/clip tasks only; no pins, tools, climbing, damaged fixtures, public campaigning or real visits.",
+    "Use fictional family roles, respect all learners and allow an equivalent accessible means of participation; no personal/family/religious disclosure.",
+    "Use live examiner observation; recording only with appropriate consent and local policy. No recording required where live observation suffices."
+  ],
+  "evidenceRequirements": [
+    "Record the individual learner’s actual words/actions against each positive-mark criterion.",
+    "Do not infer participation from a plan or a group’s finished product; do not award performance marks for written preparation alone.",
+    "Stop or adapt a task if the agreed safe/accessibility conditions are unavailable."
+  ],
+  "recordTemplate": {
+    "questionId": null,
+    "examiner": null,
+    "date": null,
+    "permittedSetupVerified": null,
+    "individualObservation": null,
+    "criterionMarks": null,
+    "recordingConsentIfUsed": null
+  },
+  "records": []
+}

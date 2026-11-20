@@ -144,6 +144,7 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | NERDC | Physical and Health Education / JSS 1 | 1000 | 51 | 51 | 0 | 949 | partial_objective_register |
 | NERDC | Physics / SS 3 | 1000 | 1 | 0 | 0 | 1000 | specification_unresolved |
 | NERDC | Social and Citizenship Studies / JSS 1 | 1000 | 117 | 117 | 0 | 883 | partial_objective_register |
+| NERDC | Social and Citizenship Studies / Primary 4 | 1000 | 40 | 40 | 0 | 960 | partial_objective_register |
 | NERDC | [subject list unresolved] / JSS 1 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | NERDC | [subject list unresolved] / JSS 2 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
 | NERDC | [subject list unresolved] / JSS 3 | TBD | 0 | 0 | 0 | TBD | specification_unresolved |
@@ -224,12 +225,12 @@ Validated drafts pass automated checks and conservative similarity holds. This i
 | JAMB | 1128 | 425 | 0 | 25000 | 24575 |
 | NCEE | 327 | 298 | 0 | 9000 | 8702 |
 | NECO | 584 | 549 | 0 | 36000 | 35451 |
-| NERDC | 1561 | 1496 | 0 | 39000 | 37504 |
+| NERDC | 1601 | 1536 | 0 | 40000 | 38464 |
 | SAT | 109 | 100 | 0 | 2000 | 1900 |
 | TOEFL | 247 | 238 | 0 | 4000 | 3762 |
 | WAEC | 1327 | 528 | 0 | 45000 | 44472 |
 
-Overall: {"raw": 6021, "validDrafts": 4342, "reviewed": 0, "registeredBanks": 205, "target": 187000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
+Overall: {"raw": 6061, "validDrafts": 4382, "reviewed": 0, "registeredBanks": 206, "target": 188000, "identicalPromptGroups": 401, "numericTemplateGroups": 150, "nearDuplicatePairs": 685}
 
 Targets are provisional for registered banks only; unresolved scope is not a zero-sized requirement.
 
@@ -344,3 +345,4 @@ Targets are provisional for registered banks only; unresolved scope is not a zer
 - Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.
 - Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.
 - Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.
+- Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open.

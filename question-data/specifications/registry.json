@@ -4255,6 +4255,40 @@
         "Selected body extracts PDF25/printed9 (Abu Bakr trading);44/printed28 (Umar succeeds Abu Bakr);59/printed43 (Uthman business and assistance);68/printed52 (Ali son of Abu Talib);69/printed53 (Ali fourth caliph)"
       ],
       "note": "NOUN ISL271 cover; some running headers ISL127. Copyright gives First Printed2012,2022. Selected text only, not whole chapters, verified current Primary4 adoption or an endorsed full historical account. Conflicting dates, polemical descriptions, modern political analogies, superlatives and disputed quotations are not adopted. Exact dates and claims of universal consensus are not assessed. Later Qur’an service facts checked against Bukhari4986/4987; Ali’s earlier judging episode against Abu Dawud3582."
+    },
+    {
+      "id": "nerdc-scs-primary4-revised-2025",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_revised_exact_class_curriculum",
+      "source": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/11.pdf",
+      "documentDate": "September 2025",
+      "retrievedOn": "2026-11-20",
+      "sourceBytes": 1078092,
+      "pageCount": 43,
+      "sha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+      "sourceSections": [
+        "Title/copyright PDF1–3; introduction/delivery PDF10–11; contents PDF12–13",
+        "All29 performance-objective blocks PDF14–42 extracted and read; full content/activities/evaluation PDF14–23 read for this batch",
+        "Rendered visual checks PDF14 and20"
+      ],
+      "note": "82 objective statements:79 numbered and3 single unnumbered statements (PDF18,33,41). Author ordinals for unnumbered rows are not official codes. Only selected first10 topic objectives mapped; full competency/target, school/cohort adoption, official terms and teacher-guide assessment framework unverified. Later medical/legal/emergency/financial/trafficking material requires fresh specialist primary references before authoring; source issues in reconciliation339."
+    },
+    {
+      "id": "nerdc-primary-offering-scs-reference-339",
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "kind": "official_subject_offering",
+      "source": "https://www.nerdc.gov.ng/content_manager/Basic%20and%20Senior%20Secondary%20Education%20Curriculum%20Offerings.pdf",
+      "retrievedOn": "2026-11-20",
+      "pageCount": 3,
+      "retrievalMethod": "Parsed web PDF text read, Primary4–6 rows. No local hash claimed.",
+      "sourceSections": [
+        "PDF1, Primary4–6 Social and Citizenship Studies row"
+      ],
+      "note": "Confirms subject offering across Primary4–6, not school/cohort adoption or exact term placement. Source general offering cannot replace exact-class objectives."
     }
   ],
   "banks": [
@@ -7052,6 +7086,19 @@
       "applicability": "Muslim-pupil Islamic Studies route in official Primary4–6 offering; school/cohort adoption and term placement unverified. Not compulsory dual CRS/IS enrolment.",
       "applicabilityReferences": [
         "nerdc-primary-route-offering-reference-335"
+      ]
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "target": 1000,
+      "scopeStatus": "official_revised_exact_class_partial_mapping",
+      "targetStatus": "provisional_authoring_goal_capacity_and_full_coverage_review_pending",
+      "applicability": "Official Primary4 exact-class document and Primary4–6 offering verified; school/cohort adoption and official terms unverified.",
+      "applicabilityReferences": [
+        "nerdc-primary-offering-scs-reference-339"
       ]
     }
   ],
@@ -44737,6 +44784,546 @@
       ],
       "mappingStatus": "author_proposed_pending_academic_review",
       "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p14-o1-v1",
+      "topic": "Leadership",
+      "subtopic": "Leadership qualities",
+      "learningObjective": "Distinguish good and poor leadership qualities using reasons from a school-group situation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p14-o2-v1",
+      "topic": "Leadership",
+      "subtopic": "Leadership benefits",
+      "learningObjective": "Explain a benefit of good leadership and connect it to a group outcome.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p14-o3-v1",
+      "topic": "Leadership",
+      "subtopic": "Group leadership performance",
+      "learningObjective": "Demonstrate fair, cooperative leadership during an actually observed small-group task.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p14-o4-v1",
+      "topic": "Leadership",
+      "subtopic": "Poor leadership consequences",
+      "learningObjective": "Explain how poor leadership can harm a group’s work or trust.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.1 / PDF p.14, performance objective 4; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p15-o1-v1",
+      "topic": "Followership",
+      "subtopic": "Followership qualities",
+      "learningObjective": "Explain responsible followership as thoughtful cooperation in a shared task.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p15-o2-v1",
+      "topic": "Followership",
+      "subtopic": "Followership benefits",
+      "learningObjective": "Explain how responsible followership benefits group work.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p15-o3-v1",
+      "topic": "Followership",
+      "subtopic": "Poor followership characteristics",
+      "learningObjective": "Identify poor followership behaviours in a described shared task.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p15-o4-v1",
+      "topic": "Followership",
+      "subtopic": "Poor followership consequences",
+      "learningObjective": "Explain consequences of poor followership for the group and its work.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.2 / PDF p.15, performance objective 4; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p16-o1-v1",
+      "topic": "National Values",
+      "subtopic": "Values meaning",
+      "learningObjective": "Explain national values as shared principles that guide responsible living together.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p16-o2-v1",
+      "topic": "National Values",
+      "subtopic": "Values examples",
+      "learningObjective": "Explain selected national values using concrete examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p16-o3-v1",
+      "topic": "National Values",
+      "subtopic": "Citizen roles",
+      "learningObjective": "Describe ways citizens can uphold selected national values in everyday conduct.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p16-o4-v1",
+      "topic": "National Values",
+      "subtopic": "Values benefits",
+      "learningObjective": "Explain benefits of upholding national values for a diverse community.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.3 / PDF p.16, performance objective 4; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p17-o1-v1",
+      "topic": "Civic Activities",
+      "subtopic": "Civic activity meaning",
+      "learningObjective": "Explain civic activity through its contribution to shared community life.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p17-o2-v1",
+      "topic": "Civic Activities",
+      "subtopic": "Civic examples",
+      "learningObjective": "Explain selected civic activities, distinguishing examples from misuse of common resources.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p17-o3-v1",
+      "topic": "Civic Activities",
+      "subtopic": "Civic participation",
+      "learningObjective": "Participate in an actual supervised age-appropriate action caring for shared classroom property.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.4 / PDF p.17, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p18-o1-v1",
+      "topic": "Civic Activity (Volunteerism)",
+      "subtopic": "Volunteer and community benefits",
+      "learningObjective": "Explain distinct benefits of volunteer service to the volunteer and the community without promising a reward.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.5 / PDF p.18, performance objective single unnumbered statement; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p19-o1-v1",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser meaning",
+      "learningObjective": "Describe a community mobiliser’s purpose of bringing people together around a common goal.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p19-o2-v1",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser roles",
+      "learningObjective": "Identify selected roles of a community mobiliser in organising a shared activity.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p19-o3-v1",
+      "topic": "Community Mobilization",
+      "subtopic": "Mobiliser qualities",
+      "learningObjective": "Explain qualities that help a community mobiliser work respectfully with others.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.6 / PDF p.19, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p20-o1-v1",
+      "topic": "Nation",
+      "subtopic": "Nation meaning",
+      "learningObjective": "Explain the selected idea of a nation as people sharing a sense of belonging and common public life.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.7 / PDF p.20, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p21-o1-v1",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Relationship conditions",
+      "learningObjective": "Identify conditions that support healthy family relationships using fictional examples.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p21-o2-v1",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Tolerance inclusion respect meaning",
+      "learningObjective": "Explain tolerance, inclusion and respect as related but different ideas.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p21-o3-v1",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Respectful responses",
+      "learningObjective": "Describe ways of showing tolerance, inclusion and respect in a fictional family situation.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p21-o4-v1",
+      "topic": "Healthy Family Relationships",
+      "subtopic": "Respect demonstration",
+      "learningObjective": "Demonstrate respectful listening and inclusion during an actually observed fictional family-meeting role.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.8 / PDF p.21, performance objective 4; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p22-o1-v1",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Family/personal norms",
+      "learningObjective": "Identify personal and family values or norms that can influence relationships.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p22-o2-v1",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Family/personal effects",
+      "learningObjective": "Explain effects of selected personal or family norms on relationships.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p22-o3-v1",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Religious/cultural norms",
+      "learningObjective": "Identify religious or cultural values and norms in a supplied fictional description without generalising to every community.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, performance objective 3; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p22-o4-v1",
+      "topic": "Effects of Family/personal values and norms on relationships",
+      "subtopic": "Religious/cultural effects",
+      "learningObjective": "Explain how differing religious or cultural norms can affect a relationship and how respectful communication can help.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.9 / PDF p.22, performance objective 4; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p23-o1-v1",
+      "topic": "People’s Beliefs and Traditions",
+      "subtopic": "Belief/tradition differences",
+      "learningObjective": "Explain selected differences and similarities in supplied fictional beliefs or traditions without stereotyping.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, performance objective 1; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
+    },
+    {
+      "exam": "NERDC",
+      "subject": "Social and Citizenship Studies",
+      "level": "Primary 4",
+      "specificationId": "nerdc-scs-primary4-revised-2025",
+      "id": "nerdc-scs-primary4-339-p23-o2-v1",
+      "topic": "People’s Beliefs and Traditions",
+      "subtopic": "Understanding differences",
+      "learningObjective": "Explain how understanding cultural differences can promote fairness, unity and good neighbourliness.",
+      "questionTypes": [
+        "structured"
+      ],
+      "sourceSections": [
+        "Printed p.10 / PDF p.23, performance objective 2; related content, activities and evaluation. Partial authored interpretation; reconciliation339 records limits."
+      ],
+      "mappingStatus": "author_proposed_pending_academic_review",
+      "officialObjectiveCode": null
     }
   ],
   "scopeGaps": [
@@ -44848,6 +45435,7 @@
     "Batch335 establishes exact Primary4 Christian Religious Studies from fresh official September2025 PDF.43 numbered source objectives across11 tables inventoried;29 have partial author mappings for33 original drafts.14 remain unmapped. Source John8/Mary Magdalene identification, Matthew28 arrest citation, incomplete/misaligned Holy Spirit references and selected truncated passage ranges remain documented. No full source correction/adoption, denominational numbering/translation standard, teacher-guide assessment framework, drama/video/group presentation, actual artwork or complete competence/target claim. All prior class-subject, delivery and academic-review gaps retained.",
     "Batch336 Primary4 CRS:43/43 numbered source objectives have partial links through41 unique author mappings,56 unique drafts passing automated checks. Modes and attitude mappings each shared across two source rows; row sums are not unique question counts. Full competence/target still unestablished. Passion references Matthew26:47–54 and Luke23:33–46 are disclosed author-proposed practice resolutions/extensions, not official errata; invalid source ranges preserved. Mary Magdalene/John8 and other335 reference issues remain. Actual oral005/009/018 delivery, broader drama/video/group/artwork, local translation/rubric/teacher-guide calibration, adoption and term placement pending; no audio/performance claimed.",
     "Batch337 exact Primary4 Islamic Studies September2025 official PDF retrieved.36 numbered objectives across11 rendered tables inventoried;23 partial mappings support29 original drafts passing automated checks.13 objectives unmapped: Qur’an recitation/memory2, Arabic Hadith reading/memory2, Salat performance1, Sawm observance1, Zakat types1, Hajj types/comparison2, biographies/contributions/lessons4. Preserve mismatched surah lists including Ma’un omission, Salat two-versus-three count, incomplete Qur’an20 reference, Sawm interval/health claims, Zakat-al-Fitr classification and Sadaqah term range. Full Umrah/Hajj guide retrieval403, Arabic/ritual/scholarly calibration, source audio/video, actual role/worship evidence, teacher-guide framework, adoption, terms and full target/competence remain open.",
-    "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained."
+    "Batch338 adds17 original written Primary4 Islamic Studies selected Sirah drafts across4 partial author mappings.27 of36 numbered source objectives now partially linked,46 unique drafts passing automated checks;9 remain unmapped. Selected episodes of all five named Prophets and selected biographical details of all four caliphs are not full biographies or five roles/contributions/lessons per person. Collection/copying contribution subset covers Abu Bakr/Umar/Uthman, not a full Ali-caliphate contribution inventory. NOUN older university supplement has code/date/wording inconsistencies; selected basic facts only. Full scholarly/historical/translation/rubric review, source range, Arabic/ritual/actual spoken/video evidence, teacher-guide framework, adoption, terms and1000 target remain open. All337 discrepancies/holds retained.",
+    "Batch339 verifies new exact Primary4 Social and Citizenship Studies September2025 official source (43 PDF pages,29 topic tables).82 source objective statements comprise79 numbered and3 unnumbered.30 partial author mappings support40 original draft tasks (36 written,3 observed practical,1 actual spoken), passing automated checks.52 statements unmapped; no full functional/adoption/term/1000-target coverage. Nation common-language/customs classification held; actual performance protocols unfilled. Later sections need current primary medical/first-aid, emergency-contact, electoral/legal, financial and trafficking evidence before authoring. Preserve source first-aid omission/wording concerns, drug-use stereotypes/non-diagnostic signs, child-trafficking means issue, victim-blame risk and historical specificity. Teacher-guide assessment framework/source videos not retrieved; other class-subject lists and all earlier gaps remain open."
   ]
 }

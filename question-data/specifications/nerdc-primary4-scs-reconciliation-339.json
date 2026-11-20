@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-20",
+  "sourceId": "nerdc-scs-primary4-revised-2025",
+  "sourceSha256": "0a5bec3ff876f7ff5f70caa5915ebbefed873c80fdac80f16d31865ff7e82190",
+  "freshRetrievalBytes": 1078092,
+  "pageCount": 43,
+  "readFullTextPdfPages": [
+    1,
+    2,
+    3,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "readPerformanceObjectiveBlockPdfPages": [
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
+  ],
+  "visuallyCheckedPdfPages": [
+    14,
+    20
+  ],
+  "objectiveStatements": 82,
+  "numberedObjectives": 79,
+  "unnumberedObjectives": 3,
+  "partialAuthorMappings": 30,
+  "newQuestions": 40,
+  "written": 36,
+  "practical": 3,
+  "spoken": 1,
+  "academicReviewStatus": "pending",
+  "retrievalTrail": [
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4",
+      "status": 403
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/11.pdf",
+      "status": 200
+    }
+  ],
+  "otherRetrievedCoversOnly": [
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/7.pdf",
+      "title": "Physical and Health Education for Primary4",
+      "bytes": 5493113,
+      "pageCount": 31,
+      "sha256": "443d3b89874c57644b41f89a9fd2e3d9b833e229a7d397b46dcf8b40c3f0381a"
+    },
+    {
+      "url": "https://lmis.nerdcportals.com.ng/pry_4/necurrdc/15.pdf",
+      "title": "Pre-vocational Studies for Primary4",
+      "bytes": 2188329,
+      "pageCount": 26,
+      "sha256": "de0782bd928a5cc6fb01c4f3dfc2eda96943c342ce9257f5e78e067b6d99f4d1"
+    }
+  ],
+  "sourceIssues": [
+    {
+      "pdfPage": 20,
+      "issue": "Common language/customs content can be overread as a universal identical-culture requirement.",
+      "decision": "Only selected nation meaning mapped; characteristics objective remains unmapped pending primary clarification."
+    },
+    {
+      "pdfPage": 23,
+      "issue": "Performance objective asks ways beliefs/traditions differ; evaluation asks reasons why.",
+      "decision": "Selected supplied-fictional comparison only; do not claim all reasons or group-wide beliefs established."
+    },
+    {
+      "pdfPage": 31,
+      "issue": "First-aid text has torch/touch wording and incomplete burn-response steps.",
+      "decision": "No first-aid draft authored. Need current credible medical first-aid guidance and trained delivery; no source advice silently endorsed."
+    },
+    {
+      "pdfPage": 33,
+      "issue": "Agencies are named, actual emergency numbers are not supplied.",
+      "decision": "No number invented or test call made. Verify contacts and local delivery before mapping."
+    },
+    {
+      "pdfPage": 34,
+      "issue": "Listed behaviours and physical signs are not sufficient diagnostic evidence and may promote stigma.",
+      "decision": "Keep objectives unmapped pending medical/public-health and age-suitability review; never diagnose pupils from behaviour."
+    },
+    {
+      "pdfPage": 41,
+      "issue": "Act/means/purpose framework is unqualified for children.",
+      "decision": "Needs authoritative current child-trafficking distinction before mapping. No legal elements or survivor scenarios assessed."
+    },
+    {
+      "pdfPage": 40,
+      "issue": "Broad causes list risks blaming people experiencing poverty, migration or family difficulty.",
+      "decision": "No causal stereotype or blame of victims adopted; specialist primary evidence needed before these objectives."
+    },
+    {
+      "pdfPage": 42,
+      "issue": "Consequences list broadly associates trafficking with HIV/disease.",
+      "decision": "No inevitable infection or stigma asserted; objectives unmapped pending evidence."
+    }
+  ],
+  "decisions": [
+    "Title, exact class and September2025 copyright read; offering separately rechecked. No age, term or school/cohort adoption inferred.",
+    "Only the ten first topic tables have new partial mappings; all29 objective blocks inventoried. Source unnumbered single statements remain unnumbered, author ordinals distinguished. A fixed-width crop trial overlapped content on some pages, so no independent successful column count claimed.",
+    "40 original prompts/models/rubrics manually inspected for educational correctness, conceptual purposes and fit to mapped objectives. Earlier Civic/Social volunteer prompts in batches062/312 inspected; new benefits critiques, shared-display care and actual desk tasks do not copy those timetabling/tool-allocation/library-design prompts.",
+    "36 written drafts plus3 actual-observation and1 actual-speech task. Protocol unfilled; no classroom, recording, community visit, personal household disclosure, real campaign or pupil performance occurred. Written scenarios do not prove practice.",
+    "Source government/party/emergency/money/health/trafficking content beyond drafted subset is not current validated legal, medical or financial guidance. Full current supplementary verification is a next-step blocker, not a silently adopted fact.",
+    "NOUN/Arabic research from earlier runs is not freshly re-retrieved here; earlier Islamic Studies and other class/exam gaps preserved. Full competencies and1000 target remain open; all independent academic review pending."
+  ]
+}
